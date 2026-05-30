@@ -28,6 +28,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
     'sphinx_autodoc_typehints',
+    'sphinx_design',
 ]
 
 # Génération automatique des pages de résumé
@@ -60,3 +61,4 @@ language = 'fr'
 
 html_theme = 'furo'
 html_static_path = ['_static']
+html_css_files = ['custom.css']
