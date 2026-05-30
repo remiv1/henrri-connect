@@ -17,3 +17,11 @@
 - tests/ directory with placeholder for unit tests.
 - documentation/ directory with Sphinx documentation setup.
 - .git/ directory for version control with Git.
+
+## [0.1.1] - 2024-06-01
+
+### Added 0.1.1
+
+- Make complete documentation in the README.md file, with sections for each sub-client (customers, documents, document_lines, document_line_types, document_types, users, secures).
+- Add examples for both synchronous and asynchronous usage for each sub-client.
+- Update the changelog to reflect the new version and the added documentation.
