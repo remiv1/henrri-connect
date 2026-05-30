@@ -43,6 +43,7 @@ dev = [
     "pytest>=9.0",
     "build",
     "twine",
+    "pytest-asyncio",
 ]
 
 [project.urls]

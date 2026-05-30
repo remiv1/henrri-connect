@@ -8,7 +8,9 @@
         <title>henrri_connect.utils - Documentation henrri-connect 0.1.0</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     
     
 
@@ -227,6 +229,8 @@
           <h1>Code source de henrri_connect.utils</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Module utilitaire pour les clients Henrri Connect.&quot;&quot;&quot;</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.exc</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -237,6 +241,8 @@
     <span class="n">HenrriServerError</span><span class="p">,</span>
     <span class="n">HenrriValidationError</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <div class="viewcode-block" id="raise_for_status">
 <a class="viewcode-back" href="../../api.html#henrri_connect.utils.raise_for_status">[docs]</a>
@@ -281,15 +287,21 @@
 
     <span class="n">sc</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span>
     <span class="k">if</span> <span class="n">sc</span> <span class="o">==</span> <span class="mi">400</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Validation error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">HenrriValidationError</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">sc</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Authentication error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">HenrriAuthError</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">sc</span> <span class="o">==</span> <span class="mi">403</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Forbidden error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">HenrriForbiddenError</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">sc</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Not found error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">HenrriNotFoundError</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">sc</span> <span class="o">&gt;=</span> <span class="mi">500</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Server error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">HenrriServerError</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;HTTP error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
     <span class="k">raise</span> <span class="n">HenrriHTTPError</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span></div>
 
 </pre></div>
@@ -329,5 +341,6 @@
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>
