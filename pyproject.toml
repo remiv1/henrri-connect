@@ -1,0 +1,72 @@
+[project]
+name = "henrri-connect"
+version = "0.1.0"
+description = "Bibliothèque souveraine pour utiliser l'API de facturation Henrri."
+authors = [{name="Rémi Verschuur", email="rverschuur@audit-io.fr"}]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11, <3.15"
+dependencies = []
+keywords = [
+    "facturation",
+    "Henrri",
+    "API",
+    "Python",
+    "facturx",
+    "facture électronique",
+    "e-invoicing"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Office/Business",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Natural Language :: French",
+]
+
+[project.optional-dependencies]
+dev = [
+    "sphinx>=7.0",
+    "sphinx-autodoc-typehints>=2.0",
+    "furo",                         # thème Sphinx moderne
+    "pytest>=9.0",
+    "build",
+    "twine",
+]
+
+[project.urls]
+Homepage = "https://github.com/remiv1/henrri-connect"
+Repository = "https://github.com/remiv1/henrri-connect"
+Changelog = "https://github.com/remiv1/henrri-connect/blob/main/CHANGELOG.md"
+Documentation = "https://remiv1.github.io/henrri-connect/"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"dilicom_parser.utils" = ["*.toml"]
+"onixlib" = ["py.typed", "*.pyi", "models/*.pyi"]
+
+# ---------------------------------------------------------------------------
+# xsdata — configuration de génération
+# (sert de référence ; les paramètres sont passés explicitement via le CLI)
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+testpaths = ["src/henrri_connect/tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.xsdata]
+package = "onixlib.models.generated"
