@@ -1,0 +1,13 @@
+from __future__ import annotations
+
+from typing import Any
+
+from henrri_connect.models import DocumentLineType, ListResponse
+
+class SyncDocumentLineTypesClient:
+    def __init__(self, client: Any) -> None: ...
+    def list_document_line_types(self) -> ListResponse[DocumentLineType]: ...
+
+class AsyncDocumentLineTypesClient:
+    def __init__(self, client: Any) -> None: ...
+    async def list_document_line_types(self) -> ListResponse[DocumentLineType]: ...
