@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://pypi.org/project/henrri-connect/
+    about: Consultez la documentation du package sur PyPI avant d'ouvrir une issue.
