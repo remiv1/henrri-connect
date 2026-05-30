@@ -6,7 +6,10 @@ authors = [{name="Rémi Verschuur", email="rverschuur@audit-io.fr"}]
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.11, <3.15"
-dependencies = []
+dependencies = [
+    "httpx>=0.30",
+    "pydantic>=2.0",
+]
 keywords = [
     "facturation",
     "Henrri",
@@ -35,6 +38,7 @@ classifiers = [
 dev = [
     "sphinx>=7.0",
     "sphinx-autodoc-typehints>=2.0",
+    "sphinx-design>=0.5",           # composants modernes (grilles, cartes, onglets)
     "furo",                         # thème Sphinx moderne
     "pytest>=9.0",
     "build",

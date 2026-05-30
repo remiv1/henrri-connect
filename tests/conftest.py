@@ -76,7 +76,7 @@ def sync_client(mock_http: MagicMock) -> _SyncHenrriClient:
 @pytest.fixture
 async def async_client(mock_async_http: AsyncMock) -> _AsyncHenrriClient:
     """Client asynchrone prêt à l'emploi avec HTTP mocké."""
-    return await _build_async_client(mock_async_http)   # type: ignore[return-value]
+    return _build_async_client(mock_async_http)
 
 
 # ── Helpers de données de test ────────────────────────────────────────────────

@@ -5,7 +5,7 @@ VERSION      := $(shell grep '^version' pyproject.toml | head -1 | sed 's/versio
 RELEASE      := $(shell echo "$(VERSION)" | cut -d. -f1,2)
 
 DOCS_SRC     = docs/source
-DOCS_BUILD   = docs/_build/html
+DOCS_BUILD   = docs
 
 .PHONY: all clean build publish help test docs docs-init docs-clean docs-serve
 
@@ -50,13 +50,14 @@ docs-init:
 docs:
 	@echo "—–--–—–--–— Generating Documentation (v$(VERSION)) —–--–—–--–—"
 	sphinx-build -b html $(DOCS_SRC) $(DOCS_BUILD)
+	touch $(DOCS_BUILD)/.nojekyll
 	@echo ""
 	@echo "  Documentation générée dans $(DOCS_BUILD)/index.html"
 
 docs-clean:
 	@echo "—–--–—–--–— Clean Documentation —–--–—–--–—"
-	rm -rf docs/_build/
-	@echo "  Répertoire docs/_build/ supprimé."
+	find docs/ -maxdepth 1 ! -name 'source' ! -name '.' -exec rm -rf {} +
+	@echo "  docs/ nettoyé (docs/source/ conservé)."
 
 docs-serve: docs
 	$(PYTHON) -m http.server 8080 --directory $(DOCS_BUILD)
