@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
+from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
-from henrri_connect.connect import (
+import pytest
+
+from src.henrri_connect.connect import (
     _AsyncHenrriClient, _SyncHenrriClient, # type: ignore[import]
 )
-from henrri_connect.models import DocumentLine
+from src.henrri_connect.models import DocumentLine
 from tests.conftest import DOCUMENT_LINE_JSON, make_response
 
 
@@ -19,6 +22,7 @@ class TestSyncDocumentLines:
 
         result = sync_client.document_lines.list_document_lines(100)
 
+        assert result.elements is not None
         assert len(result.elements) == 1
         assert result.elements[0].id == 10
         assert "/v1/documents/100/lines" in mock_http.request.call_args.args[1]
@@ -27,7 +31,7 @@ class TestSyncDocumentLines:
         self, sync_client: _SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response({**DOCUMENT_LINE_JSON, "id": 20})
-        line = DocumentLine(type_id=2)
+        line = DocumentLine(type_id=2)  # type: ignore[call-arg]
 
         result = sync_client.document_lines.add(100, line)
 
@@ -47,12 +51,12 @@ class TestSyncDocumentLines:
     def test_modify_ligne(
         self, sync_client: _SyncHenrriClient, mock_http: MagicMock
     ) -> None:
-        updated = {**DOCUMENT_LINE_JSON, "quantity": 3.0}
+        updated: dict[str, Any] = {**DOCUMENT_LINE_JSON, "quantity": 3.0}
         mock_http.request.return_value = make_response(updated)
 
-        result = sync_client.document_lines.modify(100, 10, DocumentLine(type_id=2))
+        result = sync_client.document_lines.modify(100, 10, DocumentLine(type_id=2))  # type: ignore[call-arg]
 
-        assert result.quantity == float(3)
+        assert result.quantity == pytest.approx(3.0)  # type: ignore[misc]
         assert mock_http.request.call_args.args[0] == "PUT"
 
     def test_delete_ligne(
@@ -86,13 +90,14 @@ class TestAsyncDocumentLines:
 
         result = await async_client.document_lines.list_document_lines(100)
 
+        assert result.elements is not None
         assert len(result.elements) == 1
 
     async def test_add_ligne(
         self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response({**DOCUMENT_LINE_JSON, "id": 30})
-        line = DocumentLine(type_id=2)
+        line = DocumentLine(type_id=2)  # type: ignore[call-arg]
 
         result = await async_client.document_lines.add(100, line)
 

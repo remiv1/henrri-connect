@@ -1,0 +1,100 @@
+"""Tests du sous-client users (synchrone et asynchrone)."""
+
+from __future__ import annotations
+
+from unittest.mock import AsyncMock, MagicMock
+
+from src.henrri_connect.connect import (
+    _AsyncHenrriClient, _SyncHenrriClient, # type: ignore[import]
+)
+from tests.conftest import TOKEN_JSON, USER_JSON, make_response
+
+
+class TestSyncUsers:
+    def test_get_retourne_utilisateur(
+        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+    ) -> None:
+        mock_http.request.return_value = make_response(USER_JSON)
+
+        user = sync_client.users.get(7)
+
+        assert user.id == 7
+        assert user.email == "user@example.com"
+        assert "/v1/users/7" in mock_http.request.call_args.args[1]
+
+    def test_get_address(
+        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+    ) -> None:
+        mock_http.request.return_value = make_response(
+            {"id": 1, "city": "Paris", "isPostCodeShared": False}
+        )
+
+        address = sync_client.users.get_address(7)
+
+        assert address.city == "Paris"
+        assert "/v1/users/7/address" in mock_http.request.call_args.args[1]
+
+    def test_get_companies(
+        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+    ) -> None:
+        mock_http.request.return_value = make_response(
+            [
+                {
+                    "user": USER_JSON,
+                    "company": {"id": 42, "name": "Ma Société", "isSelfEmployed": False},
+                }
+            ]
+        )
+
+        result = sync_client.users.get_companies()
+
+        assert len(result) == 1
+        assert result[0].company.name == "Ma Société"
+        assert "/v1/users/companies" in mock_http.request.call_args.args[1]
+
+    def test_refresh_token(
+        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+    ) -> None:
+        mock_http.request.return_value = make_response(TOKEN_JSON)
+
+        token = sync_client.users.refresh_token("old_refresh")
+
+        assert token.access_token == "new_access_token"
+        assert sync_client._access_token == "new_access_token"
+
+
+class TestAsyncUsers:
+    async def test_get_retourne_utilisateur(
+        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+    ) -> None:
+        mock_async_http.request.return_value = make_response(USER_JSON)
+
+        user = await async_client.users.get(7)
+
+        assert user.id == 7
+        assert user.email == "user@example.com"
+
+    async def test_get_companies(
+        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+    ) -> None:
+        mock_async_http.request.return_value = make_response(
+            [
+                {
+                    "user": USER_JSON,
+                    "company": {"id": 5, "name": "Async SA", "isSelfEmployed": True},
+                }
+            ]
+        )
+
+        result = await async_client.users.get_companies()
+
+        assert result[0].company.name == "Async SA"
+
+    async def test_refresh_token(
+        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+    ) -> None:
+        mock_async_http.request.return_value = make_response(TOKEN_JSON)
+
+        token = await async_client.users.refresh_token("old_refresh")
+
+        assert token.access_token == "new_access_token"
