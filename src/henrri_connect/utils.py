@@ -1,5 +1,7 @@
 """Module utilitaire pour les clients Henrri Connect."""
 from __future__ import annotations
+
+import logging
 import json
 import httpx
 from .exc import (
@@ -10,6 +12,8 @@ from .exc import (
     HenrriServerError,
     HenrriValidationError,
 )
+
+logger = logging.getLogger(__name__)
 
 def raise_for_status(resp: httpx.Response) -> None:
     """Lève une exception appropriée selon le code HTTP de la réponse.
@@ -52,13 +56,19 @@ def raise_for_status(resp: httpx.Response) -> None:
 
     sc = resp.status_code
     if sc == 400:
+        logger.error("Validation error: %s", msg)
         raise HenrriValidationError(sc, str(msg))
     if sc == 401:
+        logger.error("Authentication error: %s", msg)
         raise HenrriAuthError(sc, str(msg))
     if sc == 403:
+        logger.error("Forbidden error: %s", msg)
         raise HenrriForbiddenError(sc, str(msg))
     if sc == 404:
+        logger.error("Not found error: %s", msg)
         raise HenrriNotFoundError(sc, str(msg))
     if sc >= 500:
+        logger.error("Server error: %s", msg)
         raise HenrriServerError(sc, str(msg))
+    logger.error("HTTP error: %s", msg)
     raise HenrriHTTPError(sc, str(msg))

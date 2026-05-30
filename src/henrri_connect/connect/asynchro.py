@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING, Any    # type: ignore[import]
 import httpx
 from ..exc import (
@@ -9,6 +10,8 @@ from ..exc import (
 )
 from ..models import TokenResponse
 from ..utils import raise_for_status
+
+logger = logging.getLogger(__name__)
 
 _BASE_URL = "https://api-sandbox.henrri.io"
 APP_VERSION = "application/json; X-Version=1.0"
@@ -76,13 +79,16 @@ class _AsyncHenrriClient:
             "Content-Type": APP_VERSION,
             "Accept": APP_VERSION,
         }
+        logger.debug("Construction des headers (authentifié=%s)", authenticated)
         if authenticated:
             if not self._access_token:
+                logger.error("Tentative de requête authentifiée sans token d'accès.")
                 raise HenrriAuthError(
                     401,
                     "Non authentifié. Appelez await authenticate() avant toute requête."
                 )
             headers["Authorization"] = f"Bearer {self._access_token}"
+            logger.debug("Headers avec token d'accès ajouté.")
         return headers
 
     async def authenticate(self) -> TokenResponse:
@@ -96,6 +102,11 @@ class _AsyncHenrriClient:
         token = TokenResponse.model_validate(resp.json())
         self._access_token = token.access_token
         self._refresh_token_str = token.refresh_token
+        logger.debug("Authentification réussie, token d'accès obtenu.")
+        logger.info(
+            "Authentification réussie. Access token valide pour %d secondes.",
+            token.expires_in
+        )
         return token
 
     async def _do_refresh(self) -> None:
@@ -106,9 +117,11 @@ class _AsyncHenrriClient:
             json={"refreshToken": self._refresh_token_str},
         )
         if resp.is_success:
+            logger.debug("Rafraîchissement du token via le refresh token.")
             token = TokenResponse.model_validate(resp.json())
             self._access_token = token.access_token
             if token.refresh_token:
+                logger.debug("Nouveau refresh token reçu, mise à jour du refresh token stocké.")
                 self._refresh_token_str = token.refresh_token
         else:
             await self.authenticate()
@@ -125,6 +138,12 @@ class _AsyncHenrriClient:
         if authenticated and not self._access_token:
             await self.authenticate()
 
+        logger.debug(
+            "Envoi de la requête %s %s (authentifié=%s)",
+            method,
+            path,
+            authenticated,
+        )
         resp = await self._http.request(
             method,
             self._url(path),
@@ -133,6 +152,7 @@ class _AsyncHenrriClient:
         )
 
         if resp.status_code == 401 and authenticated:
+            logger.debug("Réponse 401 reçue, tentative de rafraîchissement du token.")
             if self._refresh_token_str:
                 await self._do_refresh()
             else:
@@ -168,6 +188,7 @@ class _AsyncHenrriClient:
         - Returns:
             - None
         """
+        logger.info("Fermeture du client HTTP.")
         await self._http.aclose()
 
     async def __aenter__(self) -> _AsyncHenrriClient:

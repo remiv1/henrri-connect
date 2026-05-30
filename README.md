@@ -5,8 +5,12 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://remiv1.github.io/henrri-connect/)
 
+![Logo henrri-connect](docs/logo_plain.png)
+
 Bibliothèque Python souveraine pour l'[API de facturation Henrri](https://api-sandbox.henrri.io/scalar).
 Fournit un client **synchrone** et **asynchrone** pour interagir avec l'ensemble des ressources de l'API : clients, factures, articles, unités, revenus, etc.
+
+> Ce SDK est un client Python non officiel pour l’API Henrri. Il n’est ni affilié, ni soutenu, ni approuvé par Henrri. Henrri est une marque déposée appartenant à son éditeur.
 
 ---
 

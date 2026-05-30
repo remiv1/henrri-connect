@@ -1,6 +1,6 @@
 # Changelog for henrri-connect
 
-## [0.1.0] - 2024-06
+## [0.1.0] - 2026-06
 
 ### Added
 
@@ -18,10 +18,19 @@
 - documentation/ directory with Sphinx documentation setup.
 - .git/ directory for version control with Git.
 
-## [0.1.1] - 2024-06-01
+## [0.1.1] - 2026-06-01
 
 ### Added 0.1.1
 
 - Make complete documentation in the README.md file, with sections for each sub-client (customers, documents, document_lines, document_line_types, document_types, users, secures).
 - Add examples for both synchronous and asynchronous usage for each sub-client.
 - Update the changelog to reflect the new version and the added documentation.
+
+## [0.1.2] - 2026-06-02
+
+### Added 0.1.2
+
+- Add a disclaimer in the README.md file to clarify that this SDK is an unofficial client for the Henrri API and is not affiliated, supported, or endorsed by Henrri. Include a note about Henrri being a registered trademark of its publisher.
+- Add a logger into the connect client to allow users to enable logging of API requests and responses for debugging purposes.
+- Add a logo image to the README.md file for better visual appeal and branding of the henrri-connect library.
+- Update the changelog to reflect the new version and the added disclaimer and logo in the README.md file.
