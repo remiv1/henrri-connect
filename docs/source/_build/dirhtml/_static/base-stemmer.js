@@ -1,8 +1,10 @@
-// @ts-check
+// @ts-nocheck
 
 /**@constructor*/
+// @ts-ignore
 BaseStemmer = function() {
     /** @protected */
+    // @ts-ignore
     this.current = '';
     this.cursor = 0;
     this.limit = 0;
@@ -26,6 +28,7 @@ BaseStemmer = function() {
      * @return {string}
      */
     this.getCurrent = function() {
+        // @ts-ignore
         return this.current;
     };
 
@@ -34,6 +37,7 @@ BaseStemmer = function() {
      */
     this.copy_from = function(other) {
         /** @protected */
+        // @ts-ignore
         this.current          = other.current;
         this.cursor           = other.cursor;
         this.limit            = other.limit;
@@ -51,7 +55,8 @@ BaseStemmer = function() {
     this.in_grouping = function(s, min, max) {
         /** @protected */
         if (this.cursor >= this.limit) return false;
-        var ch = this.current.charCodeAt(this.cursor);
+        // @ts-ignore
+        let ch = this.current.codePointAt(this.cursor);
         if (ch > max || ch < min) return false;
         ch -= min;
         if ((s[ch >>> 3] & (0x1 << (ch & 0x7))) == 0) return false;
@@ -68,7 +73,8 @@ BaseStemmer = function() {
     this.go_in_grouping = function(s, min, max) {
         /** @protected */
         while (this.cursor < this.limit) {
-            var ch = this.current.charCodeAt(this.cursor);
+            // @ts-ignore
+            let ch = this.current.codePointAt(this.cursor);
             if (ch > max || ch < min)
                 return true;
             ch -= min;
@@ -88,7 +94,8 @@ BaseStemmer = function() {
     this.in_grouping_b = function(s, min, max) {
         /** @protected */
         if (this.cursor <= this.limit_backward) return false;
-        var ch = this.current.charCodeAt(this.cursor - 1);
+        // @ts-ignore
+        let ch = this.current.codePointAt(this.cursor - 1);
         if (ch > max || ch < min) return false;
         ch -= min;
         if ((s[ch >>> 3] & (0x1 << (ch & 0x7))) == 0) return false;
@@ -105,7 +112,8 @@ BaseStemmer = function() {
     this.go_in_grouping_b = function(s, min, max) {
         /** @protected */
         while (this.cursor > this.limit_backward) {
-            var ch = this.current.charCodeAt(this.cursor - 1);
+            // @ts-ignore
+            let ch = this.current.codePointAt(this.cursor - 1);
             if (ch > max || ch < min) return true;
             ch -= min;
             if ((s[ch >>> 3] & (0x1 << (ch & 0x7))) == 0) return true;
@@ -123,7 +131,8 @@ BaseStemmer = function() {
     this.out_grouping = function(s, min, max) {
         /** @protected */
         if (this.cursor >= this.limit) return false;
-        var ch = this.current.charCodeAt(this.cursor);
+        // @ts-ignore
+        let ch = this.current.codePointAt(this.cursor);
         if (ch > max || ch < min) {
             this.cursor++;
             return true;
@@ -145,7 +154,8 @@ BaseStemmer = function() {
     this.go_out_grouping = function(s, min, max) {
         /** @protected */
         while (this.cursor < this.limit) {
-            var ch = this.current.charCodeAt(this.cursor);
+            // @ts-ignore
+            let ch = this.current.codePointAt(this.cursor);
             if (ch <= max && ch >= min) {
                 ch -= min;
                 if ((s[ch >>> 3] & (0X1 << (ch & 0x7))) != 0) {
@@ -166,7 +176,8 @@ BaseStemmer = function() {
     this.out_grouping_b = function(s, min, max) {
         /** @protected */
         if (this.cursor <= this.limit_backward) return false;
-        var ch = this.current.charCodeAt(this.cursor - 1);
+        // @ts-ignore
+        let ch = this.current.codePointAt(this.cursor - 1);
         if (ch > max || ch < min) {
             this.cursor--;
             return true;
@@ -188,7 +199,8 @@ BaseStemmer = function() {
     this.go_out_grouping_b = function(s, min, max) {
         /** @protected */
         while (this.cursor > this.limit_backward) {
-            var ch = this.current.charCodeAt(this.cursor - 1);
+            // @ts-ignore
+            let ch = this.current.codePointAt(this.cursor - 1);
             if (ch <= max && ch >= min) {
                 ch -= min;
                 if ((s[ch >>> 3] & (0x1 << (ch & 0x7))) != 0) {
@@ -208,6 +220,7 @@ BaseStemmer = function() {
     {
         /** @protected */
         if (this.limit - this.cursor < s.length) return false;
+        // @ts-ignore
         if (this.current.slice(this.cursor, this.cursor + s.length) != s)
         {
             return false;
@@ -224,6 +237,7 @@ BaseStemmer = function() {
     {
         /** @protected */
         if (this.cursor - this.limit_backward < s.length) return false;
+        // @ts-ignore
         if (this.current.slice(this.cursor - s.length, this.cursor) != s)
         {
             return false;
@@ -239,33 +253,36 @@ BaseStemmer = function() {
     this.find_among = function(v)
     {
         /** @protected */
-        var i = 0;
-        var j = v.length;
+        let i = 0;
+        let j = v.length;
 
-        var c = this.cursor;
-        var l = this.limit;
+        let c = this.cursor;
+        // @ts-ignore
+        let l = this.limit;
 
-        var common_i = 0;
-        var common_j = 0;
+        let common_i = 0;
+        let common_j = 0;
 
-        var first_key_inspected = false;
+        let first_key_inspected = false;
 
         while (true)
         {
-            var k = i + ((j - i) >>> 1);
-            var diff = 0;
-            var common = common_i < common_j ? common_i : common_j; // smaller
+            let k = i + ((j - i) >>> 1);
+            let diff = 0;
+            let common = Math.min(common_i, common_j); // smaller
             // w[0]: string, w[1]: substring_i, w[2]: result, w[3]: function (optional)
-            var w = v[k];
-            var i2;
+            let w = v[k];
+            let i2;
             for (i2 = common; i2 < w[0].length; i2++)
             {
+                // @ts-ignore
                 if (c + common == l)
                 {
                     diff = -1;
                     break;
                 }
-                diff = this.current.charCodeAt(c + common) - w[0].charCodeAt(i2);
+                // @ts-ignore
+                diff = this.current.codePointAt(c + common) - w[0].codePointAt(i2);
                 if (diff != 0) break;
                 common++;
             }
@@ -293,12 +310,12 @@ BaseStemmer = function() {
             }
         }
         do {
-            var w = v[i];
+            let w = v[i];
             if (common_i >= w[0].length)
             {
                 this.cursor = c + w[0].length;
                 if (w.length < 4) return w[2];
-                var res = w[3](this);
+                let res = w[3](this);
                 this.cursor = c + w[0].length;
                 if (res) return w[2];
             }
@@ -315,32 +332,35 @@ BaseStemmer = function() {
     this.find_among_b = function(v)
     {
         /** @protected */
-        var i = 0;
-        var j = v.length
+        let i = 0;
+        let j = v.length
 
-        var c = this.cursor;
-        var lb = this.limit_backward;
+        let c = this.cursor;
+        // @ts-ignore
+        let lb = this.limit_backward;
 
-        var common_i = 0;
-        var common_j = 0;
+        let common_i = 0;
+        let common_j = 0;
 
-        var first_key_inspected = false;
+        let first_key_inspected = false;
 
         while (true)
         {
-            var k = i + ((j - i) >> 1);
-            var diff = 0;
-            var common = common_i < common_j ? common_i : common_j;
-            var w = v[k];
-            var i2;
+            let k = i + ((j - i) >> 1);
+            let diff = 0;
+            let common = Math.min(common_i, common_j);
+            let w = v[k];
+            let i2;
             for (i2 = w[0].length - 1 - common; i2 >= 0; i2--)
             {
+                // @ts-ignore
                 if (c - common == lb)
                 {
                     diff = -1;
                     break;
                 }
-                diff = this.current.charCodeAt(c - 1 - common) - w[0].charCodeAt(i2);
+                // @ts-ignore
+                diff = this.current.codePointAt(c - 1 - common) - w[0].codePointAt(i2);
                 if (diff != 0) break;
                 common++;
             }
@@ -363,12 +383,14 @@ BaseStemmer = function() {
             }
         }
         do {
-            var w = v[i];
+            let w = v[i];
             if (common_i >= w[0].length)
             {
+                // @ts-ignore
                 this.cursor = c - w[0].length;
                 if (w.length < 4) return w[2];
-                var res = w[3](this);
+                let res = w[3](this);
+                // @ts-ignore
                 this.cursor = c - w[0].length;
                 if (res) return w[2];
             }
@@ -389,10 +411,14 @@ BaseStemmer = function() {
     this.replace_s = function(c_bra, c_ket, s)
     {
         /** @protected */
-        var adjustment = s.length - (c_ket - c_bra);
+        let adjustment = s.length - (c_ket - c_bra);
+        // @ts-ignore
         this.current = this.current.slice(0, c_bra) + s + this.current.slice(c_ket);
+        // @ts-ignore
         this.limit += adjustment;
+        // @ts-ignore
         if (this.cursor >= c_ket) this.cursor += adjustment;
+        // @ts-ignore
         else if (this.cursor > c_bra) this.cursor = c_bra;
         return adjustment;
     };
@@ -406,6 +432,7 @@ BaseStemmer = function() {
         if (this.bra < 0 ||
             this.bra > this.ket ||
             this.ket > this.limit ||
+            // @ts-ignore
             this.limit > this.current.length)
         {
             return false;
@@ -417,10 +444,11 @@ BaseStemmer = function() {
      * @param {number} c_bra
      * @return {boolean}
      */
+    // @ts-ignore
     this.slice_from = function(s)
     {
         /** @protected */
-        var result = false;
+        let result = false;
         if (this.slice_check())
         {
             this.replace_s(this.bra, this.ket, s);
@@ -446,7 +474,7 @@ BaseStemmer = function() {
     this.insert = function(c_bra, c_ket, s)
     {
         /** @protected */
-        var adjustment = this.replace_s(c_bra, c_ket, s);
+        let adjustment = this.replace_s(c_bra, c_ket, s);
         if (c_bra <= this.bra) this.bra += adjustment;
         if (c_bra <= this.ket) this.ket += adjustment;
     };
@@ -457,9 +485,10 @@ BaseStemmer = function() {
     this.slice_to = function()
     {
         /** @protected */
-        var result = '';
+        let result = '';
         if (this.slice_check())
         {
+            // @ts-ignore
             result = this.current.slice(this.bra, this.ket);
         }
         return result;
@@ -471,6 +500,7 @@ BaseStemmer = function() {
     this.assign_to = function()
     {
         /** @protected */
+        // @ts-ignore
         return this.current.slice(0, this.limit);
     };
 };

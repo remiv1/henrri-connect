@@ -6,8 +6,8 @@
 /**
  * Simple result scoring code.
  */
-if (typeof Scorer === "undefined") {
-  var Scorer = {
+if (Scorer === undefined) {
+  let Scorer = {
     // Implement the following function to further tweak the score for each result
     // The function takes a result array [docname, title, anchor, descr, score, filename]
     // and returns the new score.
@@ -50,14 +50,14 @@ class SearchResultKind {
 }
 
 const _removeChildren = (element) => {
-  while (element && element.lastChild) element.removeChild(element.lastChild);
+  while (element?.lastChild) element.removeChild(element.lastChild);
 };
 
 /**
  * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#escaping
  */
 const _escapeRegExp = (string) =>
-  string.replace(/[.*+\-?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+  string.replace(/[.*+\-?^${}()|[\]\\]/g, String.raw`\$&`); // $& means the whole matched string
 
 const _escapeHTML = (text) => {
   return text
@@ -185,7 +185,7 @@ const _orderResultsByScoreThenName = (a, b) => {
  * This is the same as ``\W+`` in Python, preserving the surrogate pair area.
  */
 if (typeof splitQuery === "undefined") {
-  var splitQuery = (query) =>
+  let splitQuery = (query) =>
     query
       .split(/[^\p{Letter}\p{Number}_\p{Emoji_Presentation}]+/gu)
       .filter((term) => term); // remove remaining empty strings
@@ -331,10 +331,6 @@ const Search = {
       );
     }
 
-    // console.debug("SEARCH: searching for:");
-    // console.info("required: ", [...searchTerms]);
-    // console.info("excluded: ", [...excludedTerms]);
-
     return [query, searchTerms, excludedTerms, highlightTerms, objectTerms];
   },
 
@@ -436,7 +432,7 @@ const Search = {
     // remove duplicate search results
     // note the reversing of results, so that in the case of duplicates, the highest-scoring entry is kept
     let seen = new Set();
-    results = results.reverse().reduce((acc, result) => {
+    results = results.toReversed().reduce((acc, result) => {
       let resultStr = result
         .slice(0, 4)
         .concat([result[5]])
@@ -492,16 +488,16 @@ const Search = {
       const name = match[4];
       const fullname = (prefix ? prefix + "." : "") + name;
       const fullnameLower = fullname.toLowerCase();
-      if (fullnameLower.indexOf(object) < 0) return;
+      if (!fullnameLower.includes(object)) return;
 
       let score = 0;
       const parts = fullnameLower.split(".");
 
       // check for different match types: exact matches of full name or
       // "last name" (i.e. last dotted part)
-      if (fullnameLower === object || parts.slice(-1)[0] === object)
+      if (fullnameLower === object || parts.at(-1) === object)
         score += Scorer.objNameMatch;
-      else if (parts.slice(-1)[0].indexOf(object) > -1)
+      else if (parts.at(-1).includes(object))
         score += Scorer.objPartialMatch; // matches in last name
 
       const objName = objNames[match[1]][2];
@@ -514,7 +510,7 @@ const Search = {
       if (otherTerms.size > 0) {
         const haystack = `${prefix} ${name} ${objName} ${title}`.toLowerCase();
         if (
-          [...otherTerms].some((otherTerm) => haystack.indexOf(otherTerm) < 0)
+          [...otherTerms].some((otherTerm) => !haystack.includes(otherTerm))
         )
           return;
       }
@@ -614,7 +610,7 @@ const Search = {
       // create the mapping
       files.forEach((file) => {
         if (!fileMap.has(file)) fileMap.set(file, [word]);
-        else if (fileMap.get(file).indexOf(word) === -1)
+        else if (!fileMap.get(file).includes(word))
           fileMap.get(file).push(word);
       });
     });
@@ -674,8 +670,7 @@ const Search = {
     const textLower = text.toLowerCase();
     const actualStartPosition = [...keywords]
       .map((k) => textLower.indexOf(k.toLowerCase()))
-      .filter((i) => i > -1)
-      .slice(-1)[0];
+      .findLast((i) => i > -1);
     const startWithContext = Math.max(actualStartPosition - 120, 0);
 
     const top = startWithContext === 0 ? "" : "...";

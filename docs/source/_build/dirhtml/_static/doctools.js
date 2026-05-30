@@ -50,7 +50,7 @@ const Documentation = {
 
   ngettext: (singular, plural, n) => {
     const translated = Documentation.TRANSLATIONS[singular];
-    if (typeof translated !== "undefined")
+    if (translated !== undefined)
       return translated[Documentation.PLURAL_EXPR(n)];
     return n === 1 ? singular : plural;
   },
@@ -113,23 +113,23 @@ const Documentation = {
       if (!event.shiftKey) {
         switch (event.key) {
           case "ArrowLeft":
-            if (!DOCUMENTATION_OPTIONS.NAVIGATION_WITH_KEYS) break;
+            { if (!DOCUMENTATION_OPTIONS.NAVIGATION_WITH_KEYS) break;
 
             const prevLink = document.querySelector('link[rel="prev"]');
-            if (prevLink && prevLink.href) {
+            if (prevLink?.href) {
               window.location.href = prevLink.href;
               event.preventDefault();
             }
-            break;
+            break; }
           case "ArrowRight":
-            if (!DOCUMENTATION_OPTIONS.NAVIGATION_WITH_KEYS) break;
+            { if (!DOCUMENTATION_OPTIONS.NAVIGATION_WITH_KEYS) break;
 
             const nextLink = document.querySelector('link[rel="next"]');
-            if (nextLink && nextLink.href) {
+            if (nextLink?.href) {
               window.location.href = nextLink.href;
               event.preventDefault();
             }
-            break;
+            break; }
         }
       }
 
