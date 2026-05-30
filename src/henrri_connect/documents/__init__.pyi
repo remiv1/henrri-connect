@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from henrri_connect.models import (
+from ..models import (
     Document,
     ListResponse,
     PagedListResponse,

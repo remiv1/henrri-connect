@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from henrri_connect.models import ListResponse, Unit
+from ..models import ListResponse, Unit
 
 class SyncUnitsClient:
     def __init__(self, client: Any) -> None: ...

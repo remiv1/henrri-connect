@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from henrri_connect.models import (
+from ..models import (
     Document,
     ListResponse,
     PagedListResponse,
@@ -15,7 +15,7 @@ from henrri_connect.models import (
 )
 
 if TYPE_CHECKING:
-    from henrri_connect.connect import (
+    from ..connect import (
         _SyncHenrriClient,   # type: ignore[import]
     )
 

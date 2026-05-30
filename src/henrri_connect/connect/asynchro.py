@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any    # type: ignore[import]
 import httpx
-from henrri_connect.exc import (
+from ..exc import (
     HenrriAuthError,
 )
-from henrri_connect.models import TokenResponse
-from henrri_connect.utils import raise_for_status
+from ..models import TokenResponse
+from ..utils import raise_for_status
 
 _BASE_URL = "https://api-sandbox.henrri.io"
 APP_VERSION = "application/json; X-Version=1.0"
@@ -42,18 +42,18 @@ class _AsyncHenrriClient:
         self._init_subclients()
 
     def _init_subclients(self) -> None:
-        from henrri_connect.companies import AsyncCompaniesClient
-        from henrri_connect.customers import AsyncCustomersClient
-        from henrri_connect.document_line_types import AsyncDocumentLineTypesClient
-        from henrri_connect.document_lines import AsyncDocumentLinesClient
-        from henrri_connect.document_types import AsyncDocumentTypesClient
-        from henrri_connect.documents import AsyncDocumentsClient
-        from henrri_connect.item_categories import AsyncItemCategoriesClient
-        from henrri_connect.items import AsyncItemsClient
-        from henrri_connect.revenues import AsyncRevenuesClient
-        from henrri_connect.secures import AsyncSecuresClient
-        from henrri_connect.units import AsyncUnitsClient
-        from henrri_connect.users import AsyncUsersClient
+        from ..companies import AsyncCompaniesClient
+        from ..customers import AsyncCustomersClient
+        from ..document_line_types import AsyncDocumentLineTypesClient
+        from ..document_lines import AsyncDocumentLinesClient
+        from ..document_types import AsyncDocumentTypesClient
+        from ..documents import AsyncDocumentsClient
+        from ..item_categories import AsyncItemCategoriesClient
+        from ..items import AsyncItemsClient
+        from ..revenues import AsyncRevenuesClient
+        from ..secures import AsyncSecuresClient
+        from ..units import AsyncUnitsClient
+        from ..users import AsyncUsersClient
 
         self.users = AsyncUsersClient(self)
         self.companies = AsyncCompaniesClient(self)

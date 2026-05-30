@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from henrri_connect.models import MonthlyRevenueStatistics, RevenueStatistics
+from ..models import MonthlyRevenueStatistics, RevenueStatistics
 
 class SyncRevenuesClient:
     def __init__(self, client: Any) -> None: ...

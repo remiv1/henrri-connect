@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from henrri_connect.models import DocumentLineType, ListResponse
+from ..models import DocumentLineType, ListResponse
 
 class SyncDocumentLineTypesClient:
     def __init__(self, client: Any) -> None: ...

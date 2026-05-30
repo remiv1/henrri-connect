@@ -1,18 +1,66 @@
 PYTHON       = python
 
-.PHONY: all clean build publish help test
+# Extraction automatique depuis pyproject.toml
+VERSION      := $(shell grep '^version' pyproject.toml | head -1 | sed 's/version = "\(.*\)"/\1/')
+RELEASE      := $(shell echo "$(VERSION)" | cut -d. -f1,2)
+
+DOCS_SRC     = docs/source
+DOCS_BUILD   = docs/_build/html
+
+.PHONY: all clean build publish help test docs docs-init docs-clean docs-serve
 
 # ———— Help ————
 
 help:
 	@echo "Usage: make [target]"
 	@echo "Targets:"
-	@echo "  all     - Run all tests"
-	@echo "  clean   - Remove generated files"
-	@echo "  build   - Build the package"
-	@echo "  publish - Publish the package to PyPI"
-	@echo "  test    - Run unit tests"
-	@echo "  help    - Show this help message"
+	@echo "  all          - Tests, build, vérification, publication et nettoyage"
+	@echo "  test         - Exécute les tests unitaires"
+	@echo "  build        - Construit le paquet"
+	@echo "  build-verify - Vérifie le paquet construit"
+	@echo "  publish      - Publie le paquet sur PyPI"
+	@echo "  clean        - Supprime les artefacts de build"
+	@echo "  docs-init    - Initialise Sphinx (si non présent)"
+	@echo "  docs         - Génère la documentation HTML"
+	@echo "  docs-serve   - Génère et sert la documentation sur :8080"
+	@echo "  docs-clean   - Supprime le répertoire de build de la documentation"
+	@echo "  help         - Affiche ce message"
+	@echo ""
+	@echo "Version détectée : $(VERSION)  (release : $(RELEASE))"
+
+# ———— Documentation ————
+
+docs-init:
+	@echo "—–--–—–--–— Documentation Initialization —–--–—–--–—"
+	@if [ ! -f $(DOCS_SRC)/conf.py ]; then \
+		sphinx-quickstart $(DOCS_SRC) \
+			--no-sep \
+			--project henrri-connect \
+			--author "Rémi Verschuur" \
+			-v $(VERSION) \
+			--release $(RELEASE) \
+			--language fr \
+			--ext-autodoc \
+			--quiet; \
+		echo "  conf.py et index.rst générés dans $(DOCS_SRC)/"; \
+	else \
+		echo "  $(DOCS_SRC)/conf.py déjà présent — rien à faire."; \
+	fi
+
+docs:
+	@echo "—–--–—–--–— Generating Documentation (v$(VERSION)) —–--–—–--–—"
+	sphinx-build -b html $(DOCS_SRC) $(DOCS_BUILD)
+	@echo ""
+	@echo "  Documentation générée dans $(DOCS_BUILD)/index.html"
+
+docs-clean:
+	@echo "—–--–—–--–— Clean Documentation —–--–—–--–—"
+	rm -rf docs/_build/
+	@echo "  Répertoire docs/_build/ supprimé."
+
+docs-serve: docs
+	$(PYTHON) -m http.server 8080 --directory $(DOCS_BUILD)
+
 
 # ———— Main Targets ————
 

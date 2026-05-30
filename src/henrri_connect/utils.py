@@ -2,7 +2,7 @@
 from __future__ import annotations
 import json
 import httpx
-from henrri_connect.exc import (
+from .exc import (
     HenrriAuthError,
     HenrriForbiddenError,
     HenrriHTTPError,
@@ -12,16 +12,30 @@ from henrri_connect.exc import (
 )
 
 def raise_for_status(resp: httpx.Response) -> None:
-    """
-    Lève une exception appropriée selon le code HTTP de la réponse.
-     - 400 : HenrriValidationError
-     - 401 : HenrriAuthError
-     - 403 : HenrriForbiddenError
-     - 404 : HenrriNotFoundError
-     - 5xx : HenrriServerError
-     - Autres : HenrriHTTPError
+    """Lève une exception appropriée selon le code HTTP de la réponse.
+
+    Correspondance des codes HTTP :
+
+    - 400 : ``HenrriValidationError``
+    - 401 : ``HenrriAuthError``
+    - 403 : ``HenrriForbiddenError``
+    - 404 : ``HenrriNotFoundError``
+    - 5xx : ``HenrriServerError``
+    - Autres : ``HenrriHTTPError``
+
     Tente d'extraire un message d'erreur détaillé depuis la réponse JSON,
     ou utilise le texte brut de la réponse si le JSON est invalide.
+
+    Args:
+        resp: La réponse HTTP httpx à analyser.
+
+    Raises:
+        HenrriValidationError: Si le code HTTP est 400.
+        HenrriAuthError: Si le code HTTP est 401.
+        HenrriForbiddenError: Si le code HTTP est 403.
+        HenrriNotFoundError: Si le code HTTP est 404.
+        HenrriServerError: Si le code HTTP est >= 500.
+        HenrriHTTPError: Pour tout autre code d'erreur.
     """
     if resp.is_success:
         return

@@ -47,18 +47,18 @@ class _SyncHenrriClient:
         self._init_subclients()
 
     def _init_subclients(self) -> None:
-        from henrri_connect.companies import SyncCompaniesClient
-        from henrri_connect.customers import SyncCustomersClient
-        from henrri_connect.document_line_types import SyncDocumentLineTypesClient
-        from henrri_connect.document_lines import SyncDocumentLinesClient
-        from henrri_connect.document_types import SyncDocumentTypesClient
-        from henrri_connect.documents import SyncDocumentsClient
-        from henrri_connect.item_categories import SyncItemCategoriesClient
-        from henrri_connect.items import SyncItemsClient
-        from henrri_connect.revenues import SyncRevenuesClient
-        from henrri_connect.secures import SyncSecuresClient
-        from henrri_connect.units import SyncUnitsClient
-        from henrri_connect.users import SyncUsersClient
+        from ..companies import SyncCompaniesClient
+        from ..customers import SyncCustomersClient
+        from ..document_line_types import SyncDocumentLineTypesClient
+        from ..document_lines import SyncDocumentLinesClient
+        from ..document_types import SyncDocumentTypesClient
+        from ..documents import SyncDocumentsClient
+        from ..item_categories import SyncItemCategoriesClient
+        from ..items import SyncItemsClient
+        from ..revenues import SyncRevenuesClient
+        from ..secures import SyncSecuresClient
+        from ..units import SyncUnitsClient
+        from ..users import SyncUsersClient
 
         self.users = SyncUsersClient(self)
         self.companies = SyncCompaniesClient(self)
