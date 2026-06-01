@@ -121,3 +121,7 @@ async def main():
 
 asyncio.run(main())
 ```
+
+[↑ Retour en haut](#customers--clients)
+
+[⇐ Retour à l'index](../README.md)

@@ -38,3 +38,7 @@ async def main():
 
 asyncio.run(main())
 ```
+
+[↑ Retour en haut](#secures--endpoint-de-santé)
+
+[⇐ Retour à l'index](../README.md)

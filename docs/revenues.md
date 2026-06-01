@@ -55,3 +55,7 @@ async def main():
 
 asyncio.run(main())
 ```
+
+[↑ Retour en haut](#revenues--statistiques-de-revenus)
+
+[⇐ Retour à l'index](../README.md)

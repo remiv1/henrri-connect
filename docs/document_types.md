@@ -43,3 +43,7 @@ async def main():
 
 asyncio.run(main())
 ```
+
+[↑ Retour en haut](#document_types--types-de-document)
+
+[⇐ Retour à l'index](../README.md)

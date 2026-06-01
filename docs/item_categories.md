@@ -51,3 +51,7 @@ async def main():
 
 asyncio.run(main())
 ```
+
+[↑ Retour en haut](#item_categories--catégories-darticles)
+
+[⇐ Retour à l'index](../README.md)

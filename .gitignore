@@ -15,3 +15,5 @@ build/
 *.egg
 *.tar.gz
 *.whl
+.env*
+*.ipynb

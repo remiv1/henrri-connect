@@ -34,3 +34,12 @@
 - Add a logger into the connect client to allow users to enable logging of API requests and responses for debugging purposes.
 - Add a logo image to the README.md file for better visual appeal and branding of the henrri-connect library.
 - Update the changelog to reflect the new version and the added disclaimer and logo in the README.md file.
+
+## [0.1.3] - 2026-06-01
+
+### Fixed 0.1.3
+
+- Fix a bug in the asynchronous client where the wrong method was being called for listing items. Update the example code in the README.md file to use the correct method for listing items in asynchronous mode.
+- Update the changelog to reflect the new version and the fixed bug in the asynchronous client example in the README.md file.
+- Update the README.md file to use `await main()` instead of `asyncio.run(main())` for running the asynchronous example, to better align with modern async practices in Python.
+- Update the README.md file to include a type cast for the asynchronous client to avoid type errors in IDEs when using the async mode of the HenrriClient.

@@ -14,7 +14,8 @@ from ..utils import raise_for_status
 logger = logging.getLogger(__name__)
 
 _BASE_URL = "https://api-sandbox.henrri.io"
-APP_VERSION = "application/json; X-Version=1.0"
+APP_VERSION = "application/json"
+APP_X_VERSION = "1.0"
 
 
 class _SyncHenrriClient:
@@ -42,7 +43,7 @@ class _SyncHenrriClient:
         self._base_url = base_url.rstrip("/")
         self._access_token: str | None = None
         self._refresh_token_str: str | None = None
-        self._http = httpx.Client(timeout=30.0)
+        self._http = httpx.Client()
         self._init_subclients()
 
     def _init_subclients(self) -> None:
@@ -79,6 +80,7 @@ class _SyncHenrriClient:
         headers: dict[str, str] = {
             "Content-Type": APP_VERSION,
             "Accept": APP_VERSION,
+            "X-Version": APP_X_VERSION,
         }
         logger.debug("Construction des headers (authentifié=%s)", authenticated)
         if authenticated:
@@ -100,13 +102,13 @@ class _SyncHenrriClient:
         Returns:
         - TokenResponse : objet contenant access_token et refresh_token.
         """
-        resp = self._http.post(
+        resp: httpx.Response = self._http.post(
             self._url("/v1/users/authenticate"),
             headers=self._headers(authenticated=False),
             json={"clientId": self._client_id, "clientSecret": self._client_secret},
         )
         raise_for_status(resp)
-        token = TokenResponse.model_validate(resp.json())
+        token: TokenResponse = TokenResponse.model_validate(resp.json())
         self._access_token = token.access_token
         self._refresh_token_str = token.refresh_token
         logger.debug("Authentification réussie, token d'accès obtenu.")
@@ -118,14 +120,14 @@ class _SyncHenrriClient:
 
     def _do_refresh(self) -> None:
         """Rafraîchit le token via le refresh token, ou ré-authentifie en cas d'échec."""
-        resp = self._http.post(
+        resp: httpx.Response = self._http.post(
             self._url("/v1/users/refresh-token"),
             headers=self._headers(authenticated=False),
             json={"refreshToken": self._refresh_token_str},
         )
         if resp.is_success:
             logger.debug("Rafraîchissement du token via le refresh token.")
-            token = TokenResponse.model_validate(resp.json())
+            token: TokenResponse = TokenResponse.model_validate(resp.json())
             self._access_token = token.access_token
             if token.refresh_token:
                 logger.debug("Nouveau refresh token reçu, mise à jour du refresh token stocké.")
@@ -151,7 +153,7 @@ class _SyncHenrriClient:
             path,
             authenticated,
         )
-        resp = self._http.request(
+        resp: httpx.Response = self._http.request(
             method,
             self._url(path),
             headers=self._headers(authenticated=authenticated),
@@ -164,7 +166,7 @@ class _SyncHenrriClient:
                 self._do_refresh()
             else:
                 self.authenticate()
-            resp = self._http.request(
+            resp: httpx.Response = self._http.request(
                 method,
                 self._url(path),
                 headers=self._headers(authenticated=True),
