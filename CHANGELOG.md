@@ -43,3 +43,9 @@
 - Update the changelog to reflect the new version and the fixed bug in the asynchronous client example in the README.md file.
 - Update the README.md file to use `await main()` instead of `asyncio.run(main())` for running the asynchronous example, to better align with modern async practices in Python.
 - Update the README.md file to include a type cast for the asynchronous client to avoid type errors in IDEs when using the async mode of the HenrriClient.
+
+## [0.1.4] - 2026-06-02
+
+### Fixed 0.1.4
+
+- Fix type/stub issues in the asynchronous/synchronous client by adding proper type annotations and ensuring that the async/sync client is correctly initialized and used in the example code in the README.md file.

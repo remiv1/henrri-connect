@@ -1,6 +1,6 @@
 [project]
 name = "henrri-connect"
-version = "0.1.3"
+version = "0.1.4"
 description = "Bibliothèque souveraine pour utiliser l'API de facturation Henrri."
 authors = [{name="Rémi Verschuur", email="rverschuur@audit-io.fr"}]
 readme = "README.md"
