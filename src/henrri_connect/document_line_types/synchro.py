@@ -8,7 +8,7 @@ from ..models import DocumentLineType, ListResponse
 
 if TYPE_CHECKING:
     from ..connect import (
-        _SyncHenrriClient,   # type: ignore[import]
+        SyncHenrriClient,
     )
 
 DOCUMENTLINETYPES_ENDPOINT = "/v1/documentlinetypes"
@@ -16,7 +16,7 @@ DOCUMENTLINETYPES_ENDPOINT = "/v1/documentlinetypes"
 class SyncDocumentLineTypesClient:
     """Accès synchrone aux types de lignes de document."""
 
-    def __init__(self, client: _SyncHenrriClient) -> None:
+    def __init__(self, client: SyncHenrriClient) -> None:
         self._c = client
 
     def list_document_line_types(self) -> ListResponse[DocumentLineType]:

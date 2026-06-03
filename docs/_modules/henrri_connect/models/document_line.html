@@ -238,6 +238,7 @@
 <div class="viewcode-block" id="DocumentLineType">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentLineType">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentLineType</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente un type de ligne de document dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DocumentLineKind</span><span class="o">.</span><span class="n">NONE</span></div>
@@ -247,6 +248,7 @@
 <div class="viewcode-block" id="DocumentLine">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentLine">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentLine</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente une ligne de document dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">document_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">reference</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -276,6 +278,10 @@
 <div class="viewcode-block" id="DocumentLineMoveQueryParameters">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentLineMoveQueryParameters">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentLineMoveQueryParameters</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente les paramètres de requête pour déplacer une ligne de document dans</span>
+<span class="sd">    l&#39;API Henrri Connect.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">to</span><span class="p">:</span> <span class="nb">int</span></div>
 
 </pre></div>

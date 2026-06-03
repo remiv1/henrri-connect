@@ -27,10 +27,10 @@ Récupère une unité par son identifiant.
 ### **Synchrone**
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import SyncHenrriClient
 from henrri_connect.models import Unit
 
-client = HenrriClient("client_id", "client_secret")
+client = SyncHenrriClient("client_id", "client_secret")
 
 # Lister les unités disponibles
 result = client.units.list_units()
@@ -49,10 +49,10 @@ print(unit.name)
 
 ```python
 import asyncio
-from henrri_connect import HenrriClient
+from henrri_connect import AsyncHenrriClient
 
 async def main():
-    client = HenrriClient("client_id", "client_secret", async_mode=True)
+    client = AsyncHenrriClient("client_id", "client_secret")
 
     result = await client.units.list_units()
     for unit in result.data:

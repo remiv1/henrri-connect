@@ -49,3 +49,11 @@
 ### Fixed 0.1.4
 
 - Fix type/stub issues in the asynchronous/synchronous client by adding proper type annotations and ensuring that the async/sync client is correctly initialized and used in the example code in the README.md file.
+
+## [0.1.5] - 2026-06-03
+
+### Added 0.1.5
+
+- Delete the `async_mode` parameter from the Client and separate the synchronous and asynchronous clients into `SyncHenrriClient` and `AsyncHenrriClient` respectively, to provide clearer and more explicit client classes for users. Update the example code in the README.md file to reflect this change and show how to use both the synchronous and asynchronous clients correctly.
+- Add a MANIFEST.in file to include stub files and py.typed files in the source distribution, ensuring that type information is included when the package is distributed.
+- 

@@ -8,7 +8,7 @@ from ..models import Item, PagedListResponse
 
 if TYPE_CHECKING:
     from ..connect import (
-        _AsyncHenrriClient,  # type: ignore[import]
+        AsyncHenrriClient,
     )
 
 ITEMS_ENDPOINT = "/v1/items"
@@ -20,7 +20,7 @@ def _clean(params: dict[str, Any]) -> dict[str, Any]:
 class AsyncItemsClient:
     """Accès asynchrone aux endpoints articles."""
 
-    def __init__(self, client: _AsyncHenrriClient) -> None:
+    def __init__(self, client: AsyncHenrriClient) -> None:
         self._c = client
 
     async def list_items(
@@ -56,23 +56,23 @@ class AsyncItemsClient:
         )
         return Item.model_validate(resp.json())
 
-    async def get(self, id: int) -> Item:
+    async def get(self, item_id: int) -> Item:
         """Récupère un article par son identifiant."""
-        resp = await self._c.request("GET", f"{ITEMS_ENDPOINT}/{id}")
+        resp = await self._c.request("GET", f"{ITEMS_ENDPOINT}/{item_id}")
         return Item.model_validate(resp.json())
 
-    async def modify(self, id: int, item: Item) -> Item:
+    async def modify(self, item_id: int, item: Item) -> Item:
         """Met à jour un article existant."""
         resp = await self._c.request(
             "PUT",
-            f"{ITEMS_ENDPOINT}/{id}",
+            f"{ITEMS_ENDPOINT}/{item_id}",
             json=item.model_dump(by_alias=True, exclude_unset=True, exclude_none=True),
         )
         return Item.model_validate(resp.json())
 
-    async def delete(self, id: int) -> None:
+    async def delete(self, item_id: int) -> None:
         """Supprime un article."""
-        await self._c.request("DELETE", f"{ITEMS_ENDPOINT}/{id}")
+        await self._c.request("DELETE", f"{ITEMS_ENDPOINT}/{item_id}")
 
     async def get_most_used(
         self,

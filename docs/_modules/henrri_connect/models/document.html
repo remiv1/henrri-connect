@@ -241,6 +241,7 @@
 <div class="viewcode-block" id="DocumentType">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentType">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentType</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente un type de document dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">short_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -255,6 +256,7 @@
 <div class="viewcode-block" id="DocumentLabelElement">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentLabelElement">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentLabelElement</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente un élément d&#39;étiquette de document dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">model_element_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -270,6 +272,7 @@
 <div class="viewcode-block" id="DocumentLabel">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentLabel">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentLabel</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente une étiquette de document dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">model_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">document_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -282,6 +285,7 @@
 <div class="viewcode-block" id="Document">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.Document">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Document</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente un document dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">identity</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">finalized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -317,6 +321,7 @@
 <div class="viewcode-block" id="ValidateDocumentRequest">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.ValidateDocumentRequest">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ValidateDocumentRequest</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente une requête de validation de document dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
     <span class="n">email</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">first_name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">last_name</span><span class="p">:</span> <span class="nb">str</span>

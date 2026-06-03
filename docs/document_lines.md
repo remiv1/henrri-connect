@@ -39,10 +39,10 @@ Déplace une ligne à la position indiquée (1-indexé).
 ### **Synchrone**
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import SyncHenrriClient
 from henrri_connect.models import DocumentLine
 
-client = HenrriClient("client_id", "client_secret")
+client = SyncHenrriClient("client_id", "client_secret")
 
 document_id = 123
 
@@ -71,10 +71,10 @@ client.document_lines.delete(document_id, line.id)
 
 ```python
 import asyncio
-from henrri_connect import HenrriClient
+from henrri_connect import AsyncHenrriClient
 
 async def main():
-    client = HenrriClient("client_id", "client_secret", async_mode=True)
+    client = AsyncHenrriClient("client_id", "client_secret")
 
     result = await client.document_lines.list_document_lines(123)
     for line in result.data:

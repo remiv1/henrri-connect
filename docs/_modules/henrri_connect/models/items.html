@@ -239,6 +239,7 @@
 <div class="viewcode-block" id="ItemCategoryType">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.ItemCategoryType">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ItemCategoryType</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente un type de catégorie d&#39;article dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">item_category_content_kind</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">ItemCategoryContentKind</span><span class="o">.</span><span class="n">SUPPLY</span>
@@ -249,6 +250,7 @@
 <div class="viewcode-block" id="ItemCategory">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.ItemCategory">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ItemCategory</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente une catégorie d&#39;article dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="nb">type</span><span class="p">:</span> <span class="n">ItemCategoryType</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -265,6 +267,7 @@
 <div class="viewcode-block" id="Item">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.Item">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente un article dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">reference</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>

@@ -14,6 +14,7 @@ class CamelModel(BaseModel):
     )
 
 class Link(CamelModel):
+    """Représente un lien hypertexte."""
     href: str | None = None
     rel: str | None = None
     method: str | None = None
@@ -21,6 +22,7 @@ class Link(CamelModel):
 
 
 class MetaPagedListResponse(CamelModel):
+    """Représente les métadonnées d'une réponse de liste paginée."""
     page: int = 0
     limit: int = 0
     total_count: int = 0
@@ -29,4 +31,5 @@ class MetaPagedListResponse(CamelModel):
 
 
 class MetaListResponse(CamelModel):
+    """Représente les métadonnées d'une réponse de liste."""
     total_count: int = 0

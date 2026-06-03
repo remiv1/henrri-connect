@@ -8,7 +8,7 @@ from ..models import Address, Contact, Customer, PagedListResponse
 
 if TYPE_CHECKING:
     from ..connect import (
-        _SyncHenrriClient,    # type: ignore[import]
+        SyncHenrriClient,
     )
 
 BASE_CUSTOMERS = "/v1/customers"
@@ -20,7 +20,7 @@ def _clean(params: dict[str, Any]) -> dict[str, Any]:
 class SyncCustomersClient:
     """Accès synchrone aux endpoints clients."""
 
-    def __init__(self, client: _SyncHenrriClient) -> None:
+    def __init__(self, client: SyncHenrriClient) -> None:
         self._c = client
 
     def list_customers(

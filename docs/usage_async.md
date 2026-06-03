@@ -20,21 +20,10 @@ pip install henrri-connect
 ## Création du client asynchrone
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import AsyncHenrriClient
 import os
 
-client = HenrriClient(os.environ['HENRRI_API_KEY'], os.environ['HENRRI_SECRET_KEY'], async_mode=True)
-```
-
-Remarque sur le typage
-
-Le constructeur `HenrriClient(...)` retourne soit un client synchrone, soit asynchrone selon `async_mode`. Pour éviter les avertissements de typage dans les IDE, il est recommandé de caster le client :
-
-```python
-from typing import cast
-from henrri_connect.connect import _AsyncHenrriClient
-
-async_client = cast(_AsyncHenrriClient, client)
+client = AsyncHenrriClient(os.environ['HENRRI_API_KEY'], os.environ['HENRRI_SECRET_KEY'])
 ```
 
 ### 1. Recherche d'un client

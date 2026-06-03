@@ -10,6 +10,7 @@ from .customer import Customer
 from .address_contacts import Address
 
 class DocumentType(CamelModel):
+    """Représente un type de document dans l'API Henrri Connect."""
     id: int | None = None
     label: str | None = None
     short_label: str | None = None
@@ -21,6 +22,7 @@ class DocumentType(CamelModel):
 
 
 class DocumentLabelElement(CamelModel):
+    """Représente un élément d'étiquette de document dans l'API Henrri Connect."""
     id: int | None = None
     model_element_id: int | None = None
     label: str | None = None
@@ -33,6 +35,7 @@ class DocumentLabelElement(CamelModel):
 
 
 class DocumentLabel(CamelModel):
+    """Représente une étiquette de document dans l'API Henrri Connect."""
     id: int | None = None
     model_id: int | None = None
     document_id: int | None = None
@@ -42,6 +45,7 @@ class DocumentLabel(CamelModel):
 
 
 class Document(CamelModel):
+    """Représente un document dans l'API Henrri Connect."""
     id: int | None = None
     identity: str | None = None
     finalized: bool = False
@@ -74,6 +78,7 @@ class Document(CamelModel):
 
 
 class ValidateDocumentRequest(CamelModel):
+    """Représente une requête de validation de document dans l'API Henrri Connect."""
     email: str
     first_name: str
     last_name: str

@@ -8,7 +8,7 @@ from ..models import ItemCategory, PagedListResponse
 
 if TYPE_CHECKING:
     from ..connect import (
-        _SyncHenrriClient,   # type: ignore[import]
+        SyncHenrriClient,
     )
 
 ITEMCATEGORIES_ENDPOINT = "/v1/itemcategories"
@@ -20,7 +20,7 @@ def _clean(params: dict[str, Any]) -> dict[str, Any]:
 class SyncItemCategoriesClient:
     """Accès synchrone aux catégories d'articles."""
 
-    def __init__(self, client: _SyncHenrriClient) -> None:
+    def __init__(self, client: SyncHenrriClient) -> None:
         self._c = client
 
     def list_item_categories(

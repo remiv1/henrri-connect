@@ -8,7 +8,7 @@ from ..models import ListResponse, Unit
 
 if TYPE_CHECKING:
     from ..connect import (
-        _SyncHenrriClient,   # type: ignore[import]
+        SyncHenrriClient,
     )
 
 UNITS_ENDPOINT = "/v1/units"
@@ -16,7 +16,7 @@ UNITS_ENDPOINT = "/v1/units"
 class SyncUnitsClient:
     """Accès synchrone aux unités."""
 
-    def __init__(self, client: _SyncHenrriClient) -> None:
+    def __init__(self, client: SyncHenrriClient) -> None:
         self._c = client
 
     def list_units(self) -> ListResponse[Unit]:
@@ -33,7 +33,7 @@ class SyncUnitsClient:
         )
         return Unit.model_validate(resp.json())
 
-    def get(self, id: int) -> Unit:
+    def get(self, unit_id: int) -> Unit:
         """Récupère une unité par son identifiant."""
-        resp = self._c.request("GET", f"{UNITS_ENDPOINT}/{id}")
+        resp = self._c.request("GET", f"{UNITS_ENDPOINT}/{unit_id}")
         return Unit.model_validate(resp.json())

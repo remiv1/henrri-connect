@@ -7,7 +7,7 @@ from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
 from src.henrri_connect.connect import (
-    _AsyncHenrriClient, _SyncHenrriClient   # type: ignore[import]
+    AsyncHenrriClient, SyncHenrriClient   # type: ignore[import]
 )
 from tests.conftest import ITEM_CATEGORY_JSON, PAGED_META, make_response
 
@@ -18,7 +18,7 @@ def _paged(elements: list[Any]) -> dict[str, Any]:
 
 class TestSyncItemCategories:
     def test_list_retourne_categories(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(_paged([ITEM_CATEGORY_JSON]))
 
@@ -30,7 +30,7 @@ class TestSyncItemCategories:
         assert "/v1/itemcategories" in mock_http.request.call_args.args[1]
 
     def test_list_passe_les_filtres(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(_paged([]))
 
@@ -42,7 +42,7 @@ class TestSyncItemCategories:
         assert params["page"] == 2
 
     def test_list_exclut_params_none(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(_paged([]))
 
@@ -54,7 +54,7 @@ class TestSyncItemCategories:
 
 class TestAsyncItemCategories:
     async def test_list_retourne_categories(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response(_paged([ITEM_CATEGORY_JSON]))
 

@@ -9,7 +9,7 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest   # type: ignore[import]
 
 from src.henrri_connect.connect import (
-    _AsyncHenrriClient, _SyncHenrriClient,  # type: ignore[import]
+    AsyncHenrriClient, SyncHenrriClient,  # type: ignore[import]
 )
 from src.henrri_connect.models import Contact, Customer
 from tests.conftest import CUSTOMER_JSON, PAGED_META, make_response
@@ -21,7 +21,7 @@ def _paged(elements: list[Any]) -> dict[str, Any]:
 
 class TestSyncCustomers:
     def test_list_retourne_clients(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(_paged([CUSTOMER_JSON]))
 
@@ -32,7 +32,7 @@ class TestSyncCustomers:
         assert (result.meta.total_count if result.meta else 0) == 1
 
     def test_list_passe_les_filtres(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(_paged([]))
 
@@ -45,7 +45,7 @@ class TestSyncCustomers:
         assert params["limit"] == 10
 
     def test_list_exclut_params_none(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(_paged([]))
 
@@ -57,7 +57,7 @@ class TestSyncCustomers:
         assert "sortBy" not in params
 
     def test_add_cree_client(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response({**CUSTOMER_JSON, "id": 99})
         customer = Customer(name="Nouveau", type="Company")
@@ -69,7 +69,7 @@ class TestSyncCustomers:
         assert args.args[0] == "POST"
 
     def test_get_retourne_client(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(CUSTOMER_JSON)
 
@@ -79,7 +79,7 @@ class TestSyncCustomers:
         assert "/v1/customers/1" in mock_http.request.call_args.args[1]
 
     def test_modify_met_a_jour(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         updated = {**CUSTOMER_JSON, "name": "Acme Updated"}
         mock_http.request.return_value = make_response(updated)
@@ -91,7 +91,7 @@ class TestSyncCustomers:
         assert mock_http.request.call_args.args[0] == "PUT"
 
     def test_delete_envoie_delete(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response({})
 
@@ -101,7 +101,7 @@ class TestSyncCustomers:
         assert "/v1/customers/1" in mock_http.request.call_args.args[1]
 
     def test_get_best_sales(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(_paged([CUSTOMER_JSON]))
 
@@ -111,7 +111,7 @@ class TestSyncCustomers:
         assert "/customers/best-sales" in mock_http.request.call_args.args[1]
 
     def test_get_address(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(
             {"id": 5, "city": "Paris", "isPostCodeShared": False}
@@ -123,7 +123,7 @@ class TestSyncCustomers:
         assert "/v1/customers/1/address" in mock_http.request.call_args.args[1]
 
     def test_list_contacts(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         contact_json = {"id": 1, "firstName": "Alice", "isPrimary": True, "showOnDocument": False}
         mock_http.request.return_value = make_response([contact_json])
@@ -134,7 +134,7 @@ class TestSyncCustomers:
         assert contacts[0].first_name == "Alice"
 
     def test_add_contact(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         contact_json = {"id": 2, "firstName": "Bob", "isPrimary": False, "showOnDocument": False}
         mock_http.request.return_value = make_response(contact_json)
@@ -146,7 +146,7 @@ class TestSyncCustomers:
         assert mock_http.request.call_args.args[0] == "POST"
 
     def test_delete_contact(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response({})
 
@@ -158,7 +158,7 @@ class TestSyncCustomers:
 
 class TestAsyncCustomers:
     async def test_list_retourne_clients(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response(_paged([CUSTOMER_JSON]))
 
@@ -168,7 +168,7 @@ class TestAsyncCustomers:
         assert result.elements[0].name == "Acme Corp"
 
     async def test_get_retourne_client(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response(CUSTOMER_JSON)
 
@@ -177,7 +177,7 @@ class TestAsyncCustomers:
         assert result.id == 1
 
     async def test_add_cree_client(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response({**CUSTOMER_JSON, "id": 88})
         customer = Customer(name="Async Corp", type="Company")
@@ -187,7 +187,7 @@ class TestAsyncCustomers:
         assert result.id == 88
 
     async def test_delete_envoie_delete(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response({})
 

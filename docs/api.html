@@ -239,49 +239,268 @@
 <span id="client-principal"></span><h2>Client principal<a class="headerlink" href="#module-henrri_connect.connect" title="Lien vers cette rubrique">¶</a></h2>
 <p>Client HTTP Henrri : factory et implémentations synchrone/asynchrone.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="henrri_connect.connect.HenrriClient">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.connect.</span></span><span class="sig-name descname"><span class="pre">HenrriClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Séparateur de paramètres par mot-clé uniquement (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api-sandbox.henrri.io'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">async_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/connect.html#HenrriClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.connect.HenrriClient" title="Lien vers cette définition">¶</a></dt>
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.connect.</span></span><span class="sig-name descname"><span class="pre">AsyncHenrriClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Séparateur de paramètres par mot-clé uniquement (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api-sandbox.henrri.io'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/connect/asynchro.html#AsyncHenrriClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Factory pour créer un client synchrone ou asynchrone pour l’API Henrri.</p>
-<dl>
-<dt>Usage:</dt><dd><p># Synchrone
-client = HenrriClient(“client_id”, “client_secret”)</p>
-<p># Asynchrone
-client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
-</dd>
-</dl>
+<p>Client HTTP asynchrone pour l’API Henrri.
+Gère l’authentification, le refresh-token et les erreurs HTTP.
+Fournit des sous-clients pour chaque groupe d’endpoints (users, companies, etc.)
+Authentification automatique avec gestion du refresh token
+Gestion centralisée des erreurs HTTP avec exceptions personnalisées
+Args:
+- client_id: Identifiant client pour l’authentification.
+- client_secret: Secret client pour l’authentification.
+- base_url: URL de base de l’API (défaut : sandbox Henrri).</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="henrri_connect.connect.HenrriClient.client_id">
-<span class="sig-name descname"><span class="pre">client_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#henrri_connect.connect.HenrriClient.client_id" title="Lien vers cette définition">¶</a></dt>
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.users">
+<span class="sig-name descname"><span class="pre">users</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.users.AsyncUsersClient" title="henrri_connect.users.asynchro.AsyncUsersClient"><span class="pre">AsyncUsersClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.users" title="Lien vers cette définition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="henrri_connect.connect.HenrriClient.client_secret">
-<span class="sig-name descname"><span class="pre">client_secret</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#henrri_connect.connect.HenrriClient.client_secret" title="Lien vers cette définition">¶</a></dt>
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.companies">
+<span class="sig-name descname"><span class="pre">companies</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.companies.AsyncCompaniesClient" title="henrri_connect.companies.asynchro.AsyncCompaniesClient"><span class="pre">AsyncCompaniesClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.companies" title="Lien vers cette définition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="henrri_connect.connect.HenrriClient.base_url">
-<span class="sig-name descname"><span class="pre">base_url</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#henrri_connect.connect.HenrriClient.base_url" title="Lien vers cette définition">¶</a></dt>
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.customers">
+<span class="sig-name descname"><span class="pre">customers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.customers.AsyncCustomersClient" title="henrri_connect.customers.asynchro.AsyncCustomersClient"><span class="pre">AsyncCustomersClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.customers" title="Lien vers cette définition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="henrri_connect.connect.HenrriClient.async_mode">
-<span class="sig-name descname"><span class="pre">async_mode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#henrri_connect.connect.HenrriClient.async_mode" title="Lien vers cette définition">¶</a></dt>
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.documents">
+<span class="sig-name descname"><span class="pre">documents</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.documents.AsyncDocumentsClient" title="henrri_connect.documents.asynchro.AsyncDocumentsClient"><span class="pre">AsyncDocumentsClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.documents" title="Lien vers cette définition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="henrri_connect.connect.HenrriClient.return">
-<span class="sig-name descname"><span class="pre">return</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_SyncHenrriClient</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_AsyncHenrriClient</span></span><a class="headerlink" href="#henrri_connect.connect.HenrriClient.return" title="Lien vers cette définition">¶</a></dt>
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.document_lines">
+<span class="sig-name descname"><span class="pre">document_lines</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.document_lines.AsyncDocumentLinesClient" title="henrri_connect.document_lines.asynchro.AsyncDocumentLinesClient"><span class="pre">AsyncDocumentLinesClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.document_lines" title="Lien vers cette définition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.document_line_types">
+<span class="sig-name descname"><span class="pre">document_line_types</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.document_line_types.AsyncDocumentLineTypesClient" title="henrri_connect.document_line_types.asynchro.AsyncDocumentLineTypesClient"><span class="pre">AsyncDocumentLineTypesClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.document_line_types" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.document_types">
+<span class="sig-name descname"><span class="pre">document_types</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.document_types.AsyncDocumentTypesClient" title="henrri_connect.document_types.asynchro.AsyncDocumentTypesClient"><span class="pre">AsyncDocumentTypesClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.document_types" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.items.AsyncItemsClient" title="henrri_connect.items.asynchro.AsyncItemsClient"><span class="pre">AsyncItemsClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.items" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.item_categories">
+<span class="sig-name descname"><span class="pre">item_categories</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.item_categories.AsyncItemCategoriesClient" title="henrri_connect.item_categories.asynchro.AsyncItemCategoriesClient"><span class="pre">AsyncItemCategoriesClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.item_categories" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.units">
+<span class="sig-name descname"><span class="pre">units</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.units.AsyncUnitsClient" title="henrri_connect.units.asynchro.AsyncUnitsClient"><span class="pre">AsyncUnitsClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.units" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.revenues">
+<span class="sig-name descname"><span class="pre">revenues</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.revenues.AsyncRevenuesClient" title="henrri_connect.revenues.asynchro.AsyncRevenuesClient"><span class="pre">AsyncRevenuesClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.revenues" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.secures">
+<span class="sig-name descname"><span class="pre">secures</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.secures.AsyncSecuresClient" title="henrri_connect.secures.asynchro.AsyncSecuresClient"><span class="pre">AsyncSecuresClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.secures" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.authenticate">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">authenticate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/connect/asynchro.html#AsyncHenrriClient.authenticate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.authenticate" title="Lien vers cette définition">¶</a></dt>
+<dd><p>Authentifie le client et stocke le token d’accès.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#henrri_connect.models.TokenResponse" title="henrri_connect.models.authentication.TokenResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TokenResponse</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.request">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/connect/asynchro.html#AsyncHenrriClient.request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.request" title="Lien vers cette définition">¶</a></dt>
+<dd><p>Effectue une requête HTTP authentifiée (asynchrone).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Méthode HTTP (GET, POST, etc.).</p></li>
+<li><p><strong>endpoint</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Chemin relatif (ex: “/v1/companies/42”).</p></li>
+<li><p><strong>**kwargs</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></span>) – Arguments supplémentaires pour httpx.request().</p></li>
+</ul>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Réponse HTTP.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="henrri_connect.connect.AsyncHenrriClient.close">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/connect/asynchro.html#AsyncHenrriClient.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.connect.AsyncHenrriClient.close" title="Lien vers cette définition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+<p>Ferme le client HTTP sous-jacent.
+- Arguments:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>None</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Returns:</dt><dd><ul>
+<li><p>None</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.connect.</span></span><span class="sig-name descname"><span class="pre">SyncHenrriClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_secret</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Séparateur de paramètres par mot-clé uniquement (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://api-sandbox.henrri.io'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/connect/synchro.html#SyncHenrriClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient" title="Lien vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Client HTTP synchrone pour l’API Henrri.
+Gère l’authentification, le refresh-token et les erreurs HTTP.
+Fournit des sous-clients pour chaque groupe d’endpoints (users, companies, etc.)
+Authentification automatique avec gestion du refresh token
+Gestion centralisée des erreurs HTTP avec exceptions personnalisées
+Args:
+- client_id: Identifiant client pour l’authentification.
+- client_secret: Secret client pour l’authentification.
+- base_url: URL de base de l’API (défaut : sandbox Henrri).</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.users">
+<span class="sig-name descname"><span class="pre">users</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.users.SyncUsersClient" title="henrri_connect.users.synchro.SyncUsersClient"><span class="pre">SyncUsersClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.users" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.companies">
+<span class="sig-name descname"><span class="pre">companies</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.companies.SyncCompaniesClient" title="henrri_connect.companies.synchro.SyncCompaniesClient"><span class="pre">SyncCompaniesClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.companies" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.customers">
+<span class="sig-name descname"><span class="pre">customers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.customers.SyncCustomersClient" title="henrri_connect.customers.synchro.SyncCustomersClient"><span class="pre">SyncCustomersClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.customers" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.documents">
+<span class="sig-name descname"><span class="pre">documents</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.documents.SyncDocumentsClient" title="henrri_connect.documents.synchro.SyncDocumentsClient"><span class="pre">SyncDocumentsClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.documents" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.document_lines">
+<span class="sig-name descname"><span class="pre">document_lines</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.document_lines.SyncDocumentLinesClient" title="henrri_connect.document_lines.synchro.SyncDocumentLinesClient"><span class="pre">SyncDocumentLinesClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.document_lines" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.document_line_types">
+<span class="sig-name descname"><span class="pre">document_line_types</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.document_line_types.SyncDocumentLineTypesClient" title="henrri_connect.document_line_types.synchro.SyncDocumentLineTypesClient"><span class="pre">SyncDocumentLineTypesClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.document_line_types" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.document_types">
+<span class="sig-name descname"><span class="pre">document_types</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.document_types.SyncDocumentTypesClient" title="henrri_connect.document_types.synchro.SyncDocumentTypesClient"><span class="pre">SyncDocumentTypesClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.document_types" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.items.SyncItemsClient" title="henrri_connect.items.synchro.SyncItemsClient"><span class="pre">SyncItemsClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.items" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.item_categories">
+<span class="sig-name descname"><span class="pre">item_categories</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.item_categories.SyncItemCategoriesClient" title="henrri_connect.item_categories.synchro.SyncItemCategoriesClient"><span class="pre">SyncItemCategoriesClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.item_categories" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.units">
+<span class="sig-name descname"><span class="pre">units</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.units.SyncUnitsClient" title="henrri_connect.units.synchro.SyncUnitsClient"><span class="pre">SyncUnitsClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.units" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.revenues">
+<span class="sig-name descname"><span class="pre">revenues</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.revenues.SyncRevenuesClient" title="henrri_connect.revenues.synchro.SyncRevenuesClient"><span class="pre">SyncRevenuesClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.revenues" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.secures">
+<span class="sig-name descname"><span class="pre">secures</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#henrri_connect.secures.SyncSecuresClient" title="henrri_connect.secures.synchro.SyncSecuresClient"><span class="pre">SyncSecuresClient</span></a></span><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.secures" title="Lien vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.authenticate">
+<span class="sig-name descname"><span class="pre">authenticate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/connect/synchro.html#SyncHenrriClient.authenticate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.authenticate" title="Lien vers cette définition">¶</a></dt>
+<dd><p>Authentifie le client et stocke le token d’accès.
+Args:
+- None
+Returns:
+- TokenResponse : objet contenant access_token et refresh_token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#henrri_connect.models.TokenResponse" title="henrri_connect.models.authentication.TokenResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TokenResponse</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.request">
+<span class="sig-name descname"><span class="pre">request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/connect/synchro.html#SyncHenrriClient.request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.request" title="Lien vers cette définition">¶</a></dt>
+<dd><p>Effectue une requête HTTP authentifiée (synchrone).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Méthode HTTP (GET, POST, etc.).</p></li>
+<li><p><strong>endpoint</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Chemin relatif (ex: “/v1/companies/42”).</p></li>
+<li><p><strong>**kwargs</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></span>) – Arguments supplémentaires pour httpx.request().</p></li>
+</ul>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Réponse HTTP.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="henrri_connect.connect.SyncHenrriClient.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/connect/synchro.html#SyncHenrriClient.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.connect.SyncHenrriClient.close" title="Lien vers cette définition">¶</a></dt>
+<dd><p>Ferme le client HTTP sous-jacent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-henrri_connect.exc">
 <span id="exceptions"></span><h2>Exceptions<a class="headerlink" href="#module-henrri_connect.exc" title="Lien vers cette rubrique">¶</a></h2>
+<p>Module d’exceptions personnalisées pour la bibliothèque henrri-connect.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="henrri_connect.exc.HenrriError">
 <span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.exc.</span></span><span class="sig-name descname"><span class="pre">HenrriError</span></span><a class="reference internal" href="_modules/henrri_connect/exc.html#HenrriError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.exc.HenrriError" title="Lien vers cette définition">¶</a></dt>
@@ -351,6 +570,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.Address">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">Address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/address_contacts.html#Address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.Address" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente une adresse d’entreprise.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -400,6 +620,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.AuthenticateRequest">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">AuthenticateRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/authentication.html#AuthenticateRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.AuthenticateRequest" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente une requête d’authentification pour obtenir un token d’accès.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -424,6 +645,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.Company">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">Company</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/company.html#Company"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.Company" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente une entreprise dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -498,6 +720,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.CompanyIdentifierType">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">CompanyIdentifierType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/base/enums.html#CompanyIdentifierType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.CompanyIdentifierType" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Type d’identifiant pour les entreprises.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="henrri_connect.models.CompanyIdentifierType.SIRET">
 <span class="sig-name descname"><span class="pre">SIRET</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Siret'</span></span><a class="headerlink" href="#henrri_connect.models.CompanyIdentifierType.SIRET" title="Lien vers cette définition">¶</a></dt>
@@ -519,6 +742,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.Contact">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">Contact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/address_contacts.html#Contact"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.Contact" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente un contact d’entreprise.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -737,6 +961,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.Document">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/document.html#Document"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.Document" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente un document dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -896,6 +1121,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.DocumentLabel">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">DocumentLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/document.html#DocumentLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.DocumentLabel" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente une étiquette de document dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -940,6 +1166,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.DocumentLabelElement">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">DocumentLabelElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/document.html#DocumentLabelElement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.DocumentLabelElement" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente un élément d’étiquette de document dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -999,6 +1226,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.DocumentLine">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">DocumentLine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/document_line.html#DocumentLine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.DocumentLine" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente une ligne de document dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1128,6 +1356,8 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.DocumentLineMoveQueryParameters">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">DocumentLineMoveQueryParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/document_line.html#DocumentLineMoveQueryParameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.DocumentLineMoveQueryParameters" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente les paramètres de requête pour déplacer une ligne de document dans
+l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1147,6 +1377,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.DocumentLineType">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">DocumentLineType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/document_line.html#DocumentLineType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.DocumentLineType" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente un type de ligne de document dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1176,6 +1407,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.DocumentType">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">DocumentType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/document.html#DocumentType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.DocumentType" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente un type de document dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1230,6 +1462,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.Item">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">Item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/items.html#Item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.Item" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente un article dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1319,6 +1552,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.ItemCategory">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">ItemCategory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/items.html#ItemCategory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.ItemCategory" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente une catégorie d’article dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1383,6 +1617,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.ItemCategoryType">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">ItemCategoryType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/items.html#ItemCategoryType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.ItemCategoryType" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente un type de catégorie d’article dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1417,6 +1652,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.Link">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">Link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/base/models.html#Link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.Link" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente un lien hypertexte.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1476,6 +1712,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.MonthlyRevenueStatistics">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">MonthlyRevenueStatistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/stats.html#MonthlyRevenueStatistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.MonthlyRevenueStatistics" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente les statistiques de revenus mensuels dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1555,6 +1792,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.PaymentMilestone">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">PaymentMilestone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/payments.html#PaymentMilestone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.PaymentMilestone" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente une étape de paiement dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1609,6 +1847,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.PdfUrlResponse">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">PdfUrlResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/pdf.html#PdfUrlResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.PdfUrlResponse" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente la réponse de l’API Henrri Connect pour une URL de PDF.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1638,6 +1877,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.RefreshTokenRequest">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">RefreshTokenRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/authentication.html#RefreshTokenRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.RefreshTokenRequest" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente une requête de rafraîchissement du token d’accès.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1672,6 +1912,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.RevenueStatistics">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">RevenueStatistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/stats.html#RevenueStatistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.RevenueStatistics" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente les statistiques de revenus dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1711,6 +1952,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.TaxDetail">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">TaxDetail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/payments.html#TaxDetail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.TaxDetail" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente les détails de taxe dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1745,6 +1987,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.TaxDetailArray">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">TaxDetailArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/payments.html#TaxDetailArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.TaxDetailArray" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente un tableau de détails de taxe dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1774,6 +2017,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.TokenResponse">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">TokenResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/authentication.html#TokenResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.TokenResponse" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente la réponse d’une authentification réussie ou d’un rafraîchissement de token.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1833,6 +2077,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.Unit">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">Unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/units.html#Unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.Unit" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente une unité dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -1867,6 +2112,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.UnitKind">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">UnitKind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/base/enums.html#UnitKind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.UnitKind" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Type d’unité pour les unités de mesure.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="henrri_connect.models.UnitKind.HOURLY">
 <span class="sig-name descname"><span class="pre">HOURLY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Hourly'</span></span><a class="headerlink" href="#henrri_connect.models.UnitKind.HOURLY" title="Lien vers cette définition">¶</a></dt>
@@ -1968,6 +2214,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.User">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/users.html#User"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.User" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente un utilisateur dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -2057,6 +2304,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.UserAndCompany">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">UserAndCompany</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/users.html#UserAndCompany"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.UserAndCompany" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente un utilisateur et son entreprise dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -2081,6 +2329,7 @@ client = HenrriClient(“client_id”, “client_secret”, async_mode=True)</p>
 <dt class="sig sig-object py" id="henrri_connect.models.ValidateDocumentRequest">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.models.</span></span><span class="sig-name descname"><span class="pre">ValidateDocumentRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/models/document.html#ValidateDocumentRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.models.ValidateDocumentRequest" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">CamelModel</span></code></p>
+<p>Représente une requête de validation de document dans l’API Henrri Connect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -2541,7 +2790,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère un document par son identifiant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2552,7 +2801,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.get_with_all">
-<span class="sig-name descname"><span class="pre">get_with_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_with_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_with_all" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_with_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_with_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_with_all" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère un document avec toutes ses relations incluses.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2563,7 +2812,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.get_all_included">
-<span class="sig-name descname"><span class="pre">get_all_included</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_all_included"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_all_included" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_all_included</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_all_included"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_all_included" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère un document avec toutes ses données incluses.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2574,7 +2823,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.modify">
-<span class="sig-name descname"><span class="pre">modify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.modify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.modify" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">modify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.modify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.modify" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Met à jour un document existant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2585,7 +2834,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.delete">
-<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.delete" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.delete" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Supprime un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2596,7 +2845,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.get_tax_details">
-<span class="sig-name descname"><span class="pre">get_tax_details</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_tax_details"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_tax_details" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_tax_details</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_tax_details"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_tax_details" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère le détail des taxes d’un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2607,7 +2856,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.validate">
-<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.validate" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.validate" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Valide électroniquement un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2618,7 +2867,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.get_pdf_url">
-<span class="sig-name descname"><span class="pre">get_pdf_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_pdf_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_pdf_url" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_pdf_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_pdf_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_pdf_url" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Génère une URL de téléchargement pour le PDF d’un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2629,7 +2878,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.get_pdf_bytes">
-<span class="sig-name descname"><span class="pre">get_pdf_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_pdf_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_pdf_bytes" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_pdf_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_pdf_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_pdf_bytes" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Télécharge le PDF d’un document (retourne les octets bruts).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2640,7 +2889,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.get_pdf_file">
-<span class="sig-name descname"><span class="pre">get_pdf_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_pdf_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_pdf_file" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_pdf_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_pdf_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_pdf_file" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Télécharge un fichier PDF identifié par son GUID.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2651,7 +2900,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.get_display">
-<span class="sig-name descname"><span class="pre">get_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_display" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_display" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère les données d’affichage d’un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2662,7 +2911,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.get_payment_milestones">
-<span class="sig-name descname"><span class="pre">get_payment_milestones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_payment_milestones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_payment_milestones" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_payment_milestones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.get_payment_milestones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.get_payment_milestones" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère les jalons de paiement d’un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2673,7 +2922,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.finalize">
-<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.finalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.finalize" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.finalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.finalize" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Finalise un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2684,7 +2933,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.SyncDocumentsClient.transform_to_invoice">
-<span class="sig-name descname"><span class="pre">transform_to_invoice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.transform_to_invoice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.transform_to_invoice" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">transform_to_invoice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/synchro.html#SyncDocumentsClient.transform_to_invoice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.SyncDocumentsClient.transform_to_invoice" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Transforme un document (devis, bon de livraison…) en facture.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2748,7 +2997,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.get">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère un document par son identifiant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2759,7 +3008,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.get_with_all">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_with_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_with_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_with_all" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_with_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_with_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_with_all" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère un document avec toutes ses relations incluses.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2770,7 +3019,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.get_all_included">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_all_included</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_all_included"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_all_included" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_all_included</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_all_included"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_all_included" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère un document avec toutes ses données incluses.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2781,7 +3030,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.modify">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">modify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.modify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.modify" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">modify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.modify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.modify" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Met à jour un document existant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2792,7 +3041,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.delete">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.delete" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.delete" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Supprime un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2803,7 +3052,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.get_tax_details">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_tax_details</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_tax_details"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_tax_details" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_tax_details</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_tax_details"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_tax_details" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère le détail des taxes d’un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2814,7 +3063,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.validate">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.validate" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.validate" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Valide électroniquement un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2825,7 +3074,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.get_pdf_url">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_pdf_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_pdf_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_pdf_url" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_pdf_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_pdf_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_pdf_url" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Génère une URL de téléchargement pour le PDF d’un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2836,7 +3085,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.get_pdf_bytes">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_pdf_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_pdf_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_pdf_bytes" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_pdf_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_pdf_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_pdf_bytes" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Télécharge le PDF d’un document (retourne les octets bruts).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2847,7 +3096,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.get_pdf_file">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_pdf_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_pdf_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_pdf_file" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_pdf_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_pdf_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_pdf_file" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Télécharge un fichier PDF identifié par son GUID.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2858,7 +3107,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.get_display">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_display" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_display" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère les données d’affichage d’un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2869,7 +3118,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.get_payment_milestones">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_payment_milestones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_payment_milestones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_payment_milestones" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_payment_milestones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.get_payment_milestones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.get_payment_milestones" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère les jalons de paiement d’un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2880,7 +3129,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.finalize">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.finalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.finalize" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.finalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.finalize" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Finalise un document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -2891,7 +3140,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.documents.AsyncDocumentsClient.transform_to_invoice">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">transform_to_invoice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.transform_to_invoice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.transform_to_invoice" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">transform_to_invoice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/documents/asynchro.html#AsyncDocumentsClient.transform_to_invoice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.documents.AsyncDocumentsClient.transform_to_invoice" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Transforme un document (devis, bon de livraison…) en facture.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -3201,7 +3450,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.items.SyncItemsClient.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/items/synchro.html#SyncItemsClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.items.SyncItemsClient.get" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/items/synchro.html#SyncItemsClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.items.SyncItemsClient.get" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère un article par son identifiant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -3212,7 +3461,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.items.SyncItemsClient.modify">
-<span class="sig-name descname"><span class="pre">modify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/items/synchro.html#SyncItemsClient.modify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.items.SyncItemsClient.modify" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">modify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/items/synchro.html#SyncItemsClient.modify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.items.SyncItemsClient.modify" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Met à jour un article existant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -3223,7 +3472,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.items.SyncItemsClient.delete">
-<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/items/synchro.html#SyncItemsClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.items.SyncItemsClient.delete" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/items/synchro.html#SyncItemsClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.items.SyncItemsClient.delete" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Supprime un article.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -3298,7 +3547,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.items.AsyncItemsClient.get">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/items/asynchro.html#AsyncItemsClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.items.AsyncItemsClient.get" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/items/asynchro.html#AsyncItemsClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.items.AsyncItemsClient.get" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère un article par son identifiant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -3309,7 +3558,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.items.AsyncItemsClient.modify">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">modify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/items/asynchro.html#AsyncItemsClient.modify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.items.AsyncItemsClient.modify" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">modify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/items/asynchro.html#AsyncItemsClient.modify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.items.AsyncItemsClient.modify" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Met à jour un article existant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -3320,7 +3569,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.items.AsyncItemsClient.delete">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/items/asynchro.html#AsyncItemsClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.items.AsyncItemsClient.delete" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/items/asynchro.html#AsyncItemsClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.items.AsyncItemsClient.delete" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Supprime un article.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -3509,7 +3758,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.units.SyncUnitsClient.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/units/synchro.html#SyncUnitsClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.units.SyncUnitsClient.get" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/units/synchro.html#SyncUnitsClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.units.SyncUnitsClient.get" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère une unité par son identifiant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -3551,7 +3800,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.units.AsyncUnitsClient.get">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/units/asynchro.html#AsyncUnitsClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.units.AsyncUnitsClient.get" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/units/asynchro.html#AsyncUnitsClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.units.AsyncUnitsClient.get" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère une unité par son identifiant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -3575,7 +3824,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.users.SyncUsersClient.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/users/synchro.html#SyncUsersClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.users.SyncUsersClient.get" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/users/synchro.html#SyncUsersClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.users.SyncUsersClient.get" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère un utilisateur par son identifiant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -3586,7 +3835,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.users.SyncUsersClient.get_address">
-<span class="sig-name descname"><span class="pre">get_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/users/synchro.html#SyncUsersClient.get_address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.users.SyncUsersClient.get_address" title="Lien vers cette définition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/users/synchro.html#SyncUsersClient.get_address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.users.SyncUsersClient.get_address" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère l’adresse d’un utilisateur.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -3639,7 +3888,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.users.AsyncUsersClient.get">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/users/asynchro.html#AsyncUsersClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.users.AsyncUsersClient.get" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/users/asynchro.html#AsyncUsersClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.users.AsyncUsersClient.get" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère un utilisateur par son identifiant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -3650,7 +3899,7 @@ Les champs unset ou None du document sont exclus de la requête.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="henrri_connect.users.AsyncUsersClient.get_address">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/users/asynchro.html#AsyncUsersClient.get_address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.users.AsyncUsersClient.get_address" title="Lien vers cette définition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/henrri_connect/users/asynchro.html#AsyncUsersClient.get_address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#henrri_connect.users.AsyncUsersClient.get_address" title="Lien vers cette définition">¶</a></dt>
 <dd><p>Récupère l’adresse d’un utilisateur.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
@@ -3830,12 +4079,40 @@ ou utilise le texte brut de la réponse si le JSON est invalide.</p>
             <ul>
 <li><a class="reference internal" href="#">Référence API</a><ul>
 <li><a class="reference internal" href="#module-henrri_connect.connect">Client principal</a><ul>
-<li><a class="reference internal" href="#henrri_connect.connect.HenrriClient"><code class="docutils literal notranslate"><span class="pre">HenrriClient</span></code></a><ul>
-<li><a class="reference internal" href="#henrri_connect.connect.HenrriClient.client_id"><code class="docutils literal notranslate"><span class="pre">HenrriClient.client_id</span></code></a></li>
-<li><a class="reference internal" href="#henrri_connect.connect.HenrriClient.client_secret"><code class="docutils literal notranslate"><span class="pre">HenrriClient.client_secret</span></code></a></li>
-<li><a class="reference internal" href="#henrri_connect.connect.HenrriClient.base_url"><code class="docutils literal notranslate"><span class="pre">HenrriClient.base_url</span></code></a></li>
-<li><a class="reference internal" href="#henrri_connect.connect.HenrriClient.async_mode"><code class="docutils literal notranslate"><span class="pre">HenrriClient.async_mode</span></code></a></li>
-<li><a class="reference internal" href="#henrri_connect.connect.HenrriClient.return"><code class="docutils literal notranslate"><span class="pre">HenrriClient.return</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient</span></code></a><ul>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.users"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.users</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.companies"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.companies</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.customers"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.customers</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.documents"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.documents</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.document_lines"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.document_lines</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.document_line_types"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.document_line_types</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.document_types"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.document_types</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.items"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.items</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.item_categories"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.item_categories</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.units"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.units</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.revenues"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.revenues</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.secures"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.secures</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.authenticate"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.authenticate()</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.request"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.request()</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.AsyncHenrriClient.close"><code class="docutils literal notranslate"><span class="pre">AsyncHenrriClient.close()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient</span></code></a><ul>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.users"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.users</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.companies"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.companies</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.customers"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.customers</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.documents"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.documents</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.document_lines"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.document_lines</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.document_line_types"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.document_line_types</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.document_types"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.document_types</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.items"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.items</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.item_categories"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.item_categories</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.units"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.units</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.revenues"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.revenues</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.secures"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.secures</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.authenticate"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.authenticate()</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.request"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.request()</span></code></a></li>
+<li><a class="reference internal" href="#henrri_connect.connect.SyncHenrriClient.close"><code class="docutils literal notranslate"><span class="pre">SyncHenrriClient.close()</span></code></a></li>
 </ul>
 </li>
 </ul>

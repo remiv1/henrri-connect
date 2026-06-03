@@ -19,9 +19,9 @@ Retourne la liste complète des types de documents. Ce référentiel est génér
 ### **Synchrone**
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import SyncHenrriClient
 
-client = HenrriClient("client_id", "client_secret")
+client = SyncHenrriClient("client_id", "client_secret")
 
 result = client.document_types.list_document_types()
 for dt in result.data:
@@ -32,10 +32,10 @@ for dt in result.data:
 
 ```python
 import asyncio
-from henrri_connect import HenrriClient
+from henrri_connect import AsyncHenrriClient
 
 async def main():
-    client = HenrriClient("client_id", "client_secret", async_mode=True)
+    client = AsyncHenrriClient("client_id", "client_secret")
 
     result = await client.document_types.list_document_types()
     for dt in result.data:

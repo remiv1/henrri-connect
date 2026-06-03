@@ -8,7 +8,7 @@ from ..models import Address, Company
 
 if TYPE_CHECKING:
     from ..connect import (
-        _AsyncHenrriClient,    # type: ignore[import]
+        AsyncHenrriClient,
     )
 
 COMPANIES_ENDPOINT = "/v1/companies"
@@ -16,7 +16,7 @@ COMPANIES_ENDPOINT = "/v1/companies"
 class AsyncCompaniesClient:
     """Accès asynchrone aux endpoints entreprises."""
 
-    def __init__(self, client: _AsyncHenrriClient) -> None:
+    def __init__(self, client: AsyncHenrriClient) -> None:
         self._c = client
 
     async def get(self, company_id: int) -> Company:

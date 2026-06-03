@@ -5,14 +5,14 @@ from __future__ import annotations
 from unittest.mock import AsyncMock, MagicMock
 
 from src.henrri_connect.connect import (
-    _AsyncHenrriClient, _SyncHenrriClient, # type: ignore[import]
+    AsyncHenrriClient, SyncHenrriClient, # type: ignore[import]
 )
 from tests.conftest import make_response
 
 
 class TestSyncSecures:
     def test_hello_world_retourne_texte(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         resp = make_response({}, text="Hello World!")
         mock_http.request.return_value = resp
@@ -26,7 +26,7 @@ class TestSyncSecures:
 
 class TestAsyncSecures:
     async def test_hello_world_retourne_texte(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         resp = make_response({}, text="Hello World!")
         mock_async_http.request.return_value = resp

@@ -1,0 +1,2 @@
+recursive-include src/henrri_connect *.pyi
+include src/henrri_connect/py.typed

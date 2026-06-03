@@ -3,13 +3,27 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any    # type: ignore[import]
+from typing import Any, TYPE_CHECKING   # pylint: disable=W0611 # type: ignore[import]
 import httpx
 from ..exc import (
     HenrriAuthError,
 )
+
 from ..models import TokenResponse
 from ..utils import raise_for_status
+if TYPE_CHECKING:
+    from ..companies import SyncCompaniesClient
+    from ..customers import SyncCustomersClient
+    from ..document_line_types import SyncDocumentLineTypesClient
+    from ..document_lines import SyncDocumentLinesClient
+    from ..document_types import SyncDocumentTypesClient
+    from ..documents import SyncDocumentsClient
+    from ..item_categories import SyncItemCategoriesClient
+    from ..items import SyncItemsClient
+    from ..revenues import SyncRevenuesClient
+    from ..secures import SyncSecuresClient
+    from ..units import SyncUnitsClient
+    from ..users import SyncUsersClient
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +32,7 @@ APP_VERSION = "application/json"
 APP_X_VERSION = "1.0"
 
 
-class _SyncHenrriClient:
+class SyncHenrriClient:
     """
     Client HTTP synchrone pour l'API Henrri.
     Gère l'authentification, le refresh-token et les erreurs HTTP.
@@ -30,6 +44,19 @@ class _SyncHenrriClient:
     - client_secret: Secret client pour l'authentification.
     - base_url: URL de base de l'API (défaut : sandbox Henrri).
     """
+
+    users: "SyncUsersClient"
+    companies: "SyncCompaniesClient"
+    customers: "SyncCustomersClient"
+    documents: "SyncDocumentsClient"
+    document_lines: "SyncDocumentLinesClient"
+    document_line_types: "SyncDocumentLineTypesClient"
+    document_types: "SyncDocumentTypesClient"
+    items: "SyncItemsClient"
+    item_categories: "SyncItemCategoriesClient"
+    units: "SyncUnitsClient"
+    revenues: "SyncRevenuesClient"
+    secures: "SyncSecuresClient"
 
     def __init__(
         self,
@@ -47,18 +74,18 @@ class _SyncHenrriClient:
         self._init_subclients()
 
     def _init_subclients(self) -> None:
-        from ..companies import SyncCompaniesClient
-        from ..customers import SyncCustomersClient
-        from ..document_line_types import SyncDocumentLineTypesClient
-        from ..document_lines import SyncDocumentLinesClient
-        from ..document_types import SyncDocumentTypesClient
-        from ..documents import SyncDocumentsClient
-        from ..item_categories import SyncItemCategoriesClient
-        from ..items import SyncItemsClient
-        from ..revenues import SyncRevenuesClient
-        from ..secures import SyncSecuresClient
-        from ..units import SyncUnitsClient
-        from ..users import SyncUsersClient
+        from ..companies import SyncCompaniesClient    # pylint: disable=import-outside-toplevel
+        from ..customers import SyncCustomersClient    # pylint: disable=import-outside-toplevel
+        from ..document_line_types import SyncDocumentLineTypesClient    # pylint: disable=import-outside-toplevel
+        from ..document_lines import SyncDocumentLinesClient    # pylint: disable=import-outside-toplevel
+        from ..document_types import SyncDocumentTypesClient    # pylint: disable=import-outside-toplevel
+        from ..documents import SyncDocumentsClient    # pylint: disable=import-outside-toplevel
+        from ..item_categories import SyncItemCategoriesClient    # pylint: disable=import-outside-toplevel
+        from ..items import SyncItemsClient    # pylint: disable=import-outside-toplevel
+        from ..revenues import SyncRevenuesClient    # pylint: disable=import-outside-toplevel
+        from ..secures import SyncSecuresClient    # pylint: disable=import-outside-toplevel
+        from ..units import SyncUnitsClient    # pylint: disable=import-outside-toplevel
+        from ..users import SyncUsersClient    # pylint: disable=import-outside-toplevel
 
         self.users = SyncUsersClient(self)
         self.companies = SyncCompaniesClient(self)
@@ -194,7 +221,7 @@ class _SyncHenrriClient:
         logger.info("Fermeture du client HTTP.")
         self._http.close()
 
-    def __enter__(self) -> _SyncHenrriClient:
+    def __enter__(self) -> SyncHenrriClient:
         return self
 
     def __exit__(self, *args: Any) -> None:

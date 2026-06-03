@@ -20,9 +20,9 @@ Utile pour valider les identifiants et tester la connectivité.
 ### **Synchrone**
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import SyncHenrriClient
 
-client = HenrriClient("client_id", "client_secret")
+client = SyncHenrriClient("client_id", "client_secret")
 print(client.secures.hello_world())  # "Hello World"
 ```
 
@@ -30,10 +30,10 @@ print(client.secures.hello_world())  # "Hello World"
 
 ```python
 import asyncio
-from henrri_connect import HenrriClient
+from henrri_connect import AsyncHenrriClient
 
 async def main():
-    client = HenrriClient("client_id", "client_secret", async_mode=True)
+    client = AsyncHenrriClient("client_id", "client_secret")
     print(await client.secures.hello_world())
 
 asyncio.run(main())

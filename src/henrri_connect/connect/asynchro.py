@@ -3,13 +3,26 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Any    # type: ignore[import]
+from typing import Any, TYPE_CHECKING
 import httpx
 from ..exc import (
     HenrriAuthError,
 )
 from ..models import TokenResponse
 from ..utils import raise_for_status
+if TYPE_CHECKING:
+    from ..companies import AsyncCompaniesClient
+    from ..customers import AsyncCustomersClient
+    from ..document_line_types import AsyncDocumentLineTypesClient
+    from ..document_lines import AsyncDocumentLinesClient
+    from ..document_types import AsyncDocumentTypesClient
+    from ..documents import AsyncDocumentsClient
+    from ..item_categories import AsyncItemCategoriesClient
+    from ..items import AsyncItemsClient
+    from ..revenues import AsyncRevenuesClient
+    from ..secures import AsyncSecuresClient
+    from ..units import AsyncUnitsClient
+    from ..users import AsyncUsersClient
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +30,7 @@ _BASE_URL = "https://api-sandbox.henrri.io"
 APP_VERSION = "application/json"
 APP_X_VERSION = "1.0"
 
-class _AsyncHenrriClient:
+class AsyncHenrriClient:
     """
     Client HTTP asynchrone pour l'API Henrri.
     Gère l'authentification, le refresh-token et les erreurs HTTP.
@@ -29,6 +42,19 @@ class _AsyncHenrriClient:
     - client_secret: Secret client pour l'authentification.
     - base_url: URL de base de l'API (défaut : sandbox Henrri).
     """
+
+    users: "AsyncUsersClient"
+    companies: "AsyncCompaniesClient"
+    customers: "AsyncCustomersClient"
+    documents: "AsyncDocumentsClient"
+    document_lines: "AsyncDocumentLinesClient"
+    document_line_types: "AsyncDocumentLineTypesClient"
+    document_types: "AsyncDocumentTypesClient"
+    items: "AsyncItemsClient"
+    item_categories: "AsyncItemCategoriesClient"
+    units: "AsyncUnitsClient"
+    revenues: "AsyncRevenuesClient"
+    secures: "AsyncSecuresClient"
 
     def __init__(
         self,
@@ -46,18 +72,18 @@ class _AsyncHenrriClient:
         self._init_subclients()
 
     def _init_subclients(self) -> None:
-        from ..companies import AsyncCompaniesClient
-        from ..customers import AsyncCustomersClient
-        from ..document_line_types import AsyncDocumentLineTypesClient
-        from ..document_lines import AsyncDocumentLinesClient
-        from ..document_types import AsyncDocumentTypesClient
-        from ..documents import AsyncDocumentsClient
-        from ..item_categories import AsyncItemCategoriesClient
-        from ..items import AsyncItemsClient
-        from ..revenues import AsyncRevenuesClient
-        from ..secures import AsyncSecuresClient
-        from ..units import AsyncUnitsClient
-        from ..users import AsyncUsersClient
+        from ..companies import AsyncCompaniesClient    # pylint: disable=import-outside-toplevel
+        from ..customers import AsyncCustomersClient    # pylint: disable=import-outside-toplevel
+        from ..document_line_types import AsyncDocumentLineTypesClient    # pylint: disable=import-outside-toplevel
+        from ..document_lines import AsyncDocumentLinesClient    # pylint: disable=import-outside-toplevel
+        from ..document_types import AsyncDocumentTypesClient    # pylint: disable=import-outside-toplevel
+        from ..documents import AsyncDocumentsClient    # pylint: disable=import-outside-toplevel
+        from ..item_categories import AsyncItemCategoriesClient    # pylint: disable=import-outside-toplevel
+        from ..items import AsyncItemsClient    # pylint: disable=import-outside-toplevel
+        from ..revenues import AsyncRevenuesClient    # pylint: disable=import-outside-toplevel
+        from ..secures import AsyncSecuresClient    # pylint: disable=import-outside-toplevel
+        from ..units import AsyncUnitsClient    # pylint: disable=import-outside-toplevel
+        from ..users import AsyncUsersClient    # pylint: disable=import-outside-toplevel
 
         self.users = AsyncUsersClient(self)
         self.companies = AsyncCompaniesClient(self)
@@ -193,7 +219,7 @@ class _AsyncHenrriClient:
         logger.info("Fermeture du client HTTP.")
         await self._http.aclose()
 
-    async def __aenter__(self) -> _AsyncHenrriClient:
+    async def __aenter__(self) -> AsyncHenrriClient:
         return self
 
     async def __aexit__(self, *args: Any) -> None:

@@ -9,7 +9,7 @@ import httpx
 import pytest
 
 from src.henrri_connect.connect import (
-    _AsyncHenrriClient, _SyncHenrriClient, # type: ignore[import]
+    AsyncHenrriClient, SyncHenrriClient, # type: ignore[import]
     )
 
 
@@ -29,9 +29,9 @@ def make_response(
     return mock
 
 
-def _build_sync_client(mock_http: MagicMock) -> _SyncHenrriClient:
+def _build_sync_client(mock_http: MagicMock) -> SyncHenrriClient:
     """Crée un client synchrone avec HTTP mocké (sans __init__)."""
-    client: _SyncHenrriClient = _SyncHenrriClient.__new__(_SyncHenrriClient)
+    client: SyncHenrriClient = SyncHenrriClient.__new__(SyncHenrriClient)
     client._client_id = "test_id"
     client._client_secret = "test_secret"
     client._base_url = "https://api-sandbox.henrri.io"
@@ -42,9 +42,9 @@ def _build_sync_client(mock_http: MagicMock) -> _SyncHenrriClient:
     return client
 
 
-def _build_async_client(mock_http: AsyncMock) -> _AsyncHenrriClient:
+def _build_async_client(mock_http: AsyncMock) -> AsyncHenrriClient:
     """Crée un client asynchrone avec HTTP mocké (sans __init__)."""
-    client: _AsyncHenrriClient = _AsyncHenrriClient.__new__(_AsyncHenrriClient)
+    client: AsyncHenrriClient = AsyncHenrriClient.__new__(AsyncHenrriClient)
     client._client_id = "test_id"
     client._client_secret = "test_secret"
     client._base_url = "https://api-sandbox.henrri.io"
@@ -68,13 +68,13 @@ def mock_async_http() -> AsyncMock:
 
 
 @pytest.fixture
-def sync_client(mock_http: MagicMock) -> _SyncHenrriClient:
+def sync_client(mock_http: MagicMock) -> SyncHenrriClient:
     """Client synchrone prêt à l'emploi avec HTTP mocké."""
     return _build_sync_client(mock_http)
 
 
 @pytest.fixture
-async def async_client(mock_async_http: AsyncMock) -> _AsyncHenrriClient:
+async def async_client(mock_async_http: AsyncMock) -> AsyncHenrriClient:
     """Client asynchrone prêt à l'emploi avec HTTP mocké."""
     return _build_async_client(mock_async_http)
 

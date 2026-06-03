@@ -7,12 +7,14 @@ from .items import Item
 
 
 class DocumentLineType(CamelModel):
+    """Représente un type de ligne de document dans l'API Henrri Connect."""
     id: int | None = None
     label: str | None = None
     type: str = DocumentLineKind.NONE
 
 
 class DocumentLine(CamelModel):
+    """Représente une ligne de document dans l'API Henrri Connect."""
     id: int | None = None
     document_id: int | None = None
     reference: str | None = None
@@ -39,4 +41,8 @@ class DocumentLine(CamelModel):
 
 
 class DocumentLineMoveQueryParameters(CamelModel):
+    """
+    Représente les paramètres de requête pour déplacer une ligne de document dans
+    l'API Henrri Connect.
+    """
     to: int

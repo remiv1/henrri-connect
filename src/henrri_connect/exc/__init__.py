@@ -1,3 +1,4 @@
+"""Module d'exceptions personnalisées pour la bibliothèque henrri-connect."""
 from __future__ import annotations
 
 

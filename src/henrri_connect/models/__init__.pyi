@@ -1,3 +1,4 @@
+"""Stub d'exportation des modèles de données pour l'API Henrri Connect."""
 from __future__ import annotations
 
 from datetime import datetime
@@ -10,12 +11,12 @@ T = TypeVar("T")
 
 # ── Enums exportés ────────────────────────────────────────────────────────────
 
-class CompanyIdentifierType(str, Enum):
+class CompanyIdentifierType(str, Enum): # pylint: disable=C0115
     SIRET: str
     BCE: str
     UNKNOWN: str
 
-class UnitKind(str, Enum):
+class UnitKind(str, Enum):  # pylint: disable=C0115
     HOURLY: str
     METER: str
     CENTIMETER: str
@@ -38,7 +39,7 @@ class UnitKind(str, Enum):
 
 # ── Types internes aux champs des modèles ─────────────────────────────────────
 
-class Link(BaseModel):
+class Link(BaseModel):  # pylint: disable=C0115
     href: str | None
     rel: str | None
     method: str | None
@@ -70,23 +71,23 @@ class _ElementDisplay(BaseModel):
 
 # ── Réponses génériques ───────────────────────────────────────────────────────
 
-class PagedListResponse(BaseModel, Generic[T]):
+class PagedListResponse(BaseModel, Generic[T]): # pylint: disable=C0115
     elements: list[T] | None
     totals: list[_Cell] | None
     display: list[_ElementDisplay] | None
     meta: _MetaPagedListResponse | None
 
-class ListResponse(BaseModel, Generic[T]):
+class ListResponse(BaseModel, Generic[T]):  # pylint: disable=C0115
     elements: list[T] | None
     meta: _MetaListResponse | None
 
 # ── Authentification ──────────────────────────────────────────────────────────
 
-class AuthenticateRequest(BaseModel):
+class AuthenticateRequest(BaseModel):   # pylint: disable=C0115
     client_id: str
     client_secret: str
 
-class TokenResponse(BaseModel):
+class TokenResponse(BaseModel): # pylint: disable=C0115
     access_token: str | None
     identity_token: str | None
     scope: str | None
@@ -97,7 +98,7 @@ class TokenResponse(BaseModel):
     error: str | None
     error_description: str | None
 
-class RefreshTokenRequest(BaseModel):
+class RefreshTokenRequest(BaseModel):   # pylint: disable=C0115
     refresh_token: str
     client_id: str | None
     client_secret: str | None
@@ -105,7 +106,7 @@ class RefreshTokenRequest(BaseModel):
 
 # ── Adresse et contacts ───────────────────────────────────────────────────────
 
-class Address(BaseModel):
+class Address(BaseModel):   # pylint: disable=C0115
     id: int | None
     address: str | None
     city: str | None
@@ -114,7 +115,7 @@ class Address(BaseModel):
     is_post_code_shared: bool
     links: list[Link] | None
 
-class Contact(BaseModel):
+class Contact(BaseModel):   # pylint: disable=C0115
     id: int | None
     title: str | None
     first_name: str | None
@@ -129,7 +130,7 @@ class Contact(BaseModel):
 
 # ── Entreprise ────────────────────────────────────────────────────────────────
 
-class Company(BaseModel):
+class Company(BaseModel):   # pylint: disable=C0115
     id: int | None
     name: str | None
     logo_url: str | None
@@ -145,7 +146,7 @@ class Company(BaseModel):
 
 # ── Utilisateur ───────────────────────────────────────────────────────────────
 
-class User(BaseModel):
+class User(BaseModel):  # pylint: disable=C0115
     id: int | None
     email: str | None
     first_name: str | None
@@ -162,13 +163,13 @@ class User(BaseModel):
     address: Address | None
     links: list[Link] | None
 
-class UserAndCompany(BaseModel):
+class UserAndCompany(BaseModel):    # pylint: disable=C0115
     user: User
     company: Company
 
 # ── Client ────────────────────────────────────────────────────────────────────
 
-class Customer(BaseModel):
+class Customer(BaseModel):  # pylint: disable=C0115
     id: int | None
     name: str
     type: str
@@ -199,13 +200,13 @@ class Customer(BaseModel):
 
 # ── Catégories d'articles ─────────────────────────────────────────────────────
 
-class ItemCategoryType(BaseModel):
+class ItemCategoryType(BaseModel):  # pylint: disable=C0115
     id: int | None
     label: str | None
     item_category_content_kind: str
     item_category_kind: str
 
-class ItemCategory(BaseModel):
+class ItemCategory(BaseModel):  # pylint: disable=C0115
     id: int | None
     type: ItemCategoryType | None
     label: str | None
@@ -219,7 +220,7 @@ class ItemCategory(BaseModel):
 
 # ── Unités ────────────────────────────────────────────────────────────────────
 
-class Unit(BaseModel):
+class Unit(BaseModel):  # pylint: disable=C0115
     id: int | None
     name: str
     unit_kind: UnitKind | None
@@ -227,7 +228,7 @@ class Unit(BaseModel):
 
 # ── Articles ──────────────────────────────────────────────────────────────────
 
-class Item(BaseModel):
+class Item(BaseModel):  # pylint: disable=C0115
     id: int | None
     reference: str | None
     description: str | None
@@ -246,14 +247,14 @@ class Item(BaseModel):
 
 # ── Types de lignes de document ───────────────────────────────────────────────
 
-class DocumentLineType(BaseModel):
+class DocumentLineType(BaseModel):  # pylint: disable=C0115
     id: int | None
     label: str | None
     type: str
 
 # ── Lignes de document ────────────────────────────────────────────────────────
 
-class DocumentLine(BaseModel):
+class DocumentLine(BaseModel):  # pylint: disable=C0115
     id: int | None
     document_id: int | None
     reference: str | None
@@ -278,12 +279,12 @@ class DocumentLine(BaseModel):
     item: Item | None
     links: list[Link] | None
 
-class DocumentLineMoveQueryParameters(BaseModel):
+class DocumentLineMoveQueryParameters(BaseModel):   # pylint: disable=C0115
     to: int
 
 # ── Types de documents ────────────────────────────────────────────────────────
 
-class DocumentType(BaseModel):
+class DocumentType(BaseModel):  # pylint: disable=C0115
     id: int | None
     label: str | None
     short_label: str | None
@@ -295,7 +296,7 @@ class DocumentType(BaseModel):
 
 # ── Labels de document ────────────────────────────────────────────────────────
 
-class DocumentLabelElement(BaseModel):
+class DocumentLabelElement(BaseModel):  # pylint: disable=C0115
     id: int | None
     model_element_id: int | None
     label: str | None
@@ -306,7 +307,7 @@ class DocumentLabelElement(BaseModel):
     index: int | None
     links: list[Link] | None
 
-class DocumentLabel(BaseModel):
+class DocumentLabel(BaseModel): # pylint: disable=C0115
     id: int | None
     model_id: int | None
     document_id: int | None
@@ -316,7 +317,7 @@ class DocumentLabel(BaseModel):
 
 # ── Documents ─────────────────────────────────────────────────────────────────
 
-class Document(BaseModel):
+class Document(BaseModel):  # pylint: disable=C0115
     id: int | None
     identity: str | None
     finalized: bool
@@ -347,7 +348,7 @@ class Document(BaseModel):
     label_id: int | None
     links: list[Link] | None
 
-class ValidateDocumentRequest(BaseModel):
+class ValidateDocumentRequest(BaseModel):  # pylint: disable=C0115
     email: str
     first_name: str
     last_name: str
@@ -357,7 +358,7 @@ class ValidateDocumentRequest(BaseModel):
 
 # ── Jalons de paiement ────────────────────────────────────────────────────────
 
-class PaymentMilestone(BaseModel):
+class PaymentMilestone(BaseModel):  # pylint: disable=C0115
     id: int | None
     amount: float | None
     percentage: float | None
@@ -369,34 +370,34 @@ class PaymentMilestone(BaseModel):
 
 # ── Détails de taxe ───────────────────────────────────────────────────────────
 
-class TaxDetail(BaseModel):
+class TaxDetail(BaseModel): # pylint: disable=C0115
     rate: float
     price_before_tax: float
     tax_amount: float
     price_after_tax: float
 
-class TaxDetailArray(BaseModel):
+class TaxDetailArray(BaseModel):    # pylint: disable=C0115
     tax_detail_array: list[TaxDetail] | None
     document_id: str | None
     links: list[Link] | None
 
 # ── PDF ───────────────────────────────────────────────────────────────────────
 
-class PdfUrlResponse(BaseModel):
+class PdfUrlResponse(BaseModel):    # pylint: disable=C0115
     download_url: str | None
     expires_at: datetime | None
     file_name: str | None
 
 # ── Statistiques de revenus ───────────────────────────────────────────────────
 
-class RevenueStatistics(BaseModel):
+class RevenueStatistics(BaseModel): # pylint: disable=C0115
     year: int
     total_services_revenue: float
     total_products_revenue: float
     total_products_margin: float
     total_service_hours: float
 
-class MonthlyRevenueStatistics(BaseModel):
+class MonthlyRevenueStatistics(BaseModel):  # pylint: disable=C0115
     month: int
     year: int
     total_services_revenue: float

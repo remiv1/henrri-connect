@@ -6,6 +6,7 @@ from .base import CamelModel, Link
 from .address_contacts import Address
 
 class Company(CamelModel):
+    """Représente une entreprise dans l'API Henrri Connect."""
     id: int | None = None
     name: str | None = None
     logo_url: str | None = None

@@ -10,6 +10,7 @@ from .address_contacts import Address
 
 
 class User(CamelModel):
+    """Représente un utilisateur dans l'API Henrri Connect."""
     id: int | None = None
     email: str | None = None
     first_name: str | None = None
@@ -28,5 +29,6 @@ class User(CamelModel):
 
 
 class UserAndCompany(CamelModel):
+    """Représente un utilisateur et son entreprise dans l'API Henrri Connect."""
     user: User
     company: Company

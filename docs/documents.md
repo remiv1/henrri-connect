@@ -111,10 +111,10 @@ Télécharge un PDF identifié par son GUID.
 ### **Synchrone**
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import SyncHenrriClient
 from henrri_connect.models import Document
 
-client = HenrriClient("client_id", "client_secret")
+client = SyncHenrriClient("client_id", "client_secret")
 
 # Lister les factures d'un client
 result = client.documents.list_documents(customer_id=42, document_type_id=1)
@@ -144,10 +144,10 @@ invoice = client.documents.transform_to_invoice(doc.id)
 
 ```python
 import asyncio
-from henrri_connect import HenrriClient
+from henrri_connect import AsyncHenrriClient
 
 async def main():
-    client = HenrriClient("client_id", "client_secret", async_mode=True)
+    client = AsyncHenrriClient("client_id", "client_secret")
 
     result = await client.documents.list_documents(limit=10)
     for doc in result.data:

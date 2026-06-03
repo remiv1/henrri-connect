@@ -23,9 +23,9 @@ Récupère l'adresse d'une entreprise.
 ### **Synchrone**
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import SyncHenrriClient
 
-client = HenrriClient("client_id", "client_secret")
+client = SyncHenrriClient("client_id", "client_secret")
 
 company = client.companies.get(1)
 print(company.name)
@@ -38,10 +38,12 @@ print(address.city)
 
 ```python
 import asyncio
-from henrri_connect import HenrriClient
+from henrri_connect import AsyncHenrriClient
 
 async def main():
-    client = HenrriClient("client_id", "client_secret", async_mode=True)
+    client = AsyncHenrriClient(
+        "client_id", "client_secret"
+        )
 
     company = await client.companies.get(1)
     print(company.name)

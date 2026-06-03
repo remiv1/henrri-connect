@@ -10,6 +10,7 @@ from .address_contacts import Contact, Address
 
 
 class Customer(CamelModel):
+    """"""
     id: int | None = None
     name: str
     type: str

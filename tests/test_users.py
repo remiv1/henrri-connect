@@ -5,14 +5,14 @@ from __future__ import annotations
 from unittest.mock import AsyncMock, MagicMock
 
 from src.henrri_connect.connect import (
-    _AsyncHenrriClient, _SyncHenrriClient, # type: ignore[import]
+    AsyncHenrriClient, SyncHenrriClient, # type: ignore[import]
 )
 from tests.conftest import TOKEN_JSON, USER_JSON, make_response
 
 
 class TestSyncUsers:
     def test_get_retourne_utilisateur(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(USER_JSON)
 
@@ -23,7 +23,7 @@ class TestSyncUsers:
         assert "/v1/users/7" in mock_http.request.call_args.args[1]
 
     def test_get_address(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(
             {"id": 1, "city": "Paris", "isPostCodeShared": False}
@@ -35,7 +35,7 @@ class TestSyncUsers:
         assert "/v1/users/7/address" in mock_http.request.call_args.args[1]
 
     def test_get_companies(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(
             [
@@ -53,7 +53,7 @@ class TestSyncUsers:
         assert "/v1/users/companies" in mock_http.request.call_args.args[1]
 
     def test_refresh_token(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(TOKEN_JSON)
 
@@ -65,7 +65,7 @@ class TestSyncUsers:
 
 class TestAsyncUsers:
     async def test_get_retourne_utilisateur(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response(USER_JSON)
 
@@ -75,7 +75,7 @@ class TestAsyncUsers:
         assert user.email == "user@example.com"
 
     async def test_get_companies(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response(
             [
@@ -91,7 +91,7 @@ class TestAsyncUsers:
         assert result[0].company.name == "Async SA"
 
     async def test_refresh_token(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response(TOKEN_JSON)
 

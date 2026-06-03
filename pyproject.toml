@@ -1,6 +1,6 @@
 [project]
 name = "henrri-connect"
-version = "0.1.4"
+version = "0.1.5"
 description = "Bibliothèque souveraine pour utiliser l'API de facturation Henrri."
 authors = [{name="Rémi Verschuur", email="rverschuur@audit-io.fr"}]
 readme = "README.md"
@@ -54,6 +54,7 @@ Documentation = "https://remiv1.github.io/henrri-connect/"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
+include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -61,6 +62,7 @@ where = ["src"]
 [tool.setuptools.package-data]
 "dilicom_parser.utils" = ["*.toml"]
 "onixlib" = ["py.typed", "*.pyi", "models/*.pyi"]
+"henrri_connect" = ["py.typed", "**/*.pyi"]
 
 # ---------------------------------------------------------------------------
 # xsdata — configuration de génération

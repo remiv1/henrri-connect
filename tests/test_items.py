@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 
 from src.henrri_connect.connect import (
-    _AsyncHenrriClient, _SyncHenrriClient, # type: ignore[import]
+    AsyncHenrriClient, SyncHenrriClient, # type: ignore[import]
 )
 from src.henrri_connect.models import Item
 from tests.conftest import ITEM_JSON, PAGED_META, make_response
@@ -20,7 +20,7 @@ def _paged(elements: list[Any]) -> dict[str, Any]:
 
 class TestSyncItems:
     def test_list_retourne_articles(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(_paged([ITEM_JSON]))
 
@@ -32,7 +32,7 @@ class TestSyncItems:
         assert result.elements[0].vat_percent == pytest.approx(20.0)  # type: ignore[misc]
 
     def test_list_passe_les_filtres(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(_paged([]))
 
@@ -45,7 +45,7 @@ class TestSyncItems:
         assert params["minId"] == 3
 
     def test_add_cree_article(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response({**ITEM_JSON, "id": 99})
         item = Item(vat_percent=20.0)  # type: ignore[call-arg]
@@ -56,7 +56,7 @@ class TestSyncItems:
         assert mock_http.request.call_args.args[0] == "POST"
 
     def test_get_retourne_article(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(ITEM_JSON)
 
@@ -66,7 +66,7 @@ class TestSyncItems:
         assert "/v1/items/5" in mock_http.request.call_args.args[1]
 
     def test_modify_met_a_jour(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         updated: dict[str, Any] = {**ITEM_JSON, "description": "Conseil modifié"}
         mock_http.request.return_value = make_response(updated)
@@ -77,7 +77,7 @@ class TestSyncItems:
         assert mock_http.request.call_args.args[0] == "PUT"
 
     def test_delete_article(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response({})
 
@@ -87,7 +87,7 @@ class TestSyncItems:
         assert "/v1/items/5" in mock_http.request.call_args.args[1]
 
     def test_get_most_used(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(_paged([ITEM_JSON]))
 
@@ -98,7 +98,7 @@ class TestSyncItems:
         assert "/items/most-used" in mock_http.request.call_args.args[1]
 
     def test_get_best_sales(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(_paged([ITEM_JSON]))
 
@@ -111,7 +111,7 @@ class TestSyncItems:
 
 class TestAsyncItems:
     async def test_list_retourne_articles(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response(_paged([ITEM_JSON]))
 
@@ -121,7 +121,7 @@ class TestAsyncItems:
         assert len(result.elements) == 1
 
     async def test_get_retourne_article(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response(ITEM_JSON)
 
@@ -130,7 +130,7 @@ class TestAsyncItems:
         assert result.id == 5
 
     async def test_delete_article(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response({})
 

@@ -27,9 +27,9 @@ Liste les catégories d'articles avec pagination.
 ### **Synchrone**
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import SyncHenrriClient
 
-client = HenrriClient("client_id", "client_secret")
+client = SyncHenrriClient("client_id", "client_secret")
 
 result = client.item_categories.list_item_categories()
 for category in result.data:
@@ -40,10 +40,10 @@ for category in result.data:
 
 ```python
 import asyncio
-from henrri_connect import HenrriClient
+from henrri_connect import AsyncHenrriClient
 
 async def main():
-    client = HenrriClient("client_id", "client_secret", async_mode=True)
+    client = AsyncHenrriClient("client_id", "client_secret")
 
     result = await client.item_categories.list_item_categories()
     for category in result.data:

@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ..connect import (
-        _SyncHenrriClient,   # type: ignore[import]
+        SyncHenrriClient,
     )
 
 SECURES_ENDPOINT = "/v1/secures"
@@ -15,7 +15,7 @@ SECURES_ENDPOINT = "/v1/secures"
 class SyncSecuresClient:
     """Accès synchrone aux endpoints sécurisés (santé)."""
 
-    def __init__(self, client: _SyncHenrriClient) -> None:
+    def __init__(self, client: SyncHenrriClient) -> None:
         self._c = client
 
     def hello_world(self) -> str:

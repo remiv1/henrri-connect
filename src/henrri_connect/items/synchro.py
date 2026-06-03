@@ -8,7 +8,7 @@ from ..models import Item, PagedListResponse
 
 if TYPE_CHECKING:
     from ..connect import (
-        _SyncHenrriClient,  # type: ignore[import]
+        SyncHenrriClient,
     )
 
 ITEMS_ENDPOINT = "/v1/items"
@@ -20,7 +20,7 @@ def _clean(params: dict[str, Any]) -> dict[str, Any]:
 class SyncItemsClient:
     """Accès synchrone aux endpoints articles."""
 
-    def __init__(self, client: _SyncHenrriClient) -> None:
+    def __init__(self, client: SyncHenrriClient) -> None:
         self._c = client
 
     def list_items(
@@ -56,23 +56,23 @@ class SyncItemsClient:
         )
         return Item.model_validate(resp.json())
 
-    def get(self, id: int) -> Item:
+    def get(self, item_id: int) -> Item:
         """Récupère un article par son identifiant."""
-        resp = self._c.request("GET", f"{ITEMS_ENDPOINT}/{id}")
+        resp = self._c.request("GET", f"{ITEMS_ENDPOINT}/{item_id}")
         return Item.model_validate(resp.json())
 
-    def modify(self, id: int, item: Item) -> Item:
+    def modify(self, item_id: int, item: Item) -> Item:
         """Met à jour un article existant."""
         resp = self._c.request(
             "PUT",
-            f"{ITEMS_ENDPOINT}/{id}",
+            f"{ITEMS_ENDPOINT}/{item_id}",
             json=item.model_dump(by_alias=True, exclude_unset=True, exclude_none=True),
         )
         return Item.model_validate(resp.json())
 
-    def delete(self, id: int) -> None:
+    def delete(self, item_id: int) -> None:
         """Supprime un article."""
-        self._c.request("DELETE", f"{ITEMS_ENDPOINT}/{id}")
+        self._c.request("DELETE", f"{ITEMS_ENDPOINT}/{item_id}")
 
     def get_most_used(
         self,

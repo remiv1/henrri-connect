@@ -5,7 +5,7 @@ from __future__ import annotations
 from unittest.mock import AsyncMock, MagicMock
 
 from src.henrri_connect.connect import (
-    _AsyncHenrriClient, _SyncHenrriClient, # type: ignore[import]
+    AsyncHenrriClient, SyncHenrriClient, # type: ignore[import]
 )
 from src.henrri_connect.models import Unit
 from tests.conftest import UNIT_JSON, make_response
@@ -13,7 +13,7 @@ from tests.conftest import UNIT_JSON, make_response
 
 class TestSyncUnits:
     def test_list_retourne_unites(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response({"elements": [UNIT_JSON]})
 
@@ -25,7 +25,7 @@ class TestSyncUnits:
         assert "/v1/units" in mock_http.request.call_args.args[1]
 
     def test_add_cree_unite(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response({**UNIT_JSON, "id": 10})
         unit = Unit(name="Jour", unit_kind="Specific")  # type: ignore[call-arg]
@@ -36,7 +36,7 @@ class TestSyncUnits:
         assert mock_http.request.call_args.args[0] == "POST"
 
     def test_get_retourne_unite(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(UNIT_JSON)
 
@@ -49,7 +49,7 @@ class TestSyncUnits:
 
 class TestAsyncUnits:
     async def test_list_retourne_unites(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response({"elements": [UNIT_JSON]})
 
@@ -60,7 +60,7 @@ class TestAsyncUnits:
         assert result.elements[0].name == "Heure"
 
     async def test_get_retourne_unite(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response(UNIT_JSON)
 

@@ -1,3 +1,4 @@
+"""Stub pour le module connect.synchro."""
 from __future__ import annotations
 
 from typing import Any
@@ -18,7 +19,7 @@ from ..units import SyncUnitsClient
 from ..users import SyncUsersClient
 
 
-class _SyncHenrriClient:
+class SyncHenrriClient:  # pylint: disable=C0115
     _client_id: str
     _client_secret: str
     _base_url: str
@@ -41,15 +42,15 @@ class _SyncHenrriClient:
 
     def __init__(
         self,
-        client_id: str,
-        client_secret: str,
+        client_id: str,  # pylint: disable=W0613
+        client_secret: str,  # pylint: disable=W0613
         *,
-        base_url: str = ...,
+        base_url: str = ...,  # pylint: disable=W0613
     ) -> None: ...
-    def authenticate(self) -> TokenResponse: ...
-    def request(self, method: str, endpoint: str, **kwargs: Any) -> httpx.Response: ...
-    def close(self) -> None: ...
-    def __enter__(self) -> _SyncHenrriClient: ...
+    def authenticate(self) -> TokenResponse: ...      # pylint: disable=C0116
+    def request(self, method: str, endpoint: str, **kwargs: Any) -> httpx.Response: ...  # pylint: disable=C0116, W0613
+    def close(self) -> None: ...  # pylint: disable=C0116
+    def __enter__(self) -> SyncHenrriClient: ...
     def __exit__(self, *args: Any) -> None: ...
     def _init_subclients(self) -> None: ...
     def _do_refresh(self) -> None: ...

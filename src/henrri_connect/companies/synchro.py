@@ -8,13 +8,13 @@ from ..models import Address, Company
 
 if TYPE_CHECKING:
     from ..connect import (
-        _SyncHenrriClient,    # type: ignore[import]
+        SyncHenrriClient,
     )
 
 class SyncCompaniesClient:
     """Accès synchrone aux endpoints entreprises."""
 
-    def __init__(self, client: _SyncHenrriClient) -> None:
+    def __init__(self, client: SyncHenrriClient) -> None:
         self._c = client
 
     def get(self, company_id: int) -> Company:

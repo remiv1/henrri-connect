@@ -17,13 +17,14 @@ Utilisation rapide
 
 .. code-block:: python
 
-   from henrri_connect import HenrriClient
+   from henrri_connect import SyncHenrriClient
+   from henrri_connect import AsyncHenrriClient
 
    # Client synchrone
-   client = HenrriClient("client_id", "client_secret")
+   client = SyncHenrriClient("client_id", "client_secret")
 
    # Client asynchrone
-   client = HenrriClient("client_id", "client_secret", async_mode=True)
+   client = AsyncHenrriClient("client_id", "client_secret")
 
 .. toctree::
    :maxdepth: 2

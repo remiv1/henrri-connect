@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ..connect import (
-        _AsyncHenrriClient   # type: ignore[import]
+        AsyncHenrriClient,
     )
 
 SECURES_ENDPOINT = "/v1/secures"
@@ -15,7 +15,7 @@ SECURES_ENDPOINT = "/v1/secures"
 class AsyncSecuresClient:
     """Accès asynchrone aux endpoints sécurisés (santé)."""
 
-    def __init__(self, client: _AsyncHenrriClient) -> None:
+    def __init__(self, client: AsyncHenrriClient) -> None:
         self._c = client
 
     async def hello_world(self) -> str:

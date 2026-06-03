@@ -23,9 +23,9 @@ Récupère les statistiques de revenus mois par mois pour une année donnée. Re
 ### **Synchrone**
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import SyncHenrriClient
 
-client = HenrriClient("client_id", "client_secret")
+client = SyncHenrriClient("client_id", "client_secret")
 
 # Statistiques annuelles
 stats = client.revenues.get_annual(2025)
@@ -41,10 +41,10 @@ for month in monthly:
 
 ```python
 import asyncio
-from henrri_connect import HenrriClient
+from henrri_connect import AsyncHenrriClient
 
 async def main():
-    client = HenrriClient("client_id", "client_secret", async_mode=True)
+    client = AsyncHenrriClient("client_id", "client_secret")
 
     stats = await client.revenues.get_annual(2025)
     print(stats.total)

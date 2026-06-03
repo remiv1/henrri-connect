@@ -5,14 +5,14 @@ from __future__ import annotations
 from unittest.mock import AsyncMock, MagicMock
 
 from src.henrri_connect.connect import (
-    _AsyncHenrriClient, _SyncHenrriClient, # type: ignore[import]
+    AsyncHenrriClient, SyncHenrriClient, # type: ignore[import]
 )
 from tests.conftest import DOCUMENT_TYPE_JSON, make_response
 
 
 class TestSyncDocumentTypes:
     def test_list_retourne_types(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response({"elements": [DOCUMENT_TYPE_JSON]})
 
@@ -27,7 +27,7 @@ class TestSyncDocumentTypes:
 
 class TestAsyncDocumentTypes:
     async def test_list_retourne_types(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response({"elements": [DOCUMENT_TYPE_JSON]})
 

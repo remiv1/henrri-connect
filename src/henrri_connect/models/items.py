@@ -8,6 +8,7 @@ from .base import CamelModel, Link
 from .base import ItemCategoryContentKind, ItemCategoryKind
 
 class ItemCategoryType(CamelModel):
+    """Représente un type de catégorie d'article dans l'API Henrri Connect."""
     id: int | None = None
     label: str | None = None
     item_category_content_kind: str = ItemCategoryContentKind.SUPPLY
@@ -15,6 +16,7 @@ class ItemCategoryType(CamelModel):
 
 
 class ItemCategory(CamelModel):
+    """Représente une catégorie d'article dans l'API Henrri Connect."""
     id: int | None = None
     type: ItemCategoryType | None = None
     label: str | None = None
@@ -28,6 +30,7 @@ class ItemCategory(CamelModel):
 
 
 class Item(CamelModel):
+    """Représente un article dans l'API Henrri Connect."""
     id: int | None = None
     reference: str | None = None
     description: str | None = None

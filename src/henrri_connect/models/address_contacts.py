@@ -4,6 +4,7 @@ from __future__ import annotations
 from .base import CamelModel, Link
 
 class Address(CamelModel):
+    """Représente une adresse d'entreprise."""
     id: int | None = None
     address: str | None = None
     city: str | None = None
@@ -14,6 +15,7 @@ class Address(CamelModel):
 
 
 class Contact(CamelModel):
+    """Représente un contact d'entreprise."""
     id: int | None = None
     title: str | None = None
     first_name: str | None = None

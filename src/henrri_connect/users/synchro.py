@@ -8,7 +8,7 @@ from ..models import Address, TokenResponse, User, UserAndCompany
 
 if TYPE_CHECKING:
     from ..connect import (
-        _SyncHenrriClient,   # type: ignore[import]
+        SyncHenrriClient,
     )
 
 USERS_ENDPOINT = "/v1/users"
@@ -16,17 +16,17 @@ USERS_ENDPOINT = "/v1/users"
 class SyncUsersClient:
     """Accès synchrone aux endpoints utilisateurs."""
 
-    def __init__(self, client: _SyncHenrriClient) -> None:
+    def __init__(self, client: SyncHenrriClient) -> None:
         self._c = client
 
-    def get(self, id: int) -> User:
+    def get(self, user_id: int) -> User:
         """Récupère un utilisateur par son identifiant."""
-        resp = self._c.request("GET", f"{USERS_ENDPOINT}/{id}")
+        resp = self._c.request("GET", f"{USERS_ENDPOINT}/{user_id}")
         return User.model_validate(resp.json())
 
-    def get_address(self, id: int) -> Address:
+    def get_address(self, user_id: int) -> Address:
         """Récupère l'adresse d'un utilisateur."""
-        resp = self._c.request("GET", f"{USERS_ENDPOINT}/{id}/address")
+        resp = self._c.request("GET", f"{USERS_ENDPOINT}/{user_id}/address")
         return Address.model_validate(resp.json())
 
     def get_companies(self) -> list[UserAndCompany]:
@@ -47,7 +47,7 @@ class SyncUsersClient:
             json={"refreshToken": refresh_token},
         )
         token = TokenResponse.model_validate(resp.json())
-        self._c._access_token = token.access_token
+        self._c._access_token = token.access_token  # pylint: disable=W0212
         if token.refresh_token:
-            self._c._refresh_token_str = token.refresh_token
+            self._c._refresh_token_str = token.refresh_token    # pylint: disable=W0212
         return token

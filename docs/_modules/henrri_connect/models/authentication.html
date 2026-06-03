@@ -236,6 +236,7 @@
 <div class="viewcode-block" id="AuthenticateRequest">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.AuthenticateRequest">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AuthenticateRequest</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente une requête d&#39;authentification pour obtenir un token d&#39;accès.&quot;&quot;&quot;</span>
     <span class="n">client_id</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">client_secret</span><span class="p">:</span> <span class="nb">str</span></div>
 
@@ -244,6 +245,7 @@
 <div class="viewcode-block" id="TokenResponse">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.TokenResponse">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TokenResponse</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente la réponse d&#39;une authentification réussie ou d&#39;un rafraîchissement de token.&quot;&quot;&quot;</span>
     <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">identity_token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">scope</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -259,6 +261,7 @@
 <div class="viewcode-block" id="RefreshTokenRequest">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.RefreshTokenRequest">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RefreshTokenRequest</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente une requête de rafraîchissement du token d&#39;accès.&quot;&quot;&quot;</span>
     <span class="n">refresh_token</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">client_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">client_secret</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>

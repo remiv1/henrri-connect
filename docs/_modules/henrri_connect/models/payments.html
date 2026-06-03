@@ -238,6 +238,7 @@
 <div class="viewcode-block" id="PaymentMilestone">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.PaymentMilestone">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PaymentMilestone</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente une étape de paiement dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">amount</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">percentage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -252,6 +253,7 @@
 <div class="viewcode-block" id="TaxDetail">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.TaxDetail">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TaxDetail</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente les détails de taxe dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
     <span class="n">rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">price_before_tax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">tax_amount</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -262,6 +264,7 @@
 <div class="viewcode-block" id="TaxDetailArray">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.TaxDetailArray">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TaxDetailArray</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente un tableau de détails de taxe dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
     <span class="n">tax_detail_array</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">TaxDetail</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">document_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">links</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Link</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>

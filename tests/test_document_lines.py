@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 
 from src.henrri_connect.connect import (
-    _AsyncHenrriClient, _SyncHenrriClient, # type: ignore[import]
+    AsyncHenrriClient, SyncHenrriClient, # type: ignore[import]
 )
 from src.henrri_connect.models import DocumentLine
 from tests.conftest import DOCUMENT_LINE_JSON, make_response
@@ -16,7 +16,7 @@ from tests.conftest import DOCUMENT_LINE_JSON, make_response
 
 class TestSyncDocumentLines:
     def test_list_retourne_lignes(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response({"elements": [DOCUMENT_LINE_JSON]})
 
@@ -28,7 +28,7 @@ class TestSyncDocumentLines:
         assert "/v1/documents/100/lines" in mock_http.request.call_args.args[1]
 
     def test_add_ligne(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response({**DOCUMENT_LINE_JSON, "id": 20})
         line = DocumentLine(type_id=2)  # type: ignore[call-arg]
@@ -39,7 +39,7 @@ class TestSyncDocumentLines:
         assert mock_http.request.call_args.args[0] == "POST"
 
     def test_get_ligne(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(DOCUMENT_LINE_JSON)
 
@@ -49,7 +49,7 @@ class TestSyncDocumentLines:
         assert "/lines/10" in mock_http.request.call_args.args[1]
 
     def test_modify_ligne(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         updated: dict[str, Any] = {**DOCUMENT_LINE_JSON, "quantity": 3.0}
         mock_http.request.return_value = make_response(updated)
@@ -60,7 +60,7 @@ class TestSyncDocumentLines:
         assert mock_http.request.call_args.args[0] == "PUT"
 
     def test_delete_ligne(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response({})
 
@@ -70,7 +70,7 @@ class TestSyncDocumentLines:
         assert "/lines/10" in mock_http.request.call_args.args[1]
 
     def test_move_ligne(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response({})
 
@@ -84,7 +84,7 @@ class TestSyncDocumentLines:
 
 class TestAsyncDocumentLines:
     async def test_list_retourne_lignes(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response({"elements": [DOCUMENT_LINE_JSON]})
 
@@ -94,7 +94,7 @@ class TestAsyncDocumentLines:
         assert len(result.elements) == 1
 
     async def test_add_ligne(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response({**DOCUMENT_LINE_JSON, "id": 30})
         line = DocumentLine(type_id=2)  # type: ignore[call-arg]
@@ -104,7 +104,7 @@ class TestAsyncDocumentLines:
         assert result.id == 30
 
     async def test_delete_ligne(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response({})
 

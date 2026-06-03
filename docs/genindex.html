@@ -278,17 +278,15 @@
         </ul></li>
         <li><a href="api.html#henrri_connect.models.Address">Address (classe dans henrri_connect.models)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api.html#henrri_connect.models.PaymentMilestone.amount">amount (attribut henrri_connect.models.PaymentMilestone)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api.html#henrri_connect.models.Company.ape_code">ape_code (attribut henrri_connect.models.Company)</a>
 </li>
         <li><a href="api.html#henrri_connect.models.Company.ape_label">ape_label (attribut henrri_connect.models.Company)</a>
 </li>
         <li><a href="api.html#henrri_connect.models.DocumentLine.are_elements_of_group_shown">are_elements_of_group_shown (attribut henrri_connect.models.DocumentLine)</a>
-</li>
-        <li><a href="api.html#henrri_connect.connect.HenrriClient.async_mode">async_mode (attribut henrri_connect.connect.HenrriClient)</a>
 </li>
         <li><a href="api.html#henrri_connect.companies.AsyncCompaniesClient">AsyncCompaniesClient (classe dans henrri_connect.companies)</a>
 </li>
@@ -302,6 +300,8 @@
 </li>
         <li><a href="api.html#henrri_connect.document_types.AsyncDocumentTypesClient">AsyncDocumentTypesClient (classe dans henrri_connect.document_types)</a>
 </li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient">AsyncHenrriClient (classe dans henrri_connect.connect)</a>
+</li>
         <li><a href="api.html#henrri_connect.item_categories.AsyncItemCategoriesClient">AsyncItemCategoriesClient (classe dans henrri_connect.item_categories)</a>
 </li>
         <li><a href="api.html#henrri_connect.items.AsyncItemsClient">AsyncItemsClient (classe dans henrri_connect.items)</a>
@@ -314,9 +314,13 @@
 </li>
         <li><a href="api.html#henrri_connect.users.AsyncUsersClient">AsyncUsersClient (classe dans henrri_connect.users)</a>
 </li>
-        <li><a href="api.html#henrri_connect.users.AsyncUsersClient.authenticate">authenticate() (méthode henrri_connect.users.AsyncUsersClient)</a>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.authenticate">authenticate() (méthode henrri_connect.connect.AsyncHenrriClient)</a>
 
         <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.authenticate">(méthode henrri_connect.connect.SyncHenrriClient)</a>
+</li>
+          <li><a href="api.html#henrri_connect.users.AsyncUsersClient.authenticate">(méthode henrri_connect.users.AsyncUsersClient)</a>
+</li>
           <li><a href="api.html#henrri_connect.users.SyncUsersClient.authenticate">(méthode henrri_connect.users.SyncUsersClient)</a>
 </li>
         </ul></li>
@@ -334,8 +338,6 @@
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="api.html#henrri_connect.connect.HenrriClient.base_url">base_url (attribut henrri_connect.connect.HenrriClient)</a>
-</li>
         <li><a href="api.html#henrri_connect.models.CompanyIdentifierType.BCE">BCE (attribut henrri_connect.models.CompanyIdentifierType)</a>
 </li>
     </ul></td>
@@ -352,24 +354,32 @@
 </li>
         <li><a href="api.html#henrri_connect.models.Address.city">city (attribut henrri_connect.models.Address)</a>
 </li>
-        <li><a href="api.html#henrri_connect.connect.HenrriClient.client_id">client_id (attribut henrri_connect.connect.HenrriClient)</a>
+        <li><a href="api.html#henrri_connect.models.AuthenticateRequest.client_id">client_id (attribut henrri_connect.models.AuthenticateRequest)</a>
 
         <ul>
-          <li><a href="api.html#henrri_connect.models.AuthenticateRequest.client_id">(attribut henrri_connect.models.AuthenticateRequest)</a>
-</li>
           <li><a href="api.html#henrri_connect.models.RefreshTokenRequest.client_id">(attribut henrri_connect.models.RefreshTokenRequest)</a>
 </li>
         </ul></li>
-        <li><a href="api.html#henrri_connect.connect.HenrriClient.client_secret">client_secret (attribut henrri_connect.connect.HenrriClient)</a>
+        <li><a href="api.html#henrri_connect.models.AuthenticateRequest.client_secret">client_secret (attribut henrri_connect.models.AuthenticateRequest)</a>
 
         <ul>
-          <li><a href="api.html#henrri_connect.models.AuthenticateRequest.client_secret">(attribut henrri_connect.models.AuthenticateRequest)</a>
-</li>
           <li><a href="api.html#henrri_connect.models.RefreshTokenRequest.client_secret">(attribut henrri_connect.models.RefreshTokenRequest)</a>
+</li>
+        </ul></li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.close">close() (méthode henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.close">(méthode henrri_connect.connect.SyncHenrriClient)</a>
 </li>
         </ul></li>
         <li><a href="api.html#henrri_connect.models.Customer.comment">comment (attribut henrri_connect.models.Customer)</a>
 </li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.companies">companies (attribut henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.companies">(attribut henrri_connect.connect.SyncHenrriClient)</a>
+</li>
+        </ul></li>
         <li><a href="api.html#henrri_connect.models.UserAndCompany.company">company (attribut henrri_connect.models.UserAndCompany)</a>
 </li>
         <li><a href="api.html#henrri_connect.models.Company">Company (classe dans henrri_connect.models)</a>
@@ -416,6 +426,12 @@
 </li>
         <li><a href="api.html#henrri_connect.models.Customer.customer_type_alert_enabled">customer_type_alert_enabled (attribut henrri_connect.models.Customer)</a>
 </li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.customers">customers (attribut henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.customers">(attribut henrri_connect.connect.SyncHenrriClient)</a>
+</li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -466,8 +482,6 @@
           <li><a href="api.html#henrri_connect.models.Item.description">(attribut henrri_connect.models.Item)</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api.html#henrri_connect.models.PagedListResponse.display">display (attribut henrri_connect.models.PagedListResponse)</a>
 </li>
         <li><a href="api.html#henrri_connect.models.Document">Document (classe dans henrri_connect.models)</a>
@@ -482,12 +496,32 @@
           <li><a href="api.html#henrri_connect.models.TaxDetailArray.document_id">(attribut henrri_connect.models.TaxDetailArray)</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api.html#henrri_connect.models.DocumentType.document_kind">document_kind (attribut henrri_connect.models.DocumentType)</a>
 </li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.document_line_types">document_line_types (attribut henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.document_line_types">(attribut henrri_connect.connect.SyncHenrriClient)</a>
+</li>
+        </ul></li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.document_lines">document_lines (attribut henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.document_lines">(attribut henrri_connect.connect.SyncHenrriClient)</a>
+</li>
+        </ul></li>
         <li><a href="api.html#henrri_connect.models.Document.document_type">document_type (attribut henrri_connect.models.Document)</a>
 </li>
         <li><a href="api.html#henrri_connect.models.Document.document_type_id">document_type_id (attribut henrri_connect.models.Document)</a>
 </li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.document_types">document_types (attribut henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.document_types">(attribut henrri_connect.connect.SyncHenrriClient)</a>
+</li>
+        </ul></li>
         <li><a href="api.html#henrri_connect.models.DocumentLabel">DocumentLabel (classe dans henrri_connect.models)</a>
 </li>
         <li><a href="api.html#henrri_connect.models.DocumentLabelElement">DocumentLabelElement (classe dans henrri_connect.models)</a>
@@ -498,6 +532,12 @@
 </li>
         <li><a href="api.html#henrri_connect.models.DocumentLineType">DocumentLineType (classe dans henrri_connect.models)</a>
 </li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.documents">documents (attribut henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.documents">(attribut henrri_connect.connect.SyncHenrriClient)</a>
+</li>
+        </ul></li>
         <li><a href="api.html#henrri_connect.models.DocumentType">DocumentType (classe dans henrri_connect.models)</a>
 </li>
         <li><a href="api.html#henrri_connect.models.DocumentLine.does_group_own_different_vat">does_group_own_different_vat (attribut henrri_connect.models.DocumentLine)</a>
@@ -864,8 +904,6 @@
         </ul></li>
         <li><a href="api.html#henrri_connect.exc.HenrriAuthError">HenrriAuthError</a>
 </li>
-        <li><a href="api.html#henrri_connect.connect.HenrriClient">HenrriClient (classe dans henrri_connect.connect)</a>
-</li>
         <li><a href="api.html#henrri_connect.exc.HenrriError">HenrriError</a>
 </li>
         <li><a href="api.html#henrri_connect.exc.HenrriForbiddenError">HenrriForbiddenError</a>
@@ -950,12 +988,12 @@
 </li>
         <li><a href="api.html#henrri_connect.models.DocumentLine.is_adjustment_of_group">is_adjustment_of_group (attribut henrri_connect.models.DocumentLine)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api.html#henrri_connect.models.Customer.is_advisor">is_advisor (attribut henrri_connect.models.Customer)</a>
 </li>
         <li><a href="api.html#henrri_connect.models.ItemCategory.is_default">is_default (attribut henrri_connect.models.ItemCategory)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api.html#henrri_connect.models.Customer.is_deleted">is_deleted (attribut henrri_connect.models.Customer)</a>
 
         <ul>
@@ -996,6 +1034,12 @@
 </li>
         <li><a href="api.html#henrri_connect.models.Item">Item (classe dans henrri_connect.models)</a>
 </li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.item_categories">item_categories (attribut henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.item_categories">(attribut henrri_connect.connect.SyncHenrriClient)</a>
+</li>
+        </ul></li>
         <li><a href="api.html#henrri_connect.models.Item.item_category">item_category (attribut henrri_connect.models.Item)</a>
 </li>
         <li><a href="api.html#henrri_connect.models.ItemCategoryType.item_category_content_kind">item_category_content_kind (attribut henrri_connect.models.ItemCategoryType)</a>
@@ -1014,6 +1058,12 @@
 </li>
         <li><a href="api.html#henrri_connect.models.ItemCategoryType">ItemCategoryType (classe dans henrri_connect.models)</a>
 </li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.items">items (attribut henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.items">(attribut henrri_connect.connect.SyncHenrriClient)</a>
+</li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -1427,20 +1477,30 @@
           <li><a href="api.html#henrri_connect.models.TokenResponse.refresh_token">(attribut henrri_connect.models.TokenResponse)</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api.html#henrri_connect.users.AsyncUsersClient.refresh_token">refresh_token() (méthode henrri_connect.users.AsyncUsersClient)</a>
 
         <ul>
           <li><a href="api.html#henrri_connect.users.SyncUsersClient.refresh_token">(méthode henrri_connect.users.SyncUsersClient)</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api.html#henrri_connect.models.RefreshTokenRequest">RefreshTokenRequest (classe dans henrri_connect.models)</a>
 </li>
         <li><a href="api.html#henrri_connect.models.Link.rel">rel (attribut henrri_connect.models.Link)</a>
 </li>
-        <li><a href="api.html#henrri_connect.connect.HenrriClient.return">return (attribut henrri_connect.connect.HenrriClient)</a>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.request">request() (méthode henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.request">(méthode henrri_connect.connect.SyncHenrriClient)</a>
 </li>
+        </ul></li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.revenues">revenues (attribut henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.revenues">(attribut henrri_connect.connect.SyncHenrriClient)</a>
+</li>
+        </ul></li>
         <li><a href="api.html#henrri_connect.models.RevenueStatistics">RevenueStatistics (classe dans henrri_connect.models)</a>
 </li>
         <li><a href="api.html#henrri_connect.models.Contact.role">role (attribut henrri_connect.models.Contact)</a>
@@ -1455,6 +1515,12 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api.html#henrri_connect.models.TokenResponse.scope">scope (attribut henrri_connect.models.TokenResponse)</a>
 </li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.secures">secures (attribut henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.secures">(attribut henrri_connect.connect.SyncHenrriClient)</a>
+</li>
+        </ul></li>
         <li><a href="api.html#henrri_connect.models.Item.selling_price_with_tax">selling_price_with_tax (attribut henrri_connect.models.Item)</a>
 </li>
         <li><a href="api.html#henrri_connect.models.DocumentLine.selling_price_without_tax">selling_price_without_tax (attribut henrri_connect.models.DocumentLine)</a>
@@ -1481,10 +1547,10 @@
 </li>
         <li><a href="api.html#henrri_connect.models.UnitKind.SQUARE_CENTIMETER">SQUARE_CENTIMETER (attribut henrri_connect.models.UnitKind)</a>
 </li>
-        <li><a href="api.html#henrri_connect.models.UnitKind.SQUARE_METER">SQUARE_METER (attribut henrri_connect.models.UnitKind)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="api.html#henrri_connect.models.UnitKind.SQUARE_METER">SQUARE_METER (attribut henrri_connect.models.UnitKind)</a>
+</li>
         <li><a href="api.html#henrri_connect.models.UnitKind.SQUARE_MILLIMETER">SQUARE_MILLIMETER (attribut henrri_connect.models.UnitKind)</a>
 </li>
         <li><a href="api.html#henrri_connect.models.Document.subtitle">subtitle (attribut henrri_connect.models.Document)</a>
@@ -1500,6 +1566,8 @@
         <li><a href="api.html#henrri_connect.documents.SyncDocumentsClient">SyncDocumentsClient (classe dans henrri_connect.documents)</a>
 </li>
         <li><a href="api.html#henrri_connect.document_types.SyncDocumentTypesClient">SyncDocumentTypesClient (classe dans henrri_connect.document_types)</a>
+</li>
+        <li><a href="api.html#henrri_connect.connect.SyncHenrriClient">SyncHenrriClient (classe dans henrri_connect.connect)</a>
 </li>
         <li><a href="api.html#henrri_connect.item_categories.SyncItemCategoriesClient">SyncItemCategoriesClient (classe dans henrri_connect.item_categories)</a>
 </li>
@@ -1623,6 +1691,12 @@
 </li>
         <li><a href="api.html#henrri_connect.models.UnitKind">UnitKind (classe dans henrri_connect.models)</a>
 </li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.units">units (attribut henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.units">(attribut henrri_connect.connect.SyncHenrriClient)</a>
+</li>
+        </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api.html#henrri_connect.models.CompanyIdentifierType.UNKNOWN">UNKNOWN (attribut henrri_connect.models.CompanyIdentifierType)</a>
@@ -1637,6 +1711,12 @@
 </li>
         <li><a href="api.html#henrri_connect.models.UserAndCompany">UserAndCompany (classe dans henrri_connect.models)</a>
 </li>
+        <li><a href="api.html#henrri_connect.connect.AsyncHenrriClient.users">users (attribut henrri_connect.connect.AsyncHenrriClient)</a>
+
+        <ul>
+          <li><a href="api.html#henrri_connect.connect.SyncHenrriClient.users">(attribut henrri_connect.connect.SyncHenrriClient)</a>
+</li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>

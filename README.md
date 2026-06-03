@@ -48,15 +48,15 @@ Dépendances : [`httpx`](https://www.python-httpx.org/) et [`pydantic`](https://
 Le client se connecte automatiquement à la première requête et gère le renouvellement du token. Il n'est pas nécessaire d'appeler `authenticate()` explicitement.
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import SyncHenrriClient
 
-client = HenrriClient("votre_client_id", "votre_client_secret")
+client = SyncHenrriClient("votre_client_id", "votre_client_secret")
 ```
 
 L'URL par défaut est l'environnement **sandbox** (`https://api-sandbox.henrri.io`). Pour pointer vers la production, passez `base_url` :
 
 ```python
-client = HenrriClient(
+client = SyncHenrriClient(
     "votre_client_id",
     "votre_client_secret",
     base_url="https://api.henrri.io",
@@ -109,10 +109,10 @@ Toutes les erreurs HTTP sont converties en exceptions typées héritant de `Henr
 | `HenrriServerError` | 5xx — Erreur serveur |
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import SyncHenrriClient
 from henrri_connect.exc import HenrriNotFoundError, HenrriAuthError
 
-client = HenrriClient("client_id", "client_secret")
+client = SyncHenrriClient("client_id", "client_secret")
 
 try:
     customer = client.customers.get(9999)

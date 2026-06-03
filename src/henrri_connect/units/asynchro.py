@@ -8,7 +8,7 @@ from ..models import ListResponse, Unit
 
 if TYPE_CHECKING:
     from ..connect import (
-        _AsyncHenrriClient,   # type: ignore[import]
+        AsyncHenrriClient,
     )
 
 UNITS_ENDPOINT = "/v1/units"
@@ -16,7 +16,7 @@ UNITS_ENDPOINT = "/v1/units"
 class AsyncUnitsClient:
     """Accès asynchrone aux unités."""
 
-    def __init__(self, client: _AsyncHenrriClient) -> None:
+    def __init__(self, client: AsyncHenrriClient) -> None:
         self._c = client
 
     async def list_units(self) -> ListResponse[Unit]:
@@ -33,7 +33,7 @@ class AsyncUnitsClient:
         )
         return Unit.model_validate(resp.json())
 
-    async def get(self, id: int) -> Unit:
+    async def get(self, unit_id: int) -> Unit:
         """Récupère une unité par son identifiant."""
-        resp = await self._c.request("GET", f"{UNITS_ENDPOINT}/{id}")
+        resp = await self._c.request("GET", f"{UNITS_ENDPOINT}/{unit_id}")
         return Unit.model_validate(resp.json())

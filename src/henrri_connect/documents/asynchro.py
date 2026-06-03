@@ -16,7 +16,7 @@ from ..models import (
 
 if TYPE_CHECKING:
     from ..connect import (
-        _AsyncHenrriClient,   # type: ignore[import]
+        AsyncHenrriClient,
     )
 
 DOCUMENTS_ENDPOINT = "/v1/documents"
@@ -28,7 +28,7 @@ def _clean(params: dict[str, Any]) -> dict[str, Any]:
 class AsyncDocumentsClient:
     """Accès asynchrone aux endpoints documents."""
 
-    def __init__(self, client: _AsyncHenrriClient) -> None:
+    def __init__(self, client: AsyncHenrriClient) -> None:
         self._c = client
 
     async def list(
@@ -72,81 +72,81 @@ class AsyncDocumentsClient:
         )
         return Document.model_validate(resp.json())
 
-    async def get(self, id: int) -> Document:
+    async def get(self, doc_id: int) -> Document:
         """Récupère un document par son identifiant."""
-        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{id}")
+        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}")
         return Document.model_validate(resp.json())
 
-    async def get_with_all(self, id: int) -> Document:
+    async def get_with_all(self, doc_id: int) -> Document:
         """Récupère un document avec toutes ses relations incluses."""
-        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{id}/with-all")
+        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/with-all")
         return Document.model_validate(resp.json())
 
-    async def get_all_included(self, id: int) -> Document:
+    async def get_all_included(self, doc_id: int) -> Document:
         """Récupère un document avec toutes ses données incluses."""
-        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{id}/all-included")
+        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/all-included")
         return Document.model_validate(resp.json())
 
-    async def modify(self, id: int, document: Document) -> Document:
+    async def modify(self, doc_id: int, document: Document) -> Document:
         """Met à jour un document existant."""
         resp = await self._c.request(
             "PUT",
-            f"{DOCUMENTS_ENDPOINT}/{id}",
+            f"{DOCUMENTS_ENDPOINT}/{doc_id}",
             json=document.model_dump(by_alias=True, exclude_unset=True, exclude_none=True),
         )
         return Document.model_validate(resp.json())
 
-    async def delete(self, id: int) -> None:
+    async def delete(self, doc_id: int) -> None:
         """Supprime un document."""
-        await self._c.request("DELETE", f"{DOCUMENTS_ENDPOINT}/{id}")
+        await self._c.request("DELETE", f"{DOCUMENTS_ENDPOINT}/{doc_id}")
 
-    async def get_tax_details(self, id: int) -> TaxDetailArray:
+    async def get_tax_details(self, doc_id: int) -> TaxDetailArray:
         """Récupère le détail des taxes d'un document."""
-        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{id}/tax-details")
+        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/tax-details")
         return TaxDetailArray.model_validate(resp.json())
 
-    async def validate(self, id: int, request: ValidateDocumentRequest) -> Document:
+    async def validate(self, doc_id: int, request: ValidateDocumentRequest) -> Document:
         """Valide électroniquement un document."""
         resp = await self._c.request(
             "POST",
-            f"{DOCUMENTS_ENDPOINT}/{id}/validate",
+            f"{DOCUMENTS_ENDPOINT}/{doc_id}/validate",
             json=request.model_dump(by_alias=True, exclude_unset=True, exclude_none=True),
         )
         return Document.model_validate(resp.json())
 
-    async def get_pdf_url(self, id: int) -> PdfUrlResponse:
+    async def get_pdf_url(self, doc_id: int) -> PdfUrlResponse:
         """Génère une URL de téléchargement pour le PDF d'un document."""
-        resp = await self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{id}/pdf/url")
+        resp = await self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{doc_id}/pdf/url")
         return PdfUrlResponse.model_validate(resp.json())
 
-    async def get_pdf_bytes(self, id: int) -> bytes:
+    async def get_pdf_bytes(self, doc_id: int) -> bytes:
         """Télécharge le PDF d'un document (retourne les octets bruts)."""
-        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{id}/pdf")
+        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/pdf")
         return resp.content
 
-    async def get_pdf_file(self, id: int, guid: str) -> bytes:
+    async def get_pdf_file(self, doc_id: int, guid: str) -> bytes:
         """Télécharge un fichier PDF identifié par son GUID."""
-        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{id}/pdf/files/{guid}")
+        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/pdf/files/{guid}")
         return resp.content
 
-    async def get_display(self, id: int) -> Document:
+    async def get_display(self, doc_id: int) -> Document:
         """Récupère les données d'affichage d'un document."""
-        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{id}/display")
+        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/display")
         return Document.model_validate(resp.json())
 
-    async def get_payment_milestones(self, document_id: int) -> ListResponse[PaymentMilestone]:
+    async def get_payment_milestones(self, doc_id: int) -> ListResponse[PaymentMilestone]:
         """Récupère les jalons de paiement d'un document."""
-        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{document_id}/paymentmilestones")
+        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/paymentmilestones")
         return ListResponse[PaymentMilestone].model_validate(resp.json())
 
-    async def finalize(self, id: int) -> Document:
+    async def finalize(self, doc_id: int) -> Document:
         """Finalise un document."""
-        resp = await self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{id}/finalize")
+        resp = await self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{doc_id}/finalize")
         return Document.model_validate(resp.json())
 
-    async def transform_to_invoice(self, id: int) -> Document:
+    async def transform_to_invoice(self, doc_id: int) -> Document:
         """Transforme un document (devis, bon de livraison…) en facture."""
-        resp = await self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{id}/transform-to-invoice")
+        resp = await self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{doc_id}/transform-to-invoice")
         return Document.model_validate(resp.json())
 
     async def get_next_quote_batch(self) -> object:
@@ -164,5 +164,9 @@ class AsyncDocumentsClient:
     ) -> PagedListResponse[Document]:
         """Liste les documents avec sélection de champs."""
         params = _clean({"page": page, "limit": limit, "fields": fields, **kwargs})
-        resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/with-selected-fields", params=params)
+        resp = await self._c.request(
+            "GET",
+            f"{DOCUMENTS_ENDPOINT}/with-selected-fields",
+            params=params
+        )
         return PagedListResponse[Document].model_validate(resp.json())

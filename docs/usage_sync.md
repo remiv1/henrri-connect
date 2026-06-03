@@ -24,10 +24,10 @@ Le client s'authentifie automatiquement à la première requête et gère le raf
 ## Création du client
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import SyncHenrriClient
 import os
 
-client = HenrriClient(os.environ['HENRRI_API_KEY'], os.environ['HENRRI_SECRET_KEY'], async_mode=False)
+client = SyncHenrriClient(os.environ['HENRRI_API_KEY'], os.environ['HENRRI_SECRET_KEY'])
 ```
 
 ### 1. Recherche d'un client

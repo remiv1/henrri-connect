@@ -8,7 +8,7 @@ from ..models import Address, TokenResponse, User, UserAndCompany
 
 if TYPE_CHECKING:
     from ..connect import (
-        _AsyncHenrriClient,   # type: ignore[import]
+        AsyncHenrriClient,
     )
 
 USERS_ENDPOINT = "/v1/users"
@@ -16,17 +16,17 @@ USERS_ENDPOINT = "/v1/users"
 class AsyncUsersClient:
     """Accès asynchrone aux endpoints utilisateurs."""
 
-    def __init__(self, client: _AsyncHenrriClient) -> None:
+    def __init__(self, client: AsyncHenrriClient) -> None:
         self._c = client
 
-    async def get(self, id: int) -> User:
+    async def get(self, user_id: int) -> User:
         """Récupère un utilisateur par son identifiant."""
-        resp = await self._c.request("GET", f"/v1/users/{id}")
+        resp = await self._c.request("GET", f"/v1/users/{user_id}")
         return User.model_validate(resp.json())
 
-    async def get_address(self, id: int) -> Address:
+    async def get_address(self, user_id: int) -> Address:
         """Récupère l'adresse d'un utilisateur."""
-        resp = await self._c.request("GET", f"/v1/users/{id}/address")
+        resp = await self._c.request("GET", f"/v1/users/{user_id}/address")
         return Address.model_validate(resp.json())
 
     async def get_companies(self) -> list[UserAndCompany]:
@@ -47,7 +47,7 @@ class AsyncUsersClient:
             json={"refreshToken": refresh_token},
         )
         token = TokenResponse.model_validate(resp.json())
-        self._c._access_token = token.access_token
+        self._c._access_token = token.access_token  # pylint: disable=W0212
         if token.refresh_token:
-            self._c._refresh_token_str = token.refresh_token
+            self._c._refresh_token_str = token.refresh_token    # pylint: disable=W0212
         return token

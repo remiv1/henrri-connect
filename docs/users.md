@@ -37,9 +37,9 @@ Rafraîchit le token d'accès à partir d'un refresh token.
 ### **Synchrone**
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import SyncHenrriClient
 
-client = HenrriClient("client_id", "client_secret")
+client = SyncHenrriClient("client_id", "client_secret")
 
 user = client.users.get(1)
 print(user.email)
@@ -53,10 +53,10 @@ for uc in companies:
 
 ```python
 import asyncio
-from henrri_connect import HenrriClient
+from henrri_connect import AsyncHenrriClient
 
 async def main():
-    client = HenrriClient("client_id", "client_secret", async_mode=True)
+    client = AsyncHenrriClient("client_id", "client_secret")
 
     user = await client.users.get(1)
     print(user.email)

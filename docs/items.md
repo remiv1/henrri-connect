@@ -61,10 +61,10 @@ Supprime un article.
 ### **Synchrone**
 
 ```python
-from henrri_connect import HenrriClient
+from henrri_connect import SyncHenrriClient
 from henrri_connect.models import Item
 
-client = HenrriClient("client_id", "client_secret")
+client = SyncHenrriClient("client_id", "client_secret")
 
 # Lister les articles d'une catégorie
 result = client.items.list_items(item_category_id=3, limit=20)
@@ -88,10 +88,10 @@ client.items.delete(new_item.id)
 
 ```python
 import asyncio
-from henrri_connect import HenrriClient
+from henrri_connect import AsyncHenrriClient
 
 async def main():
-    client = HenrriClient("client_id", "client_secret", async_mode=True)
+    client = AsyncHenrriClient("client_id", "client_secret")
 
     result = await client.items.list_items(limit=10)
     for item in result.data:

@@ -5,14 +5,14 @@ from __future__ import annotations
 from unittest.mock import AsyncMock, MagicMock
 
 from src.henrri_connect.connect import (
-    _AsyncHenrriClient, _SyncHenrriClient, # type: ignore[import]
+    AsyncHenrriClient, SyncHenrriClient, # type: ignore[import]
 )
 from tests.conftest import MONTHLY_REVENUE_JSON, REVENUE_JSON, make_response
 
 
 class TestSyncRevenues:
     def test_get_annual(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response(REVENUE_JSON)
 
@@ -23,7 +23,7 @@ class TestSyncRevenues:
         assert "/v1/revenues/2025" in mock_http.request.call_args.args[1]
 
     def test_get_monthly(
-        self, sync_client: _SyncHenrriClient, mock_http: MagicMock
+        self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
         mock_http.request.return_value = make_response([MONTHLY_REVENUE_JSON])
 
@@ -37,7 +37,7 @@ class TestSyncRevenues:
 
 class TestAsyncRevenues:
     async def test_get_annual(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response(REVENUE_JSON)
 
@@ -47,7 +47,7 @@ class TestAsyncRevenues:
         assert result.total_products_revenue == float(10000)
 
     async def test_get_monthly(
-        self, async_client: _AsyncHenrriClient, mock_async_http: AsyncMock
+        self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
         mock_async_http.request.return_value = make_response([MONTHLY_REVENUE_JSON])
 

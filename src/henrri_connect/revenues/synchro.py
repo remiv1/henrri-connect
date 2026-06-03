@@ -8,14 +8,14 @@ from ..models import MonthlyRevenueStatistics, RevenueStatistics
 
 if TYPE_CHECKING:
     from ..connect import (
-        _SyncHenrriClient,   # type: ignore[import]
+        SyncHenrriClient,
     )
 
 
 class SyncRevenuesClient:
     """Accès synchrone aux statistiques de revenus."""
 
-    def __init__(self, client: _SyncHenrriClient) -> None:
+    def __init__(self, client: SyncHenrriClient) -> None:
         self._c = client
 
     def get_annual(self, year: int) -> RevenueStatistics:

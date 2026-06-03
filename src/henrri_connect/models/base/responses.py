@@ -1,16 +1,17 @@
 """Modèles de base pour les réponses de l'API Henrri Connect."""
 
+from typing import Generic, TypeVar
 from .models import (
     CamelModel,
     Link,
     MetaListResponse,
     MetaPagedListResponse,
 )
-from typing import Generic, TypeVar
 
 T = TypeVar("T")
 
 class Cell(CamelModel):
+    """Représente une cellule de total dans une réponse paginée."""
     name: str | None = None
     value: str | None = None
     type: str | None = None
@@ -20,6 +21,7 @@ class Cell(CamelModel):
 
 
 class ElementDisplay(CamelModel):
+    """Représente les informations d'affichage pour un élément dans une réponse paginée."""
     id: int | None = None
     title: str | None = None
     index: int = 0

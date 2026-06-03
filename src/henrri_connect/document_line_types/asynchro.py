@@ -8,7 +8,7 @@ from ..models import DocumentLineType, ListResponse
 
 if TYPE_CHECKING:
     from ..connect import (
-        _AsyncHenrriClient,   # type: ignore[import]
+        AsyncHenrriClient,
     )
 
 DOCUMENTLINETYPES_ENDPOINT = "/v1/documentlinetypes"
@@ -16,7 +16,7 @@ DOCUMENTLINETYPES_ENDPOINT = "/v1/documentlinetypes"
 class AsyncDocumentLineTypesClient:
     """Accès asynchrone aux types de lignes de document."""
 
-    def __init__(self, client: _AsyncHenrriClient) -> None:
+    def __init__(self, client: AsyncHenrriClient) -> None:
         self._c = client
 
     async def list_document_line_types(self) -> ListResponse[DocumentLineType]:

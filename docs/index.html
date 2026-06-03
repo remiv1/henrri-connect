@@ -319,9 +319,9 @@
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
 Synchrone</label><div class="sd-tab-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">henrri_connect</span><span class="w"> </span><span class="kn">import</span> <span class="n">HenrriClient</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">henrri_connect</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncHenrriClient</span>
 
-<span class="n">client</span> <span class="o">=</span> <span class="n">HenrriClient</span><span class="p">(</span><span class="s2">&quot;client_id&quot;</span><span class="p">,</span> <span class="s2">&quot;client_secret&quot;</span><span class="p">)</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">SyncHenrriClient</span><span class="p">(</span><span class="s2">&quot;client_id&quot;</span><span class="p">,</span> <span class="s2">&quot;client_secret&quot;</span><span class="p">)</span>
 
 <span class="c1"># Lister les clients</span>
 <span class="n">customers</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">customers</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
@@ -335,10 +335,10 @@ Synchrone</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" for="sd-tab-item-1">
 Asynchrone</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">henrri_connect</span><span class="w"> </span><span class="kn">import</span> <span class="n">HenrriClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">henrri_connect</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncHenrriClient</span>
 
 <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-    <span class="n">client</span> <span class="o">=</span> <span class="n">HenrriClient</span><span class="p">(</span><span class="s2">&quot;client_id&quot;</span><span class="p">,</span> <span class="s2">&quot;client_secret&quot;</span><span class="p">,</span> <span class="n">async_mode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">AsyncHenrriClient</span><span class="p">(</span><span class="s2">&quot;client_id&quot;</span><span class="p">,</span> <span class="s2">&quot;client_secret&quot;</span><span class="p">)</span>
 
     <span class="c1"># Lister les clients</span>
     <span class="n">customers</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">customers</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
