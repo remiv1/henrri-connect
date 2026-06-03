@@ -1,14 +1,27 @@
-"""Modèles pour les articles et catégories d'articles dans l'API Henrri Connect."""
+"""
+Modèles pour les articles et catégories d'articles dans l'API Henrri Connect.
+
+Attributs:
+- ItemCategoryType: Représente un type de catégorie d'article.
+- ItemCategory: Représente une catégorie d'article.
+- Item: Représente un article.
+"""
 
 from __future__ import annotations
-
-from datetime import datetime
 
 from .base import CamelModel, Link
 from .base import ItemCategoryContentKind, ItemCategoryKind
 
 class ItemCategoryType(CamelModel):
-    """Représente un type de catégorie d'article dans l'API Henrri Connect."""
+    """
+    Représente un type de catégorie d'article dans l'API Henrri Connect.
+    
+    Attributs:
+    - id: Identifiant unique du type de catégorie d'article.
+    - label: Libellé du type de catégorie d'article.
+    - item_category_content_kind: Type de contenu de la catégorie d'article.
+    - item_category_kind: Type de catégorie d'article.
+    """
     id: int | None = None
     label: str | None = None
     item_category_content_kind: str = ItemCategoryContentKind.SUPPLY
@@ -16,7 +29,21 @@ class ItemCategoryType(CamelModel):
 
 
 class ItemCategory(CamelModel):
-    """Représente une catégorie d'article dans l'API Henrri Connect."""
+    """
+    Représente une catégorie d'article dans l'API Henrri Connect.
+    
+    Attributs:
+    - id: Identifiant unique de la catégorie d'article.
+    - type: Type de la catégorie d'article.
+    - label: Libellé de la catégorie d'article.
+    - margin_percent: Pourcentage de marge de la catégorie d'article.
+    - hourly_rate: Tarif horaire de la catégorie d'article.
+    - vat: Taux de TVA de la catégorie d'article.
+    - is_added_to_revenue: Indique si les articles de la cat. sont ajoutés au chiffre d'affaires.
+    - is_default: Indique si la catégorie d'article est la catégorie par défaut.
+    - is_deleted: Indique si la catégorie d'article est supprimée.
+    - item_category_kind: Type de la catégorie d'article (service, produit, ou fourniture).
+    """
     id: int | None = None
     type: ItemCategoryType | None = None
     label: str | None = None
@@ -30,7 +57,27 @@ class ItemCategory(CamelModel):
 
 
 class Item(CamelModel):
-    """Représente un article dans l'API Henrri Connect."""
+    """
+    Représente un article dans l'API Henrri Connect.
+    
+    Attributs:
+    - id: Identifiant unique de l'article.
+    - reference: Référence de l'article.
+    - description: Description de l'article.
+    - is_tax_included: Indique si la taxe est incluse dans le prix.
+    - selling_price_without_tax: Prix de vente hors taxe de l'article.
+    - selling_price_with_tax: Prix de vente TTC de l'article.
+    - purchase_price: Prix d'achat de l'article.
+    - vat_percent: Taux de TVA de l'article.
+    - is_a_group: Indique si l'article est un groupe d'articles.
+    - item_category: Catégorie de l'article (si applicable).
+    - item_category_id: Identifiant de la catégorie de l'article (si applicable).
+    - unit_id: Identifiant de l'unité de l'article (si applicable).
+    - parent_item_id: Id d'article parent si l'article est un élément d'un grp
+    d'articles (si applicable).
+    - creation_date: Date de création de l'article.
+    - links: Liste de liens associés à l'article (si applicable).
+    """
     id: int | None = None
     reference: str | None = None
     description: str | None = None
@@ -44,5 +91,5 @@ class Item(CamelModel):
     item_category_id: int | None = None
     unit_id: int | None = None
     parent_item_id: int | None = None
-    creation_date: datetime | None = None
+    creation_date: str
     links: list[Link] | None = None

@@ -4,38 +4,16 @@ from __future__ import annotations
 from datetime import datetime
 from enum import Enum
 from typing import Generic, TypeVar
-
 from pydantic import BaseModel
 
+from .base import (
+    CompanyIdentifierType,
+    CustomerType,
+    UnitKind,
+)
+
+
 T = TypeVar("T")
-
-# ── Enums exportés ────────────────────────────────────────────────────────────
-
-class CompanyIdentifierType(str, Enum): # pylint: disable=C0115
-    SIRET: str
-    BCE: str
-    UNKNOWN: str
-
-class UnitKind(str, Enum):  # pylint: disable=C0115
-    HOURLY: str
-    METER: str
-    CENTIMETER: str
-    SQUARE_CENTIMETER: str
-    CUBIC_CENTIMETER: str
-    DECIMETER: str
-    SQUARE_METER: str
-    CUBIC_METER: str
-    MILLIMETER: str
-    SQUARE_MILLIMETER: str
-    CUBIC_MILLIMETER: str
-    KILOGRAM: str
-    GRAM: str
-    METRIC_TON: str
-    SPECIFIC: str
-    FLAT_RATE: str
-    LINEAR_METER: str
-    UNIT: str
-    CUSTOM: str
 
 # ── Types internes aux champs des modèles ─────────────────────────────────────
 
@@ -170,33 +148,33 @@ class UserAndCompany(BaseModel):    # pylint: disable=C0115
 # ── Client ────────────────────────────────────────────────────────────────────
 
 class Customer(BaseModel):  # pylint: disable=C0115
-    id: int | None
+    id: int | None = ...
     name: str
-    type: str
-    accounting_number: str | None
-    company_identifier_type: CompanyIdentifierType | None
-    siret: str | None
-    trade_name: str | None
-    trade_name_extension: str | None
-    ict: str | None
-    vat_number: str | None
-    address: Address | None
-    contacts: list[Contact] | None
-    days_number_before_payment_reminder_level1: int | None
-    days_number_before_payment_reminder_level2: int | None
-    days_number_before_payment_reminder_level3: int | None
-    days_number_before_payment_reminder_level4: int | None
-    service_discount_percentage: float
-    product_discount_percentage: float
-    customer_type_alert_enabled: bool
-    is_deleted: bool
-    is_supplier: bool
-    is_advisor: bool | None
-    import_date: datetime | None
-    comment: str | None
-    website: str | None
-    creation_date: datetime | None
-    links: list[Link] | None
+    type: CustomerType = CustomerType.INDIVIDUAL
+    accounting_number: str | None = ...
+    company_identifier_type: CompanyIdentifierType | None = ...
+    siret: str | None = ...
+    trade_name: str | None = ...
+    trade_name_extension: str | None = ...
+    ict: str | None = ...
+    vat_number: str | None = ...
+    address: Address | None = ...
+    contacts: list[Contact] | None = ...
+    days_number_before_payment_reminder_level1: int | None = ...
+    days_number_before_payment_reminder_level2: int | None = ...
+    days_number_before_payment_reminder_level3: int | None = ...
+    days_number_before_payment_reminder_level4: int | None = ...
+    service_discount_percentage: float = ...
+    product_discount_percentage: float = ...
+    customer_type_alert_enabled: bool = ...
+    is_deleted: bool = ...
+    is_supplier: bool = ...
+    is_advisor: bool | None = ...
+    import_date: datetime | None = ...
+    comment: str | None = ...
+    website: str | None = ...
+    creation_date: datetime | None = ...
+    links: list[Link] | None = ...
 
 # ── Catégories d'articles ─────────────────────────────────────────────────────
 

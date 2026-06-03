@@ -7,6 +7,7 @@ from .models import (
     MetaPagedListResponse,
 )
 from .enums import (
+    CustomerType,
     CompanyIdentifierType,
     DocumentKind,
     DocumentLineKind,
@@ -18,6 +19,7 @@ from .enums import (
 )
 
 __all__ = [
+    "CustomerType",
     "CamelModel",
     "CompanyIdentifierType",
     "DocumentKind",

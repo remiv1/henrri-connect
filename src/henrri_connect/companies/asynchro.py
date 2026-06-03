@@ -14,7 +14,11 @@ if TYPE_CHECKING:
 COMPANIES_ENDPOINT = "/v1/companies"
 
 class AsyncCompaniesClient:
-    """Accès asynchrone aux endpoints entreprises."""
+    """
+    Accès asynchrone aux endpoints entreprises.
+    
+    Methodes:
+    - get"""
 
     def __init__(self, client: AsyncHenrriClient) -> None:
         self._c = client

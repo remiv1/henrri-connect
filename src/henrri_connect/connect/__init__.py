@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, overload, Literal    # type: ignore[import]
-from .asynchro import AsyncHenrriClient    # type: ignore[import]
-from .synchro import SyncHenrriClient   # type: ignore[import]
+from .asynchro import AsyncHenrriClient
+from .synchro import SyncHenrriClient
 
 _BASE_URL = "https://api-sandbox.henrri.io"
 APP_VERSION = "application/json; X-Version=1.0"

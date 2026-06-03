@@ -1,4 +1,15 @@
-"""Modèles document pour l'API Henrri Connect."""
+"""
+Modèles document pour l'API Henrri Connect.
+
+Attributs:
+- DocumentType: Représente un type de document dans l'API Henrri Connect.
+- DocumentLabelElement: Représente un élément d'étiquette de document dans l'API Henrri Connect.
+- DocumentLabel: Représente une étiquette de document dans l'API Henrri Connect.
+- DocumentLineType: Représente un type de ligne de document dans l'API Henrri Connect.
+- DocumentLine: Représente une ligne de document dans l'API Henrri Connect.
+- DocumentLineMoveQueryParameters: Représente les paramètres de requête pour déplacer une ligne
+de document dans l'API Henrri Connect.
+"""
 
 from __future__ import annotations
 
@@ -7,14 +18,48 @@ from .items import Item
 
 
 class DocumentLineType(CamelModel):
-    """Représente un type de ligne de document dans l'API Henrri Connect."""
+    """
+    Représente un type de ligne de document dans l'API Henrri Connect.
+    
+    Attributs:
+    - id: Identifiant unique du type de ligne de document.
+    - label: Libellé du type de ligne de document.
+    - type: Type de ligne de document.
+    """
     id: int | None = None
     label: str | None = None
     type: str = DocumentLineKind.NONE
 
 
 class DocumentLine(CamelModel):
-    """Représente une ligne de document dans l'API Henrri Connect."""
+    """
+    Représente une ligne de document dans l'API Henrri Connect.
+    
+    Attributs:
+    - id: Identifiant unique de la ligne de document.
+    - document_id: Identifiant du document auquel appartient la ligne.
+    - reference: Référence de la ligne de document.
+    - description: Description de la ligne de document.
+    - selling_price_without_tax: Prix de vente sans taxe de la ligne de document.
+    - purchasing_price_without_tax: Prix d'achat sans taxe de la ligne de document.
+    - vat_percent: Pourcentage de TVA appliqué à la ligne de document.
+    - quantity: Quantité de l'article dans la ligne de document.
+    - is_tax_included: Indique si les prix incluent la taxe.
+    - total_without_tax: Total sans taxe pour la ligne de document.
+    - total_with_tax: Total avec taxe pour la ligne de document.
+    - are_elements_of_group_shown: Indique si les éléments du groupe sont affichés.
+    - line_number: Numéro de la ligne dans le document.
+    - is_a_group: Indique si la ligne est un groupe d'articles.
+    - does_group_own_different_vat: Indique si le groupe a une TVA différente pour ses éléments.
+    - is_member_of_a_group: Indique si la ligne est membre d'un groupe d'articles.
+    - is_adjustment_of_group: Indique si la ligne est un ajustement d'un groupe d'articles.
+    - type_id: Identifiant du type de ligne de document.
+    - type: Type de ligne de document (si applicable).
+    - group_id: Identifiant du groupe d'articles auquel appartient la ligne (si applicable).
+    - item_id: Identifiant de l'article associé à la ligne (si applicable).
+    - item: Article associé à la ligne (si applicable).
+    - links: Liste de liens associés à la ligne de document (si applicable).
+    """
     id: int | None = None
     document_id: int | None = None
     reference: str | None = None
@@ -44,5 +89,8 @@ class DocumentLineMoveQueryParameters(CamelModel):
     """
     Représente les paramètres de requête pour déplacer une ligne de document dans
     l'API Henrri Connect.
+
+    Attributs:
+    - to: Identifiant de la ligne de document vers laquelle déplacer la ligne.
     """
     to: int
