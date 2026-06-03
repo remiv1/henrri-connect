@@ -1,14 +1,41 @@
-"""Client HTTP Henrri synchrone."""
+"""
+Client HTTP Henrri synchrone.
+
+Constants:
+----------
+- `henrri_connect.connect.synchro._BASE_URL`:
+     URL de base de l'API Henrri.
+- `henrri_connect.connect.synchro.APP_VERSION`:
+     Version de l'application.
+- `henrri_connect.connect.synchro.APP_X_VERSION`:
+     Version de l'application.
+
+Classes:
+--------
+- `henrri_connect.connect.synchro.SyncHenrriClient`:
+     Client HTTP Henrri synchrone.
+
+Exemples:
+---------
+.. code-block:: python
+
+    # Client synchrone
+    from henrri_connect import SyncHenrriClient
+
+    client = SyncHenrriClient("client_id", "client_secret", base_url=<URL de base de l'API>)
+
+Exceptions:
+----------
+- `henrri_connect.exc.HenrriAuthError`:
+     Erreur d'authentification (HTTP 401).
+"""
 
 from __future__ import annotations
 
 import logging
 from typing import Any, TYPE_CHECKING   # pylint: disable=W0611 # type: ignore[import]
 import httpx
-from ..exc import (
-    HenrriAuthError,
-)
-
+from ..exc import HenrriAuthError
 from ..models import TokenResponse
 from ..utils import raise_for_status
 if TYPE_CHECKING:
@@ -39,10 +66,16 @@ class SyncHenrriClient:
     Fournit des sous-clients pour chaque groupe d'endpoints (users, companies, etc.)
     Authentification automatique avec gestion du refresh token
     Gestion centralisée des erreurs HTTP avec exceptions personnalisées
-    Args:
+
+    Arguments:
     - client_id: Identifiant client pour l'authentification.
     - client_secret: Secret client pour l'authentification.
     - base_url: URL de base de l'API (défaut : sandbox Henrri).
+
+    Methodes:
+    - authenticate: Authentifie le client.
+    - request: Effectue une requête HTTP authentifiée.
+    - close: Ferme le client HTTP sous-jacent.
     """
 
     users: "SyncUsersClient"
@@ -74,18 +107,18 @@ class SyncHenrriClient:
         self._init_subclients()
 
     def _init_subclients(self) -> None:
-        from ..companies import SyncCompaniesClient    # pylint: disable=import-outside-toplevel
-        from ..customers import SyncCustomersClient    # pylint: disable=import-outside-toplevel
-        from ..document_line_types import SyncDocumentLineTypesClient    # pylint: disable=import-outside-toplevel
-        from ..document_lines import SyncDocumentLinesClient    # pylint: disable=import-outside-toplevel
-        from ..document_types import SyncDocumentTypesClient    # pylint: disable=import-outside-toplevel
-        from ..documents import SyncDocumentsClient    # pylint: disable=import-outside-toplevel
-        from ..item_categories import SyncItemCategoriesClient    # pylint: disable=import-outside-toplevel
-        from ..items import SyncItemsClient    # pylint: disable=import-outside-toplevel
-        from ..revenues import SyncRevenuesClient    # pylint: disable=import-outside-toplevel
-        from ..secures import SyncSecuresClient    # pylint: disable=import-outside-toplevel
-        from ..units import SyncUnitsClient    # pylint: disable=import-outside-toplevel
-        from ..users import SyncUsersClient    # pylint: disable=import-outside-toplevel
+        from ..companies import SyncCompaniesClient
+        from ..customers import SyncCustomersClient
+        from ..document_line_types import SyncDocumentLineTypesClient
+        from ..document_lines import SyncDocumentLinesClient
+        from ..document_types import SyncDocumentTypesClient
+        from ..documents import SyncDocumentsClient
+        from ..item_categories import SyncItemCategoriesClient
+        from ..items import SyncItemsClient
+        from ..revenues import SyncRevenuesClient
+        from ..secures import SyncSecuresClient
+        from ..units import SyncUnitsClient
+        from ..users import SyncUsersClient
 
         self.users = SyncUsersClient(self)
         self.companies = SyncCompaniesClient(self)
@@ -124,8 +157,10 @@ class SyncHenrriClient:
     def authenticate(self) -> TokenResponse:
         """
         Authentifie le client et stocke le token d'accès.
-        Args:
+
+        Arguments:
         - None
+
         Returns:
         - TokenResponse : objet contenant access_token et refresh_token.
         """
@@ -146,7 +181,15 @@ class SyncHenrriClient:
         return token
 
     def _do_refresh(self) -> None:
-        """Rafraîchit le token via le refresh token, ou ré-authentifie en cas d'échec."""
+        """
+        Rafraîchit le token via le refresh token, ou ré-authentifie en cas d'échec.
+        
+        Arguments:
+        - None
+        
+        Returns:
+        - None
+        """
         resp: httpx.Response = self._http.post(
             self._url("/v1/users/refresh-token"),
             headers=self._headers(authenticated=False),
@@ -170,7 +213,21 @@ class SyncHenrriClient:
         authenticated: bool = True,
         **kwargs: Any,
     ) -> httpx.Response:
-        """Effectue une requête HTTP avec gestion automatique de l'authentification."""
+        """
+        Effectue une requête HTTP avec gestion automatique de l'authentification.
+        
+        Arguments:
+        - method (str) : Le type de la requête (GET, POST, etc.).
+        - path (str) : L'URL de la requête.
+        - authenticated (bool, optional) : Indique si la requête doit быть authentifiée.
+        - kwargs (dict, optional) : Dictionnaire de paramètres supplémentaires pour la requête.
+        
+        Returns:
+        - httpx.Response : La réponse de la requête.
+        
+        Raises:
+        - HenrriAuthError : Erreur d'authentification.
+        """
         if authenticated and not self._access_token:
             self.authenticate()
 
@@ -204,7 +261,8 @@ class SyncHenrriClient:
         return resp
 
     def request(self, method: str, endpoint: str, **kwargs: Any) -> httpx.Response:
-        """Effectue une requête HTTP authentifiée (synchrone).
+        """
+        Effectue une requête HTTP authentifiée (synchrone).
         
         Args:
             method: Méthode HTTP (GET, POST, etc.).
@@ -217,7 +275,15 @@ class SyncHenrriClient:
         return self._request(method, endpoint, **kwargs)
 
     def close(self) -> None:
-        """Ferme le client HTTP sous-jacent."""
+        """
+        Ferme le client HTTP sous-jacent.
+        
+        Args:
+        - None
+        
+        Returns:
+        - None
+        """
         logger.info("Fermeture du client HTTP.")
         self._http.close()
 

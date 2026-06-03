@@ -1,13 +1,41 @@
-"""Client HTTP Henrri : factory et implémentations synchrone/asynchrone."""
+"""
+Client HTTP Henrri : implémentations asynchrone.
+
+Constants:
+----------
+- `henrri_connect.connect.asynchro._BASE_URL`:
+     URL de base de l'API Henrri.
+- `henrri_connect.connect.asynchro.APP_VERSION`:
+     Version de l'application.
+- `henrri_connect.connect.asynchro.APP_X_VERSION`:
+     Version de l'application.
+
+Classes:
+--------
+- `henrri_connect.connect.asynchro.AsyncHenrriClient`:
+     Client HTTP Henrri asynchrone.
+
+Exceptions:
+----------
+- `henrri_connect.exc.HenrriAuthError`:
+     Erreur d'authentification (HTTP 401).
+
+Exemples:
+---------
+.. code-block:: python
+
+    # Client asynchrone
+    from henrri_connect import AsyncHenrriClient
+
+    client = AsyncHenrriClient("client_id", "client_secret", base_url="<production_url>")
+"""
 
 from __future__ import annotations
 
 import logging
 from typing import Any, TYPE_CHECKING
 import httpx
-from ..exc import (
-    HenrriAuthError,
-)
+from ..exc import HenrriAuthError
 from ..models import TokenResponse
 from ..utils import raise_for_status
 if TYPE_CHECKING:
@@ -37,10 +65,16 @@ class AsyncHenrriClient:
     Fournit des sous-clients pour chaque groupe d'endpoints (users, companies, etc.)
     Authentification automatique avec gestion du refresh token
     Gestion centralisée des erreurs HTTP avec exceptions personnalisées
-    Args:
+
+    Arguments:
     - client_id: Identifiant client pour l'authentification.
     - client_secret: Secret client pour l'authentification.
     - base_url: URL de base de l'API (défaut : sandbox Henrri).
+
+    Methodes:
+    - authenticate: Authentifie le client.
+    - request: Effectue une requête HTTP authentifiée.
+    - close: Ferme le client HTTP sous-jacent.
     """
 
     users: "AsyncUsersClient"
@@ -72,18 +106,18 @@ class AsyncHenrriClient:
         self._init_subclients()
 
     def _init_subclients(self) -> None:
-        from ..companies import AsyncCompaniesClient    # pylint: disable=import-outside-toplevel
-        from ..customers import AsyncCustomersClient    # pylint: disable=import-outside-toplevel
-        from ..document_line_types import AsyncDocumentLineTypesClient    # pylint: disable=import-outside-toplevel
-        from ..document_lines import AsyncDocumentLinesClient    # pylint: disable=import-outside-toplevel
-        from ..document_types import AsyncDocumentTypesClient    # pylint: disable=import-outside-toplevel
-        from ..documents import AsyncDocumentsClient    # pylint: disable=import-outside-toplevel
-        from ..item_categories import AsyncItemCategoriesClient    # pylint: disable=import-outside-toplevel
-        from ..items import AsyncItemsClient    # pylint: disable=import-outside-toplevel
-        from ..revenues import AsyncRevenuesClient    # pylint: disable=import-outside-toplevel
-        from ..secures import AsyncSecuresClient    # pylint: disable=import-outside-toplevel
-        from ..units import AsyncUnitsClient    # pylint: disable=import-outside-toplevel
-        from ..users import AsyncUsersClient    # pylint: disable=import-outside-toplevel
+        from ..companies import AsyncCompaniesClient
+        from ..customers import AsyncCustomersClient
+        from ..document_line_types import AsyncDocumentLineTypesClient
+        from ..document_lines import AsyncDocumentLinesClient
+        from ..document_types import AsyncDocumentTypesClient
+        from ..documents import AsyncDocumentsClient
+        from ..item_categories import AsyncItemCategoriesClient
+        from ..items import AsyncItemsClient
+        from ..revenues import AsyncRevenuesClient
+        from ..secures import AsyncSecuresClient
+        from ..units import AsyncUnitsClient
+        from ..users import AsyncUsersClient
 
         self.users = AsyncUsersClient(self)
         self.companies = AsyncCompaniesClient(self)
@@ -120,7 +154,15 @@ class AsyncHenrriClient:
         return headers
 
     async def authenticate(self) -> TokenResponse:
-        """Authentifie le client et stocke le token d'accès."""
+        """
+        Authentifie le client et stocke le token d'accès.
+        
+        Args:
+        - None
+        
+        Returns:
+        - TokenResponse : objet contenant access_token et refresh_token.
+        """
         resp: httpx.Response = await self._http.post(
             self._url("/v1/users/authenticate"),
             headers=self._headers(authenticated=False),
@@ -138,7 +180,15 @@ class AsyncHenrriClient:
         return token
 
     async def _do_refresh(self) -> None:
-        """Rafraîchit le token via le refresh token, ou ré-authentifie en cas d'échec."""
+        """
+        Rafraîchit le token via le refresh token, ou ré-authentifie en cas d'échec.
+        
+        Args:
+        - None
+        
+        Returns:
+        - None
+        """
         resp: httpx.Response = await self._http.post(
             self._url("/v1/users/refresh-token"),
             headers=self._headers(authenticated=False),
@@ -162,7 +212,21 @@ class AsyncHenrriClient:
         authenticated: bool = True,
         **kwargs: Any,
     ) -> httpx.Response:
-        """Effectue une requête HTTP avec gestion automatique de l'authentification."""
+        """
+        Effectue une requête HTTP avec gestion automatique de l'authentification.
+        
+        Args:
+        - method (str) : Le type de la requête (GET, POST, etc.).
+        - path (str) : L'URL de la requête.
+        - authenticated (bool, optional) : Indique si la requête doit быть authentifiée.
+        - kwargs (dict, optional) : Dictionnaire de paramètres supplémentaires pour la requête.
+        
+        Returns:
+        - httpx.Response : La réponse de la requête.
+        
+        Raises:
+        - HenrriAuthError : Erreur d'authentification.
+        """
         if authenticated and not self._access_token:
             await self.authenticate()
 
@@ -196,7 +260,8 @@ class AsyncHenrriClient:
         return resp
 
     async def request(self, method: str, endpoint: str, **kwargs: Any) -> httpx.Response:
-        """Effectue une requête HTTP authentifiée (asynchrone).
+        """
+        Effectue une requête HTTP authentifiée (asynchrone).
         
         Args:
             method: Méthode HTTP (GET, POST, etc.).
@@ -204,22 +269,24 @@ class AsyncHenrriClient:
             **kwargs: Arguments supplémentaires pour httpx.request().
         
         Returns:
-            Réponse HTTP.
+            httpx.Response: La réponse de la requête HTTP.
         """
         return await self._request(method, endpoint, **kwargs)
 
     async def close(self) -> None:
         """
         Ferme le client HTTP sous-jacent.
-        - Arguments:
-            - None
-        - Returns:
-            - None
+        
+        Args:
+        - None
+
+        Returns:
+        - None
         """
         logger.info("Fermeture du client HTTP.")
         await self._http.aclose()
 
-    async def __aenter__(self) -> AsyncHenrriClient:
+    async def __aenter__(self) -> AsyncHenrriClient:        
         return self
 
     async def __aexit__(self, *args: Any) -> None:

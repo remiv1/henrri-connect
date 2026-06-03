@@ -57,7 +57,7 @@ class SyncDocumentsClient:  # pylint: disable=C0115
 
 class AsyncDocumentsClient: # pylint: disable=C0115
     def __init__(self, client: Any) -> None: ...    # pylint: disable=W0613
-    async def list( # pylint: disable=C0116, W0613
+    async def list_documents( # pylint: disable=C0116, W0613
         self,
         *,
         page: int = ...,

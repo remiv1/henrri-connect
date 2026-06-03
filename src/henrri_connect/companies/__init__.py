@@ -1,4 +1,20 @@
-"""Sous-client pour les endpoints /v1/companies."""
+"""
+Sous-client pour les endpoints /v1/companies.
+
+Classes:
+--------
+- `henrri_connect.companies.synchro.SyncCompaniesClient`:
+    Accès synchrone aux endpoints entreprises.
+
+- `henrri_connect.companies.asynchro.AsyncCompaniesClient`:
+    Accès asynchrone aux endpoints entreprises.
+
+Notes:
+-----
+- Utiliser de préférence les objets suivants pour acceder aux endpoints:
+    - `henrri_connect.SyncHenrriClient`
+    - `henrri_connect.AsyncHenrriClient`
+"""
 
 from __future__ import annotations
 

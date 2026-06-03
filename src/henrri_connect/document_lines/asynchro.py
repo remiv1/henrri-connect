@@ -1,4 +1,16 @@
-"""Sous-client pour les endpoints /v1/documents/{documentId}/lines."""
+"""
+Sous-client pour les endpoints /v1/documents/{documentId}/lines.
+
+Classes:
+--------
+- `henrri_connect.document_lines.asynchro.AsyncDocumentLinesClient`:
+    Accès asynchrone aux endpoints lignes de documents.
+
+Notes:
+-----
+- Utiliser de préférence l'objet `henrri_connect.AsyncHenrriClient` pour acceder
+aux endpoints.
+"""
 
 from __future__ import annotations
 
@@ -7,25 +19,53 @@ from typing import TYPE_CHECKING
 from ..models import DocumentLine, ListResponse
 
 if TYPE_CHECKING:
-    from ..connect import (
-        AsyncHenrriClient,
-    )
+    from ..connect import AsyncHenrriClient
 
 DOCUMENT_ENDPOINT = "/v1/documents"
 
 class AsyncDocumentLinesClient:
-    """Accès asynchrone aux lignes de document."""
+    """
+    Accès asynchrone aux lignes de document.
+    
+    Arguments:
+    - `client`: Objet `henrri_connect.AsyncHenrriClient`.
+
+    Methods:
+    - `list_document_lines`: Liste les lignes d'un document.
+    - `add`: Ajoute une ligne à un document.
+    - `get`: Récupère une ligne de document par son identifiant.
+    - `modify`: Modifie une ligne de document par son identifiant.
+    - `delete`: Supprime une ligne de document par son identifiant.
+    - `move`: Déplace une ligne vers une position donnée.
+    """
 
     def __init__(self, client: AsyncHenrriClient) -> None:
         self._c = client
 
     async def list_document_lines(self, document_id: int) -> ListResponse[DocumentLine]:
-        """Liste les lignes d'un document."""
+        """
+        Liste les lignes d'un document.
+        
+        Arguments:
+        - `document_id`: Identifiant du document.
+        
+        Returns:
+        - `ListResponse[DocumentLine]`: Liste de lignes de document.
+        """
         resp = await self._c.request("GET", f"{DOCUMENT_ENDPOINT}/{document_id}/lines")
         return ListResponse[DocumentLine].model_validate(resp.json())
 
     async def add(self, document_id: int, line: DocumentLine) -> DocumentLine:
-        """Ajoute une ligne à un document."""
+        """
+        Ajoute une ligne à un document.
+        
+        Arguments:
+        - `document_id`: Identifiant du document.
+        - `line`: Ligne de document.
+        
+        Returns:
+        - `DocumentLine`: Ligne de document ajoutée.
+        """
         resp = await self._c.request(
             "POST",
             f"{DOCUMENT_ENDPOINT}/{document_id}/lines",
@@ -34,12 +74,31 @@ class AsyncDocumentLinesClient:
         return DocumentLine.model_validate(resp.json())
 
     async def get(self, document_id: int, line_id: int) -> DocumentLine:
-        """Récupère une ligne de document par son identifiant."""
+        """
+        Récupère une ligne de document par son identifiant.
+        
+        Arguments:
+        - `document_id`: Identifiant du document.
+        - `line_id`: Identifiant de la ligne de document.
+        
+        Returns:
+        - `DocumentLine`: Ligne de document.
+        """
         resp = await self._c.request("GET", f"{DOCUMENT_ENDPOINT}/{document_id}/lines/{line_id}")
         return DocumentLine.model_validate(resp.json())
 
     async def modify(self, document_id: int, line_id: int, line: DocumentLine) -> DocumentLine:
-        """Met à jour une ligne de document."""
+        """
+        Met à jour une ligne de document.
+        
+        Arguments:
+        - `document_id`: Identifiant du document.
+        - `line_id`: Identifiant de la ligne de document.
+        - `line`: Ligne de document.
+        
+        Returns:
+        - `DocumentLine`: Ligne de document modifiée.
+        """
         resp = await self._c.request(
             "PUT",
             f"{DOCUMENT_ENDPOINT}/{document_id}/lines/{line_id}",
@@ -48,11 +107,30 @@ class AsyncDocumentLinesClient:
         return DocumentLine.model_validate(resp.json())
 
     async def delete(self, document_id: int, line_id: int) -> None:
-        """Supprime une ligne de document."""
+        """
+        Supprime une ligne de document.
+        
+        Arguments:
+        - `document_id`: Identifiant du document.
+        - `line_id`: Identifiant de la ligne de document.
+        
+        Returns:
+        - `None`
+        """
         await self._c.request("DELETE", f"{DOCUMENT_ENDPOINT}/{document_id}/lines/{line_id}")
 
     async def move(self, document_id: int, line_id: int, to: int) -> None:
-        """Déplace une ligne vers une position donnée."""
+        """
+        Déplace une ligne vers une position donnée.
+        
+        Arguments:
+        - `document_id`: Identifiant du document.
+        - `line_id`: Identifiant de la ligne de document.
+        - `to`: Position de destination.
+        
+        Returns:
+        - `None`
+        """
         await self._c.request(
             "POST",
             f"{DOCUMENT_ENDPOINT}/{document_id}/lines/{line_id}/move",
