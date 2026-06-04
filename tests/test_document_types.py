@@ -10,7 +10,7 @@ from src.henrri_connect.connect import (
 from tests.conftest import DOCUMENT_TYPE_JSON, make_response
 
 
-class TestSyncDocumentTypes:
+class TestSyncDocumentTypes:   # pylint: disable=R0903
     """Tests du sous-client document_types (synchrone et asynchrone)."""
     def test_list_retourne_types(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
@@ -27,7 +27,7 @@ class TestSyncDocumentTypes:
         assert "/v1/documenttypes" in mock_http.request.call_args.args[1]
 
 
-class TestAsyncDocumentTypes:
+class TestAsyncDocumentTypes:   # pylint: disable=R0903
     """Tests du sous-client document_types (synchrone et asynchrone)."""
     async def test_list_retourne_types(
         self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, AsyncMock
 
 import pytest
 
@@ -150,7 +150,7 @@ class TestRaiseForStatus:
 
 class TestAsyncAuthenticate:
     """Tests de l'authentification asynchrone."""
-    async def test_stocke_access_token(self, mock_async_http: MagicMock) -> None:
+    async def test_stocke_access_token(self, mock_async_http: AsyncMock) -> None:
         """Le token d'accès est stocké après authentification asynchrone réussie."""
         mock_async_http.post.return_value = make_response(TOKEN_JSON)
 
