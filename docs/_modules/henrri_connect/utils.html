@@ -227,7 +227,16 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.utils</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Module utilitaire pour les clients Henrri Connect.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module utilitaire pour les clients Henrri Connect.</span>
+
+<span class="sd">Fournit l&#39;ensemble des fonctions utilitaires nécessaires au package `henrri_connect`.</span>
+
+<span class="sd">Functions:</span>
+<span class="sd">----------</span>
+<span class="sd">- raise_for_status: Levé une exception appropriée selon le code HTTP de la réponse.</span>
+<span class="sd">- clean: Nettoie un dictionnaire en supprimant les clés dont la valeur est `None`.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>

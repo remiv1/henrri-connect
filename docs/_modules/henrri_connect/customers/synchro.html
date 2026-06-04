@@ -283,7 +283,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span> <span class="o">=</span> <span class="n">client</span>
 
     <span class="nd">@overload</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_customers</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_customers</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">request</span><span class="p">:</span> <span class="n">CustomerRequest</span><span class="p">,</span>
@@ -292,7 +292,7 @@
         <span class="n">only_current_page</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Customer</span><span class="p">]:</span><span class="o">...</span>
     <span class="nd">@overload</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_customers</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_customers</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">request</span><span class="p">:</span> <span class="n">CustomerRequest</span><span class="p">,</span>
@@ -302,7 +302,7 @@
     <span class="p">):</span><span class="o">...</span>
 <div class="viewcode-block" id="SyncCustomersClient.list_customers">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient.list_customers">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_customers</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_customers</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">request</span><span class="p">:</span> <span class="n">CustomerRequest</span><span class="p">,</span>

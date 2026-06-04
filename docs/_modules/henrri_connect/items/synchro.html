@@ -277,7 +277,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span> <span class="o">=</span> <span class="n">client</span>
 
     <span class="nd">@overload</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_items</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_items</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">request</span><span class="p">:</span> <span class="n">ItemsQuery</span><span class="p">,</span>
@@ -286,7 +286,7 @@
         <span class="n">only_current_page</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]:</span><span class="o">...</span>
     <span class="nd">@overload</span>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_items</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_items</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">request</span><span class="p">:</span> <span class="n">ItemsQuery</span><span class="p">,</span>
@@ -296,7 +296,7 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]:</span><span class="o">...</span>
 <div class="viewcode-block" id="SyncItemsClient.list_items">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.items.SyncItemsClient.list_items">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_items</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_items</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="o">*</span><span class="p">,</span>
             <span class="n">request</span><span class="p">:</span> <span class="n">ItemsQuery</span><span class="p">,</span>
