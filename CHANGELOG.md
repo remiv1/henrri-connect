@@ -56,4 +56,13 @@
 
 - Delete the `async_mode` parameter from the Client and separate the synchronous and asynchronous clients into `SyncHenrriClient` and `AsyncHenrriClient` respectively, to provide clearer and more explicit client classes for users. Update the example code in the README.md file to reflect this change and show how to use both the synchronous and asynchronous clients correctly.
 - Add a MANIFEST.in file to include stub files and py.typed files in the source distribution, ensuring that type information is included when the package is distributed.
-- 
+
+## [0.1.6] - 2026-06-04
+
+### Documentation 0.1.6
+
+- Create a complete documentation for each module, Object Class, Pydantics Models, function or methodes of this package.
+  
+### Added 0.1.6
+
+- Refactor code to expose necessaries models for each class in modules.

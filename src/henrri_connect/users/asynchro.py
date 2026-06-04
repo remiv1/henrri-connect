@@ -1,4 +1,15 @@
-"""Sous-client pour les endpoints /v1/users."""
+"""
+Sous-client pour les endpoints /v1/users.
+
+Classes:
+--------
+- `henrri_connect.users.asynchro.AsyncUsersClient`:
+    Accès asynchrone aux endpoints utilisateurs.
+
+Notes:
+-----
+- Utiliser de préférence l'objet `henrri_connect.AsyncHenrriClient` pour acceder aux endpoints.
+"""
 
 from __future__ import annotations
 
@@ -7,42 +18,92 @@ from typing import TYPE_CHECKING
 from ..models import Address, TokenResponse, User, UserAndCompany
 
 if TYPE_CHECKING:
-    from ..connect import (
-        AsyncHenrriClient,
-    )
+    from ..connect import AsyncHenrriClient
 
 USERS_ENDPOINT = "/v1/users"
 
 class AsyncUsersClient:
-    """Accès asynchrone aux endpoints utilisateurs."""
+    """
+    Accès asynchrone aux endpoints utilisateurs.
+    
+    Arguments:
+    - client : AsyncHenrriClient
+        Client asynchrone pour acceder aux endpoints.
+    
+    Methods:
+    - get(user_id: int)
+        Récupère un utilisateur par son identifiant.
+    - get_address(user_id: int)
+        Récupère l'adresse d'un utilisateur.
+    - get_companies()
+        Récupère les entreprises associées à l'utilisateur courant.
+    - authenticate()
+        Authentifie via les identifiants du client.
+    - refresh_token(refresh_token: str)
+        Rafraîchit le token d'accès.
+    """
 
     def __init__(self, client: AsyncHenrriClient) -> None:
         self._c = client
 
     async def get(self, user_id: int) -> User:
-        """Récupère un utilisateur par son identifiant."""
-        resp = await self._c.request("GET", f"/v1/users/{user_id}")
+        """
+        Récupère un utilisateur par son identifiant.
+        
+        Arguments:
+        - `user_id` (int): Identifiant de l'utilisateur.
+
+        Returns:
+        - `User`: Utilisateur.
+        """
+        resp = await self._c.request("GET", f"{USERS_ENDPOINT}/{user_id}")
         return User.model_validate(resp.json())
 
     async def get_address(self, user_id: int) -> Address:
-        """Récupère l'adresse d'un utilisateur."""
-        resp = await self._c.request("GET", f"/v1/users/{user_id}/address")
+        """
+        Récupère l'adresse d'un utilisateur.
+        
+        Arguments:
+        - `user_id` (int): Identifiant de l'utilisateur.
+
+        Returns:
+        - `henrri_connect.models.Address`: Adresse de l'utilisateur.
+        """
+        resp = await self._c.request("GET", f"{USERS_ENDPOINT}/{user_id}/address")
         return Address.model_validate(resp.json())
 
     async def get_companies(self) -> list[UserAndCompany]:
-        """Récupère les entreprises associées à l'utilisateur courant."""
-        resp = await self._c.request("GET", "/v1/users/companies")
+        """
+        Récupère les entreprises associées à l'utilisateur courant.
+        
+        Returns:
+        - `list[UserAndCompany]`: Entreprises.
+        """
+        resp = await self._c.request("GET", f"{USERS_ENDPOINT}/companies")
         return [UserAndCompany.model_validate(item) for item in resp.json()]
 
     async def authenticate(self) -> TokenResponse:
-        """Authentifie via les identifiants du client."""
+        """
+        Authentifie via les identifiants du client.
+        
+        Returns:
+        - `henrri_connect.models.TokenResponse`: Objet contenant access_token et refresh_token.
+        """
         return await self._c.authenticate()
 
     async def refresh_token(self, refresh_token: str) -> TokenResponse:
-        """Rafraîchit le token d'accès."""
+        """
+        Rafraîchit le token d'accès.
+        
+        Arguments:
+        - `refresh_token` (str): Token de rafraîchissement.
+
+        Returns:
+        - `henrri_connect.models.TokenResponse`: Objet contenant access_token et refresh_token.
+        """
         resp = await self._c.request(
             "POST",
-            "/v1/users/refresh-token",
+            f"{USERS_ENDPOINT}/refresh-token",
             authenticated=False,
             json={"refreshToken": refresh_token},
         )

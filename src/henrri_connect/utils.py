@@ -1,4 +1,13 @@
-"""Module utilitaire pour les clients Henrri Connect."""
+"""
+Module utilitaire pour les clients Henrri Connect.
+
+Fournit l'ensemble des fonctions utilitaires nécessaires au package `henrri_connect`.
+
+Functions:
+----------
+- raise_for_status: Levé une exception appropriée selon le code HTTP de la réponse.
+- clean: Nettoie un dictionnaire en supprimant les clés dont la valeur est `None`.
+"""
 from __future__ import annotations
 
 import logging
