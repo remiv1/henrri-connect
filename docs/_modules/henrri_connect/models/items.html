@@ -227,19 +227,60 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.items</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles pour les articles et catégories d&#39;articles dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles pour les articles et catégories d&#39;articles dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- ItemCategoryRequest: Représente une requête de catégorie d&#39;article.</span>
+<span class="sd">- ItemCategoryType: Représente un type de catégorie d&#39;article.</span>
+<span class="sd">- ItemCategory: Représente une catégorie d&#39;article.</span>
+<span class="sd">- Item: Représente un article.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">CamelModel</span><span class="p">,</span> <span class="n">Link</span><span class="p">,</span> <span class="n">ItemCategoryContentKind</span><span class="p">,</span> <span class="n">ItemCategoryKind</span><span class="p">,</span> <span class="n">SortOrder</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">CamelModel</span><span class="p">,</span> <span class="n">Link</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">ItemCategoryContentKind</span><span class="p">,</span> <span class="n">ItemCategoryKind</span>
+
+<div class="viewcode-block" id="ItemCategoryRequest">
+<a class="viewcode-back" href="../../../api.html#henrri_connect.models.ItemCategoryRequest">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ItemCategoryRequest</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente une requête de catégorie d&#39;article dans l&#39;API Henrri Connect.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        page (int): Index de la page de la requête (entre 1 et 2 147 483 647, defaut 1).</span>
+<span class="sd">        limit (int): Nombre d&#39;articles par page (entre 1 et 100, défaut 50).</span>
+<span class="sd">        search (str): Chaine de recherche.</span>
+<span class="sd">        sort_by (str): Champ de tri.</span>
+<span class="sd">        sort_order (str): Ordre de tri (Ascending ou Descending).</span>
+<span class="sd">        min_id (int): Identifiant minimal de l&#39;article (entre 1 et 2 147 483 647).</span>
+<span class="sd">        from_date (str): Date de début.</span>
+<span class="sd">        to_date (str): Date de fin.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="n">search</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sort_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">sort_order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">min_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">from_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">to_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
 
 <div class="viewcode-block" id="ItemCategoryType">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.ItemCategoryType">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ItemCategoryType</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente un type de catégorie d&#39;article dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente un type de catégorie d&#39;article dans l&#39;API Henrri Connect.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique du type de catégorie d&#39;article.</span>
+<span class="sd">    - label: Libellé du type de catégorie d&#39;article.</span>
+<span class="sd">    - item_category_content_kind: Type de contenu de la catégorie d&#39;article.</span>
+<span class="sd">    - item_category_kind: Type de catégorie d&#39;article.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">item_category_content_kind</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">ItemCategoryContentKind</span><span class="o">.</span><span class="n">SUPPLY</span>
@@ -250,7 +291,21 @@
 <div class="viewcode-block" id="ItemCategory">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.ItemCategory">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ItemCategory</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente une catégorie d&#39;article dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente une catégorie d&#39;article dans l&#39;API Henrri Connect.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique de la catégorie d&#39;article.</span>
+<span class="sd">    - type: Type de la catégorie d&#39;article.</span>
+<span class="sd">    - label: Libellé de la catégorie d&#39;article.</span>
+<span class="sd">    - margin_percent: Pourcentage de marge de la catégorie d&#39;article.</span>
+<span class="sd">    - hourly_rate: Tarif horaire de la catégorie d&#39;article.</span>
+<span class="sd">    - vat: Taux de TVA de la catégorie d&#39;article.</span>
+<span class="sd">    - is_added_to_revenue: Indique si les articles de la cat. sont ajoutés au chiffre d&#39;affaires.</span>
+<span class="sd">    - is_default: Indique si la catégorie d&#39;article est la catégorie par défaut.</span>
+<span class="sd">    - is_deleted: Indique si la catégorie d&#39;article est supprimée.</span>
+<span class="sd">    - item_category_kind: Type de la catégorie d&#39;article (service, produit, ou fourniture).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="nb">type</span><span class="p">:</span> <span class="n">ItemCategoryType</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -267,7 +322,27 @@
 <div class="viewcode-block" id="Item">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.Item">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente un article dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente un article dans l&#39;API Henrri Connect.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique de l&#39;article.</span>
+<span class="sd">    - reference: Référence de l&#39;article.</span>
+<span class="sd">    - description: Description de l&#39;article.</span>
+<span class="sd">    - is_tax_included: Indique si la taxe est incluse dans le prix.</span>
+<span class="sd">    - selling_price_without_tax: Prix de vente hors taxe de l&#39;article.</span>
+<span class="sd">    - selling_price_with_tax: Prix de vente TTC de l&#39;article.</span>
+<span class="sd">    - purchase_price: Prix d&#39;achat de l&#39;article.</span>
+<span class="sd">    - vat_percent: Taux de TVA de l&#39;article.</span>
+<span class="sd">    - is_a_group: Indique si l&#39;article est un groupe d&#39;articles.</span>
+<span class="sd">    - item_category: Catégorie de l&#39;article (si applicable).</span>
+<span class="sd">    - item_category_id: Identifiant de la catégorie de l&#39;article (si applicable).</span>
+<span class="sd">    - unit_id: Identifiant de l&#39;unité de l&#39;article (si applicable).</span>
+<span class="sd">    - parent_item_id: Id d&#39;article parent si l&#39;article est un élément d&#39;un grp</span>
+<span class="sd">    d&#39;articles (si applicable).</span>
+<span class="sd">    - creation_date: Date de création de l&#39;article.</span>
+<span class="sd">    - links: Liste de liens associés à l&#39;article (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">reference</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -281,8 +356,35 @@
     <span class="n">item_category_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">unit_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">parent_item_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">creation_date</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">creation_date</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">links</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Link</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="ItemsQuery">
+<a class="viewcode-back" href="../../../api.html#henrri_connect.models.ItemsQuery">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ItemsQuery</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente une requête de catégorie d&#39;article dans l&#39;API Henrri Connect.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - page (int): Index de la page de la requête (entre 1 et 2 147 483 647, defaut 1).</span>
+<span class="sd">    - limit (int): Nombre d&#39;articles par page (entre 1 et 100, défaut 50).</span>
+<span class="sd">    - search (str): Chaine de recherche.</span>
+<span class="sd">    - sort_by (str): Champ de tri.</span>
+<span class="sd">    - sort_order (SortOrder): Ordre de tri (Ascending ou Descending).</span>
+<span class="sd">    - min_id (int): Identifiant minimal de l&#39;article (entre 1 et 2 147 483 647).</span>
+<span class="sd">    - from_date (str): Date de début.</span>
+<span class="sd">    - to_date (str): Date de fin.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="n">search</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">sort_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">sort_order</span><span class="p">:</span> <span class="n">SortOrder</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">min_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">from_date</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">to_date</span><span class="p">:</span> <span class="nb">str</span></div>
 
 </pre></div>
         </article>

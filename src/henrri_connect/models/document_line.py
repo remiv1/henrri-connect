@@ -13,7 +13,7 @@ de document dans l'API Henrri Connect.
 
 from __future__ import annotations
 
-from .base import CamelModel, DocumentLineKind, Link
+from .base import CamelModel, DocumentLineKind, Link, SortOrder
 from .items import Item
 
 
@@ -34,6 +34,9 @@ class DocumentLineType(CamelModel):
 class DocumentLine(CamelModel):
     """
     Représente une ligne de document dans l'API Henrri Connect.
+
+    `type_id` peut être récupéré par un GET sur `/documentlinetypes` ou avec
+    `henrry_connect.<client>.document_line_types.list_document_line_types`
     
     Attributs:
     - id: Identifiant unique de la ligne de document.
@@ -94,3 +97,21 @@ class DocumentLineMoveQueryParameters(CamelModel):
     - to: Identifiant de la ligne de document vers laquelle déplacer la ligne.
     """
     to: int
+
+
+class DocumentLineListQueryParameters(CamelModel):
+    """
+    Représente les paramètres de requête pour obtenir une liste de lignes de document
+    dans l'API Henrri Connect.
+
+    Attributs:
+    - document_id: Identifiant du document auquel appartient la ligne.
+    """
+    page: int = 1
+    limit: int = 50
+    search: str | None = None
+    sort_by: str | None = None
+    sort_order: SortOrder | None = None
+    minId: int
+    from_date: str
+    to_date: str

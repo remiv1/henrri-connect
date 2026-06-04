@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 
 DOCUMENTLINETYPES_ENDPOINT = "/v1/documentlinetypes"
 
-class SyncDocumentLineTypesClient:
+class SyncDocumentLineTypesClient:  # pylint: disable=R0903
     """
     Accès synchrone aux types de lignes de document.
     

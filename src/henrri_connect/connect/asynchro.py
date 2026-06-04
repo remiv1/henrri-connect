@@ -106,18 +106,18 @@ class AsyncHenrriClient:
         self._init_subclients()
 
     def _init_subclients(self) -> None:
-        from ..companies import AsyncCompaniesClient
-        from ..customers import AsyncCustomersClient
-        from ..document_line_types import AsyncDocumentLineTypesClient
-        from ..document_lines import AsyncDocumentLinesClient
-        from ..document_types import AsyncDocumentTypesClient
-        from ..documents import AsyncDocumentsClient
-        from ..item_categories import AsyncItemCategoriesClient
-        from ..items import AsyncItemsClient
-        from ..revenues import AsyncRevenuesClient
-        from ..secures import AsyncSecuresClient
-        from ..units import AsyncUnitsClient
-        from ..users import AsyncUsersClient
+        from ..companies import AsyncCompaniesClient    # pylint: disable=C0415
+        from ..customers import AsyncCustomersClient    # pylint: disable=C0415
+        from ..document_line_types import AsyncDocumentLineTypesClient    # pylint: disable=C0415
+        from ..document_lines import AsyncDocumentLinesClient    # pylint: disable=C0415
+        from ..document_types import AsyncDocumentTypesClient    # pylint: disable=C0415
+        from ..documents import AsyncDocumentsClient    # pylint: disable=C0415
+        from ..item_categories import AsyncItemCategoriesClient    # pylint: disable=C0415
+        from ..items import AsyncItemsClient    # pylint: disable=C0415
+        from ..revenues import AsyncRevenuesClient    # pylint: disable=C0415
+        from ..secures import AsyncSecuresClient    # pylint: disable=C0415
+        from ..units import AsyncUnitsClient    # pylint: disable=C0415
+        from ..users import AsyncUsersClient    # pylint: disable=C0415
 
         self.users = AsyncUsersClient(self)
         self.companies = AsyncCompaniesClient(self)
@@ -286,7 +286,7 @@ class AsyncHenrriClient:
         logger.info("Fermeture du client HTTP.")
         await self._http.aclose()
 
-    async def __aenter__(self) -> AsyncHenrriClient:        
+    async def __aenter__(self) -> AsyncHenrriClient:
         return self
 
     async def __aexit__(self, *args: Any) -> None:

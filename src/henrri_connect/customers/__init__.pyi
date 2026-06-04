@@ -1,34 +1,40 @@
 """Stub pour le module customers."""
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, overload, Optional
 
-from ..models import Address, Contact, Customer, PagedListResponse
+from ..models import Address, Contact, Customer, PagedListResponse, CustomerRequest
 
 class SyncCustomersClient:  # pylint: disable=C0115
     def __init__(self, client: Any) -> None: ...  # pylint: disable=W0613
+    @overload
+    def list_customers(
+        self,
+        *,
+        request: CustomerRequest,
+        with_selected_fields: bool = True,
+        with_totals: bool = False,
+        only_current_page: bool = True,
+    ) -> PagedListResponse[Customer]: ...
+    @overload
+    def list_customers(
+        self,
+        *,
+        request: CustomerRequest,
+        with_selected_fields: bool = False,
+        with_totals: None = None,
+        only_current_page: None = None,
+    ) -> PagedListResponse[Customer]: ...
     def list_customers( # pylint: disable=C0116, W0613
         self,
         *,
-        page: int = ...,
-        limit: int = ...,
-        search: str | None = ...,
-        sort_by: str | None = ...,
-        sort_order: str | None = ...,
-        min_id: int | None = ...,
-        from_date: str | None = ...,
-        to_date: str | None = ...,
-    ) -> PagedListResponse[Customer]: ...
+        request: CustomerRequest,
+        with_selected_fields: bool = True,
+        with_totals: Optional[bool] = False,
+        only_current_page: Optional[bool] = True
+    ):...
     def add(self, customer: Customer) -> Customer: ...  # pylint: disable=C0116, W0613
-    def get_best_sales(  # pylint: disable=C0116, W0613
-        self,
-        *,
-        page: int = ...,
-        limit: int = ...,
-        search: str | None = ...,
-        sort_by: str | None = ...,
-        sort_order: str | None = ...,
-    ) -> PagedListResponse[Customer]: ...
+    def get_best_sales(self, *, year: int) -> PagedListResponse[Customer]: ...  # pylint: disable=C0116, W0613
     def get(self, customer_id: int) -> Customer: ...  # pylint: disable=C0116, W0613
     def modify(self, customer_id: int, customer: Customer) -> Customer: ...  # pylint: disable=C0116, W0613
     def delete(self, customer_id: int) -> None: ...  # pylint: disable=C0116, W0613
@@ -41,28 +47,34 @@ class SyncCustomersClient:  # pylint: disable=C0115
 
 class AsyncCustomersClient: # pylint: disable=C0115
     def __init__(self, client: Any) -> None: ... # pylint: disable=W0613
+    @overload
+    async def list_customers(
+        self,
+        *,
+        request: CustomerRequest,
+        with_selected_fields: bool = True,
+        with_totals: bool = False,
+        only_current_page: bool = True
+    ) -> PagedListResponse[Customer]:...
+    @overload
+    async def list_customers(
+        self,
+        *,
+        request: CustomerRequest,
+        with_selected_fields: bool = False,
+        with_totals: None = None,
+        only_current_page: None = None,
+    ):...
     async def list_customers( # pylint: disable=C0116, W0613
         self,
         *,
-        page: int = ...,
-        limit: int = ...,
-        search: str | None = ...,
-        sort_by: str | None = ...,
-        sort_order: str | None = ...,
-        min_id: int | None = ...,
-        from_date: str | None = ...,
-        to_date: str | None = ...,
-    ) -> PagedListResponse[Customer]: ...
+        request: CustomerRequest,
+        with_selected_fields: bool = True,
+        with_totals: Optional[bool] = False,
+        only_current_page: Optional[bool] = True
+    ):...
     async def add(self, customer: Customer) -> Customer: ... # pylint: disable=C0116, W0613
-    async def get_best_sales( # pylint: disable=C0116, W0613
-        self,
-        *,
-        page: int = ...,
-        limit: int = ...,
-        search: str | None = ...,
-        sort_by: str | None = ...,
-        sort_order: str | None = ...,
-    ) -> PagedListResponse[Customer]: ...
+    async def get_best_sales(self, *, year: int) -> PagedListResponse[Customer]: ... # pylint: disable=C0116, W0613
     async def get(self, customer_id: int) -> Customer: ... # pylint: disable=C0116, W0613
     async def modify(self, customer_id: int, customer: Customer) -> Customer: ... # pylint: disable=C0116, W0613
     async def delete(self, customer_id: int) -> None: ... # pylint: disable=C0116, W0613

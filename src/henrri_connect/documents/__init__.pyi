@@ -5,6 +5,7 @@ from typing import Any
 
 from ..models import (
     Document,
+    DocumentQuery,
     ListResponse,
     PagedListResponse,
     PaymentMilestone,
@@ -15,21 +16,7 @@ from ..models import (
 
 class SyncDocumentsClient:  # pylint: disable=C0115
     def __init__(self, client: Any) -> None: ...    # pylint: disable=W0613
-    def list_documents( # pylint: disable=C0116, W0613
-        self,
-        *,
-        page: int = ...,
-        limit: int = ...,
-        search: str | None = ...,
-        sort_by: str | None = ...,
-        sort_order: str | None = ...,
-        document_type_id: int | None = ...,
-        customer_id: int | None = ...,
-        state: str | None = ...,
-        from_date: str | None = ...,
-        to_date: str | None = ...,
-        min_id: int | None = ...,
-    ) -> PagedListResponse[Document]: ...
+    def list_documents(self, *, request: DocumentQuery) -> PagedListResponse[Document]: ... # pylint: disable=C0116, W0613
     def add(self, document: Document) -> Document: ...  # pylint: disable=C0116, W0613
     def get(self, doc_id: int) -> Document: ... # pylint: disable=C0116, W0613
     def get_with_all(self, doc_id: int) -> Document: ...    # pylint: disable=C0116, W0613
@@ -57,21 +44,7 @@ class SyncDocumentsClient:  # pylint: disable=C0115
 
 class AsyncDocumentsClient: # pylint: disable=C0115
     def __init__(self, client: Any) -> None: ...    # pylint: disable=W0613
-    async def list_documents( # pylint: disable=C0116, W0613
-        self,
-        *,
-        page: int = ...,
-        limit: int = ...,
-        search: str | None = ...,
-        sort_by: str | None = ...,
-        sort_order: str | None = ...,
-        document_type_id: int | None = ...,
-        customer_id: int | None = ...,
-        state: str | None = ...,
-        from_date: str | None = ...,
-        to_date: str | None = ...,
-        min_id: int | None = ...,
-    ) -> PagedListResponse[Document]: ...
+    async def list_documents(self, *, request: DocumentQuery) -> PagedListResponse[Document]: ... # pylint: disable=C0116, W0613
     async def add(self, document: Document) -> Document: ...    # pylint: disable=C0116, W0613
     async def get(self, doc_id: int) -> Document: ...   # pylint: disable=C0116, W0613
     async def get_with_all(self, doc_id: int) -> Document: ...  # pylint: disable=C0116, W0613

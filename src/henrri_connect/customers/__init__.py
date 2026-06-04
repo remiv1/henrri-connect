@@ -20,8 +20,12 @@ from __future__ import annotations
 
 from .asynchro import AsyncCustomersClient
 from .synchro import SyncCustomersClient
+from ..models.base import CustomerType
+from ..models import CustomerRequest
 
 __all__ = [
-    "SyncCustomersClient",
     "AsyncCustomersClient",
+    "CustomerRequest",
+    "CustomerType",
+    "SyncCustomersClient",
 ]

@@ -227,7 +227,13 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.stats</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles Pydantic v2 pour l&#39;API Henrri.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles Pydantic représentant les entités de statistiques dans l&#39;API Henrri.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- RevenueStatistics: Représente les statistiques de revenus dans l&#39;API Henrri Connect.</span>
+<span class="sd">- MonthlyRevenueStatistics: Représente les statistiques de revenus mensuels dans l&#39;entreprise.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -236,7 +242,16 @@
 <div class="viewcode-block" id="RevenueStatistics">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.RevenueStatistics">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RevenueStatistics</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente les statistiques de revenus dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente les statistiques de revenus dans l&#39;API Henrri Connect.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - year: Année des statistiques.</span>
+<span class="sd">    - total_services_revenue: Revenu total des services.</span>
+<span class="sd">    - total_products_revenue: Revenu total des produits.</span>
+<span class="sd">    - total_products_margin: Marge totale sur les produits.</span>
+<span class="sd">    - total_service_hours: Nombre total d&#39;heures de service.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">year</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">total_services_revenue</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">total_products_revenue</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -248,7 +263,17 @@
 <div class="viewcode-block" id="MonthlyRevenueStatistics">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.MonthlyRevenueStatistics">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">MonthlyRevenueStatistics</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente les statistiques de revenus mensuels dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente les statistiques de revenus mensuels dans l&#39;API Henrri Connect.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - month: Mois des statistiques.</span>
+<span class="sd">    - year: Année des statistiques.</span>
+<span class="sd">    - total_services_revenue: Revenu total des services.</span>
+<span class="sd">    - total_products_revenue: Revenu total des produits.</span>
+<span class="sd">    - total_products_margin: Marge totale sur les produits.</span>
+<span class="sd">    - total_service_hours: Nombre total d&#39;heures de service.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">month</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">year</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">total_services_revenue</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>

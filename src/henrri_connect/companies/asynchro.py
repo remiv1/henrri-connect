@@ -23,9 +23,7 @@ from typing import TYPE_CHECKING
 from ..models import Address, Company
 
 if TYPE_CHECKING:
-    from ..connect import (
-        AsyncHenrriClient,
-    )
+    from ..connect import AsyncHenrriClient
 
 COMPANIES_ENDPOINT = "/v1/companies"
 

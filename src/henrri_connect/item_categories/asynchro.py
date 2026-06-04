@@ -1,24 +1,39 @@
-"""Sous-client pour les endpoints /v1/itemcategories."""
+"""
+Sous-client pour les endpoints /v1/itemcategories.
+
+Classes:
+--------
+- `henrri_connect.item_categories.asynchro.AsyncItemCategoriesClient`:
+    Accès asynchrone aux endpoints categories d'articles.
+
+Notes:
+-----
+- Utiliser de préférence l'objet `henrri_connect.AsyncHenrriClient` pour acceder aux endpoints.
+"""
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
-from ..models import ItemCategory, PagedListResponse
+from ..models import ItemCategory, PagedListResponse, ItemCategoryRequest
+from ..utils import clean
 
 if TYPE_CHECKING:
-    from ..connect import (
-        AsyncHenrriClient,
-    )
+    from ..connect import AsyncHenrriClient
 
 ITEMCATEGORIES_ENDPOINT = "/v1/itemcategories"
 
-def _clean(params: dict[str, Any]) -> dict[str, Any]:
-    return {k: v for k, v in params.items() if v is not None}
-
 
 class AsyncItemCategoriesClient:
-    """Accès asynchrone aux catégories d'articles."""
+    """
+    Accès asynchrone aux catégories d'articles.
+    
+    Arguments:
+    - `client`: Objet `henrri_connect.AsyncHenrriClient` pour acceder aux endpoints.
+    
+    Methodes:
+    - `list_item_categories`: Liste les catégories d'articles avec pagination.
+    """
 
     def __init__(self, client: AsyncHenrriClient) -> None:
         self._c = client
@@ -26,19 +41,17 @@ class AsyncItemCategoriesClient:
     async def list_item_categories(
         self,
         *,
-        page: int = 1,
-        limit: int = 50,
-        search: str | None = None,
-        sort_by: str | None = None,
-        sort_order: str | None = None,
+        request: ItemCategoryRequest,
     ) -> PagedListResponse[ItemCategory]:
-        """Liste les catégories d'articles avec pagination."""
-        params = _clean({
-            "page": page,
-            "limit": limit,
-            "search": search,
-            "sortBy": sort_by,
-            "sortOrder": sort_order,
-        })
+        """
+        Liste les catégories d'articles avec pagination.
+        
+        Arguments:
+        - `request` (ItemCategoryRequest): Paramètres de recherche.
+
+        Returns:
+        - `PagedListResponse[ItemCategory]`: Liste paginée de catégories d'articles.
+        """
+        params = clean(request.model_dump(by_alias=True))
         resp = await self._c.request("GET", ITEMCATEGORIES_ENDPOINT, params=params)
         return PagedListResponse[ItemCategory].model_validate(resp.json())

@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 
 DOCUMENTTYPE_ENDPOINT = "/v1/documenttypes"
 
-class AsyncDocumentTypesClient:
+class AsyncDocumentTypesClient: # pylint: disable=R0903
     """
     Accès asynchrone aux types de documents.
     

@@ -48,6 +48,13 @@ class DocumentKind(str, Enum):
     - DELIVERY_NOTE: Bon de livraison.
     - QUOTATION: Devis.
     - WORK_ORDER: Bon de commande.
+    - PROGRESS_INVOICE: Facture de progression.
+    - ORDER: Commande.
+    - AMENDMENT: Avenant.
+    - MISCELLANEOUS: Divers.
+    - SUMMARY: Sommaire.
+    - DEPOSIT_INVOICE: Facture de caution.
+    - DEPOSIT_RECEIPT: Recueil de caution.
     """
     INVOICE = "Invoice"
     CREDIT_NOTE = "CreditNote"
@@ -67,7 +74,6 @@ class DocumentState(str, Enum):
     État d'un document commercial.
     
     Attributs:
-    - DRAFT: Brouillon.
     - FINALIZED: Finalisé.
     - PENDING: En attente.
     """

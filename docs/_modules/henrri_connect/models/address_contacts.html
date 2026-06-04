@@ -227,7 +227,13 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.address_contacts</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles pour les adresses et contacts dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles pour les adresses et contacts dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- Address: Représente une adresse d&#39;entreprise.</span>
+<span class="sd">- Contact: Représente un contact d&#39;entreprise.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">CamelModel</span><span class="p">,</span> <span class="n">Link</span>
@@ -235,7 +241,18 @@
 <div class="viewcode-block" id="Address">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.Address">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Address</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente une adresse d&#39;entreprise.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente une adresse d&#39;entreprise.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique de l&#39;adresse.</span>
+<span class="sd">    - address: Adresse de l&#39;entreprise.</span>
+<span class="sd">    - city: Ville de l&#39;entreprise.</span>
+<span class="sd">    - post_code: Code postal de l&#39;entreprise.</span>
+<span class="sd">    - country: Pays de l&#39;entreprise.</span>
+<span class="sd">    - is_post_code_shared: Indique si le code postal est partagé avec d&#39;autres adresses.</span>
+<span class="sd">    - links: Liste de liens associés à l&#39;adresse (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">address</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">city</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -249,7 +266,22 @@
 <div class="viewcode-block" id="Contact">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.Contact">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Contact</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente un contact d&#39;entreprise.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente un contact d&#39;entreprise.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique du contact.</span>
+<span class="sd">    - title: Titre du contact.</span>
+<span class="sd">    - first_name: Prénom du contact.</span>
+<span class="sd">    - last_name: Nom de famille du contact.</span>
+<span class="sd">    - email: Adresse e-mail du contact.</span>
+<span class="sd">    - phone: Numéro de téléphone du contact.</span>
+<span class="sd">    - mobile: Numéro de téléphone mobile du contact.</span>
+<span class="sd">    - role: Rôle du contact dans l&#39;entreprise.</span>
+<span class="sd">    - is_primary: Indique si le contact est le contact principal de l&#39;entreprise.</span>
+<span class="sd">    - show_on_document: Indique si le contact doit être affiché sur les documents.</span>
+<span class="sd">    - links: Liste de liens associés au contact (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">first_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>

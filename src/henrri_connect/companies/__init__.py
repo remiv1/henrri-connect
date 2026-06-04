@@ -9,6 +9,14 @@ Classes:
 - `henrri_connect.companies.asynchro.AsyncCompaniesClient`:
     Accès asynchrone aux endpoints entreprises.
 
+Models:
+-------
+- `henrri_connect.companies.models.Address`:
+    Adresse.
+
+- `henrri_connect.companies.models.Company`:
+    Entreprise.
+
 Notes:
 -----
 - Utiliser de préférence les objets suivants pour acceder aux endpoints:
@@ -20,8 +28,11 @@ from __future__ import annotations
 
 from .synchro import SyncCompaniesClient
 from .asynchro import AsyncCompaniesClient
+from ..models import Address, Company
 
 __all__ = [
-    "SyncCompaniesClient",
+    "Address",
     "AsyncCompaniesClient",
+    "Company",
+    "SyncCompaniesClient",
 ]

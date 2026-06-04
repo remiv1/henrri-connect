@@ -4,8 +4,12 @@ from __future__ import annotations
 
 from .synchro import SyncItemsClient
 from .asynchro import AsyncItemsClient
+from ..models import Item, PagedListResponse, ItemsQuery
 
 __all__ = [
-    "SyncItemsClient",
     "AsyncItemsClient",
+    "Item",
+    "ItemsQuery",
+    "PagedListResponse",
+    "SyncItemsClient",
 ]

@@ -227,17 +227,44 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.connect.synchro</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Client HTTP Henrri synchrone.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Client HTTP Henrri synchrone.</span>
+
+<span class="sd">Constants:</span>
+<span class="sd">----------</span>
+<span class="sd">- `henrri_connect.connect.synchro._BASE_URL`:</span>
+<span class="sd">     URL de base de l&#39;API Henrri.</span>
+<span class="sd">- `henrri_connect.connect.synchro.APP_VERSION`:</span>
+<span class="sd">     Version de l&#39;application.</span>
+<span class="sd">- `henrri_connect.connect.synchro.APP_X_VERSION`:</span>
+<span class="sd">     Version de l&#39;application.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">--------</span>
+<span class="sd">- `henrri_connect.connect.synchro.SyncHenrriClient`:</span>
+<span class="sd">     Client HTTP Henrri synchrone.</span>
+
+<span class="sd">Exemples:</span>
+<span class="sd">---------</span>
+<span class="sd">.. code-block:: python</span>
+
+<span class="sd">    # Client synchrone</span>
+<span class="sd">    from henrri_connect import SyncHenrriClient</span>
+
+<span class="sd">    client = SyncHenrriClient(&quot;client_id&quot;, &quot;client_secret&quot;, base_url=&lt;URL de base de l&#39;API&gt;)</span>
+
+<span class="sd">Exceptions:</span>
+<span class="sd">----------</span>
+<span class="sd">- `henrri_connect.exc.HenrriAuthError`:</span>
+<span class="sd">     Erreur d&#39;authentification (HTTP 401).</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>   <span class="c1"># pylint: disable=W0611 # type: ignore[import]</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">..exc</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">HenrriAuthError</span><span class="p">,</span>
-<span class="p">)</span>
-
+<span class="kn">from</span><span class="w"> </span><span class="nn">..exc</span><span class="w"> </span><span class="kn">import</span> <span class="n">HenrriAuthError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..models</span><span class="w"> </span><span class="kn">import</span> <span class="n">TokenResponse</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">raise_for_status</span>
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -270,10 +297,16 @@
 <span class="sd">    Fournit des sous-clients pour chaque groupe d&#39;endpoints (users, companies, etc.)</span>
 <span class="sd">    Authentification automatique avec gestion du refresh token</span>
 <span class="sd">    Gestion centralisée des erreurs HTTP avec exceptions personnalisées</span>
-<span class="sd">    Args:</span>
+
+<span class="sd">    Arguments:</span>
 <span class="sd">    - client_id: Identifiant client pour l&#39;authentification.</span>
 <span class="sd">    - client_secret: Secret client pour l&#39;authentification.</span>
 <span class="sd">    - base_url: URL de base de l&#39;API (défaut : sandbox Henrri).</span>
+
+<span class="sd">    Methodes:</span>
+<span class="sd">    - authenticate: Authentifie le client.</span>
+<span class="sd">    - request: Effectue une requête HTTP authentifiée.</span>
+<span class="sd">    - close: Ferme le client HTTP sous-jacent.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">users</span><span class="p">:</span> <span class="s2">&quot;SyncUsersClient&quot;</span>
@@ -305,18 +338,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_init_subclients</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_init_subclients</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">..companies</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncCompaniesClient</span>    <span class="c1"># pylint: disable=import-outside-toplevel</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">..customers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncCustomersClient</span>    <span class="c1"># pylint: disable=import-outside-toplevel</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">..document_line_types</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncDocumentLineTypesClient</span>    <span class="c1"># pylint: disable=import-outside-toplevel</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">..document_lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncDocumentLinesClient</span>    <span class="c1"># pylint: disable=import-outside-toplevel</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">..document_types</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncDocumentTypesClient</span>    <span class="c1"># pylint: disable=import-outside-toplevel</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">..documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncDocumentsClient</span>    <span class="c1"># pylint: disable=import-outside-toplevel</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">..item_categories</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncItemCategoriesClient</span>    <span class="c1"># pylint: disable=import-outside-toplevel</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">..items</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncItemsClient</span>    <span class="c1"># pylint: disable=import-outside-toplevel</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">..revenues</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncRevenuesClient</span>    <span class="c1"># pylint: disable=import-outside-toplevel</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">..secures</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncSecuresClient</span>    <span class="c1"># pylint: disable=import-outside-toplevel</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">..units</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncUnitsClient</span>    <span class="c1"># pylint: disable=import-outside-toplevel</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">..users</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncUsersClient</span>    <span class="c1"># pylint: disable=import-outside-toplevel</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..companies</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncCompaniesClient</span>    <span class="c1"># pylint: disable=C0415</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..customers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncCustomersClient</span>    <span class="c1"># pylint: disable=C0415</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..document_line_types</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncDocumentLineTypesClient</span>    <span class="c1"># pylint: disable=C0415</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..document_lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncDocumentLinesClient</span>    <span class="c1"># pylint: disable=C0415</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..document_types</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncDocumentTypesClient</span>    <span class="c1"># pylint: disable=C0415</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncDocumentsClient</span>    <span class="c1"># pylint: disable=C0415</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..item_categories</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncItemCategoriesClient</span>    <span class="c1"># pylint: disable=C0415</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..items</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncItemsClient</span>    <span class="c1"># pylint: disable=C0415</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..revenues</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncRevenuesClient</span>    <span class="c1"># pylint: disable=C0415</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..secures</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncSecuresClient</span>    <span class="c1"># pylint: disable=C0415</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..units</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncUnitsClient</span>    <span class="c1"># pylint: disable=C0415</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..users</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncUsersClient</span>    <span class="c1"># pylint: disable=C0415</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">users</span> <span class="o">=</span> <span class="n">SyncUsersClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">companies</span> <span class="o">=</span> <span class="n">SyncCompaniesClient</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -357,8 +390,10 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TokenResponse</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Authentifie le client et stocke le token d&#39;accès.</span>
-<span class="sd">        Args:</span>
+
+<span class="sd">        Arguments:</span>
 <span class="sd">        - None</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">        - TokenResponse : objet contenant access_token et refresh_token.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -380,7 +415,15 @@
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_do_refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Rafraîchit le token via le refresh token, ou ré-authentifie en cas d&#39;échec.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rafraîchit le token via le refresh token, ou ré-authentifie en cas d&#39;échec.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">        - None</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">        - None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span><span class="p">:</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_http</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">(</span><span class="s2">&quot;/v1/users/refresh-token&quot;</span><span class="p">),</span>
             <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_headers</span><span class="p">(</span><span class="n">authenticated</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
@@ -404,7 +447,21 @@
         <span class="n">authenticated</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Effectue une requête HTTP avec gestion automatique de l&#39;authentification.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Effectue une requête HTTP avec gestion automatique de l&#39;authentification.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">        - method (str) : Le type de la requête (GET, POST, etc.).</span>
+<span class="sd">        - path (str) : L&#39;URL de la requête.</span>
+<span class="sd">        - authenticated (bool, optional) : Indique si la requête doit быть authentifiée.</span>
+<span class="sd">        - kwargs (dict, optional) : Dictionnaire de paramètres supplémentaires pour la requête.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">        - httpx.Response : La réponse de la requête.</span>
+<span class="sd">        </span>
+<span class="sd">        Raises:</span>
+<span class="sd">        - HenrriAuthError : Erreur d&#39;authentification.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">authenticated</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_access_token</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">authenticate</span><span class="p">()</span>
 
@@ -440,7 +497,8 @@
 <div class="viewcode-block" id="SyncHenrriClient.request">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.connect.SyncHenrriClient.request">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Effectue une requête HTTP authentifiée (synchrone).</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Effectue une requête HTTP authentifiée (synchrone).</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            method: Méthode HTTP (GET, POST, etc.).</span>
@@ -456,7 +514,15 @@
 <div class="viewcode-block" id="SyncHenrriClient.close">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.connect.SyncHenrriClient.close">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ferme le client HTTP sous-jacent.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ferme le client HTTP sous-jacent.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">        - None</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">        - None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fermeture du client HTTP.&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_http</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 

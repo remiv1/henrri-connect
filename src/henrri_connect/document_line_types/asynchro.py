@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 
 DOCUMENTLINETYPES_ENDPOINT = "/v1/documentlinetypes"
 
-class AsyncDocumentLineTypesClient:
+class AsyncDocumentLineTypesClient: # pylint: disable=R0903
     """
     Accès asynchrone aux types de lignes de document.
     

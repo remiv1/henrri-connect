@@ -227,7 +227,12 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.pdf</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles Pydantic v2 pour l&#39;API Henrri.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles Pydantic représentant les entités de PDF dans l&#39;API Henrri.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- PdfUrlResponse: Représente la réponse de l&#39;API Henrri Connect pour une URL de PDF.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -238,7 +243,14 @@
 <div class="viewcode-block" id="PdfUrlResponse">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.PdfUrlResponse">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PdfUrlResponse</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente la réponse de l&#39;API Henrri Connect pour une URL de PDF.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente la réponse de l&#39;API Henrri Connect pour une URL de PDF.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - download_url: URL de téléchargement du PDF.</span>
+<span class="sd">    - expires_at: Date d&#39;expiration de l&#39;URL de téléchargement du PDF.</span>
+<span class="sd">    - file_name: Nom du fichier PDF (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">download_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">expires_at</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>

@@ -2,14 +2,16 @@
 from __future__ import annotations
 
 from datetime import datetime
-from enum import Enum
 from typing import Generic, TypeVar
 from pydantic import BaseModel
 
 from .base import (
     CompanyIdentifierType,
     CustomerType,
+    DocumentKind,
+    DocumentState,
     UnitKind,
+    SortOrder,
 )
 
 
@@ -147,6 +149,16 @@ class UserAndCompany(BaseModel):    # pylint: disable=C0115
 
 # ── Client ────────────────────────────────────────────────────────────────────
 
+class CustomerRequest(BaseModel):  # pylint: disable=C0115
+    page: int = ...
+    limit: int = ...
+    search: str
+    sort_by: str | None = ...
+    sort_order: SortOrder | None = ...
+    min_id: int | None = ...
+    from_date: str
+    to_date: str
+
 class Customer(BaseModel):  # pylint: disable=C0115
     id: int | None = ...
     name: str
@@ -183,6 +195,16 @@ class ItemCategoryType(BaseModel):  # pylint: disable=C0115
     label: str | None
     item_category_content_kind: str
     item_category_kind: str
+
+class ItemCategoryRequest(BaseModel):  # pylint: disable=C0115
+    page: int = 1
+    limit: int = 50
+    search: str
+    sort_by: str | None = ...
+    sort_order: SortOrder | None = ...
+    min_id: int | None = ...
+    from_date: str | None = ...
+    to_date: str | None = ...
 
 class ItemCategory(BaseModel):  # pylint: disable=C0115
     id: int | None
@@ -223,6 +245,16 @@ class Item(BaseModel):  # pylint: disable=C0115
     creation_date: datetime | None
     links: list[Link] | None
 
+class ItemsQuery(BaseModel):  # pylint: disable=C0115
+    page: int = 1
+    limit: int = 50
+    search: str | None = ...
+    sort_by: str | None = ...
+    sort_order: SortOrder | None = ...
+    min_id: int
+    from_date: str
+    to_date: str
+
 # ── Types de lignes de document ───────────────────────────────────────────────
 
 class DocumentLineType(BaseModel):  # pylint: disable=C0115
@@ -260,6 +292,16 @@ class DocumentLine(BaseModel):  # pylint: disable=C0115
 class DocumentLineMoveQueryParameters(BaseModel):   # pylint: disable=C0115
     to: int
 
+class DocumentLineListQueryParameters(BaseModel):   # pylint: disable=C0115
+    page: int | None = 1
+    limit: int | None = 50
+    search: str | None = None
+    sort_by: str | None = ...
+    sort_order: SortOrder | None = ...
+    min_id: int
+    from_date: str
+    to_date: str
+
 # ── Types de documents ────────────────────────────────────────────────────────
 
 class DocumentType(BaseModel):  # pylint: disable=C0115
@@ -296,35 +338,48 @@ class DocumentLabel(BaseModel): # pylint: disable=C0115
 # ── Documents ─────────────────────────────────────────────────────────────────
 
 class Document(BaseModel):  # pylint: disable=C0115
-    id: int | None
-    identity: str | None
+    id: int | None = ...
+    identity: str | None = ...
     finalized: bool
-    type: str | None
+    type: str | None = ...
     document_type_id: int
-    document_type: DocumentType | None
-    title: str | None
-    subtitle: str | None
+    document_type: DocumentType | None = ...
+    title: str | None = ...
+    subtitle: str | None = ...
     price_before_tax: float
     tax_amount: float
     price_after_tax: float
-    due_label: str | None
-    last_modification_date: datetime | None
-    date: datetime | None
+    due_label: str | None = ...
+    last_modification_date: datetime | None = ...
+    date: datetime | None = ...
     validated: bool
-    validation_date: datetime | None
-    validation_firstname: str | None
-    validation_lastname: str | None
-    validation_email: str | None
-    validation_ip: str | None
-    lines: list[DocumentLine] | None
-    customer_id: int | None
-    customer: Customer | None
-    customer_address: Address | None
+    validation_date: datetime | None = ...
+    validation_firstname: str | None = ...
+    validation_lastname: str | None = ...
+    validation_email: str | None = ...
+    validation_ip: str | None = ...
+    lines: list[DocumentLine] | None = ...
+    customer_id: int
+    customer: Customer | None = ...
+    customer_address: Address | None = ...
     user_can_validate: bool
-    footer_text: str | None
-    bank_account_label: str | None
-    label_id: int | None
-    links: list[Link] | None
+    footer_text: str | None = ...
+    bank_account_label: str | None = ...
+    label_id: int | None = ...
+    links: list[Link] | None = ...
+
+class DocumentQuery(BaseModel):  # pylint: disable=C0115
+    finalized: bool = ...
+    document_types: list[DocumentKind] | None = ...
+    state: DocumentState | None = ...
+    page: int = 1
+    limit: int = 50
+    search: str | None = ...
+    sort_by: str | None = ...
+    sort_order: SortOrder | None = ...
+    min_id: int | None = ...
+    from_date: str | None = ...
+    to_date: str | None = ...
 
 class ValidateDocumentRequest(BaseModel):  # pylint: disable=C0115
     email: str

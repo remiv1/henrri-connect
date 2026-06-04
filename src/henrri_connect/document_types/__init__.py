@@ -20,8 +20,11 @@ from __future__ import annotations
 
 from .synchro import SyncDocumentTypesClient
 from .asynchro import AsyncDocumentTypesClient
+from ..models import DocumentType, ListResponse
 
 __all__ = [
-    "SyncDocumentTypesClient",
     "AsyncDocumentTypesClient",
+    "DocumentType",
+    "ListResponse",
+    "SyncDocumentTypesClient",
 ]

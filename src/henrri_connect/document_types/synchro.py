@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 
 DOCUMENTTYPE_ENDPOINT = "/v1/documenttypes"
 
-class SyncDocumentTypesClient:
+class SyncDocumentTypesClient:  # pylint: disable=R0903
     """
     Accès synchrone aux types de documents.
     

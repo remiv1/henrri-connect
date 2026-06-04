@@ -9,8 +9,32 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from .base import CamelModel, Link, CompanyIdentifierType, CustomerType
+from .base import CamelModel, Link, CompanyIdentifierType, CustomerType, SortOrder
 from .address_contacts import Contact, Address
+
+
+class CustomerRequest(CamelModel):
+    """
+    Modèle pour les requêtes de recherches clients dans l'API Henrri Connect.
+
+    Attributs:
+    - page: Numéro de page (par défaut 1).
+    - limit: Nombre de clients par page (par défaut 50).
+    - search: Chaîne de recherche (obligatoire).
+    - sort_by: Champ de tri.
+    - sort_order: Ordre de tri (Ascending ou Descending).
+    - min_id: Identifiant minimal de client (entre 1 et 2 147 483 647).
+    - from_date: Date de début.
+    - to_date: Date de fin.
+    """
+    page: int = 1
+    limit: int = 50
+    search: str
+    sort_by: str | None = None
+    sort_order: SortOrder | None = None
+    min_id: int | None = None
+    from_date: str
+    to_date: str
 
 
 class Customer(CamelModel):

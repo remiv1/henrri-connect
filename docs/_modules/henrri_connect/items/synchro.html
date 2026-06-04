@@ -231,60 +231,111 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">..models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Item</span><span class="p">,</span> <span class="n">PagedListResponse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Item</span><span class="p">,</span> <span class="n">PagedListResponse</span><span class="p">,</span> <span class="n">ItemsQuery</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">clean</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">..connect</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-        <span class="n">SyncHenrriClient</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..connect</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncHenrriClient</span>
 
 <span class="n">ITEMS_ENDPOINT</span> <span class="o">=</span> <span class="s2">&quot;/v1/items&quot;</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">_clean</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
 
 
 <div class="viewcode-block" id="SyncItemsClient">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.items.SyncItemsClient">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SyncItemsClient</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Accès synchrone aux endpoints articles.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Accès synchrone aux endpoints articles.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">    - `client`: Objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">    - `list_items`: Liste les articles avec pagination et filtres optionnels.</span>
+<span class="sd">    - `add`: Crée un nouvel article.</span>
+<span class="sd">    - `get`: Récupère un article par son identifiant.</span>
+<span class="sd">    - `modify`: Modifie un article par son identifiant.</span>
+<span class="sd">    - `delete`: Supprime un article par son identifiant.</span>
+<span class="sd">    - `get_most_used`: Récupère les articles les plus utilisés.</span>
+<span class="sd">    - `get_best_sales`: Récupère les articles les plus vendus.</span>
+<span class="sd">    - `list_with_selected_fields`: Liste les articles avec sélection de champs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">SyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span> <span class="o">=</span> <span class="n">client</span>
 
-<div class="viewcode-block" id="SyncItemsClient.list_items">
-<a class="viewcode-back" href="../../../api.html#henrri_connect.items.SyncItemsClient.list_items">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">list_items</span><span class="p">(</span>
+    <span class="nd">@overload</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_items</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
-        <span class="n">search</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">sort_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">sort_order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">item_category_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">min_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Liste les articles avec pagination et filtres optionnels.&quot;&quot;&quot;</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="n">_clean</span><span class="p">({</span>
-            <span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
-            <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
-            <span class="s2">&quot;search&quot;</span><span class="p">:</span> <span class="n">search</span><span class="p">,</span>
-            <span class="s2">&quot;sortBy&quot;</span><span class="p">:</span> <span class="n">sort_by</span><span class="p">,</span>
-            <span class="s2">&quot;sortOrder&quot;</span><span class="p">:</span> <span class="n">sort_order</span><span class="p">,</span>
-            <span class="s2">&quot;itemCategoryId&quot;</span><span class="p">:</span> <span class="n">item_category_id</span><span class="p">,</span>
-            <span class="s2">&quot;minId&quot;</span><span class="p">:</span> <span class="n">min_id</span><span class="p">,</span>
-        <span class="p">})</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">ITEMS_ENDPOINT</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="n">request</span><span class="p">:</span> <span class="n">ItemsQuery</span><span class="p">,</span>
+        <span class="n">with_selected_fields</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">with_totals</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">only_current_page</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]:</span><span class="o">...</span>
+    <span class="nd">@overload</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_items</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">request</span><span class="p">:</span> <span class="n">ItemsQuery</span><span class="p">,</span>
+        <span class="n">with_selected_fields</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">with_totals</span><span class="p">:</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">only_current_page</span><span class="p">:</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]:</span><span class="o">...</span>
+<div class="viewcode-block" id="SyncItemsClient.list_items">
+<a class="viewcode-back" href="../../../api.html#henrri_connect.items.SyncItemsClient.list_items">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_items</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="o">*</span><span class="p">,</span>
+            <span class="n">request</span><span class="p">:</span> <span class="n">ItemsQuery</span><span class="p">,</span>
+            <span class="n">with_selected_fields</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">with_totals</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">only_current_page</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liste les articles avec pagination et filtres optionnels.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">        - `request` (ItemsQuery): Paramètres de recherche.</span>
+<span class="sd">        - `with_selected_fields` (bool): Si True, lance une requête de recherche avancée.</span>
+<span class="sd">        - `with_totals` (bool): Si True, renvoie les totaux.</span>
+<span class="sd">        - `only_current_page` (bool): Si True, renvoie uniquement les articles de la page actuelle.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        - `PagedListResponse[Item]`: Liste paginée d&#39;articles.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">by_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">with_selected_fields</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">with_totals</span> <span class="ow">and</span> <span class="n">only_current_page</span><span class="p">:</span>
+                <span class="n">params</span><span class="p">[</span><span class="s2">&quot;with_totals&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">with_totals</span>
+                <span class="n">params</span><span class="p">[</span><span class="s2">&quot;only_current_page&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">only_current_page</span>
+                <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
+                    <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ITEMS_ENDPOINT</span><span class="si">}</span><span class="s2">/with-selected-fields&quot;</span><span class="p">,</span>
+                    <span class="n">params</span><span class="o">=</span><span class="n">params</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;with_totals and only_current_page must be True if with_selected_fields is True&quot;</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">ITEMS_ENDPOINT</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="SyncItemsClient.add">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.items.SyncItemsClient.add">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Item</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Item</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Crée un nouvel article.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Crée un nouvel article.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">        - `item` (Item): Article à créer.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">        - `Item`: Article créé.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
             <span class="n">ITEMS_ENDPOINT</span><span class="p">,</span>
@@ -296,7 +347,15 @@
 <div class="viewcode-block" id="SyncItemsClient.get">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.items.SyncItemsClient.get">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Item</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère un article par son identifiant.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère un article par son identifiant.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">        - `item_id` (int): Identifiant de l&#39;article.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">        - `Item`: Article rencontré.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ITEMS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">item_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Item</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
@@ -304,7 +363,16 @@
 <div class="viewcode-block" id="SyncItemsClient.modify">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.items.SyncItemsClient.modify">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Item</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Item</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Met à jour un article existant.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Met à jour un article existant.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">        - `item_id` (int): Identifiant de l&#39;article.</span>
+<span class="sd">        - `item` (Item): Article à mettre à jour.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">        - `Item`: Article mis à jour.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ITEMS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">item_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
@@ -316,51 +384,49 @@
 <div class="viewcode-block" id="SyncItemsClient.delete">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.items.SyncItemsClient.delete">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Supprime un article.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Supprime un article.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">        - `item_id` (int): Identifiant de l&#39;article à supprimer.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">        - `None`: Article supprimé.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ITEMS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">item_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SyncItemsClient.get_most_used">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.items.SyncItemsClient.get_most_used">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_most_used</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
-        <span class="n">search</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère les articles les plus utilisés.&quot;&quot;&quot;</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="n">_clean</span><span class="p">({</span><span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span> <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span> <span class="s2">&quot;search&quot;</span><span class="p">:</span> <span class="n">search</span><span class="p">})</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ITEMS_ENDPOINT</span><span class="si">}</span><span class="s2">/most-used&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_most_used</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère les articles les plus utilisés.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">        - None</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">        - `PagedListResponse[Item]`: Liste paginée d&#39;articles.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ITEMS_ENDPOINT</span><span class="si">}</span><span class="s2">/most-used&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="SyncItemsClient.get_best_sales">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.items.SyncItemsClient.get_best_sales">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_best_sales</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
-        <span class="n">search</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère les articles les plus vendus.&quot;&quot;&quot;</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="n">_clean</span><span class="p">({</span><span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span> <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span> <span class="s2">&quot;search&quot;</span><span class="p">:</span> <span class="n">search</span><span class="p">})</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ITEMS_ENDPOINT</span><span class="si">}</span><span class="s2">/best-sales&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
-
-
-<div class="viewcode-block" id="SyncItemsClient.list_with_selected_fields">
-<a class="viewcode-back" href="../../../api.html#henrri_connect.items.SyncItemsClient.list_with_selected_fields">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">list_with_selected_fields</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
-        <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Liste les articles avec sélection de champs.&quot;&quot;&quot;</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="n">_clean</span><span class="p">({</span><span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span> <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span> <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">})</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_best_sales</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère les articles les plus vendus.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">        - `year` (int): Année de recherche.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">        - `PagedListResponse[Item]`: Liste paginée d&#39;articles.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">year</span>
+        <span class="p">}</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ITEMS_ENDPOINT</span><span class="si">}</span><span class="s2">/with-selected-fields&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 </div>

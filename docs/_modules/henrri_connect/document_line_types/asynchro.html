@@ -227,7 +227,19 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.document_line_types.asynchro</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Sous-client pour les endpoints /v1/documentlinetypes.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Sous-client pour les endpoints /v1/documentlinetypes.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">--------</span>
+<span class="sd">- `henrri_connect.document_line_types.asynchro.AsyncDocumentLineTypesClient`:</span>
+<span class="sd">    Accès asynchrone aux endpoints types de lignes de documents.</span>
+
+<span class="sd">Notes:</span>
+<span class="sd">-----</span>
+<span class="sd">- Utiliser de préférence l&#39;objet `henrri_connect.AsyncHenrriClient` pour acceder</span>
+<span class="sd">aux endpoints.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -236,16 +248,22 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">..models</span><span class="w"> </span><span class="kn">import</span> <span class="n">DocumentLineType</span><span class="p">,</span> <span class="n">ListResponse</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">..connect</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-        <span class="n">AsyncHenrriClient</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..connect</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncHenrriClient</span>
 
 <span class="n">DOCUMENTLINETYPES_ENDPOINT</span> <span class="o">=</span> <span class="s2">&quot;/v1/documentlinetypes&quot;</span>
 
 <div class="viewcode-block" id="AsyncDocumentLineTypesClient">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.document_line_types.AsyncDocumentLineTypesClient">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">AsyncDocumentLineTypesClient</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Accès asynchrone aux types de lignes de document.&quot;&quot;&quot;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AsyncDocumentLineTypesClient</span><span class="p">:</span> <span class="c1"># pylint: disable=R0903</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Accès asynchrone aux types de lignes de document.</span>
+<span class="sd">    </span>
+<span class="sd">    Arguments:</span>
+<span class="sd">    - `client`: Objet `henrri_connect.AsyncHenrriClient`.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">    - `list_document_line_types`: Liste tous les types de lignes de document.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">AsyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span> <span class="o">=</span> <span class="n">client</span>
@@ -253,7 +271,15 @@
 <div class="viewcode-block" id="AsyncDocumentLineTypesClient.list_document_line_types">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.document_line_types.AsyncDocumentLineTypesClient.list_document_line_types">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_document_line_types</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ListResponse</span><span class="p">[</span><span class="n">DocumentLineType</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Liste tous les types de lignes de document.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liste tous les types de lignes de document.</span>
+<span class="sd">        </span>
+<span class="sd">        Arguments:</span>
+<span class="sd">        - `None`</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        - `ListResponse[DocumentLineType]`: Liste de types de lignes de document.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">DOCUMENTLINETYPES_ENDPOINT</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ListResponse</span><span class="p">[</span><span class="n">DocumentLineType</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 </div>

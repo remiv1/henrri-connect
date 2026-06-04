@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from .base import CamelModel, Link, DocumentKind
+from .base import CamelModel, Link, DocumentKind, DocumentState, SortOrder
 from .document_line import DocumentLine
 from .customer import Customer
 from .address_contacts import Address
@@ -143,7 +143,7 @@ class Document(CamelModel):
     validation_email: str | None = None
     validation_ip: str | None = None
     lines: list[DocumentLine] | None = None
-    customer_id: int | None = None
+    customer_id: int
     customer: Customer | None = None
     customer_address: Address | None = None
     user_can_validate: bool = False
@@ -151,6 +151,36 @@ class Document(CamelModel):
     bank_account_label: str | None = None
     label_id: int | None = None
     links: list[Link] | None = None
+
+
+class DocumentQuery(CamelModel):
+    """
+    Représente une requête de document dans l'API Henrri Connect.
+    
+    Attributs:
+    - finalized (bool): Indique si le document est finalisé.
+    - document_types (list[DocumentKind]): Type du document.
+    - state (Optional[DocumentState]): Etat du document.
+    - page (int): Numéro de page (de 1 à 2 147 483 647, défaut 1).
+    - limit (int): Nombre de documents par page (de 1 à 100, défaut 50).
+    - search (str): Chaine de recherche.
+    - sort_by (str): Champ de tri.
+    - sort_order (SortOrder): Ordre de tri (Ascending ou Descending).
+    - min_id (int): Identifiant minimum.
+    - from_date (str): Date de debut.
+    - to_date (str): Date de fin.
+    """
+    finalized: bool = False
+    document_types: list[DocumentKind] | None = None
+    state: DocumentState | None = None
+    page: int = 1
+    limit: int = 50
+    search: str | None = None
+    sort_by: str | None = None
+    sort_order: SortOrder | None = None
+    min_id: int | None = None
+    from_date: str | None = None
+    to_date: str | None = None
 
 
 class ValidateDocumentRequest(CamelModel):

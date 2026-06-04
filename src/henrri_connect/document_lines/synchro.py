@@ -13,9 +13,9 @@ Notes:
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
-from ..models import DocumentLine, ListResponse
+from ..models import DocumentLine, ListResponse, DocumentLineListQueryParameters
 
 if TYPE_CHECKING:
     from ..connect import SyncHenrriClient
@@ -41,17 +41,33 @@ class SyncDocumentLinesClient:
     def __init__(self, client: SyncHenrriClient) -> None:
         self._c = client
 
-    def list_document_lines(self, document_id: int) -> ListResponse[DocumentLine]:
+    async def list_document_lines(
+            self,
+            document_id: int,
+            query_params: Optional[DocumentLineListQueryParameters] = None,
+        ) -> ListResponse[DocumentLine]:
         """
         Liste les lignes d'un document.
         
         Arguments:
-        - `document_id`: Identifiant du document.
+        - `document_id`(int): Identifiant du document (min 1 et max 2 147 483 647).
+        - `query_params`(DocumentLineListQueryParameters, optional): Paramètres de requête.
         
         Returns:
         - `ListResponse[DocumentLine]`: Liste de lignes de document.
         """
-        resp = self._c.request("GET", f"{DOCUMENT_ENDPOINT}/{document_id}/lines")
+        if query_params:
+            resp = self._c.request(
+                "GET",
+                f"{DOCUMENT_ENDPOINT}/{document_id}/lines",
+                params=query_params.model_dump(
+                    by_alias=True,
+                    exclude_unset=True,
+                    exclude_none=True
+                ),
+            )
+        else:
+            resp = self._c.request("GET", f"{DOCUMENT_ENDPOINT}/{document_id}/lines")
         return ListResponse[DocumentLine].model_validate(resp.json())
 
     def add(self, document_id: int, line: DocumentLine) -> DocumentLine:

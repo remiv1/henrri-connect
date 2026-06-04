@@ -13,10 +13,11 @@ Notes:
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from ..models import (
     Document,
+    DocumentQuery,
     ListResponse,
     PagedListResponse,
     PaymentMilestone,
@@ -24,16 +25,12 @@ from ..models import (
     TaxDetailArray,
     ValidateDocumentRequest,
 )
+from ..utils import clean
 
 if TYPE_CHECKING:
-    from ..connect import (
-        AsyncHenrriClient,
-    )
+    from ..connect import AsyncHenrriClient
 
 DOCUMENTS_ENDPOINT = "/v1/documents"
-
-def _clean(params: dict[str, Any]) -> dict[str, Any]:
-    return {k: v for k, v in params.items() if v is not None}
 
 
 class AsyncDocumentsClient:
@@ -67,53 +64,17 @@ class AsyncDocumentsClient:
     def __init__(self, client: AsyncHenrriClient) -> None:
         self._c = client
 
-    async def list_documents(
-        self,
-        *,
-        page: int = 1,
-        limit: int = 50,
-        search: str | None = None,
-        sort_by: str | None = None,
-        sort_order: str | None = None,
-        document_type_id: int | None = None,
-        customer_id: int | None = None,
-        state: str | None = None,
-        from_date: str | None = None,
-        to_date: str | None = None,
-        min_id: int | None = None,
-    ) -> PagedListResponse[Document]:
+    async def list_documents(self, *, request: DocumentQuery) -> PagedListResponse[Document]:
         """
         Liste les documents avec pagination et filtres optionnels.
         
         Arguments:
-        - `page` (int): Numéro de page (par défaut 1).
-        - `limit` (int): Nombre d'articles par page (par défaut 50).
-        - `search` (str | None): Chaine de recherche.
-        - `sort_by` (str | None): Champ de tri.
-        - `sort_order` (str | None): Ordre de tri (ascendant ou descendant).
-        - `document_type_id` (int | None): Filtre par type de document.
-        - `customer_id` (int | None): Filtre par client.
-        - `state` (str | None): Filtre par statut.
-        - `from_date` (str | None): Filtre par date de debut.
-        - `to_date` (str | None): Filtre par date de fin.
-        - `min_id` (int | None): Filtre par identifiant minimum.
+        - `request` (DocumentQuery): Paramètres de recherche.
 
         Returns:
         - `PagedListResponse[Document]`: Liste paginée de documents.
         """
-        params = _clean({
-            "page": page,
-            "limit": limit,
-            "search": search,
-            "sortBy": sort_by,
-            "sortOrder": sort_order,
-            "documentTypeId": document_type_id,
-            "customerId": customer_id,
-            "state": state,
-            "fromDate": from_date,
-            "toDate": to_date,
-            "minId": min_id,
-        })
+        params = clean(request.model_dump(by_alias=True))
         resp = await self._c.request("GET", DOCUMENTS_ENDPOINT, params=params)
         return PagedListResponse[Document].model_validate(resp.json())
 
@@ -353,7 +314,7 @@ class AsyncDocumentsClient:
         Returns:
         - `PagedListResponse[Document]`: Liste de documents.
         """
-        params = _clean({"page": page, "limit": limit, "fields": fields, **kwargs})
+        params = clean({"page": page, "limit": limit, "fields": fields, **kwargs})
         resp = await self._c.request(
             "GET",
             f"{DOCUMENTS_ENDPOINT}/with-selected-fields",

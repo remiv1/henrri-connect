@@ -13,17 +13,16 @@ Notes:
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, overload, Optional
 
-from ..models import Address, Contact, Customer, PagedListResponse
+from ..models import Address, Contact, Customer, PagedListResponse, CustomerRequest
+from ..models.base import CustomerType
+from ..utils import clean
 
 if TYPE_CHECKING:
     from ..connect import SyncHenrriClient
 
 BASE_CUSTOMERS = "/v1/customers"
-
-def _clean(params: dict[str, Any]) -> dict[str, Any]:
-    return {k: v for k, v in params.items() if v is not None}
 
 
 class SyncCustomersClient:
@@ -37,6 +36,7 @@ class SyncCustomersClient:
     - `list_customers`: Liste les clients avec pagination et filtres optionnels.
     - `add`: Crée un nouveau client.
     - `get_best_sales`: Récupère les meilleurs clients.
+    - `get_last_used`: Récupère le dernier client utilisé.
     - `get`: Récupère un client par son identifiant.
     - `modify`: Met à jour un client existant.
     - `delete`: Supprime un client.
@@ -51,45 +51,60 @@ class SyncCustomersClient:
     def __init__(self, client: SyncHenrriClient) -> None:
         self._c = client
 
-    def list_customers(
+    @overload
+    async def list_customers(
         self,
         *,
-        page: int = 1,
-        limit: int = 50,
-        search: str | None = None,
-        sort_by: str | None = None,
-        sort_order: str | None = None,
-        min_id: int | None = None,
-        from_date: str | None = None,
-        to_date: str | None = None,
-    ) -> PagedListResponse[Customer]:
+        request: CustomerRequest,
+        with_selected_fields: bool = True,
+        with_totals: bool = False,
+        only_current_page: bool = True
+    ) -> PagedListResponse[Customer]:...
+    @overload
+    async def list_customers(
+        self,
+        *,
+        request: CustomerRequest,
+        with_selected_fields: bool = False,
+        with_totals: None = None,
+        only_current_page: None = None,
+    ):...
+    async def list_customers(
+        self,
+        *,
+        request: CustomerRequest,
+        with_selected_fields: bool = True,
+        with_totals: Optional[bool] = False,
+        only_current_page: Optional[bool] = True
+    ):
         """
         Liste les clients avec pagination et filtres optionnels.
         
         Arguments:
-        - `page` (int): Numéro de page (par d&eacute;faut 1).
-        - `limit` (int): Nombre de clients par page (par d&eacute;faut 50).
-        - `search` (str): Chaine de recherche (par d&eacute;faut None).
-        - `sort_by` (str): Champ de tri (par d&eacute;faut None).
-        - `sort_order` (str): Ordre de tri (par d&eacute;faut None).
-        - `min_id` (int): ID minimum (par d&eacute;faut None).
-        - `from_date` (str): Date de d&eacute;but (par d&eacute;faut None).
-        - `to_date` (str): Date de fin (par d&eacute;faut None).
+        - `request` (CustomerRequest): Paramètres de recherche.
+        - `with_selected_fields` (bool): Si True, lance une requête de recherche avancée.
+        - `with_totals` (bool): Si True, renvoie les totaux.
+        - `only_current_page` (bool): Si True, renvoie uniquement les clients de la page actuelle.
 
         Returns:
-        - `PagedListResponse[Customer]`: Liste de clients.
+        - `PagedListResponse[Customer]`: Liste paginée de clients.
         """
-        params = _clean({
-            "page": page,
-            "limit": limit,
-            "search": search,
-            "sortBy": sort_by,
-            "sortOrder": sort_order,
-            "minId": min_id,
-            "fromDate": from_date,
-            "toDate": to_date,
-        })
-        resp = self._c.request("GET", BASE_CUSTOMERS, params=params)
+        params = clean(request.model_dump(by_alias=True))
+        if with_selected_fields:
+            if with_totals and only_current_page:
+                params["with_totals"] = with_totals
+                params["only_current_page"] = only_current_page
+                resp = self._c.request(
+                    "GET",
+                    f"{BASE_CUSTOMERS}/with-selected-fields",
+                    params=params
+                )
+            else:
+                raise ValueError(
+                    "with_totals and only_current_page must be True if with_selected_fields is True"
+                )
+        else:
+            resp = self._c.request("GET", BASE_CUSTOMERS, params=params)
         return PagedListResponse[Customer].model_validate(resp.json())
 
     def add(self, customer: Customer) -> Customer:
@@ -112,34 +127,40 @@ class SyncCustomersClient:
     def get_best_sales(
         self,
         *,
-        page: int = 1,
-        limit: int = 50,
-        search: str | None = None,
-        sort_by: str | None = None,
-        sort_order: str | None = None,
+        year: int
     ) -> PagedListResponse[Customer]:
         """
         Récupère les meilleurs clients.
         
         Arguments:
-        - `page` (int): Numéro de page (par d&eacute;faut 1).
-        - `limit` (int): Nombre de clients par page (par d&eacute;faut 50).
-        - `search` (str): Chaine de recherche (par d&eacute;faut None).
-        - `sort_by` (str): Champ de tri (par d&eacute;faut None).
-        - `sort_order` (str): Ordre de tri (par d&eacute;faut None).
+        - `year` (int): Année concerne (minimum 2000, maximum 2100).
 
         Returns:
         - `PagedListResponse[Customer]`: Liste de clients.
         """
-        params = _clean({
-            "page": page,
-            "limit": limit,
-            "search": search,
-            "sortBy": sort_by,
-            "sortOrder": sort_order,
-        })
+        params = {
+            "year": year
+        }
         resp = self._c.request("GET", f"{BASE_CUSTOMERS}/best-sales", params=params)
         return PagedListResponse[Customer].model_validate(resp.json())
+
+    def get_last_used(self, customer_type: CustomerType, limit: int) -> Customer:
+        """
+        Récupère les derniers clients utilisés.
+
+        Arguments:
+        - `customer_type` (CustomerType): Type de client.
+        - `limit` (int): Nombre de clients maximum.
+        
+        Returns:
+        - `Customer`: Derniers clients utilisés.
+        """
+        params = {
+            "Types": customer_type,
+            "Limit": limit,
+        }
+        resp = self._c.request("GET", f"{BASE_CUSTOMERS}/last-used", params=params)
+        return Customer.model_validate(resp.json())
 
     def get(self, customer_id: int) -> Customer:
         """

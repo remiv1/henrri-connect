@@ -107,18 +107,18 @@ class SyncHenrriClient:
         self._init_subclients()
 
     def _init_subclients(self) -> None:
-        from ..companies import SyncCompaniesClient
-        from ..customers import SyncCustomersClient
-        from ..document_line_types import SyncDocumentLineTypesClient
-        from ..document_lines import SyncDocumentLinesClient
-        from ..document_types import SyncDocumentTypesClient
-        from ..documents import SyncDocumentsClient
-        from ..item_categories import SyncItemCategoriesClient
-        from ..items import SyncItemsClient
-        from ..revenues import SyncRevenuesClient
-        from ..secures import SyncSecuresClient
-        from ..units import SyncUnitsClient
-        from ..users import SyncUsersClient
+        from ..companies import SyncCompaniesClient    # pylint: disable=C0415
+        from ..customers import SyncCustomersClient    # pylint: disable=C0415
+        from ..document_line_types import SyncDocumentLineTypesClient    # pylint: disable=C0415
+        from ..document_lines import SyncDocumentLinesClient    # pylint: disable=C0415
+        from ..document_types import SyncDocumentTypesClient    # pylint: disable=C0415
+        from ..documents import SyncDocumentsClient    # pylint: disable=C0415
+        from ..item_categories import SyncItemCategoriesClient    # pylint: disable=C0415
+        from ..items import SyncItemsClient    # pylint: disable=C0415
+        from ..revenues import SyncRevenuesClient    # pylint: disable=C0415
+        from ..secures import SyncSecuresClient    # pylint: disable=C0415
+        from ..units import SyncUnitsClient    # pylint: disable=C0415
+        from ..users import SyncUsersClient    # pylint: disable=C0415
 
         self.users = SyncUsersClient(self)
         self.companies = SyncCompaniesClient(self)

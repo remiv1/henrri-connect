@@ -23,9 +23,7 @@ from typing import TYPE_CHECKING
 from ..models import Address, Company
 
 if TYPE_CHECKING:
-    from ..connect import (
-        SyncHenrriClient,
-    )
+    from ..connect import SyncHenrriClient
 
 class SyncCompaniesClient:
     """

@@ -2,6 +2,7 @@
 Modèles pour les articles et catégories d'articles dans l'API Henrri Connect.
 
 Attributs:
+- ItemCategoryRequest: Représente une requête de catégorie d'article.
 - ItemCategoryType: Représente un type de catégorie d'article.
 - ItemCategory: Représente une catégorie d'article.
 - Item: Représente un article.
@@ -9,8 +10,32 @@ Attributs:
 
 from __future__ import annotations
 
-from .base import CamelModel, Link
-from .base import ItemCategoryContentKind, ItemCategoryKind
+from .base import CamelModel, Link, ItemCategoryContentKind, ItemCategoryKind, SortOrder
+
+
+class ItemCategoryRequest(CamelModel):
+    """
+    Représente une requête de catégorie d'article dans l'API Henrri Connect.
+    
+    Attributes:
+        page (int): Index de la page de la requête (entre 1 et 2 147 483 647, defaut 1).
+        limit (int): Nombre d'articles par page (entre 1 et 100, défaut 50).
+        search (str): Chaine de recherche.
+        sort_by (str): Champ de tri.
+        sort_order (str): Ordre de tri (Ascending ou Descending).
+        min_id (int): Identifiant minimal de l'article (entre 1 et 2 147 483 647).
+        from_date (str): Date de début.
+        to_date (str): Date de fin.
+    """
+    page: int = 1
+    limit: int = 50
+    search: str
+    sort_by: str | None = None
+    sort_order: str | None = None
+    min_id: int | None = None
+    from_date: str | None = None
+    to_date: str | None = None
+
 
 class ItemCategoryType(CamelModel):
     """
@@ -93,3 +118,27 @@ class Item(CamelModel):
     parent_item_id: int | None = None
     creation_date: str
     links: list[Link] | None = None
+
+
+class ItemsQuery(CamelModel):
+    """
+    Représente une requête de catégorie d'article dans l'API Henrri Connect.
+    
+    Attributs:
+    - page (int): Index de la page de la requête (entre 1 et 2 147 483 647, defaut 1).
+    - limit (int): Nombre d'articles par page (entre 1 et 100, défaut 50).
+    - search (str): Chaine de recherche.
+    - sort_by (str): Champ de tri.
+    - sort_order (SortOrder): Ordre de tri (Ascending ou Descending).
+    - min_id (int): Identifiant minimal de l'article (entre 1 et 2 147 483 647).
+    - from_date (str): Date de début.
+    - to_date (str): Date de fin.
+    """
+    page: int = 1
+    limit: int = 50
+    search: str | None = None
+    sort_by: str | None = None
+    sort_order: SortOrder | None = None
+    min_id: int
+    from_date: str
+    to_date: str

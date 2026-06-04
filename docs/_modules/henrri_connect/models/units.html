@@ -227,7 +227,12 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.units</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles pour les unités dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles pour les unités dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- Unit: Représente une unité dans l&#39;API Henrri Connect.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -237,7 +242,15 @@
 <div class="viewcode-block" id="Unit">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.Unit">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Unit</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente une unité dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente une unité dans l&#39;API Henrri Connect.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant de l&#39;unité.</span>
+<span class="sd">    - name: Nom de l&#39;unité.</span>
+<span class="sd">    - unit_kind: Type de l&#39;unité.</span>
+<span class="sd">    - links: Liens associés à l&#39;unité.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">unit_kind</span><span class="p">:</span> <span class="n">UnitKind</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>

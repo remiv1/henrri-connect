@@ -227,20 +227,67 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.base.enums</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Module contenant les énumérations utilisées dans les modèles de données.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module contenant les énumérations utilisées dans les modèles de données.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- CustomerType: Type de client pour les clients dans l&#39;API Henrri Connect.</span>
+<span class="sd">- SortOrder: Ordre de tri pour les listes d&#39;articles et de catégories d&#39;articles.</span>
+<span class="sd">- DocumentKind: Type de document pour les documents commerciaux.</span>
+<span class="sd">- DocumentState: État d&#39;un document commercial.</span>
+<span class="sd">- DocumentLineKind: Type de ligne pour les lignes de document commercial.</span>
+<span class="sd">- UnitKind: Type d&#39;unité pour les unités de mesure.</span>
+<span class="sd">- CompanyIdentifierType: Type d&#39;identifiant pour les entreprises.</span>
+<span class="sd">- ItemCategoryKind: Type de catégorie d&#39;articles.</span>
+<span class="sd">- ItemCategoryContentKind: Type de contenu pour les catégories d&#39;articles.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
 
-<span class="c1"># ── Enums ─────────────────────────────────────────────────────────────────────</span>
+<div class="viewcode-block" id="CustomerType">
+<a class="viewcode-back" href="../../../../api.html#henrri_connect.models.CustomerType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomerType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Type de client pour les clients dans l&#39;API Henrri Connect.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - INDIVIDUAL: Client individuel.</span>
+<span class="sd">    - COMPANY: Client entreprise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">INDIVIDUAL</span> <span class="o">=</span> <span class="s2">&quot;Individual&quot;</span>
+    <span class="n">COMPANY</span> <span class="o">=</span> <span class="s2">&quot;Company&quot;</span></div>
+
 
 <span class="k">class</span><span class="w"> </span><span class="nc">SortOrder</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ordre de tri pour les listes d&#39;articles et de catégories d&#39;articles.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ordre de tri pour les listes d&#39;articles et de catégories d&#39;articles.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - ASCENDING: Tri ascendant.</span>
+<span class="sd">    - DESCENDING: Tri descendant.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ASCENDING</span> <span class="o">=</span> <span class="s2">&quot;Ascending&quot;</span>
     <span class="n">DESCENDING</span> <span class="o">=</span> <span class="s2">&quot;Descending&quot;</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentKind</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Type de document pour les documents commerciaux.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Type de document pour les documents commerciaux.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - INVOICE: Facture.</span>
+<span class="sd">    - CREDIT_NOTE: Avoir.</span>
+<span class="sd">    - DELIVERY_NOTE: Bon de livraison.</span>
+<span class="sd">    - QUOTATION: Devis.</span>
+<span class="sd">    - WORK_ORDER: Bon de commande.</span>
+<span class="sd">    - PROGRESS_INVOICE: Facture de progression.</span>
+<span class="sd">    - ORDER: Commande.</span>
+<span class="sd">    - AMENDMENT: Avenant.</span>
+<span class="sd">    - MISCELLANEOUS: Divers.</span>
+<span class="sd">    - SUMMARY: Sommaire.</span>
+<span class="sd">    - DEPOSIT_INVOICE: Facture de caution.</span>
+<span class="sd">    - DEPOSIT_RECEIPT: Recueil de caution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">INVOICE</span> <span class="o">=</span> <span class="s2">&quot;Invoice&quot;</span>
     <span class="n">CREDIT_NOTE</span> <span class="o">=</span> <span class="s2">&quot;CreditNote&quot;</span>
     <span class="n">DELIVERY_NOTE</span> <span class="o">=</span> <span class="s2">&quot;DeliveryNote&quot;</span>
@@ -255,12 +302,31 @@
     <span class="n">DEPOSIT_RECEIPT</span> <span class="o">=</span> <span class="s2">&quot;DepositReceipt&quot;</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentState</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;État d&#39;un document commercial.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    État d&#39;un document commercial.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - FINALIZED: Finalisé.</span>
+<span class="sd">    - PENDING: En attente.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">FINALIZED</span> <span class="o">=</span> <span class="s2">&quot;Finalized&quot;</span>
     <span class="n">PENDING</span> <span class="o">=</span> <span class="s2">&quot;Pending&quot;</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentLineKind</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Type de ligne pour les lignes de document commercial.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Type de ligne pour les lignes de document commercial.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - NONE: Aucun.</span>
+<span class="sd">    - ITEM: Article.</span>
+<span class="sd">    - TOTAL: Total.</span>
+<span class="sd">    - SUBTOTAL: Sous-total.</span>
+<span class="sd">    - TEXT: Texte.</span>
+<span class="sd">    - GROUP: Groupe d&#39;articles.</span>
+<span class="sd">    - ADJUSTMENT: Ajustement de groupe d&#39;articles.</span>
+<span class="sd">    - LINE_BREAK: Saut de ligne.</span>
+<span class="sd">    - HORIZONTAL_TRAIT: Trait horizontal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">NONE</span> <span class="o">=</span> <span class="s2">&quot;None&quot;</span>
     <span class="n">ITEM</span> <span class="o">=</span> <span class="s2">&quot;Item&quot;</span>
     <span class="n">TOTAL</span> <span class="o">=</span> <span class="s2">&quot;Total&quot;</span>
@@ -274,7 +340,30 @@
 <div class="viewcode-block" id="UnitKind">
 <a class="viewcode-back" href="../../../../api.html#henrri_connect.models.UnitKind">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">UnitKind</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Type d&#39;unité pour les unités de mesure.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Type d&#39;unité pour les unités de mesure.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - HOURLY: Horaire.</span>
+<span class="sd">    - METER: Mètre.</span>
+<span class="sd">    - CENTIMETER: Centimètre.</span>
+<span class="sd">    - SQUARE_CENTIMETER: Centimètre carré.</span>
+<span class="sd">    - CUBIC_CENTIMETER: Centimètre cube.</span>
+<span class="sd">    - DECIMETER: Décimètre.</span>
+<span class="sd">    - SQUARE_METER: Mètre carré.</span>
+<span class="sd">    - CUBIC_METER: Mètre cube.</span>
+<span class="sd">    - MILLIMETER: Millimètre.</span>
+<span class="sd">    - SQUARE_MILLIMETER: Millimètre carré.</span>
+<span class="sd">    - CUBIC_MILLIMETER: Millimètre cube.</span>
+<span class="sd">    - KILOGRAM: Kilogramme.</span>
+<span class="sd">    - GRAM: Gramme.</span>
+<span class="sd">    - METRIC_TON: Tonne métrique.</span>
+<span class="sd">    - SPECIFIC: Spécifique.</span>
+<span class="sd">    - FLAT_RATE: Forfait.</span>
+<span class="sd">    - LINEAR_METER: Mètre linéaire.</span>
+<span class="sd">    - UNIT: Unité.</span>
+<span class="sd">    - CUSTOM: Personnalisé.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">HOURLY</span> <span class="o">=</span> <span class="s2">&quot;Hourly&quot;</span>
     <span class="n">METER</span> <span class="o">=</span> <span class="s2">&quot;Meter&quot;</span>
     <span class="n">CENTIMETER</span> <span class="o">=</span> <span class="s2">&quot;Centimeter&quot;</span>
@@ -299,20 +388,46 @@
 <div class="viewcode-block" id="CompanyIdentifierType">
 <a class="viewcode-back" href="../../../../api.html#henrri_connect.models.CompanyIdentifierType">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CompanyIdentifierType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Type d&#39;identifiant pour les entreprises.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Type d&#39;identifiant pour les entreprises.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - SIRET: SIRET.</span>
+<span class="sd">    - BCE: BCE.</span>
+<span class="sd">    - UNKNOWN: Inconnu.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">SIRET</span> <span class="o">=</span> <span class="s2">&quot;Siret&quot;</span>
     <span class="n">BCE</span> <span class="o">=</span> <span class="s2">&quot;Bce&quot;</span>
     <span class="n">UNKNOWN</span> <span class="o">=</span> <span class="s2">&quot;Unknown&quot;</span></div>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">ItemCategoryKind</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Type de catégorie d&#39;articles.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Type de catégorie d&#39;articles.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - SERVICE: Service.</span>
+<span class="sd">    - PRODUCT: Produit.</span>
+<span class="sd">    - MIXED: Mixte.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">SERVICE</span> <span class="o">=</span> <span class="s2">&quot;Service&quot;</span>
     <span class="n">PRODUCT</span> <span class="o">=</span> <span class="s2">&quot;Product&quot;</span>
     <span class="n">MIXED</span> <span class="o">=</span> <span class="s2">&quot;Mixed&quot;</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">ItemCategoryContentKind</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Type de contenu pour les catégories d&#39;articles.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Type de contenu pour les catégories d&#39;articles.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - SUPPLY: Approvisionnement.</span>
+<span class="sd">    - FLAT_SERVICE: Service forfaitaire.</span>
+<span class="sd">    - HOURLY_SERVICE: Service horaire.</span>
+<span class="sd">    - MIXED: Mixte.</span>
+<span class="sd">    - SUBCONTRACTING: Sous-traitance.</span>
+<span class="sd">    - MACHINE_TIME: Temps machine.</span>
+<span class="sd">    - SPECIAL_SALE: Vente spéciale.</span>
+<span class="sd">    - USED_VEHICLE: Véhicule d&#39;occasion.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">SUPPLY</span> <span class="o">=</span> <span class="s2">&quot;Supply&quot;</span>
     <span class="n">FLAT_SERVICE</span> <span class="o">=</span> <span class="s2">&quot;FlatService&quot;</span>
     <span class="n">HOURLY_SERVICE</span> <span class="o">=</span> <span class="s2">&quot;HourlyService&quot;</span>

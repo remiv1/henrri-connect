@@ -227,24 +227,86 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.customer</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles pour les clients dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles pour les clients dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- Customer: Représente un client dans l&#39;API Henrri Connect.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">CamelModel</span><span class="p">,</span> <span class="n">Link</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">CompanyIdentifierType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">CamelModel</span><span class="p">,</span> <span class="n">Link</span><span class="p">,</span> <span class="n">CompanyIdentifierType</span><span class="p">,</span> <span class="n">CustomerType</span><span class="p">,</span> <span class="n">SortOrder</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.address_contacts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Contact</span><span class="p">,</span> <span class="n">Address</span>
+
+
+<div class="viewcode-block" id="CustomerRequest">
+<a class="viewcode-back" href="../../../api.html#henrri_connect.models.CustomerRequest">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomerRequest</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modèle pour les requêtes de recherches clients dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - page: Numéro de page (par défaut 1).</span>
+<span class="sd">    - limit: Nombre de clients par page (par défaut 50).</span>
+<span class="sd">    - search: Chaîne de recherche (obligatoire).</span>
+<span class="sd">    - sort_by: Champ de tri.</span>
+<span class="sd">    - sort_order: Ordre de tri (Ascending ou Descending).</span>
+<span class="sd">    - min_id: Identifiant minimal de client (entre 1 et 2 147 483 647).</span>
+<span class="sd">    - from_date: Date de début.</span>
+<span class="sd">    - to_date: Date de fin.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="n">search</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sort_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">sort_order</span><span class="p">:</span> <span class="n">SortOrder</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">min_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">from_date</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">to_date</span><span class="p">:</span> <span class="nb">str</span></div>
+
 
 
 <div class="viewcode-block" id="Customer">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.Customer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Customer</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modèle pour les clients dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique du client.</span>
+<span class="sd">    - name: Nom du client.</span>
+<span class="sd">    - type: Type de client (individuel ou entreprise).</span>
+<span class="sd">    - accounting_number: Numéro comptable du client.</span>
+<span class="sd">    - company_identifier_type: Type d&#39;identifiant de l&#39;entreprise (SIRET, BCE, ou inconnu).</span>
+<span class="sd">    - siret: Numéro SIRET de l&#39;entreprise (si applicable).</span>
+<span class="sd">    - trade_name: Nom commercial de l&#39;entreprise (si applicable).</span>
+<span class="sd">    - trade_name_extension: Extension du nom commercial de l&#39;entreprise (si applicable).</span>
+<span class="sd">    - ict: Identifiant de contact de l&#39;entreprise (si applicable).</span>
+<span class="sd">    - vat_number: Numéro de TVA du client (si applicable).</span>
+<span class="sd">    - address: Adresse du client (si applicable).</span>
+<span class="sd">    - contacts: Liste de contacts associés au client (si applicable).</span>
+<span class="sd">    - days_number_before_payment_reminder_level1: Nb jours avant le premier rappel de paiement.</span>
+<span class="sd">    - days_number_before_payment_reminder_level2: Nb jours avant le deuxième rappel de paiement.</span>
+<span class="sd">    - days_number_before_payment_reminder_level3: Nb jours avant le troisième rappel de paiement.</span>
+<span class="sd">    - days_number_before_payment_reminder_level4: Nb jours avant le quatrième rappel de paiement.</span>
+<span class="sd">    - service_discount_percentage: Pourcentage de remise pour les services.</span>
+<span class="sd">    - product_discount_percentage: Pourcentage de remise pour les produits.</span>
+<span class="sd">    - customer_type_alert_enabled: Indique si les alertes de type de client sont activées.</span>
+<span class="sd">    - is_deleted: Indique si le client est supprimé.</span>
+<span class="sd">    - is_supplier: Indique si le client est également un fournisseur.</span>
+<span class="sd">    - is_advisor: Indique si le client est également un conseiller.</span>
+<span class="sd">    - import_date: Date d&#39;importation du client.</span>
+<span class="sd">    - comment: Commentaire sur le client.</span>
+<span class="sd">    - website: Site web du client (si applicable).</span>
+<span class="sd">    - creation_date: Date de création du client.</span>
+<span class="sd">    - links: Liste de liens associés au client (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="n">CustomerType</span> <span class="o">=</span> <span class="n">CustomerType</span><span class="o">.</span><span class="n">INDIVIDUAL</span>
     <span class="n">accounting_number</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">company_identifier_type</span><span class="p">:</span> <span class="n">CompanyIdentifierType</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">siret</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>

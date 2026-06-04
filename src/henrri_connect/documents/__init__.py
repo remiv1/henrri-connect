@@ -20,8 +20,24 @@ from __future__ import annotations
 
 from .synchro import SyncDocumentsClient
 from .asynchro import AsyncDocumentsClient
+from ..models import (
+    Document,
+    ListResponse,
+    PagedListResponse,
+    PaymentMilestone,
+    PdfUrlResponse,
+    TaxDetailArray,
+    ValidateDocumentRequest,
+)
 
 __all__ = [
-    "SyncDocumentsClient",
     "AsyncDocumentsClient",
+    "Document",
+    "ListResponse",
+    "PagedListResponse",
+    "PaymentMilestone",
+    "PdfUrlResponse",
+    "TaxDetailArray",
+    "ValidateDocumentRequest",
+    "SyncDocumentsClient",
 ]

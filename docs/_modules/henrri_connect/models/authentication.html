@@ -227,7 +227,15 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.authentication</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles pour l&#39;authentification avec l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles pour l&#39;authentification avec l&#39;API Henrri Connect.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- AuthenticateRequest: Représente une requête d&#39;authentification pour obtenir un token d&#39;accès.</span>
+<span class="sd">- TokenResponse: Représente la réponse d&#39;une authentification réussie ou d&#39;un rafraîchissement</span>
+<span class="sd">de token.</span>
+<span class="sd">- RefreshTokenRequest: Représente une requête de rafraîchissement du token d&#39;accès.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -236,7 +244,13 @@
 <div class="viewcode-block" id="AuthenticateRequest">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.AuthenticateRequest">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AuthenticateRequest</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente une requête d&#39;authentification pour obtenir un token d&#39;accès.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente une requête d&#39;authentification pour obtenir un token d&#39;accès.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributs:</span>
+<span class="sd">    - client_id: Identifiant du client.</span>
+<span class="sd">    - client_secret: Secret du client.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">client_id</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">client_secret</span><span class="p">:</span> <span class="nb">str</span></div>
 
@@ -245,7 +259,20 @@
 <div class="viewcode-block" id="TokenResponse">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.TokenResponse">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TokenResponse</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente la réponse d&#39;une authentification réussie ou d&#39;un rafraîchissement de token.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente la réponse d&#39;une authentification réussie ou d&#39;un rafraîchissement de token.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - access_token: Token d&#39;accès.</span>
+<span class="sd">    - identity_token: Token d&#39;identité.</span>
+<span class="sd">    - scope: Portée du token.</span>
+<span class="sd">    - token_type: Type du token.</span>
+<span class="sd">    - refresh_token: Token de rafraîchissement.</span>
+<span class="sd">    - expires_in: Durée de validité du token en secondes.</span>
+<span class="sd">    - is_error: Indique si la réponse contient une erreur.</span>
+<span class="sd">    - error: Code de l&#39;erreur (si applicable).</span>
+<span class="sd">    - error_description: Description de l&#39;erreur (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">identity_token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">scope</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -261,7 +288,15 @@
 <div class="viewcode-block" id="RefreshTokenRequest">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.RefreshTokenRequest">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RefreshTokenRequest</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Représente une requête de rafraîchissement du token d&#39;accès.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente une requête de rafraîchissement du token d&#39;accès.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - refresh_token: Token de rafraîchissement.</span>
+<span class="sd">    - client_id: Identifiant du client.</span>
+<span class="sd">    - client_secret: Secret du client.</span>
+<span class="sd">    - check_point: Point de contrôle (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">refresh_token</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">client_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">client_secret</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>

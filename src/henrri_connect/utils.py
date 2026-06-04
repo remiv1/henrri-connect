@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import logging
 import json
+from typing import Any
 import httpx
 from .exc import (
     HenrriAuthError,
@@ -72,3 +73,15 @@ def raise_for_status(resp: httpx.Response) -> None:
         raise HenrriServerError(sc, str(msg))
     logger.error("HTTP error: %s", msg)
     raise HenrriHTTPError(sc, str(msg))
+
+def clean(params: dict[str, Any]) -> dict[str, Any]:
+    """
+    Supprime les valeurs None d'un dictionnaire
+
+    Args:
+        params (dict[str, Any]): Dictionnaire contenant des valeurs None
+
+    Returns:
+        dict[str, Any]: Dictionnaire sans valeurs None
+    """
+    return {k: v for k, v in params.items() if v is not None}
