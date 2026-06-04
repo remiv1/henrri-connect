@@ -11,9 +11,11 @@ from tests.conftest import DOCUMENT_TYPE_JSON, make_response
 
 
 class TestSyncDocumentTypes:
+    """Tests du sous-client document_types (synchrone et asynchrone)."""
     def test_list_retourne_types(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode list_document_types()."""
         mock_http.request.return_value = make_response({"elements": [DOCUMENT_TYPE_JSON]})
 
         result = sync_client.document_types.list_document_types()
@@ -26,9 +28,11 @@ class TestSyncDocumentTypes:
 
 
 class TestAsyncDocumentTypes:
+    """Tests du sous-client document_types (synchrone et asynchrone)."""
     async def test_list_retourne_types(
         self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
+        """Test de la méthode list_document_types()."""
         mock_async_http.request.return_value = make_response({"elements": [DOCUMENT_TYPE_JSON]})
 
         result = await async_client.document_types.list_document_types()

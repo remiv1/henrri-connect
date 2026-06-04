@@ -9,6 +9,7 @@ from unittest.mock import AsyncMock, MagicMock
 from src.henrri_connect.connect import (
     AsyncHenrriClient, SyncHenrriClient   # type: ignore[import]
 )
+from src.henrri_connect.models import ItemCategoryRequest
 from tests.conftest import ITEM_CATEGORY_JSON, PAGED_META, make_response
 
 
@@ -17,12 +18,16 @@ def _paged(elements: list[Any]) -> dict[str, Any]:
 
 
 class TestSyncItemCategories:
+    """Tests du sous-client item_categories (synchrone)."""
     def test_list_retourne_categories(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode list_item_categories()."""
         mock_http.request.return_value = make_response(_paged([ITEM_CATEGORY_JSON]))
 
-        result = sync_client.item_categories.list_item_categories()
+        result = sync_client.item_categories.list_item_categories(
+            request=ItemCategoryRequest(search="", page=1, limit=50)
+        )
 
         assert result.elements is not None
         assert len(result.elements) == 1
@@ -32,9 +37,16 @@ class TestSyncItemCategories:
     def test_list_passe_les_filtres(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode list_item_categories()."""
         mock_http.request.return_value = make_response(_paged([]))
 
-        sync_client.item_categories.list_item_categories(search="service", page=2, limit=10)
+        sync_client.item_categories.list_item_categories(
+            request=ItemCategoryRequest(
+                search="service",
+                page=2,
+                limit=10
+            )
+        )
 
         _, kwargs = mock_http.request.call_args
         params = kwargs["params"]
@@ -44,21 +56,37 @@ class TestSyncItemCategories:
     def test_list_exclut_params_none(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode list_item_categories()."""
         mock_http.request.return_value = make_response(_paged([]))
 
-        sync_client.item_categories.list_item_categories()
+        sync_client.item_categories.list_item_categories(
+            request=ItemCategoryRequest(
+                search="",
+                page=1,
+                limit=50
+            )
+        )
 
         _, kwargs = mock_http.request.call_args
-        assert "search" not in kwargs["params"]
+        params = kwargs["params"]
+        assert params["search"] == ""
 
 
 class TestAsyncItemCategories:
+    """Tests du sous-client item_categories (asynchrone)."""
     async def test_list_retourne_categories(
         self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
+        """Test de la méthode list_item_categories()."""
         mock_async_http.request.return_value = make_response(_paged([ITEM_CATEGORY_JSON]))
 
-        result = await async_client.item_categories.list_item_categories()
+        result = await async_client.item_categories.list_item_categories(
+            request=ItemCategoryRequest(
+                search="",
+                page=1,
+                limit=50
+            )
+        )
 
         assert result.elements is not None
         assert len(result.elements) == 1

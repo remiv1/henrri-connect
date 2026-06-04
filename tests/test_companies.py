@@ -11,9 +11,16 @@ from tests.conftest import COMPANY_JSON, make_response
 
 
 class TestSyncCompanies:
+    """Tests du sous-client companies (synchrone)."""
     def test_get_retourne_company(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """
+        Test de la methode get.
+
+        Tests:
+        - La compagnie est retournee
+        """
         mock_http.request.return_value = make_response(COMPANY_JSON)
 
         company = sync_client.companies.get(42)
@@ -27,6 +34,12 @@ class TestSyncCompanies:
     def test_get_address(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """
+        Test de la methode get_address.
+
+        Tests:
+        - L'adresse est retournee
+        """
         mock_http.request.return_value = make_response(
             {"id": 1, "city": "Paris", "isPostCodeShared": False}
         )
@@ -39,9 +52,16 @@ class TestSyncCompanies:
 
 
 class TestAsyncCompanies:
+    """Tests du sous-client companies (asynchrone)."""
     async def test_get_retourne_company(
         self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
+        """
+        Test de la methode get et de son retour.
+
+        Tests:
+        - La compagnie est retournee
+        """
         mock_async_http.request.return_value = make_response(COMPANY_JSON)
 
         company = await async_client.companies.get(42)
@@ -52,6 +72,12 @@ class TestAsyncCompanies:
     async def test_get_address(
         self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
+        """
+        Test de la methode get_address.
+
+        Tests:
+        - L'adresse est retournee
+        """
         mock_async_http.request.return_value = make_response(
             {"id": 1, "city": "Lyon", "isPostCodeShared": False}
         )

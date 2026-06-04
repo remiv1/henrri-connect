@@ -41,7 +41,7 @@ class SyncDocumentLinesClient:
     def __init__(self, client: SyncHenrriClient) -> None:
         self._c = client
 
-    async def list_document_lines(
+    def list_document_lines(
             self,
             document_id: int,
             query_params: Optional[DocumentLineListQueryParameters] = None,

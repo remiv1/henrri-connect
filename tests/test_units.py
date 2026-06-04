@@ -12,9 +12,11 @@ from tests.conftest import UNIT_JSON, make_response
 
 
 class TestSyncUnits:
+    """Tests du sous-client units (synchrone)."""
     def test_list_retourne_unites(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode list_units()."""
         mock_http.request.return_value = make_response({"elements": [UNIT_JSON]})
 
         result = sync_client.units.list_units()
@@ -27,6 +29,7 @@ class TestSyncUnits:
     def test_add_cree_unite(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode add_unit()."""
         mock_http.request.return_value = make_response({**UNIT_JSON, "id": 10})
         unit = Unit(name="Jour", unit_kind="Specific")  # type: ignore[call-arg]
 
@@ -38,6 +41,7 @@ class TestSyncUnits:
     def test_get_retourne_unite(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode get_unit()."""
         mock_http.request.return_value = make_response(UNIT_JSON)
 
         result = sync_client.units.get(3)
@@ -48,9 +52,11 @@ class TestSyncUnits:
 
 
 class TestAsyncUnits:
+    """Tests du sous-client units (asynchrone)."""
     async def test_list_retourne_unites(
         self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
+        """Test de la méthode list_units()."""
         mock_async_http.request.return_value = make_response({"elements": [UNIT_JSON]})
 
         result = await async_client.units.list_units()
@@ -62,6 +68,7 @@ class TestAsyncUnits:
     async def test_get_retourne_unite(
         self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
+        """Test de la méthode get_unit()."""
         mock_async_http.request.return_value = make_response(UNIT_JSON)
 
         result = await async_client.units.get(3)

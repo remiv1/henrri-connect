@@ -24,23 +24,24 @@ from tests.conftest import TOKEN_JSON, make_response
 
 
 class TestSyncAuthenticate:
+    """Tests de l'authentification synchrone."""
     def test_stocke_access_token(self, mock_http: MagicMock) -> None:
         """Le token d'accès est stocké après authentification réussie."""
         mock_http.post.return_value = make_response(TOKEN_JSON)
         client = SyncHenrriClient.__new__(SyncHenrriClient)
-        client._client_id = "id"
-        client._client_secret = "secret"
-        client._base_url = "https://api-sandbox.henrri.io"
-        client._access_token = None
-        client._refresh_token_str = None
-        client._http = mock_http
-        client._init_subclients()
+        client._client_id = "id"    # pylint: disable=W0212
+        client._client_secret = "secret"    # pylint: disable=W0212
+        client._base_url = "https://api-sandbox.henrri.io"  # pylint: disable=W0212
+        client._access_token = None # pylint: disable=W0212
+        client._refresh_token_str = None    # pylint: disable=W0212
+        client._http = mock_http    # pylint: disable=W0212
+        client._init_subclients()   # pylint: disable=W0212
 
         token = client.authenticate()
 
         assert token.access_token == "new_access_token"
-        assert client._access_token == "new_access_token"
-        assert client._refresh_token_str == "new_refresh_token"
+        assert client._access_token == "new_access_token"   # pylint: disable=W0212
+        assert client._refresh_token_str == "new_refresh_token"   # pylint: disable=W0212
 
     def test_auto_authenticate_avant_requete(self, mock_http: MagicMock) -> None:
         """La première requête déclenche automatiquement l'authentification."""
@@ -48,13 +49,13 @@ class TestSyncAuthenticate:
         mock_http.request.return_value = make_response({"id": 1})
 
         client = SyncHenrriClient.__new__(SyncHenrriClient)
-        client._client_id = "id"
-        client._client_secret = "secret"
-        client._base_url = "https://api-sandbox.henrri.io"
-        client._access_token = None
-        client._refresh_token_str = None
-        client._http = mock_http
-        client._init_subclients()
+        client._client_id = "id"   # pylint: disable=W0212
+        client._client_secret = "secret"   # pylint: disable=W0212
+        client._base_url = "https://api-sandbox.henrri.io"   # pylint: disable=W0212
+        client._access_token = None   # pylint: disable=W0212
+        client._refresh_token_str = None   # pylint: disable=W0212
+        client._http = mock_http   # pylint: disable=W0212
+        client._init_subclients()   # pylint: disable=W0212
 
         client.request("GET", "/v1/companies/1")
 
@@ -65,13 +66,14 @@ class TestSyncAuthenticate:
 
 
 class TestSyncRefreshToken:
+    """Tests du refresh token synchrone."""
     def test_refresh_succes(self, sync_client: SyncHenrriClient, mock_http: MagicMock) -> None:
         """Le refresh token met à jour l'access token."""
         mock_http.post.return_value = make_response(TOKEN_JSON)
 
-        sync_client._do_refresh()
+        sync_client._do_refresh()   # pylint: disable=W0212
 
-        assert sync_client._access_token == "new_access_token"
+        assert sync_client._access_token == "new_access_token"   # pylint: disable=W0212
 
     def test_refresh_echec_reauthentifie(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
@@ -82,7 +84,7 @@ class TestSyncRefreshToken:
             make_response(TOKEN_JSON),             # ré-authentification réussit
         ]
 
-        sync_client._do_refresh()
+        sync_client._do_refresh()   # pylint: disable=W0212
 
         assert mock_http.post.call_count == 2
 
@@ -91,6 +93,7 @@ class TestSyncRefreshToken:
 
 
 class TestRaiseForStatus:
+    """Tests de la gestion des erreurs HTTP."""
     @pytest.mark.parametrize(
         "status_code, exc_class",
         [
@@ -146,20 +149,21 @@ class TestRaiseForStatus:
 
 
 class TestAsyncAuthenticate:
+    """Tests de l'authentification asynchrone."""
     async def test_stocke_access_token(self, mock_async_http: MagicMock) -> None:
         """Le token d'accès est stocké après authentification asynchrone réussie."""
         mock_async_http.post.return_value = make_response(TOKEN_JSON)
 
         client = AsyncHenrriClient.__new__(AsyncHenrriClient)
-        client._client_id = "id"
-        client._client_secret = "secret"
-        client._base_url = "https://api-sandbox.henrri.io"
-        client._access_token = None
-        client._refresh_token_str = None
-        client._http = mock_async_http
-        client._init_subclients()   # type: ignore[union-attr]
+        client._client_id = "id"   # pylint: disable=W0212
+        client._client_secret = "secret"   # pylint: disable=W0212
+        client._base_url = "https://api-sandbox.henrri.io"   # pylint: disable=W0212
+        client._access_token = None   # pylint: disable=W0212
+        client._refresh_token_str = None   # pylint: disable=W0212
+        client._http = mock_async_http   # pylint: disable=W0212
+        client._init_subclients()   # type: ignore[union-attr]   # pylint: disable=W0212
 
         token = await client.authenticate()
 
         assert token.access_token == "new_access_token"
-        assert client._access_token == "new_access_token"
+        assert client._access_token == "new_access_token"   # pylint: disable=W0212

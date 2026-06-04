@@ -29,30 +29,30 @@ def make_response(
     return mock
 
 
-def _build_sync_client(mock_http: MagicMock) -> SyncHenrriClient:
+def _build_sync_client(mock_http: MagicMock) -> SyncHenrriClient:   # pylint: disable=W0621
     """Crée un client synchrone avec HTTP mocké (sans __init__)."""
     client: SyncHenrriClient = SyncHenrriClient.__new__(SyncHenrriClient)
-    client._client_id = "test_id"
-    client._client_secret = "test_secret"
-    client._base_url = "https://api-sandbox.henrri.io"
-    client._access_token = "fake_access_token"
-    client._refresh_token_str = "fake_refresh_token"
-    client._http = mock_http
-    client._init_subclients()
+    client._client_id = "test_id"   # pylint: disable=W0212
+    client._client_secret = "test_secret"   # pylint: disable=W0212
+    client._base_url = "https://api-sandbox.henrri.io"  # pylint: disable=W0212
+    client._access_token = "fake_access_token"  # pylint: disable=W0212
+    client._refresh_token_str = "fake_refresh_token"    # pylint: disable=W0212
+    client._http = mock_http    # pylint: disable=W0212
+    client._init_subclients()   # pylint: disable=W0212
     return client
 
 
-def _build_async_client(mock_http: AsyncMock) -> AsyncHenrriClient:
+def _build_async_client(mock_http: AsyncMock) -> AsyncHenrriClient: # pylint: disable=W0621
     """Crée un client asynchrone avec HTTP mocké (sans __init__)."""
     client: AsyncHenrriClient = AsyncHenrriClient.__new__(AsyncHenrriClient)
-    client._client_id = "test_id"
-    client._client_secret = "test_secret"
-    client._base_url = "https://api-sandbox.henrri.io"
-    client._access_token = "fake_access_token"
-    client._refresh_token_str = "fake_refresh_token"
-    client._http = mock_http
-    client._init_subclients()   # type: ignore[union-attr]
-    return client
+    client._client_id = "test_id"   # pylint: disable=W0212
+    client._client_secret = "test_secret"   # pylint: disable=W0212
+    client._base_url = "https://api-sandbox.henrri.io"  # pylint: disable=W0212
+    client._access_token = "fake_access_token"  # pylint: disable=W0212
+    client._refresh_token_str = "fake_refresh_token"    # pylint: disable=W0212
+    client._http = mock_http    # pylint: disable=W0212
+    client._init_subclients()   # type: ignore[union-attr]  # pylint: disable=W0212
+    return client   # pylint: disable=W0212
 
 
 @pytest.fixture
@@ -68,13 +68,13 @@ def mock_async_http() -> AsyncMock:
 
 
 @pytest.fixture
-def sync_client(mock_http: MagicMock) -> SyncHenrriClient:
+def sync_client(mock_http: MagicMock) -> SyncHenrriClient: # pylint: disable=W0621
     """Client synchrone prêt à l'emploi avec HTTP mocké."""
     return _build_sync_client(mock_http)
 
 
 @pytest.fixture
-async def async_client(mock_async_http: AsyncMock) -> AsyncHenrriClient:
+async def async_client(mock_async_http: AsyncMock) -> AsyncHenrriClient: # pylint: disable=W0621
     """Client asynchrone prêt à l'emploi avec HTTP mocké."""
     return _build_async_client(mock_async_http)
 
@@ -111,6 +111,7 @@ USER_JSON: dict[str, Any] = {
 DOCUMENT_JSON: dict[str, Any] = {
     "id": 100,
     "documentTypeId": 1,
+    "customerId": 1,
     "finalized": False,
     "priceBeforeTax": 100.0,
     "taxAmount": 20.0,
@@ -143,6 +144,7 @@ ITEM_JSON: dict[str, Any] = {
     "id": 5,
     "description": "Prestation de conseil",
     "vatPercent": 20.0,
+    "creationDate": "2025-01-01T00:00:00",
     "isATaxIncluded": False,
     "purchasePrice": 0.0,
     "isAGroup": False,

@@ -10,10 +10,12 @@ from src.henrri_connect.connect import (
 from tests.conftest import make_response
 
 
-class TestSyncSecures:
+class TestSyncSecures:  # pylint: disable=R0903
+    """Tests du sous-client secures (synchrone)."""
     def test_hello_world_retourne_texte(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode hello_world()."""
         resp = make_response({}, text="Hello World!")
         mock_http.request.return_value = resp
 
@@ -24,10 +26,12 @@ class TestSyncSecures:
         assert mock_http.request.call_args.args[0] == "GET"
 
 
-class TestAsyncSecures:
+class TestAsyncSecures:  # pylint: disable=R0903
+    """Tests du sous-client secures (asynchrone)."""
     async def test_hello_world_retourne_texte(
         self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
+        """Test de la méthode hello_world()."""
         resp = make_response({}, text="Hello World!")
         mock_async_http.request.return_value = resp
 

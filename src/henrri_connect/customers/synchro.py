@@ -52,7 +52,7 @@ class SyncCustomersClient:
         self._c = client
 
     @overload
-    async def list_customers(
+    def list_customers(
         self,
         *,
         request: CustomerRequest,
@@ -61,7 +61,7 @@ class SyncCustomersClient:
         only_current_page: bool = True
     ) -> PagedListResponse[Customer]:...
     @overload
-    async def list_customers(
+    def list_customers(
         self,
         *,
         request: CustomerRequest,
@@ -69,7 +69,7 @@ class SyncCustomersClient:
         with_totals: None = None,
         only_current_page: None = None,
     ):...
-    async def list_customers(
+    def list_customers(
         self,
         *,
         request: CustomerRequest,

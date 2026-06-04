@@ -46,7 +46,7 @@ class SyncItemsClient:
         self._c = client
 
     @overload
-    async def list_items(
+    def list_items(
         self,
         *,
         request: ItemsQuery,
@@ -55,7 +55,7 @@ class SyncItemsClient:
         only_current_page: bool = True
     ) -> PagedListResponse[Item]:...
     @overload
-    async def list_items(
+    def list_items(
         self,
         *,
         request: ItemsQuery,
@@ -63,7 +63,7 @@ class SyncItemsClient:
         with_totals: None = None,
         only_current_page: None = None,
     ) -> PagedListResponse[Item]:...
-    async def list_items(
+    def list_items(
             self,
             *,
             request: ItemsQuery,

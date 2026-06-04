@@ -11,7 +11,8 @@ import pytest   # type: ignore[import]
 from src.henrri_connect.connect import (
     AsyncHenrriClient, SyncHenrriClient,  # type: ignore[import]
 )
-from src.henrri_connect.models import Document, ValidateDocumentRequest
+from src.henrri_connect.models import Document, ValidateDocumentRequest, DocumentQuery
+from src.henrri_connect.models.base import DocumentKind, DocumentState
 from tests.conftest import DOCUMENT_JSON, PAGED_META, make_response
 
 
@@ -20,12 +21,14 @@ def _paged(elements: list[Any]) -> dict[str, Any]:
 
 
 class TestSyncDocuments:
+    """Tests du sous-client documents (synchrone)."""
     def test_list_retourne_documents(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode list_documents()."""
         mock_http.request.return_value = make_response(_paged([DOCUMENT_JSON]))
 
-        result = sync_client.documents.list_documents()
+        result = sync_client.documents.list_documents(request=DocumentQuery())
 
         assert result.elements is not None
         assert len(result.elements) == 1
@@ -34,21 +37,28 @@ class TestSyncDocuments:
     def test_list_passe_les_filtres(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode list_documents()."""
         mock_http.request.return_value = make_response(_paged([]))
 
-        sync_client.documents.list_documents(customer_id=5, document_type_id=1, state="Pending")
+        sync_client.documents.list_documents(
+            request=DocumentQuery(
+                document_types=[DocumentKind.INVOICE], state=DocumentState.PENDING
+            ),
+        )
 
         _, kwargs = mock_http.request.call_args
         params = kwargs["params"]
-        assert params["customerId"] == 5
-        assert params["documentTypeId"] == 1
+        # `DocumentQuery` serializes `document_types` as `documentTypes` and `state` as string
+        assert params.get("documentTypes") is not None
+        assert params["documentTypes"][0] == DocumentKind.INVOICE
         assert params["state"] == "Pending"
 
     def test_add_cree_document(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode add_document()."""
         mock_http.request.return_value = make_response({**DOCUMENT_JSON, "id": 200})
-        doc = Document(document_type_id=1)  # type: ignore[call-arg]
+        doc = Document(document_type_id=1, customer_id=1)  # type: ignore[call-arg]
 
         result = sync_client.documents.add(doc)
 
@@ -58,6 +68,7 @@ class TestSyncDocuments:
     def test_get_retourne_document(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode get_document()."""
         mock_http.request.return_value = make_response(DOCUMENT_JSON)
 
         result = sync_client.documents.get(100)
@@ -68,10 +79,13 @@ class TestSyncDocuments:
     def test_modify_met_a_jour(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode modify_document()."""
         updated: dict[str, Any] = {**DOCUMENT_JSON, "title": "Facture modifiée"}
         mock_http.request.return_value = make_response(updated)
 
-        result = sync_client.documents.modify(100, Document(document_type_id=1))  # type: ignore[call-arg]
+        result = sync_client.documents.modify(
+            100, Document(document_type_id=1, customer_id=1)  # type: ignore[call-arg]
+            )
 
         assert result.title == "Facture modifiée"
         assert mock_http.request.call_args.args[0] == "PUT"
@@ -79,6 +93,7 @@ class TestSyncDocuments:
     def test_delete(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode delete_document()."""
         mock_http.request.return_value = make_response({})
 
         sync_client.documents.delete(100)
@@ -88,8 +103,18 @@ class TestSyncDocuments:
     def test_get_tax_details(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode get_tax_details()."""
         mock_http.request.return_value = make_response(
-            {"taxDetailArray": [{"rate": 20.0, "priceBeforeTax": 100.0, "taxAmount": 20.0, "priceAfterTax": 120.0}]}
+            {
+                "taxDetailArray": [
+                    {
+                        "rate": 20.0,
+                        "priceBeforeTax": 100.0,
+                        "taxAmount": 20.0,
+                        "priceAfterTax": 120.0
+                    }
+                ]
+            }
         )
 
         result = sync_client.documents.get_tax_details(100)
@@ -101,6 +126,7 @@ class TestSyncDocuments:
     def test_validate_document(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode validate_document()."""
         mock_http.request.return_value = make_response({**DOCUMENT_JSON, "validated": True})
         req = ValidateDocumentRequest(
             email="sign@example.com",
@@ -120,8 +146,12 @@ class TestSyncDocuments:
     def test_get_pdf_url(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode get_pdf_url()."""
         mock_http.request.return_value = make_response(
-            {"downloadUrl": "https://cdn.example.com/facture.pdf", "fileName": "facture.pdf"}
+            {
+                "downloadUrl": "https://cdn.example.com/facture.pdf",
+                "fileName": "facture.pdf"
+            }
         )
 
         result = sync_client.documents.get_pdf_url(100)
@@ -131,6 +161,7 @@ class TestSyncDocuments:
     def test_get_pdf_bytes(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode get_pdf_bytes()."""
         pdf_bytes = b"%PDF-1.4 test"
         mock_http.request.return_value = make_response({}, content=pdf_bytes)
 
@@ -141,6 +172,7 @@ class TestSyncDocuments:
     def test_finalize(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode finalize()."""
         mock_http.request.return_value = make_response({**DOCUMENT_JSON, "finalized": True})
 
         result = sync_client.documents.finalize(100)
@@ -151,6 +183,7 @@ class TestSyncDocuments:
     def test_transform_to_invoice(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode transform_to_invoice()."""
         mock_http.request.return_value = make_response({**DOCUMENT_JSON, "id": 101})
 
         result = sync_client.documents.transform_to_invoice(100)
@@ -161,6 +194,7 @@ class TestSyncDocuments:
     def test_get_payment_milestones(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode get_payment_milestones()."""
         milestone: dict[str, Any] = {
             "id": 1,
             "dueDate": "2025-06-30T00:00:00",
@@ -178,6 +212,7 @@ class TestSyncDocuments:
     def test_get_with_all(
         self, sync_client: SyncHenrriClient, mock_http: MagicMock
     ) -> None:
+        """Test de la méthode get_with_all()."""
         mock_http.request.return_value = make_response(DOCUMENT_JSON)
 
         result = sync_client.documents.get_with_all(100)
@@ -187,12 +222,14 @@ class TestSyncDocuments:
 
 
 class TestAsyncDocuments:
+    """Test de la classe AsyncDocuments."""
     async def test_list_retourne_documents(
         self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
+        """Test de la méthode list_documents()."""
         mock_async_http.request.return_value = make_response(_paged([DOCUMENT_JSON]))
 
-        result = await async_client.documents.list()
+        result = await async_client.documents.list_documents(request=DocumentQuery())
 
         assert result.elements is not None
         assert len(result.elements) == 1
@@ -201,6 +238,7 @@ class TestAsyncDocuments:
     async def test_get_retourne_document(
         self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
+        """Test de la méthode get_document()."""
         mock_async_http.request.return_value = make_response(DOCUMENT_JSON)
 
         result = await async_client.documents.get(100)
@@ -210,6 +248,7 @@ class TestAsyncDocuments:
     async def test_finalize(
         self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
+        """Test de la méthode finalize()."""
         mock_async_http.request.return_value = make_response({**DOCUMENT_JSON, "finalized": True})
 
         result = await async_client.documents.finalize(100)
@@ -219,6 +258,7 @@ class TestAsyncDocuments:
     async def test_get_pdf_bytes(
         self, async_client: AsyncHenrriClient, mock_async_http: AsyncMock
     ) -> None:
+        """Test de la méthode get_pdf_bytes()."""
         pdf_bytes = b"%PDF-1.4 async"
         mock_async_http.request.return_value = make_response({}, content=pdf_bytes)
 
