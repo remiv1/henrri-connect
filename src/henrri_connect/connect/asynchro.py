@@ -3,21 +3,21 @@ Client HTTP Henrri : implémentations asynchrone.
 
 Constants:
 ----------
-- `henrri_connect.connect.asynchro._BASE_URL`:
+- ``henrri_connect.connect.asynchro._BASE_URL`` :
      URL de base de l'API Henrri.
-- `henrri_connect.connect.asynchro.APP_VERSION`:
+- ``henrri_connect.connect.asynchro.APP_VERSION`` :
      Version de l'application.
-- `henrri_connect.connect.asynchro.APP_X_VERSION`:
+- ``henrri_connect.connect.asynchro.APP_X_VERSION`` :
      Version de l'application.
 
 Classes:
 --------
-- `henrri_connect.connect.asynchro.AsyncHenrriClient`:
+- ``henrri_connect.connect.asynchro.AsyncHenrriClient`` :
      Client HTTP Henrri asynchrone.
 
 Exceptions:
-----------
-- `henrri_connect.exc.HenrriAuthError`:
+-----------
+- ``henrri_connect.exc.HenrriAuthError`` :
      Erreur d'authentification (HTTP 401).
 
 Exemples:

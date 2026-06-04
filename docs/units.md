@@ -2,21 +2,21 @@
 
 > [⇐ Retour à l'index](../README.md)
 
-`client.units` — Gestion des unités de mesure utilisées dans les lignes de document (pièce, heure, kg, m², etc.).
+``client.units`` — Gestion des unités de mesure utilisées dans les lignes de document (pièce, heure, kg, m², etc.).
 
 ---
 
 ## Méthodes
 
-### `list_units() -> ListResponse[Unit]`
+### ``list_units() -> ListResponse[Unit]``
 
 Retourne la liste complète des unités disponibles.
 
-### `add(unit: Unit) -> Unit`
+### ``add(unit: Unit) -> Unit``
 
 Crée une nouvelle unité personnalisée.
 
-### `get(id: int) -> Unit`
+### ``get(id: int) -> Unit``
 
 Récupère une unité par son identifiant.
 

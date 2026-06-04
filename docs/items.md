@@ -2,7 +2,7 @@
 
 > [⇐ Retour à l'index](../README.md)
 
-`client.items` — CRUD complet sur le catalogue d'articles / produits, avec statistiques d'utilisation.
+``client.items`` — CRUD complet sur le catalogue d'articles / produits, avec statistiques d'utilisation.
 
 ---
 
@@ -16,41 +16,41 @@ Liste les articles avec pagination et filtres.
 
 | Paramètre | Type | Description |
 | --- | --- | --- |
-| `page` | `int` | Numéro de page (défaut : 1) |
-| `limit` | `int` | Résultats par page (défaut : 50) |
-| `search` | `str \| None` | Recherche textuelle |
-| `sort_by` | `str \| None` | Champ de tri |
-| `sort_order` | `str \| None` | `"asc"` ou `"desc"` |
-| `item_category_id` | `int \| None` | Filtre par catégorie |
-| `min_id` | `int \| None` | Identifiant minimum |
+| ``page`` | ``int`` | Numéro de page (défaut : 1) |
+| ``limit`` | ``int`` | Résultats par page (défaut : 50) |
+| ``search`` | ``str \| None`` | Recherche textuelle |
+| ``sort_by`` | ``str \| None`` | Champ de tri |
+| ``sort_order`` | ``str \| None`` | ``"asc"`` ou ``"desc"`` |
+| ``item_category_id`` | ``int \| None`` | Filtre par catégorie |
+| ``min_id`` | ``int \| None`` | Identifiant minimum |
 
-#### `get_most_used(*, page=1, limit=50, search=None) -> PagedListResponse[Item]`
+#### ``get_most_used(*, page=1, limit=50, search=None) -> PagedListResponse[Item]``
 
 Récupère les articles les plus fréquemment utilisés dans les documents.
 
-#### `get_best_sales(*, page=1, limit=50, search=None) -> PagedListResponse[Item]`
+#### ``get_best_sales(*, page=1, limit=50, search=None) -> PagedListResponse[Item]``
 
 Récupère les articles générant le plus de chiffre d'affaires.
 
-#### `list_with_selected_fields(*, page=1, limit=50, fields=None) -> PagedListResponse[Item]`
+#### ``list_with_selected_fields(*, page=1, limit=50, fields=None) -> PagedListResponse[Item]``
 
 Liste les articles avec sélection de champs (optimise la charge réseau).
 
 ### CRUD
 
-#### `add(item: Item) -> Item`
+#### ``add(item: Item) -> Item``
 
 Crée un nouvel article.
 
-#### `get(id: int) -> Item`
+#### ``get(id: int) -> Item``
 
 Récupère un article par son identifiant.
 
-#### `modify(id: int, item: Item) -> Item`
+#### ``modify(id: int, item: Item) -> Item``
 
 Met à jour un article existant.
 
-#### `delete(id: int) -> None`
+#### ``delete(id: int) -> None``
 
 Supprime un article.
 

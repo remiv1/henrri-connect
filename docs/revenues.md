@@ -2,17 +2,17 @@
 
 > [⇐ Retour à l'index](../README.md)
 
-`client.revenues` — Consultation des statistiques de revenus annuelles et mensuelles.
+``client.revenues`` — Consultation des statistiques de revenus annuelles et mensuelles.
 
 ---
 
 ## Méthodes
 
-### `get_annual(year: int) -> RevenueStatistics`
+### ``get_annual(year: int) -> RevenueStatistics``
 
 Récupère les statistiques de revenus globales pour une année donnée.
 
-### `get_monthly(year: int) -> list[MonthlyRevenueStatistics]`
+### ``get_monthly(year: int) -> list[MonthlyRevenueStatistics]``
 
 Récupère les statistiques de revenus mois par mois pour une année donnée. Retourne une liste de 12 éléments.
 

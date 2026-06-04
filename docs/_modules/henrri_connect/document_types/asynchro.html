@@ -232,12 +232,12 @@
 
 <span class="sd">Classes:</span>
 <span class="sd">--------</span>
-<span class="sd">- `henrri_connect.document_types.asynchro.AsyncDocumentTypesClient`:</span>
+<span class="sd">- ``henrri_connect.document_types.asynchro.AsyncDocumentTypesClient`` :</span>
 <span class="sd">    Accès asynchrone aux endpoints types de documents.</span>
 
 <span class="sd">Notes:</span>
-<span class="sd">-----</span>
-<span class="sd">- Utiliser de préférence l&#39;objet `henrri_connect.AsyncHenrriClient` pour acceder aux endpoints.</span>
+<span class="sd">------</span>
+<span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
@@ -258,10 +258,10 @@
 <span class="sd">    Accès asynchrone aux types de documents.</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">    - `client`: Objet `henrri_connect.AsyncHenrriClient`.</span>
+<span class="sd">    - ``client`` : Objet ``henrri_connect.AsyncHenrriClient``.</span>
 <span class="sd">    </span>
 <span class="sd">    Methods:</span>
-<span class="sd">    - `list_document_types`: Liste tous les types de documents.</span>
+<span class="sd">    - ``list_document_types`` : Liste tous les types de documents.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">AsyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -274,10 +274,10 @@
 <span class="sd">        Liste tous les types de documents.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `None`</span>
+<span class="sd">        - ``None``</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `ListResponse[DocumentType]`: Liste de types de documents.</span>
+<span class="sd">        - ``ListResponse[DocumentType]`` : Liste de types de documents.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">DOCUMENTTYPE_ENDPOINT</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ListResponse</span><span class="p">[</span><span class="n">DocumentType</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>

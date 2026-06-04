@@ -232,12 +232,12 @@
 
 <span class="sd">Classes:</span>
 <span class="sd">--------</span>
-<span class="sd">- `henrri_connect.items.synchro.SyncItemsClient`:</span>
+<span class="sd">- ``henrri_connect.items.synchro.SyncItemsClient`` :</span>
 <span class="sd">    Accès synchrone aux endpoints articles.</span>
 
 <span class="sd">Notes:</span>
-<span class="sd">-----</span>
-<span class="sd">- Utiliser de préférence l&#39;objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.</span>
+<span class="sd">------</span>
+<span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
@@ -260,17 +260,17 @@
 <span class="sd">    Accès synchrone aux endpoints articles.</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">    - `client`: Objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.</span>
+<span class="sd">    - ``client`` : Objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.</span>
 
 <span class="sd">    Methods:</span>
-<span class="sd">    - `list_items`: Liste les articles avec pagination et filtres optionnels.</span>
-<span class="sd">    - `add`: Crée un nouvel article.</span>
-<span class="sd">    - `get`: Récupère un article par son identifiant.</span>
-<span class="sd">    - `modify`: Modifie un article par son identifiant.</span>
-<span class="sd">    - `delete`: Supprime un article par son identifiant.</span>
-<span class="sd">    - `get_most_used`: Récupère les articles les plus utilisés.</span>
-<span class="sd">    - `get_best_sales`: Récupère les articles les plus vendus.</span>
-<span class="sd">    - `list_with_selected_fields`: Liste les articles avec sélection de champs.</span>
+<span class="sd">    - ``list_items`` : Liste les articles avec pagination et filtres optionnels.</span>
+<span class="sd">    - ``add`` : Crée un nouvel article.</span>
+<span class="sd">    - ``get`` : Récupère un article par son identifiant.</span>
+<span class="sd">    - ``modify`` : Modifie un article par son identifiant.</span>
+<span class="sd">    - ``delete`` : Supprime un article par son identifiant.</span>
+<span class="sd">    - ``get_most_used`` : Récupère les articles les plus utilisés.</span>
+<span class="sd">    - ``get_best_sales`` : Récupère les articles les plus vendus.</span>
+<span class="sd">    - ``list_with_selected_fields`` : Liste les articles avec sélection de champs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">SyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -308,13 +308,13 @@
 <span class="sd">        Liste les articles avec pagination et filtres optionnels.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `request` (ItemsQuery): Paramètres de recherche.</span>
-<span class="sd">        - `with_selected_fields` (bool): Si True, lance une requête de recherche avancée.</span>
-<span class="sd">        - `with_totals` (bool): Si True, renvoie les totaux.</span>
-<span class="sd">        - `only_current_page` (bool): Si True, renvoie uniquement les articles de la page actuelle.</span>
+<span class="sd">        - ``request`` (ItemsQuery) : Paramètres de recherche.</span>
+<span class="sd">        - ``with_selected_fields`` (bool) : Si True, lance une requête de recherche avancée.</span>
+<span class="sd">        - ``with_totals`` (bool) : Si True, renvoie les totaux.</span>
+<span class="sd">        - ``only_current_page`` (bool) : Si True, renvoie uniquement les articles de la page actuelle.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">        - `PagedListResponse[Item]`: Liste paginée d&#39;articles.</span>
+<span class="sd">        - ``PagedListResponse[Item]`` : Liste paginée d&#39;articles.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">by_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">with_selected_fields</span><span class="p">:</span>
@@ -342,10 +342,10 @@
 <span class="sd">        Crée un nouvel article.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `item` (Item): Article à créer.</span>
+<span class="sd">        - ``item`` (Item) : Article à créer.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `Item`: Article créé.</span>
+<span class="sd">        - ``Item`` : Article créé.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
@@ -362,10 +362,10 @@
 <span class="sd">        Récupère un article par son identifiant.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `item_id` (int): Identifiant de l&#39;article.</span>
+<span class="sd">        - ``item_id`` (int) : Identifiant de l&#39;article.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `Item`: Article rencontré.</span>
+<span class="sd">        - ``Item`` : Article rencontré.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ITEMS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">item_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Item</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -378,11 +378,11 @@
 <span class="sd">        Met à jour un article existant.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `item_id` (int): Identifiant de l&#39;article.</span>
-<span class="sd">        - `item` (Item): Article à mettre à jour.</span>
+<span class="sd">        - ``item_id`` (int) : Identifiant de l&#39;article.</span>
+<span class="sd">        - ``item`` (Item) : Article à mettre à jour.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `Item`: Article mis à jour.</span>
+<span class="sd">        - ``Item`` : Article mis à jour.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
@@ -399,10 +399,10 @@
 <span class="sd">        Supprime un article.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `item_id` (int): Identifiant de l&#39;article à supprimer.</span>
+<span class="sd">        - ``item_id`` (int) : Identifiant de l&#39;article à supprimer.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `None`: Article supprimé.</span>
+<span class="sd">        - ``None`` : Article supprimé.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ITEMS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">item_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
@@ -417,7 +417,7 @@
 <span class="sd">        - None</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `PagedListResponse[Item]`: Liste paginée d&#39;articles.</span>
+<span class="sd">        - ``PagedListResponse[Item]`` : Liste paginée d&#39;articles.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ITEMS_ENDPOINT</span><span class="si">}</span><span class="s2">/most-used&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Item</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -430,10 +430,10 @@
 <span class="sd">        Récupère les articles les plus vendus.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `year` (int): Année de recherche.</span>
+<span class="sd">        - ``year`` (int) : Année de recherche.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `PagedListResponse[Item]`: Liste paginée d&#39;articles.</span>
+<span class="sd">        - ``PagedListResponse[Item]`` : Liste paginée d&#39;articles.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">year</span>

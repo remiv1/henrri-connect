@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/units.
 
 Classes:
 --------
-- `henrri_connect.units.synchro.SyncUnitsClient`:
+- ``henrri_connect.units.synchro.SyncUnitsClient`` :
     Accès synchrone aux endpoints unités.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.
+------
+- Utiliser de préférence l'objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 """
 
 from __future__ import annotations
@@ -28,17 +28,17 @@ class SyncUnitsClient:
     """
     Accès synchrone aux unités.
     
-    Arguments:
+    Arguments
     - client : SyncHenrriClient
-        Client synchrone pour acceder aux endpoints.
+      Client synchrone pour acceder aux endpoints.
 
-    Methods:
+    Methods
     - list_units()
-        Liste toutes les unités disponibles.
+      Liste toutes les unités disponibles.
     - add(unit: Unit)
-        Crée une nouvelle unité.
+      Crée une nouvelle unité.
     - get(unit_id: int)
-        Récupère une unité par son identifiant.
+      Récupère une unité par son identifiant.
     """
 
     def __init__(self, client: SyncHenrriClient) -> None:
@@ -48,11 +48,11 @@ class SyncUnitsClient:
         """
         Liste toutes les unités disponibles.
         
-        Arguments:
-        - `None`
+        Arguments
+        - ``None``
         
-        Returns:
-        - `ListResponse[Unit]`: Liste de unités.
+        Returns
+        - ``ListResponse[Unit]`` : Liste de unités.
         """
         resp = self._c.request("GET", UNITS_ENDPOINT)
         return ListResponse[Unit].model_validate(resp.json())
@@ -61,11 +61,11 @@ class SyncUnitsClient:
         """
         Crée une nouvelle unité.
         
-        Arguments:
-        - `unit: Unit`: Unité à crée.
+        Arguments
+        - ``unit: Unit`` : Unité à crée.
         
-        Returns:
-        - `Unit`: Unité crée.
+        Returns
+        - ``Unit`` : Unité crée.
         """
         resp = self._c.request(
             "POST",
@@ -78,11 +78,11 @@ class SyncUnitsClient:
         """
         Récupère une unité par son identifiant.
         
-        Arguments:
-        - `unit_id` (int): Identifiant de l'unité.
+        Arguments
+        - ``unit_id`` (int) : Identifiant de l'unité.
         
-        Returns:
-        - `Unit`: Unité.
+        Returns
+        - ``Unit`` : Unité.
         """
         resp = self._c.request("GET", f"{UNITS_ENDPOINT}/{unit_id}")
         return Unit.model_validate(resp.json())

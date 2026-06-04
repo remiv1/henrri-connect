@@ -2,33 +2,33 @@
 
 > [⇐ Retour à l'index](../README.md)
 
-`client.document_lines` — Gestion des lignes au sein d'un document (articles, descriptions, sous-totaux…).
+``client.document_lines`` — Gestion des lignes au sein d'un document (articles, descriptions, sous-totaux…).
 
 ---
 
 ## Méthodes
 
-### `list_document_lines(document_id: int) -> ListResponse[DocumentLine]`
+### ``list_document_lines(document_id: int) -> ListResponse[DocumentLine]``
 
 Liste toutes les lignes d'un document.
 
-### `add(document_id: int, line: DocumentLine) -> DocumentLine`
+### ``add(document_id: int, line: DocumentLine) -> DocumentLine``
 
 Ajoute une ligne au document.
 
-### `get(document_id: int, line_id: int) -> DocumentLine`
+### ``get(document_id: int, line_id: int) -> DocumentLine``
 
 Récupère une ligne par son identifiant.
 
-### `modify(document_id: int, line_id: int, line: DocumentLine) -> DocumentLine`
+### ``modify(document_id: int, line_id: int, line: DocumentLine) -> DocumentLine``
 
 Met à jour une ligne existante.
 
-### `delete(document_id: int, line_id: int) -> None`
+### ``delete(document_id: int, line_id: int) -> None``
 
 Supprime une ligne.
 
-### `move(document_id: int, line_id: int, to: int) -> None`
+### ``move(document_id: int, line_id: int, to: int) -> None``
 
 Déplace une ligne à la position indiquée (1-indexé).
 

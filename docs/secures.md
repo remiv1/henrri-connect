@@ -2,15 +2,15 @@
 
 > [⇐ Retour à l'index](../README.md)
 
-`client.secures` — Vérifie que la connexion authentifiée à l'API fonctionne correctement.
+``client.secures`` — Vérifie que la connexion authentifiée à l'API fonctionne correctement.
 
 ---
 
 ## Méthodes
 
-### `hello_world() -> str`
+### ``hello_world() -> str``
 
-Appelle l'endpoint `GET /v1/secures/hello-world` et retourne le texte de la réponse.  
+Appelle l'endpoint ``GET /v1/secures/hello-world`` et retourne le texte de la réponse.  
 Utile pour valider les identifiants et tester la connectivité.
 
 ---

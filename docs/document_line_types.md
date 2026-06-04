@@ -2,13 +2,13 @@
 
 > [⇐ Retour à l'index](../README.md)
 
-`client.document_line_types` — Référentiel des types de lignes pouvant apparaître dans un document (article, texte libre, sous-total, saut de page…).
+``client.document_line_types`` — Référentiel des types de lignes pouvant apparaître dans un document (article, texte libre, sous-total, saut de page…).
 
 ---
 
 ## Méthodes
 
-### `list_document_line_types() -> ListResponse[DocumentLineType]`
+### ``list_document_line_types() -> ListResponse[DocumentLineType]``
 
 Retourne la liste complète des types de lignes de document. Ce référentiel est stable et peut être mis en cache côté application.
 

@@ -67,7 +67,7 @@ class TestSyncCustomers:
 
         _, kwargs = mock_http.request.call_args
         params = kwargs["params"]
-        # `search` is required on CustomerRequest in current models;
+        # ``search`` is required on CustomerRequest in current models;
         # it will be present as empty string
         assert params["search"] == ""
         assert "sortBy" not in params

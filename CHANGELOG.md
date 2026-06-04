@@ -41,7 +41,7 @@
 
 - Fix a bug in the asynchronous client where the wrong method was being called for listing items. Update the example code in the README.md file to use the correct method for listing items in asynchronous mode.
 - Update the changelog to reflect the new version and the fixed bug in the asynchronous client example in the README.md file.
-- Update the README.md file to use `await main()` instead of `asyncio.run(main())` for running the asynchronous example, to better align with modern async practices in Python.
+- Update the README.md file to use ``await main()`` instead of ``asyncio.run(main())`` for running the asynchronous example, to better align with modern async practices in Python.
 - Update the README.md file to include a type cast for the asynchronous client to avoid type errors in IDEs when using the async mode of the HenrriClient.
 
 ## [0.1.4] - 2026-06-02
@@ -54,7 +54,7 @@
 
 ### Added 0.1.5
 
-- Delete the `async_mode` parameter from the Client and separate the synchronous and asynchronous clients into `SyncHenrriClient` and `AsyncHenrriClient` respectively, to provide clearer and more explicit client classes for users. Update the example code in the README.md file to reflect this change and show how to use both the synchronous and asynchronous clients correctly.
+- Delete the ``async_mode`` parameter from the Client and separate the synchronous and asynchronous clients into ``SyncHenrriClient`` and ``AsyncHenrriClient`` respectively, to provide clearer and more explicit client classes for users. Update the example code in the README.md file to reflect this change and show how to use both the synchronous and asynchronous clients correctly.
 - Add a MANIFEST.in file to include stub files and py.typed files in the source distribution, ensuring that type information is included when the package is distributed.
 
 ## [0.1.6] - 2026-06-04

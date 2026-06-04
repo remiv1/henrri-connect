@@ -3,17 +3,17 @@ Client HTTP Henrri : implémentations synchrone/asynchrone.
 
 Constants:
 ----------
-- `henrri_connect.connect._BASE_URL`:
-    URL de base de l'API Henrri.
-- `henrri_connect.connect.APP_VERSION`:
-    Version de l'application.
+- ``henrri_connect.connect._BASE_URL`` :
+  URL de base de l'API Henrri.
+- ``henrri_connect.connect.APP_VERSION`` :
+  Version de l'application.
 
 Classes:
 --------
-- `henrri_connect.connect.AsyncHenrriClient`:
-    Client HTTP Henrri asynchrone.
-- `henrri_connect.connect.SyncHenrriClient`:
-    Client HTTP Henrri synchrone.
+- ``henrri_connect.connect.AsyncHenrriClient`` :
+  Client HTTP Henrri asynchrone.
+- ``henrri_connect.connect.SyncHenrriClient`` :
+  Client HTTP Henrri synchrone.
 
 Exemples:
 ---------

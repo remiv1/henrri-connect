@@ -18,14 +18,14 @@ class ItemCategoryRequest(CamelModel):
     Représente une requête de catégorie d'article dans l'API Henrri Connect.
     
     Attributes:
-        page (int): Index de la page de la requête (entre 1 et 2 147 483 647, defaut 1).
-        limit (int): Nombre d'articles par page (entre 1 et 100, défaut 50).
-        search (str): Chaine de recherche.
-        sort_by (str): Champ de tri.
-        sort_order (str): Ordre de tri (Ascending ou Descending).
-        min_id (int): Identifiant minimal de l'article (entre 1 et 2 147 483 647).
-        from_date (str): Date de début.
-        to_date (str): Date de fin.
+        page (int) : Index de la page de la requête (entre 1 et 2 147 483 647, defaut 1).
+        limit (int) : Nombre d'articles par page (entre 1 et 100, défaut 50).
+        search (str) : Chaine de recherche.
+        sort_by (str) : Champ de tri.
+        sort_order (str) : Ordre de tri (Ascending ou Descending).
+        min_id (int) : Identifiant minimal de l'article (entre 1 et 2 147 483 647).
+        from_date (str) : Date de début.
+        to_date (str) : Date de fin.
     """
     page: int = 1
     limit: int = 50
@@ -125,14 +125,14 @@ class ItemsQuery(CamelModel):
     Représente une requête de catégorie d'article dans l'API Henrri Connect.
     
     Attributs:
-    - page (int): Index de la page de la requête (entre 1 et 2 147 483 647, defaut 1).
-    - limit (int): Nombre d'articles par page (entre 1 et 100, défaut 50).
-    - search (str): Chaine de recherche.
-    - sort_by (str): Champ de tri.
-    - sort_order (SortOrder): Ordre de tri (Ascending ou Descending).
-    - min_id (int): Identifiant minimal de l'article (entre 1 et 2 147 483 647).
-    - from_date (str): Date de début.
-    - to_date (str): Date de fin.
+    - page (int) : Index de la page de la requête (entre 1 et 2 147 483 647, defaut 1).
+    - limit (int) : Nombre d'articles par page (entre 1 et 100, défaut 50).
+    - search (str) : Chaine de recherche.
+    - sort_by (str) : Champ de tri.
+    - sort_order (SortOrder) : Ordre de tri (Ascending ou Descending).
+    - min_id (int) : Identifiant minimal de l'article (entre 1 et 2 147 483 647).
+    - from_date (str) : Date de début.
+    - to_date (str) : Date de fin.
     """
     page: int = 1
     limit: int = 50

@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/secures.
 
 Classes:
 --------
-- `henrri_connect.secures.synchro.SyncSecuresClient`:
+- ``henrri_connect.secures.synchro.SyncSecuresClient`` :
     Accès synchrone aux endpoints safeguards (santé).
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.
+------
+- Utiliser de préférence l'objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 """
 
 from __future__ import annotations
@@ -25,13 +25,13 @@ class SyncSecuresClient:    # pylint: disable=R0903
     """
     Accès synchrone aux endpoints sécurisés (santé).
     
-    Arguments:
+    Arguments
     - client : SyncHenrriClient
-        Client synchrone pour acceder aux endpoints.
+    Client synchrone pour acceder aux endpoints.
 
-    Methods:
+    Methods
     - hello_world()
-        Vérifie la connexion authentifiée à l'API (endpoint de santé).
+    Vérifie la connexion authentifiée à l'API (endpoint de santé).
     """
 
     def __init__(self, client: SyncHenrriClient) -> None:
@@ -41,10 +41,10 @@ class SyncSecuresClient:    # pylint: disable=R0903
         """
         Vérifie la connexion authentifiée à l'API (endpoint de santé).
         
-        Arguments:
+        Arguments
         - None
         
-        Returns:
+        Returns
         - str : Texte de la réponse.
         """
         resp = self._c.request("GET", f"{SECURES_ENDPOINT}/hello-world")

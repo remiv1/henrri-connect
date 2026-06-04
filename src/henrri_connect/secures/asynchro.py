@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/secures.
 
 Classes:
 --------
-- `henrri_connect.secures.asynchro.AsyncSecuresClient`:
+- ``henrri_connect.secures.asynchro.AsyncSecuresClient`` :
     Accès asynchrone aux endpoints safeguards (santé).
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.AsyncHenrriClient` pour acceder aux endpoints.
+------
+- Utiliser de préférence l'objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.
 """
 
 from __future__ import annotations
@@ -25,12 +25,12 @@ class AsyncSecuresClient:   # pylint: disable=R0903
     """
     Accès asynchrone aux endpoints sécurisés (santé).
     
-    Arguments:
-    - client : AsyncHenrriClient
+    Arguments
+        client : AsyncHenrriClient
         Client asynchrone pour acceder aux endpoints.
 
-    Methods:
-    - hello_world()
+    Methods
+        hello_world()
         Vérifie la connexion authentifiée à l'API (endpoint de santé).
     """
 
@@ -41,11 +41,11 @@ class AsyncSecuresClient:   # pylint: disable=R0903
         """
         Vérifie la connexion authentifiée à l'API (endpoint de santé).
 
-        Arguments:
-        - None
+        Arguments
+            None
         
-        Returns:
-        - str : Texte de la réponse.
+        Returns
+            str : Texte de la réponse.
         """
         resp = await self._c.request("GET", f"{SECURES_ENDPOINT}/hello-world")
         return resp.text

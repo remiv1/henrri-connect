@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/documentlinetypes.
 
 Classes:
 --------
-- `henrri_connect.document_line_types.synchro.SyncDocumentLineTypesClient`:
+- ``henrri_connect.document_line_types.synchro.SyncDocumentLineTypesClient`` :
     Accès synchrone aux endpoints types de lignes de documents.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.
+------
+- Utiliser de préférence l'objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 """
 
 from __future__ import annotations
@@ -27,10 +27,10 @@ class SyncDocumentLineTypesClient:  # pylint: disable=R0903
     Accès synchrone aux types de lignes de document.
     
     Arguments:
-    - `client`: Objet `henrri_connect.SyncHenrriClient`.
+    - ``client`` : Objet ``henrri_connect.SyncHenrriClient``.
     
     Methods:
-    - `list_document_line_types`: Liste tous les types de lignes de document.
+    - ``list_document_line_types`` : Liste tous les types de lignes de document.
     """
 
     def __init__(self, client: SyncHenrriClient) -> None:
@@ -41,10 +41,10 @@ class SyncDocumentLineTypesClient:  # pylint: disable=R0903
         Liste tous les types de lignes de document.
         
         Arguments:
-        - `None`
+        - ``None``
         
         Returns:
-        - `ListResponse[DocumentLineType]`: Liste de types de lignes de document.
+        - ``ListResponse[DocumentLineType]`` : Liste de types de lignes de document.
         """
         resp = self._c.request("GET", DOCUMENTLINETYPES_ENDPOINT)
         return ListResponse[DocumentLineType].model_validate(resp.json())

@@ -48,7 +48,7 @@ class TestSyncDocuments:
 
         _, kwargs = mock_http.request.call_args
         params = kwargs["params"]
-        # `DocumentQuery` serializes `document_types` as `documentTypes` and `state` as string
+        # ``DocumentQuery`` serializes ``document_types`` as ``documentTypes`` and ``state`` as string
         assert params.get("documentTypes") is not None
         assert params["documentTypes"][0] == DocumentKind.INVOICE
         assert params["state"] == "Pending"

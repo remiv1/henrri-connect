@@ -37,7 +37,7 @@ Fournit un client **synchrone** et **asynchrone** pour interagir avec l'ensemble
 pip install henrri-connect
 ```
 
-Dépendances : [`httpx`](https://www.python-httpx.org/) et [`pydantic`](https://docs.pydantic.dev/) v2.
+Dépendances : [``httpx``](https://www.python-httpx.org/) et [``pydantic``](https://docs.pydantic.dev/) v2.
 
 ---
 
@@ -53,7 +53,7 @@ from henrri_connect import SyncHenrriClient
 client = SyncHenrriClient("votre_client_id", "votre_client_secret")
 ```
 
-L'URL par défaut est l'environnement **sandbox** (`https://api-sandbox.henrri.io`). Pour pointer vers la production, passez `base_url` :
+L'URL par défaut est l'environnement **sandbox** (``https://api-sandbox.henrri.io``). Pour pointer vers la production, passez ``base_url`` :
 
 ```python
 client = SyncHenrriClient(
@@ -79,18 +79,18 @@ Le client expose un sous-client par ressource API. Chaque sous-client est identi
 
 | Attribut | Description | Documentation |
 | --- | --- | --- |
-| `client.secures` | Endpoint de santé de l'API | [docs/secures.md](docs/secures.md) |
-| `client.users` | Utilisateurs et entreprises associées | [docs/users.md](docs/users.md) |
-| `client.companies` | Entreprises | [docs/companies.md](docs/companies.md) |
-| `client.customers` | Clients (CRUD + contacts) | [docs/customers.md](docs/customers.md) |
-| `client.documents` | Documents (factures, devis, BL…) | [docs/documents.md](docs/documents.md) |
-| `client.document_lines` | Lignes de document | [docs/document_lines.md](docs/document_lines.md) |
-| `client.document_types` | Types de document (référentiel) | [docs/document_types.md](docs/document_types.md) |
-| `client.document_line_types` | Types de ligne de document (référentiel) | [docs/document_line_types.md](docs/document_line_types.md) |
-| `client.items` | Articles / produits | [docs/items.md](docs/items.md) |
-| `client.item_categories` | Catégories d'articles | [docs/item_categories.md](docs/item_categories.md) |
-| `client.units` | Unités de mesure | [docs/units.md](docs/units.md) |
-| `client.revenues` | Statistiques de revenus | [docs/revenues.md](docs/revenues.md) |
+| ``client.secures`` | Endpoint de santé de l'API | [docs/secures.md](docs/secures.md) |
+| ``client.users`` | Utilisateurs et entreprises associées | [docs/users.md](docs/users.md) |
+| ``client.companies`` | Entreprises | [docs/companies.md](docs/companies.md) |
+| ``client.customers`` | Clients (CRUD + contacts) | [docs/customers.md](docs/customers.md) |
+| ``client.documents`` | Documents (factures, devis, BL…) | [docs/documents.md](docs/documents.md) |
+| ``client.document_lines`` | Lignes de document | [docs/document_lines.md](docs/document_lines.md) |
+| ``client.document_types`` | Types de document (référentiel) | [docs/document_types.md](docs/document_types.md) |
+| ``client.document_line_types`` | Types de ligne de document (référentiel) | [docs/document_line_types.md](docs/document_line_types.md) |
+| ``client.items`` | Articles / produits | [docs/items.md](docs/items.md) |
+| ``client.item_categories`` | Catégories d'articles | [docs/item_categories.md](docs/item_categories.md) |
+| ``client.units`` | Unités de mesure | [docs/units.md](docs/units.md) |
+| ``client.revenues`` | Statistiques de revenus | [docs/revenues.md](docs/revenues.md) |
 
 Référence API complète : [remiv1.github.io/henrri-connect](https://remiv1.github.io/henrri-connect/)
 
@@ -98,15 +98,15 @@ Référence API complète : [remiv1.github.io/henrri-connect](https://remiv1.git
 
 ## Gestion des erreurs
 
-Toutes les erreurs HTTP sont converties en exceptions typées héritant de `HenrriError` :
+Toutes les erreurs HTTP sont converties en exceptions typées héritant de ``HenrriError`` :
 
 | Exception | Code HTTP |
 | --- | --- |
-| `HenrriAuthError` | 401 — Non authentifié |
-| `HenrriForbiddenError` | 403 — Accès interdit |
-| `HenrriNotFoundError` | 404 — Ressource introuvable |
-| `HenrriValidationError` | 400 / 422 — Données invalides |
-| `HenrriServerError` | 5xx — Erreur serveur |
+| ``HenrriAuthError`` | 401 — Non authentifié |
+| ``HenrriForbiddenError`` | 403 — Accès interdit |
+| ``HenrriNotFoundError`` | 404 — Ressource introuvable |
+| ``HenrriValidationError`` | 400 / 422 — Données invalides |
+| ``HenrriServerError`` | 5xx — Erreur serveur |
 
 ```python
 from henrri_connect import SyncHenrriClient

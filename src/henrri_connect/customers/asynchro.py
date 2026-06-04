@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/customers.
 
 Classes:
 --------
-- `henrri_connect.customers.asynchro.AsyncCustomersClient`:
+- ``henrri_connect.customers.asynchro.AsyncCustomersClient`` :
     Accès asynchrone aux endpoints clients.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.AsyncHenrriClient` pour acceder
+------
+- Utiliser de préférence l'objet ``henrri_connect.AsyncHenrriClient`` pour acceder
 aux endpoints.
 """
 
@@ -29,25 +29,23 @@ class AsyncCustomersClient:
     """
     Accès asynchrone aux endpoints clients.
 
-    Arguments:
-    - `client` (AsyncHenrriClient): Client HTTP.
+    Arguments
+    - ``client`` (AsyncHenrriClient) : Client HTTP.
 
-    Methods:
-    - `delete`: Supprime un client.
-    - `delete_contact`: Supprime un contact.
-    - `list_customers`: Liste les clients avec pagination et filtres optionnels.
-    - `get_best_sales`: Récupère les meilleurs clients.
-    - `get_last_used`: Récupère le dernier client utilisé.
-
-
-    - `add`: Crée un nouveau client.
-    - `get`: Récupère un client par son identifiant.
-    - `modify`: Met à jour un client.
-    - `get_address`: Récupère l'adresse d'un client.
-    - `list_contacts`: Liste les contacts d'un client.
-    - `add_contact`: Crée un nouveau contact.
-    - `get_contact`: Récupère un contact d'un client.
-    - `modify_contact`: Met à jour un contact.
+    Methods
+    - ``delete`` : Supprime un client.
+    - ``delete_contact`` : Supprime un contact.
+    - ``list_customers`` : Liste les clients avec pagination et filtres optionnels.
+    - ``get_best_sales`` : Récupère les meilleurs clients.
+    - ``get_last_used`` : Récupère le dernier client utilisé.
+    - ``add`` : Crée un nouveau client.
+    - ``get`` : Récupère un client par son identifiant.
+    - ``modify`` : Met à jour un client.
+    - ``get_address`` : Récupère l'adresse d'un client.
+    - ``list_contacts`` : Liste les contacts d'un client.
+    - ``add_contact`` : Crée un nouveau contact.
+    - ``get_contact`` : Récupère un contact d'un client.
+    - ``modify_contact`` : Met à jour un contact.
     """
 
     def __init__(self, client: AsyncHenrriClient) -> None:
@@ -82,14 +80,14 @@ class AsyncCustomersClient:
         """
         Liste les clients avec pagination et filtres optionnels.
         
-        Arguments:
-        - `request` (CustomerRequest): Paramètres de recherche.
-        - `with_selected_fields` (bool): Si True, lance une requête de recherche avancée.
-        - `with_totals` (bool): Si True, renvoie les totaux.
-        - `only_current_page` (bool): Si True, renvoie uniquement les clients de la page actuelle.
+        Arguments
+        - ``request`` (CustomerRequest) : Paramètres de recherche.
+        - ``with_selected_fields`` (bool) : Si True, lance une requête de recherche avancée.
+        - ``with_totals`` (bool) : Si True, renvoie les totaux.
+        - ``only_current_page`` (bool) : Si True, renvoie uniquement les clients de la page actuelle.
 
-        Returns:
-        - `PagedListResponse[Customer]`: Liste paginée de clients.
+        Returns
+        - ``PagedListResponse[Customer]`` : Liste paginée de clients.
         """
         params = clean(request.model_dump(by_alias=True))
         if with_selected_fields:
@@ -113,11 +111,11 @@ class AsyncCustomersClient:
         """
         Crée un nouveau client.
         
-        Arguments:
-        - `customer` (Customer): Client à créer.
+        Arguments
+        - ``customer`` (Customer) : Client à créer.
 
-        Returns:
-        - `Customer`: Client créé.
+        Returns
+        - ``Customer`` : Client créé.
         """
         resp = await self._c.request(
             "POST",
@@ -134,11 +132,11 @@ class AsyncCustomersClient:
         """
         Récupère les meilleurs clients.
         
-        Arguments:
-        - `year` (int): Année concerne (minimum 2000, maximum 2100).
+        Arguments
+        - ``year`` (int) : Année concerne (minimum 2000, maximum 2100).
 
-        Returns:
-        - `PagedListResponse[Customer]`: Liste paginée de clients.
+        Returns
+        - ``PagedListResponse[Customer]`` : Liste paginée de clients.
         """
         params = {
             "year": year
@@ -150,12 +148,12 @@ class AsyncCustomersClient:
         """
         Récupère les derniers clients utilisés.
 
-        Arguments:
-        - `customer_type` (CustomerType): Type de client.
-        - `limit` (int): Nombre de clients maximum.
+        Arguments
+        - ``customer_type`` (CustomerType) : Type de client.
+        - ``limit`` (int) : Nombre de clients maximum.
         
-        Returns:
-        - `Customer`: Derniers clients utilisés.
+        Returns
+        - ``Customer`` : Derniers clients utilisés.
         """
         params = {
             "Types": customer_type,
@@ -169,10 +167,10 @@ class AsyncCustomersClient:
         Récupère un client par son identifiant.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
+        - ``customer_id`` (int) : Identifiant du client.
 
         Returns:
-        - `Customer`: Client.
+        - ``Customer`` : Client.
         """
         resp = await self._c.request("GET", f"{BASE_CUSTOMERS}/{customer_id}")
         return Customer.model_validate(resp.json())
@@ -182,11 +180,11 @@ class AsyncCustomersClient:
         Met à jour un client existant.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
-        - `customer` (Customer): Client à mettre à jour.
+        - ``customer_id`` (int) : Identifiant du client.
+        - ``customer`` (Customer) : Client à mettre à jour.
 
         Returns:
-        - `Customer`: Client mis à jour.
+        - ``Customer`` : Client mis à jour.
         """
         resp = await self._c.request(
             "PUT",
@@ -200,10 +198,10 @@ class AsyncCustomersClient:
         Supprime un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
+        - ``customer_id`` (int) : Identifiant du client.
         
         Returns:
-        - `None`.
+        - ``None``.
         """
         await self._c.request("DELETE", f"{BASE_CUSTOMERS}/{customer_id}")
 
@@ -212,10 +210,10 @@ class AsyncCustomersClient:
         Récupère l'adresse d'un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
+        - ``customer_id`` (int) : Identifiant du client.
         
         Returns:
-        - `henrri_connect.models.Address`: Adresse du client.
+        - ``henrri_connect.models.Address`` : Adresse du client.
         """
         resp = await self._c.request("GET", f"{BASE_CUSTOMERS}/{customer_id}/address")
         return Address.model_validate(resp.json())
@@ -225,10 +223,10 @@ class AsyncCustomersClient:
         Liste les contacts d'un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
+        - ``customer_id`` (int) : Identifiant du client.
         
         Returns:
-        - `list[Contact]`: Liste de contacts.
+        - ``list[Contact]`` : Liste de contacts.
         """
         resp = await self._c.request("GET", f"{BASE_CUSTOMERS}/{customer_id}/contacts")
         return [Contact.model_validate(c) for c in resp.json()]
@@ -238,11 +236,11 @@ class AsyncCustomersClient:
         Ajoute un contact à un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
-        - `contact` (Contact): Contact à ajouter.
+        - ``customer_id`` (int) : Identifiant du client.
+        - ``contact`` (Contact) : Contact à ajouter.
 
         Returns:
-        - `Contact`: Contact ajouté.
+        - ``Contact`` : Contact ajouté.
         """
         resp = await self._c.request(
             "POST",
@@ -256,11 +254,11 @@ class AsyncCustomersClient:
         Récupère un contact d'un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
-        - `contact_id` (int): Identifiant du contact.
+        - ``customer_id`` (int) : Identifiant du client.
+        - ``contact_id`` (int) : Identifiant du contact.
 
         Returns:
-        - `Contact`: Contact.
+        - ``Contact`` : Contact.
         """
         resp = await self._c.request("GET", f"{BASE_CUSTOMERS}/{customer_id}/contacts/{contact_id}")
         return Contact.model_validate(resp.json())
@@ -270,12 +268,12 @@ class AsyncCustomersClient:
         Met à jour un contact d'un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
-        - `contact_id` (int): Identifiant du contact.
-        - `contact` (Contact): Contact à mettre à jour.
+        - ``customer_id`` (int) : Identifiant du client.
+        - ``contact_id`` (int) : Identifiant du contact.
+        - ``contact`` (Contact) : Contact à mettre à jour.
 
         Returns:
-        - `Contact`: Contact mis à jour.
+        - ``Contact`` : Contact mis à jour.
         """
         resp = await self._c.request(
             "PUT",
@@ -289,10 +287,10 @@ class AsyncCustomersClient:
         Supprime un contact d'un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
-        - `contact_id` (int): Identifiant du contact.
+        - ``customer_id`` (int) : Identifiant du client.
+        - ``contact_id`` (int) : Identifiant du contact.
         
         Returns:
-        - `None`.
+        - ``None``.
         """
         await self._c.request("DELETE", f"{BASE_CUSTOMERS}/{customer_id}/contacts/{contact_id}")

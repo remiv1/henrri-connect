@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/documents/{documentId}/lines.
 
 Classes:
 --------
-- `henrri_connect.document_lines.synchro.SyncDocumentLinesClient`:
+- ``henrri_connect.document_lines.synchro.SyncDocumentLinesClient`` :
     Accès synchrone aux endpoints lignes de documents.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.
+------
+- Utiliser de préférence l'objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 """
 
 from __future__ import annotations
@@ -27,15 +27,15 @@ class SyncDocumentLinesClient:
     Accès synchrone aux lignes de document.
     
     Arguments:
-    - `client`: Objet `henrri_connect.SyncHenrriClient`.
+    - ``client`` : Objet ``henrri_connect.SyncHenrriClient``.
     
     Methods:
-    - `list_document_lines`: Liste les lignes d'un document.
-    - `add`: Ajoute une ligne à un document.
-    - `get`: Récupère une ligne de document par son identifiant.
-    - `modify`: Met à jour une ligne de document.
-    - `delete`: Supprime une ligne de document.
-    - `move`: Déplace une ligne vers une position donnée.
+    - ``list_document_lines`` : Liste les lignes d'un document.
+    - ``add`` : Ajoute une ligne à un document.
+    - ``get`` : Récupère une ligne de document par son identifiant.
+    - ``modify`` : Met à jour une ligne de document.
+    - ``delete`` : Supprime une ligne de document.
+    - ``move`` : Déplace une ligne vers une position donnée.
     """
 
     def __init__(self, client: SyncHenrriClient) -> None:
@@ -50,11 +50,11 @@ class SyncDocumentLinesClient:
         Liste les lignes d'un document.
         
         Arguments:
-        - `document_id`(int): Identifiant du document (min 1 et max 2 147 483 647).
-        - `query_params`(DocumentLineListQueryParameters, optional): Paramètres de requête.
+        - ``document_id`` (int) : Identifiant du document (min 1 et max 2 147 483 647).
+        - ``query_params`` (DocumentLineListQueryParameters, optional) : Paramètres de requête.
         
         Returns:
-        - `ListResponse[DocumentLine]`: Liste de lignes de document.
+        - ``ListResponse[DocumentLine]`` : Liste de lignes de document.
         """
         if query_params:
             resp = self._c.request(
@@ -75,11 +75,11 @@ class SyncDocumentLinesClient:
         Ajoute une ligne à un document.
         
         Arguments:
-        - `document_id`: Identifiant du document.
-        - `line`: Ligne de document.
+        - ``document_id`` : Identifiant du document.
+        - ``line`` : Ligne de document.
         
         Returns:
-        - `DocumentLine`: Ligne de document ajoutée.
+        - ``DocumentLine`` : Ligne de document ajoutée.
         """
         resp = self._c.request(
             "POST",
@@ -93,11 +93,11 @@ class SyncDocumentLinesClient:
         Récupère une ligne de document par son identifiant.
         
         Arguments:
-        - `document_id`: Identifiant du document.
-        - `line_id`: Identifiant de la ligne de document.
+        - ``document_id`` : Identifiant du document.
+        - ``line_id`` : Identifiant de la ligne de document.
         
         Returns:
-        - `DocumentLine`: Ligne de document.
+        - ``DocumentLine`` : Ligne de document.
         """
         resp = self._c.request("GET", f"{DOCUMENT_ENDPOINT}/{document_id}/lines/{line_id}")
         return DocumentLine.model_validate(resp.json())
@@ -107,12 +107,12 @@ class SyncDocumentLinesClient:
         Met à jour une ligne de document.
         
         Arguments:
-        - `document_id`: Identifiant du document.
-        - `line_id`: Identifiant de la ligne de document.
-        - `line`: Ligne de document.
+        - ``document_id`` : Identifiant du document.
+        - ``line_id`` : Identifiant de la ligne de document.
+        - ``line`` : Ligne de document.
         
         Returns:
-        - `DocumentLine`: Ligne de document modifiée.
+        - ``DocumentLine`` : Ligne de document modifiée.
         """
         resp = self._c.request(
             "PUT",
@@ -126,11 +126,11 @@ class SyncDocumentLinesClient:
         Supprime une ligne de document.
         
         Arguments:
-        - `document_id`: Identifiant du document.
-        - `line_id`: Identifiant de la ligne de document.
+        - ``document_id`` : Identifiant du document.
+        - ``line_id`` : Identifiant de la ligne de document.
         
         Returns:
-        - `None`
+        - ``None``
         """
         self._c.request("DELETE", f"{DOCUMENT_ENDPOINT}/{document_id}/lines/{line_id}")
 
@@ -139,12 +139,12 @@ class SyncDocumentLinesClient:
         Déplace une ligne vers une position donnée.
         
         Arguments:
-        - `document_id`: Identifiant du document.
-        - `line_id`: Identifiant de la ligne de document.
-        - `to`: Position de destination.
+        - ``document_id`` : Identifiant du document.
+        - ``line_id`` : Identifiant de la ligne de document.
+        - ``to`` : Position de destination.
         
         Returns:
-        - `None`
+        - ``None``
         """
         self._c.request(
             "POST",

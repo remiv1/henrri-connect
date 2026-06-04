@@ -2,13 +2,13 @@
 
 > [⇐ Retour à l'index](../README.md)
 
-`client.document_types` — Référentiel des types de documents disponibles dans Henrri (facture, devis, bon de livraison, avoir…).
+``client.document_types`` — Référentiel des types de documents disponibles dans Henrri (facture, devis, bon de livraison, avoir…).
 
 ---
 
 ## Méthodes
 
-### `list_document_types() -> ListResponse[DocumentType]`
+### ``list_document_types() -> ListResponse[DocumentType]``
 
 Retourne la liste complète des types de documents. Ce référentiel est généralement stable et peut être mis en cache côté application.
 

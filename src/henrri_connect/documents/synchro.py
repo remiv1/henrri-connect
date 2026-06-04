@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/documents.
 
 Classes:
 --------
-- `henrri_connect.documents.synchro.SyncDocumentsClient`:
+- ``henrri_connect.documents.synchro.SyncDocumentsClient`` :
     Accès synchrone aux endpoints documents.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.
+------
+- Utiliser de préférence l'objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 """
 
 from __future__ import annotations
@@ -38,27 +38,27 @@ class SyncDocumentsClient:
     Accès synchrone aux endpoints documents.
     
     Arguments:
-    - `client`: Objet `henrri_connect.AsyncHenrriClient`.
+    - ``client`` : Objet ``henrri_connect.AsyncHenrriClient``.
     
     Methods:
-    - `list_documents`: Liste tous les documents.
-    - `add`: Ajoute un document.
-    - `get`: Accès au document par son ID.
-    - `get_with_all`: Accès au document par son ID avec toutes ses relations incluses.
-    - `get_all_included`: Accès au document par son ID avec toutes ses données incluses.
-    - `modify`: Modifie un document par son ID.
-    - `delete`: Supprime un document par son ID.
-    - `get_tax_details`: Accès aux taxes d'un document par son ID.
-    - `validate`: Valide un document.
-    - `get_pdf_url`: Accès au document par son ID et son GUID.
-    - `get_pdf_bytes`: Accès au document par son ID et son GUID.
-    - `get_pdf_file`: Accès au document par son ID et son GUID.
-    - `get_display`: Accès aux données d'affichage d'un document par son ID.
-    - `get_payment_milestones`: Accès aux milestones de paiement d'un document par son ID.
-    - `finalize`: Finalise un document.
-    - `transform_to_invoice`: Transforme un document (devis, bon de livraison...) en facture.
-    - `get_next_code_batch`: Accès au code de batch suivant.
-    - `list_with_selected_fields`: Liste les documents avec sélection de champs.
+    - ``list_documents`` : Liste tous les documents.
+    - ``add`` : Ajoute un document.
+    - ``get`` : Accès au document par son ID.
+    - ``get_with_all`` : Accès au document par son ID avec toutes ses relations incluses.
+    - ``get_all_included`` : Accès au document par son ID avec toutes ses données incluses.
+    - ``modify`` : Modifie un document par son ID.
+    - ``delete`` : Supprime un document par son ID.
+    - ``get_tax_details`` : Accès aux taxes d'un document par son ID.
+    - ``validate`` : Valide un document.
+    - ``get_pdf_url`` : Accès au document par son ID et son GUID.
+    - ``get_pdf_bytes`` : Accès au document par son ID et son GUID.
+    - ``get_pdf_file`` : Accès au document par son ID et son GUID.
+    - ``get_display`` : Accès aux données d'affichage d'un document par son ID.
+    - ``get_payment_milestones`` : Accès aux milestones de paiement d'un document par son ID.
+    - ``finalize`` : Finalise un document.
+    - ``transform_to_invoice`` : Transforme un document (devis, bon de livraison...) en facture.
+    - ``get_next_code_batch`` : Accès au code de batch suivant.
+    - ``list_with_selected_fields`` : Liste les documents avec sélection de champs.
     """
 
     def __init__(self, client: SyncHenrriClient) -> None:
@@ -69,10 +69,10 @@ class SyncDocumentsClient:
         Liste les documents avec pagination et filtres optionnels.
         
         Arguments:
-        - `request` (DocumentQuery): Paramètres de recherche.
+        - ``request`` (DocumentQuery) : Paramètres de recherche.
 
         Returns:
-        - `PagedListResponse[Document]`: Liste paginée de documents.
+        - ``PagedListResponse[Document]`` : Liste paginée de documents.
         """
         params = clean(request.model_dump(by_alias=True))
         resp = self._c.request("GET", DOCUMENTS_ENDPOINT, params=params)
@@ -84,7 +84,7 @@ class SyncDocumentsClient:
         Les champs unset ou None du document sont exclus de la requête.
 
         Args:
-        - document (Document): Document à créer.
+        - document (Document) : Document à créer.
 
         Returns:
         - Document: Le document créé avec les données retournées par l'API.
@@ -104,7 +104,7 @@ class SyncDocumentsClient:
         Récupère un document par son identifiant.
         
         Arguments:
-        - doc_id (int): Identifiant du document à reafficher.
+        - doc_id (int) : Identifiant du document à reafficher.
         
         Returns:
         - Document: Le document retourné par l'API.
@@ -120,7 +120,7 @@ class SyncDocumentsClient:
         Récupère un document avec toutes ses relations incluses.
         
         Arguments:
-        - doc_id (int): Identifiant du document à reafficher.
+        - doc_id (int) : Identifiant du document à reafficher.
         
         Returns:
         - Document: Le document retourné par l'API.
@@ -133,7 +133,7 @@ class SyncDocumentsClient:
         Récupère un document avec toutes ses données incluses.
         
         Arguments:
-        - doc_id (int): Identifiant du document à reafficher.
+        - doc_id (int) : Identifiant du document à reafficher.
         
         Returns:
         - Document: Le document retourné par l'API.
@@ -146,8 +146,8 @@ class SyncDocumentsClient:
         Met à jour un document existant.
         
         Arguments:
-        - doc_id (int): Identifiant du document à mettre à jour.
-        - document (Document): Document à mettre à jour.
+        - doc_id (int) : Identifiant du document à mettre à jour.
+        - document (Document) : Document à mettre à jour.
         
         Returns:
         - Document: Le document mis à jour par l'API.
@@ -164,7 +164,7 @@ class SyncDocumentsClient:
         Supprime un document.
         
         Arguments:
-        - doc_id (int): Identifiant du document à supprimer.
+        - doc_id (int) : Identifiant du document à supprimer.
         """
         self._c.request("DELETE", f"{DOCUMENTS_ENDPOINT}/{doc_id}")
 
@@ -173,7 +173,7 @@ class SyncDocumentsClient:
         Récupère le détail des taxes d'un document.
         
         Arguments:
-        - doc_id (int): Identifiant du document.
+        - doc_id (int) : Identifiant du document.
         
         Returns:
         - TaxDetailArray: Le détail des taxes retourné par l'API.
@@ -186,8 +186,8 @@ class SyncDocumentsClient:
         Valide électroniquement un document.
         
         Arguments:
-        - doc_id (int): Identifiant du document à valider.
-        - request (ValidateDocumentRequest): La requête de validation du document.
+        - doc_id (int) : Identifiant du document à valider.
+        - request (ValidateDocumentRequest) : La requête de validation du document.
         
         Returns:
         - Document: Le document validé par l'API.
@@ -204,7 +204,7 @@ class SyncDocumentsClient:
         Génère une URL de téléchargement pour le PDF d'un document.
         
         Arguments:
-        - doc_id (int): Identifiant du document.
+        - doc_id (int) : Identifiant du document.
         
         Returns:
         - PdfUrlResponse: L'URL de téléchargement du PDF retourné par l'API.
@@ -217,7 +217,7 @@ class SyncDocumentsClient:
         Télécharge le PDF d'un document (retourne les octets bruts).
         
         Arguments:
-        - doc_id (int): Identifiant du document.
+        - doc_id (int) : Identifiant du document.
         
         Returns:
         - bytes: Les octets bruts du PDF retourné par l'API.
@@ -230,8 +230,8 @@ class SyncDocumentsClient:
         Télécharge un fichier PDF identifié par son GUID.
         
         Arguments:
-        - doc_id (int): Identifiant du document.
-        - guid (str): GUID du fichier PDF.
+        - doc_id (int) : Identifiant du document.
+        - guid (str) : GUID du fichier PDF.
         
         Returns:
         - bytes: Les octets bruts du fichier PDF retourné par l'API.
@@ -244,7 +244,7 @@ class SyncDocumentsClient:
         Récupère les données d'affichage d'un document.
         
         Arguments:
-        - doc_id (int): Identifiant du document.
+        - doc_id (int) : Identifiant du document.
         
         Returns:
         - Document: Les données d'affichage du document retourné par l'API.
@@ -257,7 +257,7 @@ class SyncDocumentsClient:
         Récupère les jalons de paiement d'un document.
         
         Arguments:
-        - doc_id (int): Identifiant du document.
+        - doc_id (int) : Identifiant du document.
         
         Returns:
         - ListResponse[PaymentMilestone]: La liste des jalons de paiement du document retourné
@@ -271,7 +271,7 @@ class SyncDocumentsClient:
         Finalise un document.
         
         Arguments:
-        - doc_id (int): Identifiant du document à finaliser.
+        - doc_id (int) : Identifiant du document à finaliser.
         
         Returns:
         - Document: Le document finalisé par l'API.
@@ -284,7 +284,7 @@ class SyncDocumentsClient:
         Transforme un document (devis, bon de livraison…) en facture.
         
         Arguments:
-        - doc_id (int): Identifiant du document à transformer en facture.
+        - doc_id (int) : Identifiant du document à transformer en facture.
         
         Returns:
         - Document: Le document transformé en facture par l'API.
@@ -314,9 +314,9 @@ class SyncDocumentsClient:
         Liste les documents avec sélection de champs.
         
         Arguments:
-        - page (int): Numéro de page.
-        - limit (int): Nombre d'articles par page.
-        - fields (str | None): Champs à retourner.
+        - page (int) : Numéro de page.
+        - limit (int) : Nombre d'articles par page.
+        - fields (str | None) : Champs à retourner.
         
         Returns:
         - PagedListResponse[Document]: La liste des documents retourné par l'API.

@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/revenues.
 
 Classes:
 --------
-- `henrri_connect.revenues.asynchro.AsyncRevenuesClient`:
+- ``henrri_connect.revenues.asynchro.AsyncRevenuesClient`` :
     Accès asynchrone aux endpoints revenus.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.AsyncHenrriClient` pour acceder aux endpoints.
+------
+- Utiliser de préférence l'objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.
 """
 
 from __future__ import annotations
@@ -27,11 +27,11 @@ class AsyncRevenuesClient:
     Accès asynchrone aux statistiques de revenus.
     
     Parameters:
-    - `client` (AsyncHenrriClient): Client HTTP.
+    - ``client`` (AsyncHenrriClient) : Client HTTP.
     
     Methods:
-    - `get_annual(self, year: int)`: Récupère les statistiques de revenus annuelles.
-    - `get_monthly(self, year: int)`: Récupère les statistiques de revenus mensuelles
+    - ``get_annual(self, year: int)`` : Récupère les statistiques de revenus annuelles.
+    - ``get_monthly(self, year: int)`` : Récupère les statistiques de revenus mensuelles
     pour une année.
     """
 
@@ -43,10 +43,10 @@ class AsyncRevenuesClient:
         Récupère les statistiques de revenus annuelles.
         
         Arguments:
-        - `year` (int): Année de recherche.
+        - ``year`` (int) : Année de recherche.
         
         Returns:
-        - `RevenueStatistics`: Statistiques de revenus annuelles.
+        - ``RevenueStatistics`` : Statistiques de revenus annuelles.
         """
         resp = await self._c.request("GET", f"{REVENUES_ENDPOINT}/{year}")
         return RevenueStatistics.model_validate(resp.json())
@@ -56,10 +56,10 @@ class AsyncRevenuesClient:
         Récupère les statistiques de revenus mensuelles pour une année.
         
         Arguments:
-        - `year` (int): Année de recherche.
+        - ``year`` (int) : Année de recherche.
         
         Returns:
-        - `list[MonthlyRevenueStatistics]`: Statistiques de revenus mensuelles.
+        - ``list[MonthlyRevenueStatistics]`` : Statistiques de revenus mensuelles.
         """
         resp = await self._c.request("GET", f"{REVENUES_ENDPOINT}/{year}/months")
         return [MonthlyRevenueStatistics.model_validate(item) for item in resp.json()]

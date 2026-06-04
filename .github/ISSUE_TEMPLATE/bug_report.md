@@ -14,8 +14,8 @@ Une description claire et concise du bug rencontré.
 
 Étapes pour reproduire le comportement :
 
-1. Initialiser le client avec `...`
-2. Appeler la méthode `...`
+1. Initialiser le client avec ``...``
+2. Appeler la méthode ``...``
 3. Observer l'erreur
 
 ## Comportement attendu
@@ -40,7 +40,7 @@ from henrri_connect import HenrriConnect
 
 ## Environnement
 
-- Version de `henrri-connect` : <!-- ex. 0.1.0 -->
+- Version de ``henrri-connect`` : <!-- ex. 0.1.0 -->
 - Version de Python : <!-- ex. 3.12.0 -->
 - Système d'exploitation : <!-- ex. Ubuntu 24.04, macOS 14, Windows 11 -->
 - Mode d'utilisation : <!-- synchrone / asynchrone -->

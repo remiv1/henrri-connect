@@ -1,12 +1,12 @@
 """
 Module utilitaire pour les clients Henrri Connect.
 
-Fournit l'ensemble des fonctions utilitaires nécessaires au package `henrri_connect`.
+Fournit l'ensemble des fonctions utilitaires nécessaires au package ``henrri_connect``.
 
 Functions:
 ----------
 - raise_for_status: Levé une exception appropriée selon le code HTTP de la réponse.
-- clean: Nettoie un dictionnaire en supprimant les clés dont la valeur est `None`.
+- clean: Nettoie un dictionnaire en supprimant les clés dont la valeur est ``None``.
 """
 from __future__ import annotations
 
@@ -88,7 +88,7 @@ def clean(params: dict[str, Any]) -> dict[str, Any]:
     Supprime les valeurs None d'un dictionnaire
 
     Args:
-        params (dict[str, Any]): Dictionnaire contenant des valeurs None
+        params (dict[str, Any]) : Dictionnaire contenant des valeurs None
 
     Returns:
         dict[str, Any]: Dictionnaire sans valeurs None

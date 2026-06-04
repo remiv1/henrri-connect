@@ -71,7 +71,7 @@ class PagedListResponse(CamelModel, Generic[T]):
     meta: MetaPagedListResponse | None = None
 
 
-class ListResponse(CamelModel, Generic[T]):
+class ListResponse(CamelModel, Generic[T]) :
     """
     Réponse liste générique.
     

@@ -232,12 +232,12 @@
 
 <span class="sd">Classes:</span>
 <span class="sd">--------</span>
-<span class="sd">- `henrri_connect.documents.synchro.SyncDocumentsClient`:</span>
+<span class="sd">- ``henrri_connect.documents.synchro.SyncDocumentsClient`` :</span>
 <span class="sd">    Accès synchrone aux endpoints documents.</span>
 
 <span class="sd">Notes:</span>
-<span class="sd">-----</span>
-<span class="sd">- Utiliser de préférence l&#39;objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.</span>
+<span class="sd">------</span>
+<span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
@@ -269,27 +269,27 @@
 <span class="sd">    Accès synchrone aux endpoints documents.</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">    - `client`: Objet `henrri_connect.AsyncHenrriClient`.</span>
+<span class="sd">    - ``client`` : Objet ``henrri_connect.AsyncHenrriClient``.</span>
 <span class="sd">    </span>
 <span class="sd">    Methods:</span>
-<span class="sd">    - `list_documents`: Liste tous les documents.</span>
-<span class="sd">    - `add`: Ajoute un document.</span>
-<span class="sd">    - `get`: Accès au document par son ID.</span>
-<span class="sd">    - `get_with_all`: Accès au document par son ID avec toutes ses relations incluses.</span>
-<span class="sd">    - `get_all_included`: Accès au document par son ID avec toutes ses données incluses.</span>
-<span class="sd">    - `modify`: Modifie un document par son ID.</span>
-<span class="sd">    - `delete`: Supprime un document par son ID.</span>
-<span class="sd">    - `get_tax_details`: Accès aux taxes d&#39;un document par son ID.</span>
-<span class="sd">    - `validate`: Valide un document.</span>
-<span class="sd">    - `get_pdf_url`: Accès au document par son ID et son GUID.</span>
-<span class="sd">    - `get_pdf_bytes`: Accès au document par son ID et son GUID.</span>
-<span class="sd">    - `get_pdf_file`: Accès au document par son ID et son GUID.</span>
-<span class="sd">    - `get_display`: Accès aux données d&#39;affichage d&#39;un document par son ID.</span>
-<span class="sd">    - `get_payment_milestones`: Accès aux milestones de paiement d&#39;un document par son ID.</span>
-<span class="sd">    - `finalize`: Finalise un document.</span>
-<span class="sd">    - `transform_to_invoice`: Transforme un document (devis, bon de livraison...) en facture.</span>
-<span class="sd">    - `get_next_code_batch`: Accès au code de batch suivant.</span>
-<span class="sd">    - `list_with_selected_fields`: Liste les documents avec sélection de champs.</span>
+<span class="sd">    - ``list_documents`` : Liste tous les documents.</span>
+<span class="sd">    - ``add`` : Ajoute un document.</span>
+<span class="sd">    - ``get`` : Accès au document par son ID.</span>
+<span class="sd">    - ``get_with_all`` : Accès au document par son ID avec toutes ses relations incluses.</span>
+<span class="sd">    - ``get_all_included`` : Accès au document par son ID avec toutes ses données incluses.</span>
+<span class="sd">    - ``modify`` : Modifie un document par son ID.</span>
+<span class="sd">    - ``delete`` : Supprime un document par son ID.</span>
+<span class="sd">    - ``get_tax_details`` : Accès aux taxes d&#39;un document par son ID.</span>
+<span class="sd">    - ``validate`` : Valide un document.</span>
+<span class="sd">    - ``get_pdf_url`` : Accès au document par son ID et son GUID.</span>
+<span class="sd">    - ``get_pdf_bytes`` : Accès au document par son ID et son GUID.</span>
+<span class="sd">    - ``get_pdf_file`` : Accès au document par son ID et son GUID.</span>
+<span class="sd">    - ``get_display`` : Accès aux données d&#39;affichage d&#39;un document par son ID.</span>
+<span class="sd">    - ``get_payment_milestones`` : Accès aux milestones de paiement d&#39;un document par son ID.</span>
+<span class="sd">    - ``finalize`` : Finalise un document.</span>
+<span class="sd">    - ``transform_to_invoice`` : Transforme un document (devis, bon de livraison...) en facture.</span>
+<span class="sd">    - ``get_next_code_batch`` : Accès au code de batch suivant.</span>
+<span class="sd">    - ``list_with_selected_fields`` : Liste les documents avec sélection de champs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">SyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -302,10 +302,10 @@
 <span class="sd">        Liste les documents avec pagination et filtres optionnels.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `request` (DocumentQuery): Paramètres de recherche.</span>
+<span class="sd">        - ``request`` (DocumentQuery) : Paramètres de recherche.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">        - `PagedListResponse[Document]`: Liste paginée de documents.</span>
+<span class="sd">        - ``PagedListResponse[Document]`` : Liste paginée de documents.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">by_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">DOCUMENTS_ENDPOINT</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
@@ -320,7 +320,7 @@
 <span class="sd">        Les champs unset ou None du document sont exclus de la requête.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">        - document (Document): Document à créer.</span>
+<span class="sd">        - document (Document) : Document à créer.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">        - Document: Le document créé avec les données retournées par l&#39;API.</span>
@@ -343,7 +343,7 @@
 <span class="sd">        Récupère un document par son identifiant.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document à reafficher.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document à reafficher.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - Document: Le document retourné par l&#39;API.</span>
@@ -362,7 +362,7 @@
 <span class="sd">        Récupère un document avec toutes ses relations incluses.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document à reafficher.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document à reafficher.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - Document: Le document retourné par l&#39;API.</span>
@@ -378,7 +378,7 @@
 <span class="sd">        Récupère un document avec toutes ses données incluses.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document à reafficher.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document à reafficher.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - Document: Le document retourné par l&#39;API.</span>
@@ -394,8 +394,8 @@
 <span class="sd">        Met à jour un document existant.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document à mettre à jour.</span>
-<span class="sd">        - document (Document): Document à mettre à jour.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document à mettre à jour.</span>
+<span class="sd">        - document (Document) : Document à mettre à jour.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - Document: Le document mis à jour par l&#39;API.</span>
@@ -415,7 +415,7 @@
 <span class="sd">        Supprime un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document à supprimer.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document à supprimer.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
@@ -427,7 +427,7 @@
 <span class="sd">        Récupère le détail des taxes d&#39;un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - TaxDetailArray: Le détail des taxes retourné par l&#39;API.</span>
@@ -443,8 +443,8 @@
 <span class="sd">        Valide électroniquement un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document à valider.</span>
-<span class="sd">        - request (ValidateDocumentRequest): La requête de validation du document.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document à valider.</span>
+<span class="sd">        - request (ValidateDocumentRequest) : La requête de validation du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - Document: Le document validé par l&#39;API.</span>
@@ -464,7 +464,7 @@
 <span class="sd">        Génère une URL de téléchargement pour le PDF d&#39;un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - PdfUrlResponse: L&#39;URL de téléchargement du PDF retourné par l&#39;API.</span>
@@ -480,7 +480,7 @@
 <span class="sd">        Télécharge le PDF d&#39;un document (retourne les octets bruts).</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - bytes: Les octets bruts du PDF retourné par l&#39;API.</span>
@@ -496,8 +496,8 @@
 <span class="sd">        Télécharge un fichier PDF identifié par son GUID.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document.</span>
-<span class="sd">        - guid (str): GUID du fichier PDF.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document.</span>
+<span class="sd">        - guid (str) : GUID du fichier PDF.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - bytes: Les octets bruts du fichier PDF retourné par l&#39;API.</span>
@@ -513,7 +513,7 @@
 <span class="sd">        Récupère les données d&#39;affichage d&#39;un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - Document: Les données d&#39;affichage du document retourné par l&#39;API.</span>
@@ -529,7 +529,7 @@
 <span class="sd">        Récupère les jalons de paiement d&#39;un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - ListResponse[PaymentMilestone]: La liste des jalons de paiement du document retourné</span>
@@ -546,7 +546,7 @@
 <span class="sd">        Finalise un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document à finaliser.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document à finaliser.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - Document: Le document finalisé par l&#39;API.</span>
@@ -562,7 +562,7 @@
 <span class="sd">        Transforme un document (devis, bon de livraison…) en facture.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - doc_id (int): Identifiant du document à transformer en facture.</span>
+<span class="sd">        - doc_id (int) : Identifiant du document à transformer en facture.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - Document: Le document transformé en facture par l&#39;API.</span>
@@ -598,9 +598,9 @@
 <span class="sd">        Liste les documents avec sélection de champs.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - page (int): Numéro de page.</span>
-<span class="sd">        - limit (int): Nombre d&#39;articles par page.</span>
-<span class="sd">        - fields (str | None): Champs à retourner.</span>
+<span class="sd">        - page (int) : Numéro de page.</span>
+<span class="sd">        - limit (int) : Nombre d&#39;articles par page.</span>
+<span class="sd">        - fields (str | None) : Champs à retourner.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        - PagedListResponse[Document]: La liste des documents retourné par l&#39;API.</span>

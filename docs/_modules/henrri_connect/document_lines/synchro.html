@@ -232,12 +232,12 @@
 
 <span class="sd">Classes:</span>
 <span class="sd">--------</span>
-<span class="sd">- `henrri_connect.document_lines.synchro.SyncDocumentLinesClient`:</span>
+<span class="sd">- ``henrri_connect.document_lines.synchro.SyncDocumentLinesClient`` :</span>
 <span class="sd">    Accès synchrone aux endpoints lignes de documents.</span>
 
 <span class="sd">Notes:</span>
-<span class="sd">-----</span>
-<span class="sd">- Utiliser de préférence l&#39;objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.</span>
+<span class="sd">------</span>
+<span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
@@ -258,15 +258,15 @@
 <span class="sd">    Accès synchrone aux lignes de document.</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">    - `client`: Objet `henrri_connect.SyncHenrriClient`.</span>
+<span class="sd">    - ``client`` : Objet ``henrri_connect.SyncHenrriClient``.</span>
 <span class="sd">    </span>
 <span class="sd">    Methods:</span>
-<span class="sd">    - `list_document_lines`: Liste les lignes d&#39;un document.</span>
-<span class="sd">    - `add`: Ajoute une ligne à un document.</span>
-<span class="sd">    - `get`: Récupère une ligne de document par son identifiant.</span>
-<span class="sd">    - `modify`: Met à jour une ligne de document.</span>
-<span class="sd">    - `delete`: Supprime une ligne de document.</span>
-<span class="sd">    - `move`: Déplace une ligne vers une position donnée.</span>
+<span class="sd">    - ``list_document_lines`` : Liste les lignes d&#39;un document.</span>
+<span class="sd">    - ``add`` : Ajoute une ligne à un document.</span>
+<span class="sd">    - ``get`` : Récupère une ligne de document par son identifiant.</span>
+<span class="sd">    - ``modify`` : Met à jour une ligne de document.</span>
+<span class="sd">    - ``delete`` : Supprime une ligne de document.</span>
+<span class="sd">    - ``move`` : Déplace une ligne vers une position donnée.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">SyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -283,11 +283,11 @@
 <span class="sd">        Liste les lignes d&#39;un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `document_id`(int): Identifiant du document (min 1 et max 2 147 483 647).</span>
-<span class="sd">        - `query_params`(DocumentLineListQueryParameters, optional): Paramètres de requête.</span>
+<span class="sd">        - ``document_id`` (int) : Identifiant du document (min 1 et max 2 147 483 647).</span>
+<span class="sd">        - ``query_params`` (DocumentLineListQueryParameters, optional) : Paramètres de requête.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `ListResponse[DocumentLine]`: Liste de lignes de document.</span>
+<span class="sd">        - ``ListResponse[DocumentLine]`` : Liste de lignes de document.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">query_params</span><span class="p">:</span>
             <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
@@ -311,11 +311,11 @@
 <span class="sd">        Ajoute une ligne à un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `document_id`: Identifiant du document.</span>
-<span class="sd">        - `line`: Ligne de document.</span>
+<span class="sd">        - ``document_id`` : Identifiant du document.</span>
+<span class="sd">        - ``line`` : Ligne de document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `DocumentLine`: Ligne de document ajoutée.</span>
+<span class="sd">        - ``DocumentLine`` : Ligne de document ajoutée.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
@@ -332,11 +332,11 @@
 <span class="sd">        Récupère une ligne de document par son identifiant.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `document_id`: Identifiant du document.</span>
-<span class="sd">        - `line_id`: Identifiant de la ligne de document.</span>
+<span class="sd">        - ``document_id`` : Identifiant du document.</span>
+<span class="sd">        - ``line_id`` : Identifiant de la ligne de document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `DocumentLine`: Ligne de document.</span>
+<span class="sd">        - ``DocumentLine`` : Ligne de document.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENT_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">document_id</span><span class="si">}</span><span class="s2">/lines/</span><span class="si">{</span><span class="n">line_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">DocumentLine</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -349,12 +349,12 @@
 <span class="sd">        Met à jour une ligne de document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `document_id`: Identifiant du document.</span>
-<span class="sd">        - `line_id`: Identifiant de la ligne de document.</span>
-<span class="sd">        - `line`: Ligne de document.</span>
+<span class="sd">        - ``document_id`` : Identifiant du document.</span>
+<span class="sd">        - ``line_id`` : Identifiant de la ligne de document.</span>
+<span class="sd">        - ``line`` : Ligne de document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `DocumentLine`: Ligne de document modifiée.</span>
+<span class="sd">        - ``DocumentLine`` : Ligne de document modifiée.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
@@ -371,11 +371,11 @@
 <span class="sd">        Supprime une ligne de document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `document_id`: Identifiant du document.</span>
-<span class="sd">        - `line_id`: Identifiant de la ligne de document.</span>
+<span class="sd">        - ``document_id`` : Identifiant du document.</span>
+<span class="sd">        - ``line_id`` : Identifiant de la ligne de document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `None`</span>
+<span class="sd">        - ``None``</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENT_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">document_id</span><span class="si">}</span><span class="s2">/lines/</span><span class="si">{</span><span class="n">line_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
@@ -387,12 +387,12 @@
 <span class="sd">        Déplace une ligne vers une position donnée.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `document_id`: Identifiant du document.</span>
-<span class="sd">        - `line_id`: Identifiant de la ligne de document.</span>
-<span class="sd">        - `to`: Position de destination.</span>
+<span class="sd">        - ``document_id`` : Identifiant du document.</span>
+<span class="sd">        - ``line_id`` : Identifiant de la ligne de document.</span>
+<span class="sd">        - ``to`` : Position de destination.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `None`</span>
+<span class="sd">        - ``None``</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>

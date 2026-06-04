@@ -2,17 +2,17 @@
 
 > [⇐ Retour à l'index](../README.md)
 
-`client.companies` — Lecture des données d'une entreprise et de son adresse.
+``client.companies`` — Lecture des données d'une entreprise et de son adresse.
 
 ---
 
 ## Méthodes
 
-### `get(company_id: int) -> Company`
+### ``get(company_id: int) -> Company``
 
 Récupère une entreprise par son identifiant.
 
-### `get_address(company_id: int) -> Address`
+### ``get_address(company_id: int) -> Address``
 
 Récupère l'adresse d'une entreprise.
 

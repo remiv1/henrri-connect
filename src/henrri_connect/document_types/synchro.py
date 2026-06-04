@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/documenttypes.
 
 Classes:
 --------
-- `henrri_connect.document_types.synchro.SyncDocumentTypesClient`:
+- ``henrri_connect.document_types.synchro.SyncDocumentTypesClient`` :
     Accès synchrone aux endpoints types de documents.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.
+------
+- Utiliser de préférence l'objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 """
 
 from __future__ import annotations
@@ -27,10 +27,10 @@ class SyncDocumentTypesClient:  # pylint: disable=R0903
     Accès synchrone aux types de documents.
     
     Arguments:
-    - `client`: Objet `henrri_connect.SyncHenrriClient`.
+    - ``client`` : Objet ``henrri_connect.SyncHenrriClient``.
     
     Methods:
-    - `list_document_types`: Liste tous les types de documents.
+    - ``list_document_types`` : Liste tous les types de documents.
     """
 
     def __init__(self, client: SyncHenrriClient) -> None:
@@ -41,10 +41,10 @@ class SyncDocumentTypesClient:  # pylint: disable=R0903
         Liste tous les types de documents.
         
         Arguments:
-        - `None`
+        - ``None``
         
         Returns:
-        - `ListResponse[DocumentType]`: Liste de types de documents.
+        - ``ListResponse[DocumentType]`` : Liste de types de documents.
         """
         resp = self._c.request("GET", DOCUMENTTYPE_ENDPOINT)
         return ListResponse[DocumentType].model_validate(resp.json())

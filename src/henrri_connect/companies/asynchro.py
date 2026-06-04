@@ -3,16 +3,16 @@ Sous-client pour les endpoints /v1/companies.
 
 Constantes:
 -----------
-- `COMPANIES_ENDPOINT`: URL de base des endpoints entreprises (/v1/companies).
+- ``COMPANIES_ENDPOINT`` : URL de base des endpoints entreprises (/v1/companies).
 
 Classes:
 --------
-- `henrri_connect.companies.asynchro.AsyncCompaniesClient`:
+- ``henrri_connect.companies.asynchro.AsyncCompaniesClient`` :
     Accès asynchrone aux endpoints entreprises.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.connect.AsyncHenrriClient` pour acceder
+------
+- Utiliser de préférence l'objet ``henrri_connect.connect.AsyncHenrriClient`` pour acceder
 aux endpoints.
 """
 
@@ -32,11 +32,11 @@ class AsyncCompaniesClient:
     Accès asynchrone aux endpoints entreprises.
 
     Arguments:
-    - `client`(AsyncHenrriClient): Client Henrri Connect.
+    - ``client`` (AsyncHenrriClient) : Client Henrri Connect.
     
     Methodes:
-    - get(self, company_id: int): Récupère une entreprise par son identifiant.
-    - get_address(self, company_id: int): Récupère l'adresse d'une entreprise.
+    - get(self, company_id: int) : Récupère une entreprise par son identifiant.
+    - get_address(self, company_id: int) : Récupère l'adresse d'une entreprise.
     """
 
     def __init__(self, client: AsyncHenrriClient) -> None:
@@ -47,10 +47,10 @@ class AsyncCompaniesClient:
         Récupère une entreprise par son identifiant.
         
         Arguments:
-        - `company_id`: Identifiant de l'entreprise.
+        - ``company_id`` : Identifiant de l'entreprise.
         
         Retourne:
-        - `henrri_connect.models.Company`: Entreprise.
+        - ``henrri_connect.models.Company`` : Entreprise.
         """
         resp = await self._c.request("GET", f"{COMPANIES_ENDPOINT}/{company_id}")
         return Company.model_validate(resp.json())
@@ -60,10 +60,10 @@ class AsyncCompaniesClient:
         Récupère l'adresse d'une entreprise.
         
         Arguments:
-        - `company_id`: Identifiant de l'entreprise.
+        - ``company_id`` : Identifiant de l'entreprise.
         
         Retourne:
-        - `henrri_connect.models.Address`: Adresse de l'entreprise.
+        - ``henrri_connect.models.Address`` : Adresse de l'entreprise.
         """
         resp = await self._c.request("GET", f"{COMPANIES_ENDPOINT}/{company_id}/address")
         return Address.model_validate(resp.json())

@@ -35,8 +35,8 @@ class DocumentLine(CamelModel):
     """
     Représente une ligne de document dans l'API Henrri Connect.
 
-    `type_id` peut être récupéré par un GET sur `/documentlinetypes` ou avec
-    `henrry_connect.<client>.document_line_types.list_document_line_types`
+    ``type_id`` peut être récupéré par un GET sur ``/documentlinetypes`` ou avec
+    ``henrry_connect.<client>.document_line_types.list_document_line_types``
     
     Attributs:
     - id: Identifiant unique de la ligne de document.

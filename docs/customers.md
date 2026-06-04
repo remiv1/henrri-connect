@@ -2,7 +2,7 @@
 
 > [⇐ Retour à l'index](../README.md)
 
-`client.customers` — CRUD complet sur les clients, avec gestion des adresses et des contacts.
+``client.customers`` — CRUD complet sur les clients, avec gestion des adresses et des contacts.
 
 ---
 
@@ -10,68 +10,68 @@
 
 ### Liste et recherche
 
-#### `list_customers(*, page=1, limit=50, search=None, sort_by=None, sort_order=None, min_id=None, from_date=None, to_date=None) -> PagedListResponse[Customer]`
+#### ``list_customers(*, page=1, limit=50, search=None, sort_by=None, sort_order=None, min_id=None, from_date=None, to_date=None) -> PagedListResponse[Customer]``
 
 Liste les clients avec pagination et filtres optionnels.
 
 | Paramètre | Type | Description |
 | --- | --- | --- |
-| `page` | `int` | Numéro de page (défaut : 1) |
-| `limit` | `int` | Nombre de résultats par page (défaut : 50) |
-| `search` | `str \| None` | Recherche textuelle |
-| `sort_by` | `str \| None` | Champ de tri |
-| `sort_order` | `str \| None` | `"asc"` ou `"desc"` |
-| `min_id` | `int \| None` | Filtre sur l'identifiant minimum |
-| `from_date` | `str \| None` | Date de début (format ISO 8601) |
-| `to_date` | `str \| None` | Date de fin (format ISO 8601) |
+| ``page`` | ``int`` | Numéro de page (défaut : 1) |
+| ``limit`` | ``int`` | Nombre de résultats par page (défaut : 50) |
+| ``search`` | ``str \| None`` | Recherche textuelle |
+| ``sort_by`` | ``str \| None`` | Champ de tri |
+| ``sort_order`` | ``str \| None`` | ``"asc"`` ou ``"desc"`` |
+| ``min_id`` | ``int \| None`` | Filtre sur l'identifiant minimum |
+| ``from_date`` | ``str \| None`` | Date de début (format ISO 8601) |
+| ``to_date`` | ``str \| None`` | Date de fin (format ISO 8601) |
 
-#### `get_best_sales(*, page=1, limit=50, search=None, sort_by=None, sort_order=None) -> PagedListResponse[Customer]`
+#### ``get_best_sales(*, page=1, limit=50, search=None, sort_by=None, sort_order=None) -> PagedListResponse[Customer]``
 
 Récupère les meilleurs clients (par chiffre d'affaires).
 
 ### CRUD
 
-#### `add(customer: Customer) -> Customer`
+#### ``add(customer: Customer) -> Customer``
 
 Crée un nouveau client.
 
-#### `get(customer_id: int) -> Customer`
+#### ``get(customer_id: int) -> Customer``
 
 Récupère un client par son identifiant.
 
-#### `modify(customer_id: int, customer: Customer) -> Customer`
+#### ``modify(customer_id: int, customer: Customer) -> Customer``
 
 Met à jour un client existant.
 
-#### `delete(customer_id: int) -> None`
+#### ``delete(customer_id: int) -> None``
 
 Supprime un client.
 
 ### Adresse
 
-#### `get_address(customer_id: int) -> Address`
+#### ``get_address(customer_id: int) -> Address``
 
 Récupère l'adresse d'un client.
 
 ### Contacts
 
-#### `list_contacts(customer_id: int) -> list[Contact]`
+#### ``list_contacts(customer_id: int) -> list[Contact]``
 
 Liste les contacts d'un client.
 
-#### `add_contact(customer_id: int, contact: Contact) -> Contact`
+#### ``add_contact(customer_id: int, contact: Contact) -> Contact``
 
 Ajoute un contact à un client.
 
-#### `get_contact(customer_id: int, contact_id: int) -> Contact`
+#### ``get_contact(customer_id: int, contact_id: int) -> Contact``
 
 Récupère un contact spécifique.
 
-#### `modify_contact(customer_id: int, contact_id: int, contact: Contact) -> Contact`
+#### ``modify_contact(customer_id: int, contact_id: int, contact: Contact) -> Contact``
 
 Met à jour un contact.
 
-#### `delete_contact(customer_id: int, contact_id: int) -> None`
+#### ``delete_contact(customer_id: int, contact_id: int) -> None``
 
 Supprime un contact.
 

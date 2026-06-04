@@ -69,7 +69,14 @@ all: test build build-verify publish clean
 
 test:
 	@echo "—–--–—–--–— Running Tests —–--–—–--–—"
-	$(PYTHON) -m pytest tests
+	coverage run -m pytest tests
+	@echo "Tests successfully completed."
+	coverage report -m
+	@echo "Coverage report generated."
+	coverage html
+	@echo "HTML report generated."
+	cp -r htmlcov docs/source/_static/htmlcov
+	@echo "You can find the coverage report and HTML report in the 'docs/_static/htmlcov' directory."
 
 build:
 	@echo "—–--–—–--–— Build —–--–—–--–—"

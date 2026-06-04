@@ -232,12 +232,12 @@
 
 <span class="sd">Classes:</span>
 <span class="sd">--------</span>
-<span class="sd">- `henrri_connect.secures.asynchro.AsyncSecuresClient`:</span>
+<span class="sd">- ``henrri_connect.secures.asynchro.AsyncSecuresClient`` :</span>
 <span class="sd">    Accès asynchrone aux endpoints safeguards (santé).</span>
 
 <span class="sd">Notes:</span>
-<span class="sd">-----</span>
-<span class="sd">- Utiliser de préférence l&#39;objet `henrri_connect.AsyncHenrriClient` pour acceder aux endpoints.</span>
+<span class="sd">------</span>
+<span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
@@ -256,12 +256,12 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Accès asynchrone aux endpoints sécurisés (santé).</span>
 <span class="sd">    </span>
-<span class="sd">    Arguments:</span>
-<span class="sd">    - client : AsyncHenrriClient</span>
+<span class="sd">    Arguments</span>
+<span class="sd">        client : AsyncHenrriClient</span>
 <span class="sd">        Client asynchrone pour acceder aux endpoints.</span>
 
-<span class="sd">    Methods:</span>
-<span class="sd">    - hello_world()</span>
+<span class="sd">    Methods</span>
+<span class="sd">        hello_world()</span>
 <span class="sd">        Vérifie la connexion authentifiée à l&#39;API (endpoint de santé).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -274,11 +274,11 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Vérifie la connexion authentifiée à l&#39;API (endpoint de santé).</span>
 
-<span class="sd">        Arguments:</span>
-<span class="sd">        - None</span>
+<span class="sd">        Arguments</span>
+<span class="sd">            None</span>
 <span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">        - str : Texte de la réponse.</span>
+<span class="sd">        Returns</span>
+<span class="sd">            str : Texte de la réponse.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">SECURES_ENDPOINT</span><span class="si">}</span><span class="s2">/hello-world&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span></div>

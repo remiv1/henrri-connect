@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/documents.
 
 Classes:
 --------
-- `henrri_connect.documents.asynchro.AsyncDocumentsClient`:
+- ``henrri_connect.documents.asynchro.AsyncDocumentsClient`` :
     Accès asynchrone aux endpoints documents.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.AsyncHenrriClient` pour acceder aux endpoints.
+------
+- Utiliser de préférence l'objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.
 """
 
 from __future__ import annotations
@@ -38,27 +38,27 @@ class AsyncDocumentsClient:
     Accès asynchrone aux endpoints documents.
     
     Arguments:
-    - `client`: Objet `henrri_connect.AsyncHenrriClient`.
+    - ``client`` : Objet ``henrri_connect.AsyncHenrriClient``.
     
     Methods:
-    - `list_documents`: Liste tous les documents.
-    - `add`: Ajoute un document.
-    - `get`: Accès au document par son ID.
-    - `get_with_all`: Accès au document par son ID avec toutes ses relations incluses.
-    - `get_all_included`: Accès au document par son ID avec toutes ses données incluses.
-    - `modify`: Modifie un document par son ID.
-    - `delete`: Supprime un document par son ID.
-    - `get_tax_details`: Accès aux taxes d'un document par son ID.
-    - `validate`: Valide un document.
-    - `get_pdf_url`: Accès au document par son ID et son GUID.
-    - `get_pdf_bytes`: Accès au document par son ID et son GUID.
-    - `get_pdf_file`: Accès au document par son ID et son GUID.
-    - `get_display`: Accès aux données d'affichage d'un document par son ID.
-    - `get_payment_milestones`: Accès aux milestones de paiement d'un document par son ID.
-    - `finalize`: Finalise un document.
-    - `transform_to_invoice`: Transforme un document (devis, bon de livraison...) en facture.
-    - `get_next_code_batch`: Accès au code de batch suivant.
-    - `list_with_selected_fields`: Liste les documents avec sélection de champs.
+    - ``list_documents`` : Liste tous les documents.
+    - ``add`` : Ajoute un document.
+    - ``get`` : Accès au document par son ID.
+    - ``get_with_all`` : Accès au document par son ID avec toutes ses relations incluses.
+    - ``get_all_included`` : Accès au document par son ID avec toutes ses données incluses.
+    - ``modify`` : Modifie un document par son ID.
+    - ``delete`` : Supprime un document par son ID.
+    - ``get_tax_details`` : Accès aux taxes d'un document par son ID.
+    - ``validate`` : Valide un document.
+    - ``get_pdf_url`` : Accès au document par son ID et son GUID.
+    - ``get_pdf_bytes`` : Accès au document par son ID et son GUID.
+    - ``get_pdf_file`` : Accès au document par son ID et son GUID.
+    - ``get_display`` : Accès aux données d'affichage d'un document par son ID.
+    - ``get_payment_milestones`` : Accès aux milestones de paiement d'un document par son ID.
+    - ``finalize`` : Finalise un document.
+    - ``transform_to_invoice`` : Transforme un document (devis, bon de livraison...) en facture.
+    - ``get_next_code_batch`` : Accès au code de batch suivant.
+    - ``list_with_selected_fields`` : Liste les documents avec sélection de champs.
     """
 
     def __init__(self, client: AsyncHenrriClient) -> None:
@@ -69,10 +69,10 @@ class AsyncDocumentsClient:
         Liste les documents avec pagination et filtres optionnels.
         
         Arguments:
-        - `request` (DocumentQuery): Paramètres de recherche.
+        - ``request`` (DocumentQuery) : Paramètres de recherche.
 
         Returns:
-        - `PagedListResponse[Document]`: Liste paginée de documents.
+        - ``PagedListResponse[Document]`` : Liste paginée de documents.
         """
         params = clean(request.model_dump(by_alias=True))
         resp = await self._c.request("GET", DOCUMENTS_ENDPOINT, params=params)
@@ -83,10 +83,10 @@ class AsyncDocumentsClient:
         Crée un nouveau document.
         
         Arguments:
-        - `document` (Document): Document à créer.
+        - ``document`` (Document) : Document à créer.
         
         Returns:
-        - `Document`: Document créé.
+        - ``Document`` : Document créé.
         """
         resp = await self._c.request(
             "POST",
@@ -100,10 +100,10 @@ class AsyncDocumentsClient:
         Récupère un document par son identifiant.
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
+        - ``doc_id`` (int) : Identifiant du document.
         
         Returns:
-        - `Document`: Document trouvé.
+        - ``Document`` : Document trouvé.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}")
         return Document.model_validate(resp.json())
@@ -113,10 +113,10 @@ class AsyncDocumentsClient:
         Récupère un document avec toutes ses relations incluses.
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
+        - ``doc_id`` (int) : Identifiant du document.
         
         Returns:
-        - `Document`: Document avec toutes ses relations incluses.
+        - ``Document`` : Document avec toutes ses relations incluses.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/with-all")
         return Document.model_validate(resp.json())
@@ -126,10 +126,10 @@ class AsyncDocumentsClient:
         Récupère un document avec toutes ses données incluses.
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
+        - ``doc_id`` (int) : Identifiant du document.
         
         Returns:
-        - `Document`: Document avec toutes ses données incluses.
+        - ``Document`` : Document avec toutes ses données incluses.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/all-included")
         return Document.model_validate(resp.json())
@@ -139,11 +139,11 @@ class AsyncDocumentsClient:
         Met à jour un document existant.
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
-        - `document` (Document): Document à mettre à jour.
+        - ``doc_id`` (int) : Identifiant du document.
+        - ``document`` (Document) : Document à mettre à jour.
         
         Returns:
-        - `Document`: Document mis à jour.
+        - ``Document`` : Document mis à jour.
         """
         resp = await self._c.request(
             "PUT",
@@ -157,7 +157,7 @@ class AsyncDocumentsClient:
         Supprime un document.
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
+        - ``doc_id`` (int) : Identifiant du document.
         """
         await self._c.request("DELETE", f"{DOCUMENTS_ENDPOINT}/{doc_id}")
 
@@ -166,10 +166,10 @@ class AsyncDocumentsClient:
         Récupère le détail des taxes d'un document.
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
+        - ``doc_id`` (int) : Identifiant du document.
         
         Returns:
-        - `TaxDetailArray`: Détail des taxes du document.
+        - ``TaxDetailArray`` : Détail des taxes du document.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/tax-details")
         return TaxDetailArray.model_validate(resp.json())
@@ -179,11 +179,11 @@ class AsyncDocumentsClient:
         Valide électroniquement un document.
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
-        - `request` (ValidateDocumentRequest): Dossier à valider.
+        - ``doc_id`` (int) : Identifiant du document.
+        - ``request`` (ValidateDocumentRequest) : Dossier à valider.
         
         Returns:
-        - `Document`: Document validé.
+        - ``Document`` : Document validé.
         """
         resp = await self._c.request(
             "POST",
@@ -197,10 +197,10 @@ class AsyncDocumentsClient:
         Génère une URL de téléchargement pour le PDF d'un document.
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
+        - ``doc_id`` (int) : Identifiant du document.
         
         Returns:
-        - `PdfUrlResponse`: URL de téléchargement du PDF du document.
+        - ``PdfUrlResponse`` : URL de téléchargement du PDF du document.
         """
         resp = await self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{doc_id}/pdf/url")
         return PdfUrlResponse.model_validate(resp.json())
@@ -210,10 +210,10 @@ class AsyncDocumentsClient:
         Télécharge le PDF d'un document (retourne les octets bruts).
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
+        - ``doc_id`` (int) : Identifiant du document.
         
         Returns:
-        - `bytes`: Octets bruts du PDF du document.
+        - ``bytes`` : Octets bruts du PDF du document.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/pdf")
         return resp.content
@@ -223,11 +223,11 @@ class AsyncDocumentsClient:
         Télécharge un fichier PDF identifié par son GUID.
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
-        - `guid` (str): GUID du fichier PDF.
+        - ``doc_id`` (int) : Identifiant du document.
+        - ``guid`` (str) : GUID du fichier PDF.
         
         Returns:
-        - `bytes`: Octets bruts du fichier PDF.
+        - ``bytes`` : Octets bruts du fichier PDF.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/pdf/files/{guid}")
         return resp.content
@@ -237,10 +237,10 @@ class AsyncDocumentsClient:
         Récupère les données d'affichage d'un document.
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
+        - ``doc_id`` (int) : Identifiant du document.
         
         Returns:
-        - `Document`: Document avec les données d'affichage.
+        - ``Document`` : Document avec les données d'affichage.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/display")
         return Document.model_validate(resp.json())
@@ -250,10 +250,10 @@ class AsyncDocumentsClient:
         Récupère les jalons de paiement d'un document.
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
+        - ``doc_id`` (int) : Identifiant du document.
         
         Returns:
-        - `ListResponse[PaymentMilestone]`: Liste des jalons de paiement du document.
+        - ``ListResponse[PaymentMilestone]`` : Liste des jalons de paiement du document.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/paymentmilestones")
         return ListResponse[PaymentMilestone].model_validate(resp.json())
@@ -263,10 +263,10 @@ class AsyncDocumentsClient:
         Finalise un document.
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
+        - ``doc_id`` (int) : Identifiant du document.
         
         Returns:
-        - `Document`: Document finalisé.
+        - ``Document`` : Document finalisé.
         """
         resp = await self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{doc_id}/finalize")
         return Document.model_validate(resp.json())
@@ -276,10 +276,10 @@ class AsyncDocumentsClient:
         Transforme un document (devis, bon de livraison…) en facture.
         
         Arguments:
-        - `doc_id` (int): Identifiant du document.
+        - ``doc_id`` (int) : Identifiant du document.
         
         Returns:
-        - `Document`: Document transformé en facture.
+        - ``Document`` : Document transformé en facture.
         """
         resp = await self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{doc_id}/transform-to-invoice")
         return Document.model_validate(resp.json())
@@ -289,7 +289,7 @@ class AsyncDocumentsClient:
         Récupère le prochain numéro de lot pour un devis.
         
         Returns:
-        - `object`: Numéro de lot.
+        - ``object`` : Numéro de lot.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/next-quote-batch")
         return resp.json()
@@ -306,13 +306,13 @@ class AsyncDocumentsClient:
         Liste les documents avec sélection de champs.
         
         Arguments:
-        - `page` (int): Numéro de page (par d&eacute;faut 1).
-        - `limit` (int): Nombre de documents par page (par d&eacute;faut 50).
-        - `fields` (str | None): Champs à retourner (par d&eacute;faut None).
-        - `**kwargs` (object): Autres paramètres.
+        - ``page`` (int) : Numéro de page (par d&eacute;faut 1).
+        - ``limit`` (int) : Nombre de documents par page (par d&eacute;faut 50).
+        - ``fields`` (str | None) : Champs à retourner (par d&eacute;faut None).
+        - ``**kwargs`` (object) : Autres paramètres.
 
         Returns:
-        - `PagedListResponse[Document]`: Liste de documents.
+        - ``PagedListResponse[Document]`` : Liste de documents.
         """
         params = clean({"page": page, "limit": limit, "fields": fields, **kwargs})
         resp = await self._c.request(

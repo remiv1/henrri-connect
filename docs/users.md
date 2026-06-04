@@ -2,31 +2,31 @@
 
 > [⇐ Retour à l'index](../README.md)
 
-`client.users` — Accès aux données utilisateurs et aux entreprises associées.
+``client.users`` — Accès aux données utilisateurs et aux entreprises associées.
 
-> **Note :** L'authentification est gérée automatiquement par `HenrriClient`. Les méthodes `authenticate()` et `refresh_token()` du sous-client sont exposées pour les cas d'usage avancés.
+> **Note :** L'authentification est gérée automatiquement par ``HenrriClient``. Les méthodes ``authenticate()`` et ``refresh_token()`` du sous-client sont exposées pour les cas d'usage avancés.
 
 ---
 
 ## Méthodes
 
-### `get(id: int) -> User`
+### ``get(id: int) -> User``
 
 Récupère un utilisateur par son identifiant.
 
-### `get_address(id: int) -> Address`
+### ``get_address(id: int) -> Address``
 
 Récupère l'adresse d'un utilisateur.
 
-### `get_companies() -> list[UserAndCompany]`
+### ``get_companies() -> list[UserAndCompany]``
 
 Récupère les entreprises associées à l'utilisateur courant.
 
-### `authenticate() -> TokenResponse`
+### ``authenticate() -> TokenResponse``
 
-Authentifie via les identifiants du client. Retourne `access_token` et `refresh_token`.
+Authentifie via les identifiants du client. Retourne ``access_token`` et ``refresh_token``.
 
-### `refresh_token(refresh_token: str) -> TokenResponse`
+### ``refresh_token(refresh_token: str) -> TokenResponse``
 
 Rafraîchit le token d'accès à partir d'un refresh token.
 

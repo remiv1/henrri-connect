@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/itemcategories.
 
 Classes:
 --------
-- `henrri_connect.item_categories.asynchro.AsyncItemCategoriesClient`:
+- ``henrri_connect.item_categories.asynchro.AsyncItemCategoriesClient`` :
     Accès asynchrone aux endpoints categories d'articles.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.AsyncHenrriClient` pour acceder aux endpoints.
+------
+- Utiliser de préférence l'objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.
 """
 
 from __future__ import annotations
@@ -29,10 +29,10 @@ class AsyncItemCategoriesClient:
     Accès asynchrone aux catégories d'articles.
     
     Arguments:
-    - `client`: Objet `henrri_connect.AsyncHenrriClient` pour acceder aux endpoints.
+    - ``client`` : Objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.
     
     Methodes:
-    - `list_item_categories`: Liste les catégories d'articles avec pagination.
+    - ``list_item_categories`` : Liste les catégories d'articles avec pagination.
     """
 
     def __init__(self, client: AsyncHenrriClient) -> None:
@@ -47,10 +47,10 @@ class AsyncItemCategoriesClient:
         Liste les catégories d'articles avec pagination.
         
         Arguments:
-        - `request` (ItemCategoryRequest): Paramètres de recherche.
+        - ``request`` (ItemCategoryRequest) : Paramètres de recherche.
 
         Returns:
-        - `PagedListResponse[ItemCategory]`: Liste paginée de catégories d'articles.
+        - ``PagedListResponse[ItemCategory]`` : Liste paginée de catégories d'articles.
         """
         params = clean(request.model_dump(by_alias=True))
         resp = await self._c.request("GET", ITEMCATEGORIES_ENDPOINT, params=params)

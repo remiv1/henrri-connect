@@ -114,3 +114,8 @@ Utilisation rapide
 
    api
 
+Rapport des tests
+-----------------
+
+* `Rapport de coverage <_static/htmlcov/index.html>`_
+

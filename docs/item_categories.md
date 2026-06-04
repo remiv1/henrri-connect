@@ -2,7 +2,7 @@
 
 > [⇐ Retour à l'index](../README.md)
 
-`client.item_categories` — Référentiel des catégories permettant d'organiser le catalogue d'articles.
+``client.item_categories`` — Référentiel des catégories permettant d'organiser le catalogue d'articles.
 
 ---
 
@@ -14,11 +14,11 @@ Liste les catégories d'articles avec pagination.
 
 | Paramètre | Type | Description |
 | --- | --- | --- |
-| `page` | `int` | Numéro de page (défaut : 1) |
-| `limit` | `int` | Résultats par page (défaut : 50) |
-| `search` | `str \| None` | Recherche textuelle |
-| `sort_by` | `str \| None` | Champ de tri |
-| `sort_order` | `str \| None` | `"asc"` ou `"desc"` |
+| ``page`` | ``int`` | Numéro de page (défaut : 1) |
+| ``limit`` | ``int`` | Résultats par page (défaut : 50) |
+| ``search`` | ``str \| None`` | Recherche textuelle |
+| ``sort_by`` | ``str \| None`` | Champ de tri |
+| ``sort_order`` | ``str \| None`` | ``"asc"`` ou ``"desc"`` |
 
 ---
 

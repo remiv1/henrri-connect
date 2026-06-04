@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/customers.
 
 Classes:
 --------
-- `henrri_connect.customers.synchro.SyncCustomersClient`:
+- ``henrri_connect.customers.synchro.SyncCustomersClient`` :
     Accès synchrone aux endpoints clients.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.
+------
+- Utiliser de préférence l'objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 """
 
 from __future__ import annotations
@@ -30,22 +30,22 @@ class SyncCustomersClient:
     Accès synchrone aux endpoints clients.
     
     Arguments:
-    - `client` (SyncHenrriClient): Client HTTP.
+    - ``client`` (SyncHenrriClient) : Client HTTP.
 
     Methodes:
-    - `list_customers`: Liste les clients avec pagination et filtres optionnels.
-    - `add`: Crée un nouveau client.
-    - `get_best_sales`: Récupère les meilleurs clients.
-    - `get_last_used`: Récupère le dernier client utilisé.
-    - `get`: Récupère un client par son identifiant.
-    - `modify`: Met à jour un client existant.
-    - `delete`: Supprime un client.
-    - `get_address`: Récupère l'adresse d'un client.
-    - `list_contacts`: Liste les contacts d'un client avec pagination et filtres optionnels.
-    - `add_contact`: Crée un nouveau contact.
-    - `get_contact`: Récupère un contact d'un client.
-    - `modify_contact`: Met à jour un contact existant.
-    - `delete_contact`: Supprime un contact.
+    - ``list_customers`` : Liste les clients avec pagination et filtres optionnels.
+    - ``add`` : Crée un nouveau client.
+    - ``get_best_sales`` : Récupère les meilleurs clients.
+    - ``get_last_used`` : Récupère le dernier client utilisé.
+    - ``get`` : Récupère un client par son identifiant.
+    - ``modify`` : Met à jour un client existant.
+    - ``delete`` : Supprime un client.
+    - ``get_address`` : Récupère l'adresse d'un client.
+    - ``list_contacts`` : Liste les contacts d'un client avec pagination et filtres optionnels.
+    - ``add_contact`` : Crée un nouveau contact.
+    - ``get_contact`` : Récupère un contact d'un client.
+    - ``modify_contact`` : Met à jour un contact existant.
+    - ``delete_contact`` : Supprime un contact.
     """
 
     def __init__(self, client: SyncHenrriClient) -> None:
@@ -81,13 +81,13 @@ class SyncCustomersClient:
         Liste les clients avec pagination et filtres optionnels.
         
         Arguments:
-        - `request` (CustomerRequest): Paramètres de recherche.
-        - `with_selected_fields` (bool): Si True, lance une requête de recherche avancée.
-        - `with_totals` (bool): Si True, renvoie les totaux.
-        - `only_current_page` (bool): Si True, renvoie uniquement les clients de la page actuelle.
+        - ``request`` (CustomerRequest) : Paramètres de recherche.
+        - ``with_selected_fields`` (bool) : Si True, lance une requête de recherche avancée.
+        - ``with_totals`` (bool) : Si True, renvoie les totaux.
+        - ``only_current_page`` (bool) : Si True, renvoie uniquement les clients de la page actuelle.
 
         Returns:
-        - `PagedListResponse[Customer]`: Liste paginée de clients.
+        - ``PagedListResponse[Customer]`` : Liste paginée de clients.
         """
         params = clean(request.model_dump(by_alias=True))
         if with_selected_fields:
@@ -112,10 +112,10 @@ class SyncCustomersClient:
         Crée un nouveau client.
         
         Arguments:
-        - `customer` (Customer): Client à créer.
+        - ``customer`` (Customer) : Client à créer.
 
         Returns:
-        - `Customer`: Client créé.
+        - ``Customer`` : Client créé.
         """
         resp = self._c.request(
             "POST",
@@ -133,10 +133,10 @@ class SyncCustomersClient:
         Récupère les meilleurs clients.
         
         Arguments:
-        - `year` (int): Année concerne (minimum 2000, maximum 2100).
+        - ``year`` (int) : Année concerne (minimum 2000, maximum 2100).
 
         Returns:
-        - `PagedListResponse[Customer]`: Liste de clients.
+        - ``PagedListResponse[Customer]`` : Liste de clients.
         """
         params = {
             "year": year
@@ -149,11 +149,11 @@ class SyncCustomersClient:
         Récupère les derniers clients utilisés.
 
         Arguments:
-        - `customer_type` (CustomerType): Type de client.
-        - `limit` (int): Nombre de clients maximum.
+        - ``customer_type`` (CustomerType) : Type de client.
+        - ``limit`` (int) : Nombre de clients maximum.
         
         Returns:
-        - `Customer`: Derniers clients utilisés.
+        - ``Customer`` : Derniers clients utilisés.
         """
         params = {
             "Types": customer_type,
@@ -167,10 +167,10 @@ class SyncCustomersClient:
         Récupère un client par son identifiant.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
+        - ``customer_id`` (int) : Identifiant du client.
 
         Returns:
-        - `Customer`: Client.
+        - ``Customer`` : Client.
         """
         resp = self._c.request("GET", f"{BASE_CUSTOMERS}/{customer_id}")
         return Customer.model_validate(resp.json())
@@ -180,11 +180,11 @@ class SyncCustomersClient:
         Met à jour un client existant.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
-        - `customer` (Customer): Client à mettre à jour.
+        - ``customer_id`` (int) : Identifiant du client.
+        - ``customer`` (Customer) : Client à mettre à jour.
 
         Returns:
-        - `Customer`: Client mis à jour.
+        - ``Customer`` : Client mis à jour.
         """
         resp = self._c.request(
             "PUT",
@@ -198,10 +198,10 @@ class SyncCustomersClient:
         Supprime un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
+        - ``customer_id`` (int) : Identifiant du client.
 
         Returns:
-        - `None`
+        - ``None``
         """
         self._c.request("DELETE", f"{BASE_CUSTOMERS}/{customer_id}")
 
@@ -210,10 +210,10 @@ class SyncCustomersClient:
         Récupère l'adresse d'un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
+        - ``customer_id`` (int) : Identifiant du client.
 
         Returns:
-        - `Address`: Adresse du client.
+        - ``Address`` : Adresse du client.
         """
         resp = self._c.request("GET", f"{BASE_CUSTOMERS}/{customer_id}/address")
         return Address.model_validate(resp.json())
@@ -223,10 +223,10 @@ class SyncCustomersClient:
         Liste les contacts d'un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
+        - ``customer_id`` (int) : Identifiant du client.
 
         Returns:
-        - `list[Contact]`: Liste de contacts.
+        - ``list[Contact]`` : Liste de contacts.
         """
         resp = self._c.request("GET", f"{BASE_CUSTOMERS}/{customer_id}/contacts")
         return [Contact.model_validate(c) for c in resp.json()]
@@ -236,11 +236,11 @@ class SyncCustomersClient:
         Ajoute un contact à un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
-        - `contact` (Contact): Contact à ajouter.
+        - ``customer_id`` (int) : Identifiant du client.
+        - ``contact`` (Contact) : Contact à ajouter.
 
         Returns:
-        - `Contact`: Contact ajouté.
+        - ``Contact`` : Contact ajouté.
         """
         resp = self._c.request(
             "POST",
@@ -254,11 +254,11 @@ class SyncCustomersClient:
         Récupère un contact d'un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
-        - `contact_id` (int): Identifiant du contact.
+        - ``customer_id`` (int) : Identifiant du client.
+        - ``contact_id`` (int) : Identifiant du contact.
 
         Returns:
-        - `Contact`: Contact.
+        - ``Contact`` : Contact.
         """
         resp = self._c.request("GET", f"{BASE_CUSTOMERS}/{customer_id}/contacts/{contact_id}")
         return Contact.model_validate(resp.json())
@@ -268,12 +268,12 @@ class SyncCustomersClient:
         Met à jour un contact d'un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
-        - `contact_id` (int): Identifiant du contact.
-        - `contact` (Contact): Contact à mettre à jour.
+        - ``customer_id`` (int) : Identifiant du client.
+        - ``contact_id`` (int) : Identifiant du contact.
+        - ``contact`` (Contact) : Contact à mettre à jour.
 
         Returns:
-        - `Contact`: Contact mis à jour.
+        - ``Contact`` : Contact mis à jour.
         """
         resp = self._c.request(
             "PUT",
@@ -287,10 +287,10 @@ class SyncCustomersClient:
         Supprime un contact d'un client.
         
         Arguments:
-        - `customer_id` (int): Identifiant du client.
-        - `contact_id` (int): Identifiant du contact.
+        - ``customer_id`` (int) : Identifiant du client.
+        - ``contact_id`` (int) : Identifiant du contact.
 
         Returns:
-        - `None`
+        - ``None``
         """
         self._c.request("DELETE", f"{BASE_CUSTOMERS}/{customer_id}/contacts/{contact_id}")

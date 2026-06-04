@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/users.
 
 Classes:
 --------
-- `henrri_connect.users.synchro.SyncUsersClient`:
+- ``henrri_connect.users.synchro.SyncUsersClient`` :
     Accès synchrone aux endpoints utilisateurs.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.
+------
+- Utiliser de préférence l'objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 """
 
 from __future__ import annotations
@@ -51,10 +51,10 @@ class SyncUsersClient:
         Récupère un utilisateur par son identifiant.
         
         Arguments:
-        - `user_id` (int): Identifiant de l'utilisateur.
+        - ``user_id`` (int) : Identifiant de l'utilisateur.
 
         Returns:
-        - `User`: Utilisateur.
+        - ``User`` : Utilisateur.
         """
         resp = self._c.request("GET", f"{USERS_ENDPOINT}/{user_id}")
         return User.model_validate(resp.json())
@@ -64,10 +64,10 @@ class SyncUsersClient:
         Récupère l'adresse d'un utilisateur.
         
         Arguments:
-        - `user_id` (int): Identifiant de l'utilisateur.
+        - ``user_id`` (int) : Identifiant de l'utilisateur.
 
         Returns:
-        - `henrri_connect.models.Address`: Adresse de l'utilisateur.
+        - ``henrri_connect.models.Address`` : Adresse de l'utilisateur.
         """
         resp = self._c.request("GET", f"{USERS_ENDPOINT}/{user_id}/address")
         return Address.model_validate(resp.json())
@@ -77,7 +77,7 @@ class SyncUsersClient:
         Récupère les entreprises associées à l'utilisateur courant.
         
         Returns:
-        - `list[UserAndCompany]`: Entreprises.
+        - ``list[UserAndCompany]`` : Entreprises.
         """
         resp = self._c.request("GET", f"{USERS_ENDPOINT}/companies")
         return [UserAndCompany.model_validate(item) for item in resp.json()]
@@ -87,7 +87,7 @@ class SyncUsersClient:
         Authentifie via les identifiants du client.
         
         Returns:
-        - `henrri_connect.models.TokenResponse`: Objet contenant access_token et refresh_token.
+        - ``henrri_connect.models.TokenResponse`` : Objet contenant access_token et refresh_token.
         """
         return self._c.authenticate()
 
@@ -96,10 +96,10 @@ class SyncUsersClient:
         Rafraîchit le token d'accès.
         
         Arguments:
-        - `refresh_token` (str): Token de rafraîchissement.
+        - ``refresh_token`` (str) : Token de rafraîchissement.
 
         Returns:
-        - `henrri_connect.models.TokenResponse`: Objet contenant access_token et refresh_token.
+        - ``henrri_connect.models.TokenResponse`` : Objet contenant access_token et refresh_token.
         """
         resp = self._c.request(
             "POST",

@@ -3,16 +3,16 @@ Client HTTP Henrri synchrone.
 
 Constants:
 ----------
-- `henrri_connect.connect.synchro._BASE_URL`:
+- ``henrri_connect.connect.synchro._BASE_URL`` :
      URL de base de l'API Henrri.
-- `henrri_connect.connect.synchro.APP_VERSION`:
+- ``henrri_connect.connect.synchro.APP_VERSION`` :
      Version de l'application.
-- `henrri_connect.connect.synchro.APP_X_VERSION`:
+- ``henrri_connect.connect.synchro.APP_X_VERSION`` :
      Version de l'application.
 
 Classes:
 --------
-- `henrri_connect.connect.synchro.SyncHenrriClient`:
+- ``henrri_connect.connect.synchro.SyncHenrriClient`` :
      Client HTTP Henrri synchrone.
 
 Exemples:
@@ -25,8 +25,8 @@ Exemples:
     client = SyncHenrriClient("client_id", "client_secret", base_url=<URL de base de l'API>)
 
 Exceptions:
-----------
-- `henrri_connect.exc.HenrriAuthError`:
+-----------
+- ``henrri_connect.exc.HenrriAuthError`` :
      Erreur d'authentification (HTTP 401).
 """
 

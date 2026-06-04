@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/items.
 
 Classes:
 --------
-- `henrri_connect.items.synchro.SyncItemsClient`:
+- ``henrri_connect.items.synchro.SyncItemsClient`` :
     Accès synchrone aux endpoints articles.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.
+------
+- Utiliser de préférence l'objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 """
 
 from __future__ import annotations
@@ -29,17 +29,17 @@ class SyncItemsClient:
     Accès synchrone aux endpoints articles.
     
     Arguments:
-    - `client`: Objet `henrri_connect.SyncHenrriClient` pour acceder aux endpoints.
+    - ``client`` : Objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 
     Methods:
-    - `list_items`: Liste les articles avec pagination et filtres optionnels.
-    - `add`: Crée un nouvel article.
-    - `get`: Récupère un article par son identifiant.
-    - `modify`: Modifie un article par son identifiant.
-    - `delete`: Supprime un article par son identifiant.
-    - `get_most_used`: Récupère les articles les plus utilisés.
-    - `get_best_sales`: Récupère les articles les plus vendus.
-    - `list_with_selected_fields`: Liste les articles avec sélection de champs.
+    - ``list_items`` : Liste les articles avec pagination et filtres optionnels.
+    - ``add`` : Crée un nouvel article.
+    - ``get`` : Récupère un article par son identifiant.
+    - ``modify`` : Modifie un article par son identifiant.
+    - ``delete`` : Supprime un article par son identifiant.
+    - ``get_most_used`` : Récupère les articles les plus utilisés.
+    - ``get_best_sales`` : Récupère les articles les plus vendus.
+    - ``list_with_selected_fields`` : Liste les articles avec sélection de champs.
     """
 
     def __init__(self, client: SyncHenrriClient) -> None:
@@ -75,13 +75,13 @@ class SyncItemsClient:
         Liste les articles avec pagination et filtres optionnels.
         
         Arguments:
-        - `request` (ItemsQuery): Paramètres de recherche.
-        - `with_selected_fields` (bool): Si True, lance une requête de recherche avancée.
-        - `with_totals` (bool): Si True, renvoie les totaux.
-        - `only_current_page` (bool): Si True, renvoie uniquement les articles de la page actuelle.
+        - ``request`` (ItemsQuery) : Paramètres de recherche.
+        - ``with_selected_fields`` (bool) : Si True, lance une requête de recherche avancée.
+        - ``with_totals`` (bool) : Si True, renvoie les totaux.
+        - ``only_current_page`` (bool) : Si True, renvoie uniquement les articles de la page actuelle.
 
         Returns:
-        - `PagedListResponse[Item]`: Liste paginée d'articles.
+        - ``PagedListResponse[Item]`` : Liste paginée d'articles.
         """
         params = clean(request.model_dump(by_alias=True))
         if with_selected_fields:
@@ -106,10 +106,10 @@ class SyncItemsClient:
         Crée un nouvel article.
         
         Arguments:
-        - `item` (Item): Article à créer.
+        - ``item`` (Item) : Article à créer.
         
         Returns:
-        - `Item`: Article créé.
+        - ``Item`` : Article créé.
         """
         resp = self._c.request(
             "POST",
@@ -123,10 +123,10 @@ class SyncItemsClient:
         Récupère un article par son identifiant.
         
         Arguments:
-        - `item_id` (int): Identifiant de l'article.
+        - ``item_id`` (int) : Identifiant de l'article.
         
         Returns:
-        - `Item`: Article rencontré.
+        - ``Item`` : Article rencontré.
         """
         resp = self._c.request("GET", f"{ITEMS_ENDPOINT}/{item_id}")
         return Item.model_validate(resp.json())
@@ -136,11 +136,11 @@ class SyncItemsClient:
         Met à jour un article existant.
         
         Arguments:
-        - `item_id` (int): Identifiant de l'article.
-        - `item` (Item): Article à mettre à jour.
+        - ``item_id`` (int) : Identifiant de l'article.
+        - ``item`` (Item) : Article à mettre à jour.
         
         Returns:
-        - `Item`: Article mis à jour.
+        - ``Item`` : Article mis à jour.
         """
         resp = self._c.request(
             "PUT",
@@ -154,10 +154,10 @@ class SyncItemsClient:
         Supprime un article.
         
         Arguments:
-        - `item_id` (int): Identifiant de l'article à supprimer.
+        - ``item_id`` (int) : Identifiant de l'article à supprimer.
         
         Returns:
-        - `None`: Article supprimé.
+        - ``None`` : Article supprimé.
         """
         self._c.request("DELETE", f"{ITEMS_ENDPOINT}/{item_id}")
 
@@ -169,7 +169,7 @@ class SyncItemsClient:
         - None
         
         Returns:
-        - `PagedListResponse[Item]`: Liste paginée d'articles.
+        - ``PagedListResponse[Item]`` : Liste paginée d'articles.
         """
         resp = self._c.request("GET", f"{ITEMS_ENDPOINT}/most-used")
         return PagedListResponse[Item].model_validate(resp.json())
@@ -179,10 +179,10 @@ class SyncItemsClient:
         Récupère les articles les plus vendus.
         
         Arguments:
-        - `year` (int): Année de recherche.
+        - ``year`` (int) : Année de recherche.
         
         Returns:
-        - `PagedListResponse[Item]`: Liste paginée d'articles.
+        - ``PagedListResponse[Item]`` : Liste paginée d'articles.
         """
         params = {
             "year": year

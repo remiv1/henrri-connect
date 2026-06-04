@@ -22,8 +22,8 @@ Ce document explique comment contribuer efficacement.
 Avant de contribuer, assurez-vous d’avoir :
 
 - Python 3.11 ou plus
-- `pip` ou `uv` ou `poetry`
-- `git`
+- ``pip`` ou ``uv`` ou ``poetry``
+- ``git``
 
 Clonez le dépôt :
 
@@ -40,7 +40,7 @@ pip install -r requirements-dev.txt
 
 ## 🧪 Lancer les tests
 
-Les tests se trouvent dans le dossier `tests/`.
+Les tests se trouvent dans le dossier ``tests/``.
 
 Pour les exécuter :
 

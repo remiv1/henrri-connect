@@ -3,12 +3,12 @@ Sous-client pour les endpoints /v1/documents/{documentId}/lines.
 
 Classes:
 --------
-- `henrri_connect.document_lines.asynchro.AsyncDocumentLinesClient`:
+- ``henrri_connect.document_lines.asynchro.AsyncDocumentLinesClient`` :
     Accès asynchrone aux endpoints lignes de documents.
 
 Notes:
------
-- Utiliser de préférence l'objet `henrri_connect.AsyncHenrriClient` pour acceder
+------
+- Utiliser de préférence l'objet ``henrri_connect.AsyncHenrriClient`` pour acceder
 aux endpoints.
 """
 
@@ -28,15 +28,15 @@ class AsyncDocumentLinesClient:
     Accès asynchrone aux lignes de document.
     
     Arguments:
-    - `client`: Objet `henrri_connect.AsyncHenrriClient`.
+    - ``client`` : Objet ``henrri_connect.AsyncHenrriClient``.
 
     Methods:
-    - `list_document_lines`: Liste les lignes d'un document.
-    - `add`: Ajoute une ligne à un document.
-    - `get`: Récupère une ligne de document par son identifiant.
-    - `modify`: Modifie une ligne de document par son identifiant.
-    - `delete`: Supprime une ligne de document par son identifiant.
-    - `move`: Déplace une ligne vers une position donnée.
+    - ``list_document_lines`` : Liste les lignes d'un document.
+    - ``add`` : Ajoute une ligne à un document.
+    - ``get`` : Récupère une ligne de document par son identifiant.
+    - ``modify`` : Modifie une ligne de document par son identifiant.
+    - ``delete`` : Supprime une ligne de document par son identifiant.
+    - ``move`` : Déplace une ligne vers une position donnée.
     """
 
     def __init__(self, client: AsyncHenrriClient) -> None:
@@ -51,11 +51,11 @@ class AsyncDocumentLinesClient:
         Liste les lignes d'un document.
         
         Arguments:
-        - `document_id`(int): Identifiant du document (min 1 et max 2 147 483 647).
-        - `query_params`(DocumentLineListQueryParameters, optional): Paramètres de requête.
+        - ``document_id`` (int) : Identifiant du document (min 1 et max 2 147 483 647).
+        - ``query_params`` (DocumentLineListQueryParameters, optional) : Paramètres de requête.
         
         Returns:
-        - `ListResponse[DocumentLine]`: Liste de lignes de document.
+        - ``ListResponse[DocumentLine]`` : Liste de lignes de document.
         """
         if query_params:
             resp = await self._c.request(
@@ -76,11 +76,11 @@ class AsyncDocumentLinesClient:
         Ajoute une ligne à un document.
         
         Arguments:
-        - `document_id`: Identifiant du document.
-        - `line`: Ligne de document.
+        - ``document_id`` : Identifiant du document.
+        - ``line`` : Ligne de document.
         
         Returns:
-        - `DocumentLine`: Ligne de document ajoutée.
+        - ``DocumentLine`` : Ligne de document ajoutée.
         """
         resp = await self._c.request(
             "POST",
@@ -94,11 +94,11 @@ class AsyncDocumentLinesClient:
         Récupère une ligne de document par son identifiant.
         
         Arguments:
-        - `document_id`: Identifiant du document.
-        - `line_id`: Identifiant de la ligne de document.
+        - ``document_id`` : Identifiant du document.
+        - ``line_id`` : Identifiant de la ligne de document.
         
         Returns:
-        - `DocumentLine`: Ligne de document.
+        - ``DocumentLine`` : Ligne de document.
         """
         resp = await self._c.request("GET", f"{DOCUMENT_ENDPOINT}/{document_id}/lines/{line_id}")
         return DocumentLine.model_validate(resp.json())
@@ -108,12 +108,12 @@ class AsyncDocumentLinesClient:
         Met à jour une ligne de document.
         
         Arguments:
-        - `document_id`: Identifiant du document.
-        - `line_id`: Identifiant de la ligne de document.
-        - `line`: Ligne de document.
+        - ``document_id`` : Identifiant du document.
+        - ``line_id`` : Identifiant de la ligne de document.
+        - ``line`` : Ligne de document.
         
         Returns:
-        - `DocumentLine`: Ligne de document modifiée.
+        - ``DocumentLine`` : Ligne de document modifiée.
         """
         resp = await self._c.request(
             "PUT",
@@ -127,11 +127,11 @@ class AsyncDocumentLinesClient:
         Supprime une ligne de document.
         
         Arguments:
-        - `document_id`: Identifiant du document.
-        - `line_id`: Identifiant de la ligne de document.
+        - ``document_id`` : Identifiant du document.
+        - ``line_id`` : Identifiant de la ligne de document.
         
         Returns:
-        - `None`
+        - ``None``
         """
         await self._c.request("DELETE", f"{DOCUMENT_ENDPOINT}/{document_id}/lines/{line_id}")
 
@@ -140,12 +140,12 @@ class AsyncDocumentLinesClient:
         Déplace une ligne vers une position donnée.
         
         Arguments:
-        - `document_id`: Identifiant du document.
-        - `line_id`: Identifiant de la ligne de document.
-        - `to`: Position de destination.
+        - ``document_id`` : Identifiant du document.
+        - ``line_id`` : Identifiant de la ligne de document.
+        - ``to`` : Position de destination.
         
         Returns:
-        - `None`
+        - ``None``
         """
         await self._c.request(
             "POST",

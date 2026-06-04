@@ -232,12 +232,12 @@
 
 <span class="sd">Classes:</span>
 <span class="sd">--------</span>
-<span class="sd">- `henrri_connect.units.asynchro.AsyncUnitsClient`:</span>
+<span class="sd">- ``henrri_connect.units.asynchro.AsyncUnitsClient`` :</span>
 <span class="sd">    Accès asynchrone aux endpoints unités.</span>
 
 <span class="sd">Notes:</span>
-<span class="sd">-----</span>
-<span class="sd">- Utiliser de préférence l&#39;objet `henrri_connect.AsyncHenrriClient` pour acceder aux endpoints.</span>
+<span class="sd">------</span>
+<span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
@@ -257,17 +257,17 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Accès asynchrone aux unités.</span>
 
-<span class="sd">    Arugments:</span>
+<span class="sd">    Arugments</span>
 <span class="sd">    - client : AsyncHenrriClient</span>
-<span class="sd">        Client asynchrone pour acceder aux endpoints.</span>
+<span class="sd">      Client asynchrone pour acceder aux endpoints.</span>
 
-<span class="sd">    Methods:</span>
+<span class="sd">    Methods</span>
 <span class="sd">    - list_units()</span>
-<span class="sd">        Liste toutes les unités disponibles.</span>
+<span class="sd">      Liste toutes les unités disponibles.</span>
 <span class="sd">    - add(unit: Unit)</span>
-<span class="sd">        Crée une nouvelle unité.</span>
+<span class="sd">      Crée une nouvelle unité.</span>
 <span class="sd">    - get(unit_id: int)</span>
-<span class="sd">        Récupère une unité par son identifiant.</span>
+<span class="sd">      Récupère une unité par son identifiant.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">AsyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -279,11 +279,11 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Liste toutes les unités disponibles.</span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
-<span class="sd">        - `None`</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``None``</span>
 <span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">        - `ListResponse[Unit]`: Liste de unités.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        - ``ListResponse[Unit]`` : Liste de unités.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">UNITS_ENDPOINT</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ListResponse</span><span class="p">[</span><span class="n">Unit</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -295,11 +295,11 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Crée une nouvelle unité.</span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
-<span class="sd">        - `unit: Unit`: Unité à crée.</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``unit: Unit`` : Unité à crée.</span>
 <span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">        - `Unit`: Unité crée.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Unit`` : Unité crée.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
@@ -315,11 +315,11 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Récupère une unité par son identifiant.</span>
 <span class="sd">        </span>
-<span class="sd">        Arguments:</span>
-<span class="sd">        - `unit_id` (int): Identifiant de l&#39;unité.</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``unit_id`` (int) : Identifiant de l&#39;unité.</span>
 <span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">        - `Unit`: Unité.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Unit`` : Unité.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">UNITS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">unit_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Unit</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>

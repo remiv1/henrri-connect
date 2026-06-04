@@ -29,6 +29,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx_autodoc_typehints',
     'sphinx_design',
+    'sphinxcontrib.programoutput',
 ]
 
 # Génération automatique des pages de résumé
@@ -40,6 +41,7 @@ autodoc_default_options = {
     'undoc-members': False,
     'show-inheritance': True,
     'member-order': 'bysource',
+    'no-index': True,
 }
 
 # Affichage des type hints dans la description (pas dans la signature)
@@ -60,5 +62,5 @@ language = 'fr'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'furo'
-html_static_path = ['_static']
+html_static_path = ['source/_static']
 html_css_files = ['custom.css']

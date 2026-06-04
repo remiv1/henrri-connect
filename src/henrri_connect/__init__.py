@@ -3,10 +3,10 @@ Façade principale du package henrri_connect.
 
 Classes:
 --------
-- `henrri_connect.AsyncHenrriClient`:
-    Client HTTP Henrri asynchrone.
-- `henrri_connect.SyncHenrriClient`:
-    Client HTTP Henrri synchrone.
+- ``henrri_connect.AsyncHenrriClient`` :
+  Client HTTP Henrri asynchrone.
+- ``henrri_connect.SyncHenrriClient`` :
+  Client HTTP Henrri synchrone.
     
 Exemples:
 ---------

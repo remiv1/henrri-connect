@@ -232,12 +232,12 @@
 
 <span class="sd">Classes:</span>
 <span class="sd">--------</span>
-<span class="sd">- `henrri_connect.documents.asynchro.AsyncDocumentsClient`:</span>
+<span class="sd">- ``henrri_connect.documents.asynchro.AsyncDocumentsClient`` :</span>
 <span class="sd">    Accès asynchrone aux endpoints documents.</span>
 
 <span class="sd">Notes:</span>
-<span class="sd">-----</span>
-<span class="sd">- Utiliser de préférence l&#39;objet `henrri_connect.AsyncHenrriClient` pour acceder aux endpoints.</span>
+<span class="sd">------</span>
+<span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
@@ -269,27 +269,27 @@
 <span class="sd">    Accès asynchrone aux endpoints documents.</span>
 <span class="sd">    </span>
 <span class="sd">    Arguments:</span>
-<span class="sd">    - `client`: Objet `henrri_connect.AsyncHenrriClient`.</span>
+<span class="sd">    - ``client`` : Objet ``henrri_connect.AsyncHenrriClient``.</span>
 <span class="sd">    </span>
 <span class="sd">    Methods:</span>
-<span class="sd">    - `list_documents`: Liste tous les documents.</span>
-<span class="sd">    - `add`: Ajoute un document.</span>
-<span class="sd">    - `get`: Accès au document par son ID.</span>
-<span class="sd">    - `get_with_all`: Accès au document par son ID avec toutes ses relations incluses.</span>
-<span class="sd">    - `get_all_included`: Accès au document par son ID avec toutes ses données incluses.</span>
-<span class="sd">    - `modify`: Modifie un document par son ID.</span>
-<span class="sd">    - `delete`: Supprime un document par son ID.</span>
-<span class="sd">    - `get_tax_details`: Accès aux taxes d&#39;un document par son ID.</span>
-<span class="sd">    - `validate`: Valide un document.</span>
-<span class="sd">    - `get_pdf_url`: Accès au document par son ID et son GUID.</span>
-<span class="sd">    - `get_pdf_bytes`: Accès au document par son ID et son GUID.</span>
-<span class="sd">    - `get_pdf_file`: Accès au document par son ID et son GUID.</span>
-<span class="sd">    - `get_display`: Accès aux données d&#39;affichage d&#39;un document par son ID.</span>
-<span class="sd">    - `get_payment_milestones`: Accès aux milestones de paiement d&#39;un document par son ID.</span>
-<span class="sd">    - `finalize`: Finalise un document.</span>
-<span class="sd">    - `transform_to_invoice`: Transforme un document (devis, bon de livraison...) en facture.</span>
-<span class="sd">    - `get_next_code_batch`: Accès au code de batch suivant.</span>
-<span class="sd">    - `list_with_selected_fields`: Liste les documents avec sélection de champs.</span>
+<span class="sd">    - ``list_documents`` : Liste tous les documents.</span>
+<span class="sd">    - ``add`` : Ajoute un document.</span>
+<span class="sd">    - ``get`` : Accès au document par son ID.</span>
+<span class="sd">    - ``get_with_all`` : Accès au document par son ID avec toutes ses relations incluses.</span>
+<span class="sd">    - ``get_all_included`` : Accès au document par son ID avec toutes ses données incluses.</span>
+<span class="sd">    - ``modify`` : Modifie un document par son ID.</span>
+<span class="sd">    - ``delete`` : Supprime un document par son ID.</span>
+<span class="sd">    - ``get_tax_details`` : Accès aux taxes d&#39;un document par son ID.</span>
+<span class="sd">    - ``validate`` : Valide un document.</span>
+<span class="sd">    - ``get_pdf_url`` : Accès au document par son ID et son GUID.</span>
+<span class="sd">    - ``get_pdf_bytes`` : Accès au document par son ID et son GUID.</span>
+<span class="sd">    - ``get_pdf_file`` : Accès au document par son ID et son GUID.</span>
+<span class="sd">    - ``get_display`` : Accès aux données d&#39;affichage d&#39;un document par son ID.</span>
+<span class="sd">    - ``get_payment_milestones`` : Accès aux milestones de paiement d&#39;un document par son ID.</span>
+<span class="sd">    - ``finalize`` : Finalise un document.</span>
+<span class="sd">    - ``transform_to_invoice`` : Transforme un document (devis, bon de livraison...) en facture.</span>
+<span class="sd">    - ``get_next_code_batch`` : Accès au code de batch suivant.</span>
+<span class="sd">    - ``list_with_selected_fields`` : Liste les documents avec sélection de champs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">AsyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -302,10 +302,10 @@
 <span class="sd">        Liste les documents avec pagination et filtres optionnels.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `request` (DocumentQuery): Paramètres de recherche.</span>
+<span class="sd">        - ``request`` (DocumentQuery) : Paramètres de recherche.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">        - `PagedListResponse[Document]`: Liste paginée de documents.</span>
+<span class="sd">        - ``PagedListResponse[Document]`` : Liste paginée de documents.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">by_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">DOCUMENTS_ENDPOINT</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
@@ -319,10 +319,10 @@
 <span class="sd">        Crée un nouveau document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `document` (Document): Document à créer.</span>
+<span class="sd">        - ``document`` (Document) : Document à créer.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `Document`: Document créé.</span>
+<span class="sd">        - ``Document`` : Document créé.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
@@ -339,10 +339,10 @@
 <span class="sd">        Récupère un document par son identifiant.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `Document`: Document trouvé.</span>
+<span class="sd">        - ``Document`` : Document trouvé.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -355,10 +355,10 @@
 <span class="sd">        Récupère un document avec toutes ses relations incluses.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `Document`: Document avec toutes ses relations incluses.</span>
+<span class="sd">        - ``Document`` : Document avec toutes ses relations incluses.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/with-all&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -371,10 +371,10 @@
 <span class="sd">        Récupère un document avec toutes ses données incluses.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `Document`: Document avec toutes ses données incluses.</span>
+<span class="sd">        - ``Document`` : Document avec toutes ses données incluses.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/all-included&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -387,11 +387,11 @@
 <span class="sd">        Met à jour un document existant.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
-<span class="sd">        - `document` (Document): Document à mettre à jour.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+<span class="sd">        - ``document`` (Document) : Document à mettre à jour.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `Document`: Document mis à jour.</span>
+<span class="sd">        - ``Document`` : Document mis à jour.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
@@ -408,7 +408,7 @@
 <span class="sd">        Supprime un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
@@ -420,10 +420,10 @@
 <span class="sd">        Récupère le détail des taxes d&#39;un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `TaxDetailArray`: Détail des taxes du document.</span>
+<span class="sd">        - ``TaxDetailArray`` : Détail des taxes du document.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/tax-details&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">TaxDetailArray</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -436,11 +436,11 @@
 <span class="sd">        Valide électroniquement un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
-<span class="sd">        - `request` (ValidateDocumentRequest): Dossier à valider.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+<span class="sd">        - ``request`` (ValidateDocumentRequest) : Dossier à valider.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `Document`: Document validé.</span>
+<span class="sd">        - ``Document`` : Document validé.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
@@ -457,10 +457,10 @@
 <span class="sd">        Génère une URL de téléchargement pour le PDF d&#39;un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `PdfUrlResponse`: URL de téléchargement du PDF du document.</span>
+<span class="sd">        - ``PdfUrlResponse`` : URL de téléchargement du PDF du document.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/pdf/url&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">PdfUrlResponse</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -473,10 +473,10 @@
 <span class="sd">        Télécharge le PDF d&#39;un document (retourne les octets bruts).</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `bytes`: Octets bruts du PDF du document.</span>
+<span class="sd">        - ``bytes`` : Octets bruts du PDF du document.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/pdf&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">content</span></div>
@@ -489,11 +489,11 @@
 <span class="sd">        Télécharge un fichier PDF identifié par son GUID.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
-<span class="sd">        - `guid` (str): GUID du fichier PDF.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+<span class="sd">        - ``guid`` (str) : GUID du fichier PDF.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `bytes`: Octets bruts du fichier PDF.</span>
+<span class="sd">        - ``bytes`` : Octets bruts du fichier PDF.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/pdf/files/</span><span class="si">{</span><span class="n">guid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">content</span></div>
@@ -506,10 +506,10 @@
 <span class="sd">        Récupère les données d&#39;affichage d&#39;un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `Document`: Document avec les données d&#39;affichage.</span>
+<span class="sd">        - ``Document`` : Document avec les données d&#39;affichage.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/display&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -522,10 +522,10 @@
 <span class="sd">        Récupère les jalons de paiement d&#39;un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `ListResponse[PaymentMilestone]`: Liste des jalons de paiement du document.</span>
+<span class="sd">        - ``ListResponse[PaymentMilestone]`` : Liste des jalons de paiement du document.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/paymentmilestones&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ListResponse</span><span class="p">[</span><span class="n">PaymentMilestone</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -538,10 +538,10 @@
 <span class="sd">        Finalise un document.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `Document`: Document finalisé.</span>
+<span class="sd">        - ``Document`` : Document finalisé.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/finalize&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -554,10 +554,10 @@
 <span class="sd">        Transforme un document (devis, bon de livraison…) en facture.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `doc_id` (int): Identifiant du document.</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `Document`: Document transformé en facture.</span>
+<span class="sd">        - ``Document`` : Document transformé en facture.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/transform-to-invoice&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -570,7 +570,7 @@
 <span class="sd">        Récupère le prochain numéro de lot pour un devis.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">        - `object`: Numéro de lot.</span>
+<span class="sd">        - ``object`` : Numéro de lot.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/next-quote-batch&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span></div>
@@ -590,13 +590,13 @@
 <span class="sd">        Liste les documents avec sélection de champs.</span>
 <span class="sd">        </span>
 <span class="sd">        Arguments:</span>
-<span class="sd">        - `page` (int): Numéro de page (par d&amp;eacute;faut 1).</span>
-<span class="sd">        - `limit` (int): Nombre de documents par page (par d&amp;eacute;faut 50).</span>
-<span class="sd">        - `fields` (str | None): Champs à retourner (par d&amp;eacute;faut None).</span>
-<span class="sd">        - `**kwargs` (object): Autres paramètres.</span>
+<span class="sd">        - ``page`` (int) : Numéro de page (par d&amp;eacute;faut 1).</span>
+<span class="sd">        - ``limit`` (int) : Nombre de documents par page (par d&amp;eacute;faut 50).</span>
+<span class="sd">        - ``fields`` (str | None) : Champs à retourner (par d&amp;eacute;faut None).</span>
+<span class="sd">        - ``**kwargs`` (object) : Autres paramètres.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">        - `PagedListResponse[Document]`: Liste de documents.</span>
+<span class="sd">        - ``PagedListResponse[Document]`` : Liste de documents.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="n">clean</span><span class="p">({</span><span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span> <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span> <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">})</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
