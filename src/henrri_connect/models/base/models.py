@@ -16,8 +16,8 @@ from pydantic.alias_generators import to_camel
 class CamelModel(BaseModel):
     """
     Modèle de base avec conversion automatique camelCase ↔ snake_case.
-    
-    Attributs:
+
+    Attributs
     - model_config: Configuration du modèle pour activer la conversion automatique des
     noms de champs.
     """
@@ -30,8 +30,8 @@ class CamelModel(BaseModel):
 class Link(CamelModel):
     """
     Représente un lien hypertexte.
-    
-    Attributs:
+
+    Attributs
     - href: URL du lien.
     - rel: Relation du lien.
     - method: Méthode HTTP du lien.
@@ -46,8 +46,8 @@ class Link(CamelModel):
 class MetaPagedListResponse(CamelModel):
     """
     Représente les métadonnées d'une réponse de liste paginée.
-    
-    Attributs:
+
+    Attributs
     - page: Numéro de la page.
     - limit: Nombre d'éléments par page.
     - total_count: Nombre total d'éléments.
@@ -64,8 +64,8 @@ class MetaPagedListResponse(CamelModel):
 class MetaListResponse(CamelModel):
     """
     Représente les métadonnées d'une réponse de liste.
-    
-    Attributs:
+
+    Attributs
     - total_count: Nombre total d'éléments.
     """
     total_count: int = 0

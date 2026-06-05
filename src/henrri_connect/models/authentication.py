@@ -15,7 +15,7 @@ from .base import CamelModel
 class AuthenticateRequest(CamelModel):
     """
     Représente une requête d'authentification pour obtenir un token d'accès.
-    
+
     Attributs:
     - client_id: Identifiant du client.
     - client_secret: Secret du client.

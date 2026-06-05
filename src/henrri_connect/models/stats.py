@@ -13,7 +13,7 @@ from .base import CamelModel
 class RevenueStatistics(CamelModel):
     """
     Représente les statistiques de revenus dans l'API Henrri Connect.
-    
+
     Attributs:
     - year: Année des statistiques.
     - total_services_revenue: Revenu total des services.
@@ -31,7 +31,7 @@ class RevenueStatistics(CamelModel):
 class MonthlyRevenueStatistics(CamelModel):
     """
     Représente les statistiques de revenus mensuels dans l'API Henrri Connect.
-    
+
     Attributs:
     - month: Mois des statistiques.
     - year: Année des statistiques.

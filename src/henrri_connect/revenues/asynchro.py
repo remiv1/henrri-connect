@@ -2,12 +2,10 @@
 Sous-client pour les endpoints /v1/revenues.
 
 Classes:
---------
-- ``henrri_connect.revenues.asynchro.AsyncRevenuesClient`` :
+- ``henrri_connect.revenues.asynchro.AsyncRevenuesClient``
     Accès asynchrone aux endpoints revenus.
 
 Notes:
-------
 - Utiliser de préférence l'objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.
 """
 
@@ -25,10 +23,10 @@ REVENUES_ENDPOINT = "/v1/revenues"
 class AsyncRevenuesClient:
     """
     Accès asynchrone aux statistiques de revenus.
-    
+
     Parameters:
     - ``client`` (AsyncHenrriClient) : Client HTTP.
-    
+
     Methods:
     - ``get_annual(self, year: int)`` : Récupère les statistiques de revenus annuelles.
     - ``get_monthly(self, year: int)`` : Récupère les statistiques de revenus mensuelles
@@ -41,10 +39,10 @@ class AsyncRevenuesClient:
     async def get_annual(self, year: int) -> RevenueStatistics:
         """
         Récupère les statistiques de revenus annuelles.
-        
+
         Arguments:
         - ``year`` (int) : Année de recherche.
-        
+
         Returns:
         - ``RevenueStatistics`` : Statistiques de revenus annuelles.
         """
@@ -54,10 +52,10 @@ class AsyncRevenuesClient:
     async def get_monthly(self, year: int) -> list[MonthlyRevenueStatistics]:
         """
         Récupère les statistiques de revenus mensuelles pour une année.
-        
+
         Arguments:
         - ``year`` (int) : Année de recherche.
-        
+
         Returns:
         - ``list[MonthlyRevenueStatistics]`` : Statistiques de revenus mensuelles.
         """

@@ -2,12 +2,10 @@
 Sous-client pour les endpoints /v1/documents.
 
 Classes:
---------
-- ``henrri_connect.documents.synchro.SyncDocumentsClient`` :
+- ``henrri_connect.documents.synchro.SyncDocumentsClient``
     Accès synchrone aux endpoints documents.
 
 Notes:
-------
 - Utiliser de préférence l'objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 """
 
@@ -36,11 +34,11 @@ DOCUMENTS_ENDPOINT = "/v1/documents"
 class SyncDocumentsClient:
     """
     Accès synchrone aux endpoints documents.
-    
-    Arguments:
+
+    Arguments
     - ``client`` : Objet ``henrri_connect.AsyncHenrriClient``.
-    
-    Methods:
+
+    Methods
     - ``list_documents`` : Liste tous les documents.
     - ``add`` : Ajoute un document.
     - ``get`` : Accès au document par son ID.
@@ -67,11 +65,11 @@ class SyncDocumentsClient:
     def list_documents(self, *, request: DocumentQuery) -> PagedListResponse[Document]:
         """
         Liste les documents avec pagination et filtres optionnels.
-        
-        Arguments:
+
+        Arguments
         - ``request`` (DocumentQuery) : Paramètres de recherche.
 
-        Returns:
+        Returns
         - ``PagedListResponse[Document]`` : Liste paginée de documents.
         """
         params = clean(request.model_dump(by_alias=True))
@@ -83,13 +81,13 @@ class SyncDocumentsClient:
         Crée un nouveau document.
         Les champs unset ou None du document sont exclus de la requête.
 
-        Args:
+        Args
         - document (Document) : Document à créer.
 
-        Returns:
+        Returns
         - Document: Le document créé avec les données retournées par l'API.
 
-        Raises:
+        Raises
         - HTTPError: Si la requête échoue (code de statut 4xx ou 5xx).
         """
         resp = self._c.request(
@@ -102,14 +100,14 @@ class SyncDocumentsClient:
     def get(self, doc_id: int) -> Document:
         """
         Récupère un document par son identifiant.
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document à reafficher.
-        
-        Returns:
+
+        Returns
         - Document: Le document retourné par l'API.
-        
-        Raises:
+
+        Raises
         - HTTPError: Si la requête échoue (code de statut 4xx ou 5xx).
         """
         resp = self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}")
@@ -118,11 +116,11 @@ class SyncDocumentsClient:
     def get_with_all(self, doc_id: int) -> Document:
         """
         Récupère un document avec toutes ses relations incluses.
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document à reafficher.
-        
-        Returns:
+
+        Returns
         - Document: Le document retourné par l'API.
         """
         resp = self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/with-all")
@@ -131,11 +129,11 @@ class SyncDocumentsClient:
     def get_all_included(self, doc_id: int) -> Document:
         """
         Récupère un document avec toutes ses données incluses.
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document à reafficher.
-        
-        Returns:
+
+        Returns
         - Document: Le document retourné par l'API.
         """
         resp = self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/all-included")
@@ -144,12 +142,12 @@ class SyncDocumentsClient:
     def modify(self, doc_id: int, document: Document) -> Document:
         """
         Met à jour un document existant.
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document à mettre à jour.
         - document (Document) : Document à mettre à jour.
-        
-        Returns:
+
+        Returns
         - Document: Le document mis à jour par l'API.
         """
         resp = self._c.request(
@@ -162,8 +160,8 @@ class SyncDocumentsClient:
     def delete(self, doc_id: int) -> None:
         """
         Supprime un document.
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document à supprimer.
         """
         self._c.request("DELETE", f"{DOCUMENTS_ENDPOINT}/{doc_id}")
@@ -171,11 +169,11 @@ class SyncDocumentsClient:
     def get_tax_details(self, doc_id: int) -> TaxDetailArray:
         """
         Récupère le détail des taxes d'un document.
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - TaxDetailArray: Le détail des taxes retourné par l'API.
         """
         resp = self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/tax-details")
@@ -184,12 +182,12 @@ class SyncDocumentsClient:
     def validate(self, doc_id: int, request: ValidateDocumentRequest) -> Document:
         """
         Valide électroniquement un document.
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document à valider.
         - request (ValidateDocumentRequest) : La requête de validation du document.
-        
-        Returns:
+
+        Returns
         - Document: Le document validé par l'API.
         """
         resp = self._c.request(
@@ -202,11 +200,11 @@ class SyncDocumentsClient:
     def get_pdf_url(self, doc_id: int) -> PdfUrlResponse:
         """
         Génère une URL de téléchargement pour le PDF d'un document.
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - PdfUrlResponse: L'URL de téléchargement du PDF retourné par l'API.
         """
         resp = self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{doc_id}/pdf/url")
@@ -215,11 +213,11 @@ class SyncDocumentsClient:
     def get_pdf_bytes(self, doc_id: int) -> bytes:
         """
         Télécharge le PDF d'un document (retourne les octets bruts).
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - bytes: Les octets bruts du PDF retourné par l'API.
         """
         resp = self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/pdf")
@@ -228,12 +226,12 @@ class SyncDocumentsClient:
     def get_pdf_file(self, doc_id: int, guid: str) -> bytes:
         """
         Télécharge un fichier PDF identifié par son GUID.
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document.
         - guid (str) : GUID du fichier PDF.
-        
-        Returns:
+
+        Returns
         - bytes: Les octets bruts du fichier PDF retourné par l'API.
         """
         resp = self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/pdf/files/{guid}")
@@ -242,11 +240,11 @@ class SyncDocumentsClient:
     def get_display(self, doc_id: int) -> Document:
         """
         Récupère les données d'affichage d'un document.
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - Document: Les données d'affichage du document retourné par l'API.
         """
         resp = self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/display")
@@ -255,11 +253,11 @@ class SyncDocumentsClient:
     def get_payment_milestones(self, doc_id: int) -> ListResponse[PaymentMilestone]:
         """
         Récupère les jalons de paiement d'un document.
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - ListResponse[PaymentMilestone]: La liste des jalons de paiement du document retourné
         par l'API.
         """
@@ -269,11 +267,11 @@ class SyncDocumentsClient:
     def finalize(self, doc_id: int) -> Document:
         """
         Finalise un document.
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document à finaliser.
-        
-        Returns:
+
+        Returns
         - Document: Le document finalisé par l'API.
         """
         resp = self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{doc_id}/finalize")
@@ -282,11 +280,11 @@ class SyncDocumentsClient:
     def transform_to_invoice(self, doc_id: int) -> Document:
         """
         Transforme un document (devis, bon de livraison…) en facture.
-        
-        Arguments:
+
+        Arguments
         - doc_id (int) : Identifiant du document à transformer en facture.
-        
-        Returns:
+
+        Returns
         - Document: Le document transformé en facture par l'API.
         """
         resp = self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{doc_id}/transform-to-invoice")
@@ -295,8 +293,8 @@ class SyncDocumentsClient:
     def get_next_quote_batch(self) -> object:
         """
         Récupère le prochain numéro de lot pour un devis.
-        
-        Returns:
+
+        Returns
         - object: Le numéro de lot retourné par l'API.
         """
         resp = self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/next-quote-batch")
@@ -312,13 +310,13 @@ class SyncDocumentsClient:
     ) -> PagedListResponse[Document]:
         """
         Liste les documents avec sélection de champs.
-        
-        Arguments:
+
+        Arguments
         - page (int) : Numéro de page.
         - limit (int) : Nombre d'articles par page.
         - fields (str | None) : Champs à retourner.
-        
-        Returns:
+
+        Returns
         - PagedListResponse[Document]: La liste des documents retourné par l'API.
         """
         params = clean({"page": page, "limit": limit, "fields": fields, **kwargs})

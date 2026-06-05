@@ -21,8 +21,8 @@ T = TypeVar("T")
 class Cell(CamelModel):
     """
     Représente une cellule de total dans une réponse paginée.
-    
-    Attributs:
+
+    Attributs
     - name: Nom de la cellule.
     - value: Valeur de la cellule.
     - type: Type de la cellule.
@@ -41,8 +41,8 @@ class Cell(CamelModel):
 class ElementDisplay(CamelModel):
     """
     Représente les informations d'affichage pour un élément dans une réponse paginée.
-    
-    Attributs:
+
+    Attributs
     - id: Identifiant de l'élément.
     - title: Titre de l'élément.
     - index: Index de l'élément.
@@ -57,8 +57,8 @@ class ElementDisplay(CamelModel):
 class PagedListResponse(CamelModel, Generic[T]):
     """
     Réponse paginée générique.
-    
-    Attributs:
+
+    Attributs
     - elements: Liste d'éléments de la page.
     - totals: Liste de cellules de total pour la page (si applicable).
     - display: Liste d'informations d'affichage pour les éléments de la page (si applicable).
@@ -74,8 +74,8 @@ class PagedListResponse(CamelModel, Generic[T]):
 class ListResponse(CamelModel, Generic[T]) :
     """
     Réponse liste générique.
-    
-    Attributs:
+
+    Attributs
     - elements: Liste d'éléments.
     - meta: Métadonnées de la réponse liste (si applicable).
     """

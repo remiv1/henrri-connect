@@ -13,7 +13,7 @@ from .address_contacts import Address
 class Company(CamelModel):
     """
     Représente une entreprise dans l'API Henrri Connect.
-    
+
     Attributs:
     - id: Identifiant unique de l'entreprise.
     - name: Nom de l'entreprise.

@@ -2,12 +2,10 @@
 Sous-client pour les endpoints /v1/documents.
 
 Classes:
---------
-- ``henrri_connect.documents.asynchro.AsyncDocumentsClient`` :
+- ``henrri_connect.documents.asynchro.AsyncDocumentsClient``
     Accès asynchrone aux endpoints documents.
 
 Notes:
-------
 - Utiliser de préférence l'objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.
 """
 
@@ -36,11 +34,11 @@ DOCUMENTS_ENDPOINT = "/v1/documents"
 class AsyncDocumentsClient:
     """
     Accès asynchrone aux endpoints documents.
-    
-    Arguments:
+
+    Arguments
     - ``client`` : Objet ``henrri_connect.AsyncHenrriClient``.
-    
-    Methods:
+
+    Methods
     - ``list_documents`` : Liste tous les documents.
     - ``add`` : Ajoute un document.
     - ``get`` : Accès au document par son ID.
@@ -67,11 +65,11 @@ class AsyncDocumentsClient:
     async def list_documents(self, *, request: DocumentQuery) -> PagedListResponse[Document]:
         """
         Liste les documents avec pagination et filtres optionnels.
-        
-        Arguments:
+
+        Arguments
         - ``request`` (DocumentQuery) : Paramètres de recherche.
 
-        Returns:
+        Returns
         - ``PagedListResponse[Document]`` : Liste paginée de documents.
         """
         params = clean(request.model_dump(by_alias=True))
@@ -81,11 +79,11 @@ class AsyncDocumentsClient:
     async def add(self, document: Document) -> Document:
         """
         Crée un nouveau document.
-        
-        Arguments:
+
+        Arguments
         - ``document`` (Document) : Document à créer.
-        
-        Returns:
+
+        Returns
         - ``Document`` : Document créé.
         """
         resp = await self._c.request(
@@ -98,11 +96,11 @@ class AsyncDocumentsClient:
     async def get(self, doc_id: int) -> Document:
         """
         Récupère un document par son identifiant.
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - ``Document`` : Document trouvé.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}")
@@ -111,11 +109,11 @@ class AsyncDocumentsClient:
     async def get_with_all(self, doc_id: int) -> Document:
         """
         Récupère un document avec toutes ses relations incluses.
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - ``Document`` : Document avec toutes ses relations incluses.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/with-all")
@@ -124,11 +122,11 @@ class AsyncDocumentsClient:
     async def get_all_included(self, doc_id: int) -> Document:
         """
         Récupère un document avec toutes ses données incluses.
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - ``Document`` : Document avec toutes ses données incluses.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/all-included")
@@ -137,12 +135,12 @@ class AsyncDocumentsClient:
     async def modify(self, doc_id: int, document: Document) -> Document:
         """
         Met à jour un document existant.
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
         - ``document`` (Document) : Document à mettre à jour.
-        
-        Returns:
+
+        Returns
         - ``Document`` : Document mis à jour.
         """
         resp = await self._c.request(
@@ -155,8 +153,8 @@ class AsyncDocumentsClient:
     async def delete(self, doc_id: int) -> None:
         """
         Supprime un document.
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
         """
         await self._c.request("DELETE", f"{DOCUMENTS_ENDPOINT}/{doc_id}")
@@ -164,11 +162,11 @@ class AsyncDocumentsClient:
     async def get_tax_details(self, doc_id: int) -> TaxDetailArray:
         """
         Récupère le détail des taxes d'un document.
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - ``TaxDetailArray`` : Détail des taxes du document.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/tax-details")
@@ -177,12 +175,12 @@ class AsyncDocumentsClient:
     async def validate(self, doc_id: int, request: ValidateDocumentRequest) -> Document:
         """
         Valide électroniquement un document.
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
         - ``request`` (ValidateDocumentRequest) : Dossier à valider.
-        
-        Returns:
+
+        Returns
         - ``Document`` : Document validé.
         """
         resp = await self._c.request(
@@ -195,11 +193,11 @@ class AsyncDocumentsClient:
     async def get_pdf_url(self, doc_id: int) -> PdfUrlResponse:
         """
         Génère une URL de téléchargement pour le PDF d'un document.
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - ``PdfUrlResponse`` : URL de téléchargement du PDF du document.
         """
         resp = await self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{doc_id}/pdf/url")
@@ -208,11 +206,11 @@ class AsyncDocumentsClient:
     async def get_pdf_bytes(self, doc_id: int) -> bytes:
         """
         Télécharge le PDF d'un document (retourne les octets bruts).
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - ``bytes`` : Octets bruts du PDF du document.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/pdf")
@@ -221,12 +219,12 @@ class AsyncDocumentsClient:
     async def get_pdf_file(self, doc_id: int, guid: str) -> bytes:
         """
         Télécharge un fichier PDF identifié par son GUID.
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
         - ``guid`` (str) : GUID du fichier PDF.
-        
-        Returns:
+
+        Returns
         - ``bytes`` : Octets bruts du fichier PDF.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/pdf/files/{guid}")
@@ -235,11 +233,11 @@ class AsyncDocumentsClient:
     async def get_display(self, doc_id: int) -> Document:
         """
         Récupère les données d'affichage d'un document.
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - ``Document`` : Document avec les données d'affichage.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/display")
@@ -248,11 +246,11 @@ class AsyncDocumentsClient:
     async def get_payment_milestones(self, doc_id: int) -> ListResponse[PaymentMilestone]:
         """
         Récupère les jalons de paiement d'un document.
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - ``ListResponse[PaymentMilestone]`` : Liste des jalons de paiement du document.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/paymentmilestones")
@@ -261,11 +259,11 @@ class AsyncDocumentsClient:
     async def finalize(self, doc_id: int) -> Document:
         """
         Finalise un document.
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - ``Document`` : Document finalisé.
         """
         resp = await self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{doc_id}/finalize")
@@ -274,11 +272,11 @@ class AsyncDocumentsClient:
     async def transform_to_invoice(self, doc_id: int) -> Document:
         """
         Transforme un document (devis, bon de livraison…) en facture.
-        
-        Arguments:
+
+        Arguments
         - ``doc_id`` (int) : Identifiant du document.
-        
-        Returns:
+
+        Returns
         - ``Document`` : Document transformé en facture.
         """
         resp = await self._c.request("POST", f"{DOCUMENTS_ENDPOINT}/{doc_id}/transform-to-invoice")
@@ -287,8 +285,8 @@ class AsyncDocumentsClient:
     async def get_next_quote_batch(self) -> object:
         """
         Récupère le prochain numéro de lot pour un devis.
-        
-        Returns:
+
+        Returns
         - ``object`` : Numéro de lot.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/next-quote-batch")
@@ -304,14 +302,14 @@ class AsyncDocumentsClient:
     ) -> PagedListResponse[Document]:
         """
         Liste les documents avec sélection de champs.
-        
-        Arguments:
+
+        Arguments
         - ``page`` (int) : Numéro de page (par d&eacute;faut 1).
         - ``limit`` (int) : Nombre de documents par page (par d&eacute;faut 50).
         - ``fields`` (str | None) : Champs à retourner (par d&eacute;faut None).
         - ``**kwargs`` (object) : Autres paramètres.
 
-        Returns:
+        Returns
         - ``PagedListResponse[Document]`` : Liste de documents.
         """
         params = clean({"page": page, "limit": limit, "fields": fields, **kwargs})

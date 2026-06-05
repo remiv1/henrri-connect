@@ -14,7 +14,7 @@ from .address_contacts import Address
 class User(CamelModel):
     """
     Représente un utilisateur dans l'API Henrri Connect.
-    
+
     Attributs:
     - id: Identifiant de l'utilisateur.
     - email: Adresse email de l'utilisateur.

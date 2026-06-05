@@ -23,7 +23,7 @@ from .address_contacts import Address
 class DocumentType(CamelModel):
     """
     Représente un type de document dans l'API Henrri Connect.
-    
+
     Attributs:
     - id: Identifiant unique du type de document.
     - label: Libellé du type de document.
@@ -70,7 +70,7 @@ class DocumentLabelElement(CamelModel):
 class DocumentLabel(CamelModel):
     """
     Représente une étiquette de document dans l'API Henrri Connect.
-    
+
     Attributs:
     - id: Identifiant unique de l'étiquette de document.
     - model_id: Id du modèle auquel appartient l'étiquette de document.
@@ -90,7 +90,7 @@ class DocumentLabel(CamelModel):
 class Document(CamelModel):
     """
     Représente un document dans l'API Henrri Connect.
-    
+
     Attributs:
     - id: Identifiant unique du document.
     - identity: Identité du document.
@@ -156,7 +156,7 @@ class Document(CamelModel):
 class DocumentQuery(CamelModel):
     """
     Représente une requête de document dans l'API Henrri Connect.
-    
+
     Attributs:
     - finalized (bool) : Indique si le document est finalisé.
     - document_types (list[DocumentKind]) :: Type du document.
@@ -186,7 +186,7 @@ class DocumentQuery(CamelModel):
 class ValidateDocumentRequest(CamelModel):
     """
     Représente une requête de validation de document dans l'API Henrri Connect.
-    
+
     Attributs:
     - email: Adresse e-mail de la personne validant le document.
     - first_name: Prénom de la personne validant le document.

@@ -2,26 +2,17 @@
 Sous-client pour les endpoints /v1/companies.
 
 Classes:
---------
-- ``henrri_connect.companies.synchro.SyncCompaniesClient`` :
-  Accès synchrone aux endpoints entreprises.
-
-- ``henrri_connect.companies.asynchro.AsyncCompaniesClient`` :
-  Accès asynchrone aux endpoints entreprises.
+- ``SyncCompaniesClient`` : Accès synchrone aux endpoints entreprises.
+- ``AsyncCompaniesClient`` : Accès asynchrone aux endpoints entreprises.
 
 Models:
--------
-- ``henrri_connect.companies.models.Address`` :
-  Adresse.
-
-- ``henrri_connect.companies.models.Company`` :
-  Entreprise.
+- ``Address`` : Adresse.
+- ``Company`` : Entreprise.
 
 Notes:
-------
-- Utiliser de préférence les objets suivants pour acceder aux endpoints:
-  - ``henrri_connect.SyncHenrriClient``
-  - ``henrri_connect.AsyncHenrriClient``
+Utiliser de préférence les objets suivants pour acceder aux endpoints:
+- ``henrri_connect.SyncHenrriClient``
+- ``henrri_connect.AsyncHenrriClient``
 """
 
 from __future__ import annotations

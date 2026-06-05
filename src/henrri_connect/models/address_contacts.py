@@ -12,7 +12,7 @@ from .base import CamelModel, Link
 class Address(CamelModel):
     """
     Représente une adresse d'entreprise.
-    
+
     Attributs:
     - id: Identifiant unique de l'adresse.
     - address: Adresse de l'entreprise.
@@ -34,7 +34,7 @@ class Address(CamelModel):
 class Contact(CamelModel):
     """
     Représente un contact d'entreprise.
-    
+
     Attributs:
     - id: Identifiant unique du contact.
     - title: Titre du contact.

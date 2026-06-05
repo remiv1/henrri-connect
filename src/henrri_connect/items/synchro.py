@@ -2,12 +2,10 @@
 Sous-client pour les endpoints /v1/items.
 
 Classes:
---------
-- ``henrri_connect.items.synchro.SyncItemsClient`` :
+- ``henrri_connect.items.synchro.SyncItemsClient``
     Accès synchrone aux endpoints articles.
 
 Notes:
-------
 - Utiliser de préférence l'objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 """
 
@@ -27,11 +25,11 @@ ITEMS_ENDPOINT = "/v1/items"
 class SyncItemsClient:
     """
     Accès synchrone aux endpoints articles.
-    
-    Arguments:
+
+    Arguments
     - ``client`` : Objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 
-    Methods:
+    Methods
     - ``list_items`` : Liste les articles avec pagination et filtres optionnels.
     - ``add`` : Crée un nouvel article.
     - ``get`` : Récupère un article par son identifiant.
@@ -73,14 +71,15 @@ class SyncItemsClient:
         ) -> PagedListResponse[Item]:
         """
         Liste les articles avec pagination et filtres optionnels.
-        
-        Arguments:
+
+        Arguments
         - ``request`` (ItemsQuery) : Paramètres de recherche.
         - ``with_selected_fields`` (bool) : Si True, lance une requête de recherche avancée.
         - ``with_totals`` (bool) : Si True, renvoie les totaux.
-        - ``only_current_page`` (bool) : Si True, renvoie uniquement les articles de la page actuelle.
+        - ``only_current_page`` (bool) : Si True, renvoie uniquement les articles de la page
+        actuelle.
 
-        Returns:
+        Returns
         - ``PagedListResponse[Item]`` : Liste paginée d'articles.
         """
         params = clean(request.model_dump(by_alias=True))
@@ -104,11 +103,11 @@ class SyncItemsClient:
     def add(self, item: Item) -> Item:
         """
         Crée un nouvel article.
-        
-        Arguments:
+
+        Arguments
         - ``item`` (Item) : Article à créer.
-        
-        Returns:
+
+        Returns
         - ``Item`` : Article créé.
         """
         resp = self._c.request(
@@ -121,11 +120,11 @@ class SyncItemsClient:
     def get(self, item_id: int) -> Item:
         """
         Récupère un article par son identifiant.
-        
-        Arguments:
+
+        Arguments
         - ``item_id`` (int) : Identifiant de l'article.
-        
-        Returns:
+
+        Returns
         - ``Item`` : Article rencontré.
         """
         resp = self._c.request("GET", f"{ITEMS_ENDPOINT}/{item_id}")
@@ -134,12 +133,12 @@ class SyncItemsClient:
     def modify(self, item_id: int, item: Item) -> Item:
         """
         Met à jour un article existant.
-        
-        Arguments:
+
+        Arguments
         - ``item_id`` (int) : Identifiant de l'article.
         - ``item`` (Item) : Article à mettre à jour.
-        
-        Returns:
+
+        Returns
         - ``Item`` : Article mis à jour.
         """
         resp = self._c.request(
@@ -152,11 +151,11 @@ class SyncItemsClient:
     def delete(self, item_id: int) -> None:
         """
         Supprime un article.
-        
-        Arguments:
+
+        Arguments
         - ``item_id`` (int) : Identifiant de l'article à supprimer.
-        
-        Returns:
+
+        Returns
         - ``None`` : Article supprimé.
         """
         self._c.request("DELETE", f"{ITEMS_ENDPOINT}/{item_id}")
@@ -164,11 +163,11 @@ class SyncItemsClient:
     def get_most_used(self) -> PagedListResponse[Item]:
         """
         Récupère les articles les plus utilisés.
-        
-        Arguments:
+
+        Arguments
         - None
-        
-        Returns:
+
+        Returns
         - ``PagedListResponse[Item]`` : Liste paginée d'articles.
         """
         resp = self._c.request("GET", f"{ITEMS_ENDPOINT}/most-used")
@@ -177,11 +176,11 @@ class SyncItemsClient:
     def get_best_sales(self, *, year: int) -> PagedListResponse[Item]:
         """
         Récupère les articles les plus vendus.
-        
-        Arguments:
+
+        Arguments
         - ``year`` (int) : Année de recherche.
-        
-        Returns:
+
+        Returns
         - ``PagedListResponse[Item]`` : Liste paginée d'articles.
         """
         params = {

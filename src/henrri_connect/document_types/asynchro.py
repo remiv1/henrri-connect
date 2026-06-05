@@ -2,12 +2,10 @@
 Sous-client pour les endpoints /v1/documenttypes.
 
 Classes:
---------
-- ``henrri_connect.document_types.asynchro.AsyncDocumentTypesClient`` :
+- ``henrri_connect.document_types.asynchro.AsyncDocumentTypesClient``
     Accès asynchrone aux endpoints types de documents.
 
 Notes:
-------
 - Utiliser de préférence l'objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.
 """
 
@@ -25,11 +23,11 @@ DOCUMENTTYPE_ENDPOINT = "/v1/documenttypes"
 class AsyncDocumentTypesClient: # pylint: disable=R0903
     """
     Accès asynchrone aux types de documents.
-    
-    Arguments:
+
+    Arguments
     - ``client`` : Objet ``henrri_connect.AsyncHenrriClient``.
-    
-    Methods:
+
+    Methods
     - ``list_document_types`` : Liste tous les types de documents.
     """
 
@@ -39,11 +37,11 @@ class AsyncDocumentTypesClient: # pylint: disable=R0903
     async def list_document_types(self) -> ListResponse[DocumentType]:
         """
         Liste tous les types de documents.
-        
-        Arguments:
+
+        Arguments
         - ``None``
-        
-        Returns:
+
+        Returns
         - ``ListResponse[DocumentType]`` : Liste de types de documents.
         """
         resp = await self._c.request("GET", DOCUMENTTYPE_ENDPOINT)

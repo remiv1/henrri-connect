@@ -2,12 +2,9 @@
 Sous-client pour les endpoints /v1/users.
 
 Classes:
---------
-- ``henrri_connect.users.asynchro.AsyncUsersClient`` :
-    Accès asynchrone aux endpoints utilisateurs.
+- ``henrri_connect.users.asynchro.AsyncUsersClient`` : Accès asynchrone aux endpoints utilisateurs.
 
 Notes:
-------
 - Utiliser de préférence l'objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.
 """
 
@@ -25,22 +22,16 @@ USERS_ENDPOINT = "/v1/users"
 class AsyncUsersClient:
     """
     Accès asynchrone aux endpoints utilisateurs.
-    
+
     Arguments
-    - client : AsyncHenrriClient
-      Client asynchrone pour acceder aux endpoints.
-    
+    - client (AsyncHenrriClient) : Client asynchrone pour acceder aux endpoints.
+
     Methods
-    - get(user_id: int)
-      Récupère un utilisateur par son identifiant.
-    - get_address(user_id: int)
-      Récupère l'adresse d'un utilisateur.
-    - get_companies()
-      Récupère les entreprises associées à l'utilisateur courant.
-    - authenticate()
-      Authentifie via les identifiants du client.
-    - refresh_token(refresh_token: str)
-      Rafraîchit le token d'accès.
+    - get(user_id: int) : Récupère un utilisateur par son identifiant.
+    - get_address(user_id: int) : Récupère l'adresse d'un utilisateur.
+    - get_companies() : Récupère les entreprises associées à l'utilisateur courant.
+    - authenticate() : Authentifie via les identifiants du client.
+    - refresh_token(refresh_token: str) : Rafraîchit le token d'accès.
     """
 
     def __init__(self, client: AsyncHenrriClient) -> None:
@@ -49,7 +40,7 @@ class AsyncUsersClient:
     async def get(self, user_id: int) -> User:
         """
         Récupère un utilisateur par son identifiant.
-        
+
         Arguments
         - ``user_id`` (int) : Identifiant de l'utilisateur.
 
@@ -62,7 +53,7 @@ class AsyncUsersClient:
     async def get_address(self, user_id: int) -> Address:
         """
         Récupère l'adresse d'un utilisateur.
-        
+
         Arguments:
         - ``user_id`` (int) : Identifiant de l'utilisateur.
 
@@ -75,7 +66,7 @@ class AsyncUsersClient:
     async def get_companies(self) -> list[UserAndCompany]:
         """
         Récupère les entreprises associées à l'utilisateur courant.
-        
+
         Returns:
         - ``list[UserAndCompany]`` : Entreprises.
         """
@@ -85,7 +76,7 @@ class AsyncUsersClient:
     async def authenticate(self) -> TokenResponse:
         """
         Authentifie via les identifiants du client.
-        
+
         Returns:
         - ``henrri_connect.models.TokenResponse`` : Objet contenant access_token et refresh_token.
         """
@@ -94,7 +85,7 @@ class AsyncUsersClient:
     async def refresh_token(self, refresh_token: str) -> TokenResponse:
         """
         Rafraîchit le token d'accès.
-        
+
         Arguments:
         - ``refresh_token`` (str) : Token de rafraîchissement.
 

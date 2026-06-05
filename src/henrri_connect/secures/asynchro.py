@@ -2,12 +2,10 @@
 Sous-client pour les endpoints /v1/secures.
 
 Classes:
---------
-- ``henrri_connect.secures.asynchro.AsyncSecuresClient`` :
+- ``henrri_connect.secures.asynchro.AsyncSecuresClient``
     Accès asynchrone aux endpoints safeguards (santé).
 
 Notes:
-------
 - Utiliser de préférence l'objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.
 """
 
@@ -24,7 +22,7 @@ SECURES_ENDPOINT = "/v1/secures"
 class AsyncSecuresClient:   # pylint: disable=R0903
     """
     Accès asynchrone aux endpoints sécurisés (santé).
-    
+
     Arguments
         client : AsyncHenrriClient
         Client asynchrone pour acceder aux endpoints.
@@ -43,7 +41,7 @@ class AsyncSecuresClient:   # pylint: disable=R0903
 
         Arguments
             None
-        
+
         Returns
             str : Texte de la réponse.
         """

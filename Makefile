@@ -6,6 +6,7 @@ RELEASE      := $(shell echo "$(VERSION)" | cut -d. -f1,2)
 
 DOCS_SRC     = docs/source
 DOCS_BUILD   = docs
+DOCS_BUILD_HTML = $(DOCS_BUILD)/build/html
 
 .PHONY: all clean build publish help test docs docs-init docs-clean docs-serve
 
@@ -49,7 +50,7 @@ docs-init:
 
 docs:
 	@echo "—–--–—–--–— Generating Documentation (v$(VERSION)) —–--–—–--–—"
-	sphinx-build -b html $(DOCS_SRC) $(DOCS_BUILD)
+	sphinx-build -b html $(DOCS_SRC) $(DOCS_BUILD_HTML)
 	touch $(DOCS_BUILD)/.nojekyll
 	@echo ""
 	@echo "  Documentation générée dans $(DOCS_BUILD)/index.html"

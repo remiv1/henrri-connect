@@ -20,7 +20,7 @@ from .items import Item
 class DocumentLineType(CamelModel):
     """
     Représente un type de ligne de document dans l'API Henrri Connect.
-    
+
     Attributs:
     - id: Identifiant unique du type de ligne de document.
     - label: Libellé du type de ligne de document.
@@ -37,7 +37,7 @@ class DocumentLine(CamelModel):
 
     ``type_id`` peut être récupéré par un GET sur ``/documentlinetypes`` ou avec
     ``henrry_connect.<client>.document_line_types.list_document_line_types``
-    
+
     Attributs:
     - id: Identifiant unique de la ligne de document.
     - document_id: Identifiant du document auquel appartient la ligne.

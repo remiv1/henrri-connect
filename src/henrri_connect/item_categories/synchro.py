@@ -2,12 +2,10 @@
 Sous-client pour les endpoints /v1/itemcategories.
 
 Classes:
---------
-- ``henrri_connect.item_categories.synchro.SyncItemCategoriesClient`` :
+- ``henrri_connect.item_categories.synchro.SyncItemCategoriesClient``
     Accès synchrone aux endpoints categories d'articles.
 
 Notes:
-------
 - Utiliser de préférence l'objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
 """
 
@@ -27,11 +25,11 @@ ITEMCATEGORIES_ENDPOINT = "/v1/itemcategories"
 class SyncItemCategoriesClient:
     """
     Accès synchrone aux catégories d'articles.
-    
-    Arguments:
+
+    Arguments
     - ``client`` : Objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.
-    
-    Methodes:
+
+    Methodes
     - ``list_item_categories`` : Liste les catégories d'articles avec pagination.
     """
 
@@ -45,11 +43,11 @@ class SyncItemCategoriesClient:
     ) -> PagedListResponse[ItemCategory]:
         """
         Liste les catégories d'articles avec pagination.
-        
-        Arguments:
+
+        Arguments
         - ``request`` (ItemCategoryRequest) : Paramètres de recherche.
 
-        Returns:
+        Returns
         - ``PagedListResponse[ItemCategory]`` : Liste paginée de catégories d'articles.
         """
         params = clean(request.model_dump(by_alias=True))

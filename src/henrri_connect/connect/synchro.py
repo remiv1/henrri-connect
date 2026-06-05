@@ -2,21 +2,18 @@
 Client HTTP Henrri synchrone.
 
 Constants:
-----------
-- ``henrri_connect.connect.synchro._BASE_URL`` :
-     URL de base de l'API Henrri.
-- ``henrri_connect.connect.synchro.APP_VERSION`` :
-     Version de l'application.
-- ``henrri_connect.connect.synchro.APP_X_VERSION`` :
-     Version de l'application.
+- ``henrri_connect.connect.synchro._BASE_URL``
+    URL de base de l'API Henrri.
+- ``henrri_connect.connect.synchro.APP_VERSION``
+    Version de l'application.
+- ``henrri_connect.connect.synchro.APP_X_VERSION``
+    Version de l'application.
 
 Classes:
---------
-- ``henrri_connect.connect.synchro.SyncHenrriClient`` :
-     Client HTTP Henrri synchrone.
+- ``henrri_connect.connect.synchro.SyncHenrriClient``
+    Client HTTP Henrri synchrone.
 
 Exemples:
----------
 .. code-block:: python
 
     # Client synchrone
@@ -25,9 +22,8 @@ Exemples:
     client = SyncHenrriClient("client_id", "client_secret", base_url=<URL de base de l'API>)
 
 Exceptions:
------------
-- ``henrri_connect.exc.HenrriAuthError`` :
-     Erreur d'authentification (HTTP 401).
+- ``henrri_connect.exc.HenrriAuthError``
+    Erreur d'authentification (HTTP 401).
 """
 
 from __future__ import annotations
@@ -67,12 +63,12 @@ class SyncHenrriClient:
     Authentification automatique avec gestion du refresh token
     Gestion centralisée des erreurs HTTP avec exceptions personnalisées
 
-    Arguments:
+    Arguments
     - client_id: Identifiant client pour l'authentification.
     - client_secret: Secret client pour l'authentification.
     - base_url: URL de base de l'API (défaut : sandbox Henrri).
 
-    Methodes:
+    Methodes
     - authenticate: Authentifie le client.
     - request: Effectue une requête HTTP authentifiée.
     - close: Ferme le client HTTP sous-jacent.
@@ -158,10 +154,10 @@ class SyncHenrriClient:
         """
         Authentifie le client et stocke le token d'accès.
 
-        Arguments:
+        Arguments
         - None
 
-        Returns:
+        Returns
         - TokenResponse : objet contenant access_token et refresh_token.
         """
         resp: httpx.Response = self._http.post(
@@ -183,11 +179,11 @@ class SyncHenrriClient:
     def _do_refresh(self) -> None:
         """
         Rafraîchit le token via le refresh token, ou ré-authentifie en cas d'échec.
-        
-        Arguments:
+
+        Arguments
         - None
-        
-        Returns:
+
+        Returns
         - None
         """
         resp: httpx.Response = self._http.post(
@@ -215,17 +211,17 @@ class SyncHenrriClient:
     ) -> httpx.Response:
         """
         Effectue une requête HTTP avec gestion automatique de l'authentification.
-        
-        Arguments:
+
+        Arguments
         - method (str) : Le type de la requête (GET, POST, etc.).
         - path (str) : L'URL de la requête.
         - authenticated (bool, optional) : Indique si la requête doit быть authentifiée.
         - kwargs (dict, optional) : Dictionnaire de paramètres supplémentaires pour la requête.
-        
-        Returns:
+
+        Returns
         - httpx.Response : La réponse de la requête.
-        
-        Raises:
+
+        Raises
         - HenrriAuthError : Erreur d'authentification.
         """
         if authenticated and not self._access_token:
@@ -263,25 +259,25 @@ class SyncHenrriClient:
     def request(self, method: str, endpoint: str, **kwargs: Any) -> httpx.Response:
         """
         Effectue une requête HTTP authentifiée (synchrone).
-        
-        Args:
-            method: Méthode HTTP (GET, POST, etc.).
-            endpoint: Chemin relatif (ex: '/v1/companies/42').
-            **kwargs: Arguments supplémentaires pour httpx.request().
-        
-        Returns:
-            Réponse HTTP.
+
+        Arguments
+        - method: Méthode HTTP (GET, POST, etc.).
+        - endpoint: Chemin relatif (ex: '/v1/companies/42').
+        - kwargs: Arguments supplémentaires pour httpx.request().
+
+        Returns
+        - httpx.Response: La réponse HTTP.
         """
         return self._request(method, endpoint, **kwargs)
 
     def close(self) -> None:
         """
         Ferme le client HTTP sous-jacent.
-        
-        Args:
+
+        Arguments
         - None
-        
-        Returns:
+
+        Returns
         - None
         """
         logger.info("Fermeture du client HTTP.")

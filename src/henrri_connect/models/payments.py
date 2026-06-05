@@ -16,7 +16,7 @@ from .base import CamelModel, Link
 class PaymentMilestone(CamelModel):
     """
     Représente une étape de paiement dans l'API Henrri Connect.
-    
+
     Attributs:
     - id: Identifiant unique de l'étape de paiement.
     - amount: Montant de l'étape de paiement.
@@ -40,7 +40,7 @@ class PaymentMilestone(CamelModel):
 class TaxDetail(CamelModel):
     """
     Représente les détails de taxe dans l'API Henrri Connect.
-    
+
     Attributs:
     - rate: Taux de taxe.
     - price_before_tax: Prix total avant taxe.

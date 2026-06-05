@@ -2,12 +2,10 @@
 Sous-client pour les endpoints /v1/customers.
 
 Classes:
---------
-- ``henrri_connect.customers.asynchro.AsyncCustomersClient`` :
+- ``henrri_connect.customers.asynchro.AsyncCustomersClient``
     Accès asynchrone aux endpoints clients.
 
 Notes:
-------
 - Utiliser de préférence l'objet ``henrri_connect.AsyncHenrriClient`` pour acceder
 aux endpoints.
 """
@@ -79,12 +77,13 @@ class AsyncCustomersClient:
     ):
         """
         Liste les clients avec pagination et filtres optionnels.
-        
+
         Arguments
         - ``request`` (CustomerRequest) : Paramètres de recherche.
         - ``with_selected_fields`` (bool) : Si True, lance une requête de recherche avancée.
         - ``with_totals`` (bool) : Si True, renvoie les totaux.
-        - ``only_current_page`` (bool) : Si True, renvoie uniquement les clients de la page actuelle.
+        - ``only_current_page`` (bool) : Si True, renvoie uniquement les clients de la page
+        actuelle.
 
         Returns
         - ``PagedListResponse[Customer]`` : Liste paginée de clients.
@@ -110,7 +109,7 @@ class AsyncCustomersClient:
     async def add(self, customer: Customer) -> Customer:
         """
         Crée un nouveau client.
-        
+
         Arguments
         - ``customer`` (Customer) : Client à créer.
 
@@ -131,7 +130,7 @@ class AsyncCustomersClient:
     ) -> PagedListResponse[Customer]:
         """
         Récupère les meilleurs clients.
-        
+
         Arguments
         - ``year`` (int) : Année concerne (minimum 2000, maximum 2100).
 
@@ -151,7 +150,7 @@ class AsyncCustomersClient:
         Arguments
         - ``customer_type`` (CustomerType) : Type de client.
         - ``limit`` (int) : Nombre de clients maximum.
-        
+
         Returns
         - ``Customer`` : Derniers clients utilisés.
         """
@@ -165,11 +164,11 @@ class AsyncCustomersClient:
     async def get(self, customer_id: int) -> Customer:
         """
         Récupère un client par son identifiant.
-        
-        Arguments:
+
+        Arguments
         - ``customer_id`` (int) : Identifiant du client.
 
-        Returns:
+        Returns
         - ``Customer`` : Client.
         """
         resp = await self._c.request("GET", f"{BASE_CUSTOMERS}/{customer_id}")
@@ -178,12 +177,12 @@ class AsyncCustomersClient:
     async def modify(self, customer_id: int, customer: Customer) -> Customer:
         """
         Met à jour un client existant.
-        
-        Arguments:
+
+        Arguments
         - ``customer_id`` (int) : Identifiant du client.
         - ``customer`` (Customer) : Client à mettre à jour.
 
-        Returns:
+        Returns
         - ``Customer`` : Client mis à jour.
         """
         resp = await self._c.request(
@@ -196,11 +195,11 @@ class AsyncCustomersClient:
     async def delete(self, customer_id: int) -> None:
         """
         Supprime un client.
-        
-        Arguments:
+
+        Arguments
         - ``customer_id`` (int) : Identifiant du client.
-        
-        Returns:
+
+        Returns
         - ``None``.
         """
         await self._c.request("DELETE", f"{BASE_CUSTOMERS}/{customer_id}")
@@ -208,11 +207,11 @@ class AsyncCustomersClient:
     async def get_address(self, customer_id: int) -> Address:
         """
         Récupère l'adresse d'un client.
-        
-        Arguments:
+
+        Arguments
         - ``customer_id`` (int) : Identifiant du client.
-        
-        Returns:
+
+        Returns
         - ``henrri_connect.models.Address`` : Adresse du client.
         """
         resp = await self._c.request("GET", f"{BASE_CUSTOMERS}/{customer_id}/address")
@@ -221,11 +220,11 @@ class AsyncCustomersClient:
     async def list_contacts(self, customer_id: int) -> list[Contact]:
         """
         Liste les contacts d'un client.
-        
-        Arguments:
+
+        Arguments
         - ``customer_id`` (int) : Identifiant du client.
-        
-        Returns:
+
+        Returns
         - ``list[Contact]`` : Liste de contacts.
         """
         resp = await self._c.request("GET", f"{BASE_CUSTOMERS}/{customer_id}/contacts")
@@ -234,12 +233,12 @@ class AsyncCustomersClient:
     async def add_contact(self, customer_id: int, contact: Contact) -> Contact:
         """
         Ajoute un contact à un client.
-        
-        Arguments:
+
+        Arguments
         - ``customer_id`` (int) : Identifiant du client.
         - ``contact`` (Contact) : Contact à ajouter.
 
-        Returns:
+        Returns
         - ``Contact`` : Contact ajouté.
         """
         resp = await self._c.request(
@@ -252,12 +251,12 @@ class AsyncCustomersClient:
     async def get_contact(self, customer_id: int, contact_id: int) -> Contact:
         """
         Récupère un contact d'un client.
-        
-        Arguments:
+
+        Arguments
         - ``customer_id`` (int) : Identifiant du client.
         - ``contact_id`` (int) : Identifiant du contact.
 
-        Returns:
+        Returns
         - ``Contact`` : Contact.
         """
         resp = await self._c.request("GET", f"{BASE_CUSTOMERS}/{customer_id}/contacts/{contact_id}")
@@ -266,13 +265,13 @@ class AsyncCustomersClient:
     async def modify_contact(self, customer_id: int, contact_id: int, contact: Contact) -> Contact:
         """
         Met à jour un contact d'un client.
-        
-        Arguments:
+
+        Arguments
         - ``customer_id`` (int) : Identifiant du client.
         - ``contact_id`` (int) : Identifiant du contact.
         - ``contact`` (Contact) : Contact à mettre à jour.
 
-        Returns:
+        Returns
         - ``Contact`` : Contact mis à jour.
         """
         resp = await self._c.request(
@@ -285,12 +284,12 @@ class AsyncCustomersClient:
     async def delete_contact(self, customer_id: int, contact_id: int) -> None:
         """
         Supprime un contact d'un client.
-        
-        Arguments:
+
+        Arguments
         - ``customer_id`` (int) : Identifiant du client.
         - ``contact_id`` (int) : Identifiant du contact.
-        
-        Returns:
+
+        Returns
         - ``None``.
         """
         await self._c.request("DELETE", f"{BASE_CUSTOMERS}/{customer_id}/contacts/{contact_id}")

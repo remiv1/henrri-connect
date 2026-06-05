@@ -2,16 +2,13 @@
 Sous-client pour les endpoints /v1/companies.
 
 Constantes:
------------
-- ``COMPANIES_ENDPOINT`` : URL de base des endpoints entreprises (/v1/companies).
+- ``COMPANIES_ENDPOINT`` URL de base des endpoints entreprises (/v1/companies).
 
 Classes:
---------
-- ``henrri_connect.companies.synchro.SyncCompaniesClient`` :
+- ``henrri_connect.companies.synchro.SyncCompaniesClient``
   Accès synchrone aux endpoints entreprises.
 
 Notes:
-------
 - Utiliser de préférence l'objet ``henrri_connect.connect.SyncHenrriClient`` pour acceder
 aux endpoints.
 """
@@ -29,10 +26,10 @@ class SyncCompaniesClient:
     """
     Accès synchrone aux endpoints entreprises.
 
-    Arguments:
+    Arguments
     - ``client`` (SyncHenrriClient) : Client HTTP.
-    
-    Methodes:
+
+    Methodes
     - get(self, company_id: int) : Récupère une entreprise par son identifiant.
     - get_address(self, company_id: int) : Récupère l'adresse d'une entreprise.
     """
@@ -42,11 +39,11 @@ class SyncCompaniesClient:
     def get(self, company_id: int) -> Company:
         """
         Récupère une entreprise par son identifiant.
-        
-        Arguments:
+
+        Arguments
         - ``company_id`` : Identifiant de l'entreprise.
-        
-        Retourne:
+
+        Returns
         - ``henrri_connect.models.Company`` : Entreprise.
         """
         resp = self._c.request("GET", f"/v1/companies/{company_id}")
@@ -55,11 +52,11 @@ class SyncCompaniesClient:
     def get_address(self, company_id: int) -> Address:
         """
         Récupère l'adresse d'une entreprise.
-        
-        Arguments:
+
+        Arguments
         - ``company_id`` : Identifiant de l'entreprise.
-        
-        Retourne:
+
+        Returns
         - ``henrri_connect.models.Address`` : Adresse de l'entreprise.
         """
         resp = self._c.request("GET", f"/v1/companies/{company_id}/address")

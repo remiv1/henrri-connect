@@ -13,7 +13,7 @@ from .base import CamelModel, Link, UnitKind
 class Unit(CamelModel):
     """
     Représente une unité dans l'API Henrri Connect.
-    
+
     Attributs:
     - id: Identifiant de l'unité.
     - name: Nom de l'unité.

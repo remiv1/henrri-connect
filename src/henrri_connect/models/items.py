@@ -16,7 +16,7 @@ from .base import CamelModel, Link, ItemCategoryContentKind, ItemCategoryKind, S
 class ItemCategoryRequest(CamelModel):
     """
     Représente une requête de catégorie d'article dans l'API Henrri Connect.
-    
+
     Attributes:
         page (int) : Index de la page de la requête (entre 1 et 2 147 483 647, defaut 1).
         limit (int) : Nombre d'articles par page (entre 1 et 100, défaut 50).
@@ -40,7 +40,7 @@ class ItemCategoryRequest(CamelModel):
 class ItemCategoryType(CamelModel):
     """
     Représente un type de catégorie d'article dans l'API Henrri Connect.
-    
+
     Attributs:
     - id: Identifiant unique du type de catégorie d'article.
     - label: Libellé du type de catégorie d'article.
@@ -56,7 +56,7 @@ class ItemCategoryType(CamelModel):
 class ItemCategory(CamelModel):
     """
     Représente une catégorie d'article dans l'API Henrri Connect.
-    
+
     Attributs:
     - id: Identifiant unique de la catégorie d'article.
     - type: Type de la catégorie d'article.
@@ -84,7 +84,7 @@ class ItemCategory(CamelModel):
 class Item(CamelModel):
     """
     Représente un article dans l'API Henrri Connect.
-    
+
     Attributs:
     - id: Identifiant unique de l'article.
     - reference: Référence de l'article.
@@ -123,7 +123,7 @@ class Item(CamelModel):
 class ItemsQuery(CamelModel):
     """
     Représente une requête de catégorie d'article dans l'API Henrri Connect.
-    
+
     Attributs:
     - page (int) : Index de la page de la requête (entre 1 et 2 147 483 647, defaut 1).
     - limit (int) : Nombre d'articles par page (entre 1 et 100, défaut 50).

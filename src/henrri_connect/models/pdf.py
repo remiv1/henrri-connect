@@ -14,7 +14,7 @@ from .base import CamelModel
 class PdfUrlResponse(CamelModel):
     """
     Représente la réponse de l'API Henrri Connect pour une URL de PDF.
-    
+
     Attributs:
     - download_url: URL de téléchargement du PDF.
     - expires_at: Date d'expiration de l'URL de téléchargement du PDF.

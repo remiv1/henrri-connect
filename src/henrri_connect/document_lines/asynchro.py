@@ -2,12 +2,10 @@
 Sous-client pour les endpoints /v1/documents/{documentId}/lines.
 
 Classes:
---------
-- ``henrri_connect.document_lines.asynchro.AsyncDocumentLinesClient`` :
+- ``henrri_connect.document_lines.asynchro.AsyncDocumentLinesClient``
     Accès asynchrone aux endpoints lignes de documents.
 
 Notes:
-------
 - Utiliser de préférence l'objet ``henrri_connect.AsyncHenrriClient`` pour acceder
 aux endpoints.
 """
@@ -26,11 +24,11 @@ DOCUMENT_ENDPOINT = "/v1/documents"
 class AsyncDocumentLinesClient:
     """
     Accès asynchrone aux lignes de document.
-    
-    Arguments:
+
+    Arguments
     - ``client`` : Objet ``henrri_connect.AsyncHenrriClient``.
 
-    Methods:
+    Methods
     - ``list_document_lines`` : Liste les lignes d'un document.
     - ``add`` : Ajoute une ligne à un document.
     - ``get`` : Récupère une ligne de document par son identifiant.
@@ -49,12 +47,12 @@ class AsyncDocumentLinesClient:
         ) -> ListResponse[DocumentLine]:
         """
         Liste les lignes d'un document.
-        
-        Arguments:
+
+        Arguments
         - ``document_id`` (int) : Identifiant du document (min 1 et max 2 147 483 647).
         - ``query_params`` (DocumentLineListQueryParameters, optional) : Paramètres de requête.
-        
-        Returns:
+
+        Returns
         - ``ListResponse[DocumentLine]`` : Liste de lignes de document.
         """
         if query_params:
@@ -74,12 +72,12 @@ class AsyncDocumentLinesClient:
     async def add(self, document_id: int, line: DocumentLine) -> DocumentLine:
         """
         Ajoute une ligne à un document.
-        
-        Arguments:
+
+        Arguments
         - ``document_id`` : Identifiant du document.
         - ``line`` : Ligne de document.
-        
-        Returns:
+
+        Returns
         - ``DocumentLine`` : Ligne de document ajoutée.
         """
         resp = await self._c.request(
@@ -92,12 +90,12 @@ class AsyncDocumentLinesClient:
     async def get(self, document_id: int, line_id: int) -> DocumentLine:
         """
         Récupère une ligne de document par son identifiant.
-        
-        Arguments:
+
+        Arguments
         - ``document_id`` : Identifiant du document.
         - ``line_id`` : Identifiant de la ligne de document.
-        
-        Returns:
+
+        Returns
         - ``DocumentLine`` : Ligne de document.
         """
         resp = await self._c.request("GET", f"{DOCUMENT_ENDPOINT}/{document_id}/lines/{line_id}")
@@ -106,13 +104,13 @@ class AsyncDocumentLinesClient:
     async def modify(self, document_id: int, line_id: int, line: DocumentLine) -> DocumentLine:
         """
         Met à jour une ligne de document.
-        
-        Arguments:
+
+        Arguments
         - ``document_id`` : Identifiant du document.
         - ``line_id`` : Identifiant de la ligne de document.
         - ``line`` : Ligne de document.
-        
-        Returns:
+
+        Returns
         - ``DocumentLine`` : Ligne de document modifiée.
         """
         resp = await self._c.request(
@@ -125,12 +123,12 @@ class AsyncDocumentLinesClient:
     async def delete(self, document_id: int, line_id: int) -> None:
         """
         Supprime une ligne de document.
-        
-        Arguments:
+
+        Arguments
         - ``document_id`` : Identifiant du document.
         - ``line_id`` : Identifiant de la ligne de document.
-        
-        Returns:
+
+        Returns
         - ``None``
         """
         await self._c.request("DELETE", f"{DOCUMENT_ENDPOINT}/{document_id}/lines/{line_id}")
@@ -138,13 +136,13 @@ class AsyncDocumentLinesClient:
     async def move(self, document_id: int, line_id: int, to: int) -> None:
         """
         Déplace une ligne vers une position donnée.
-        
-        Arguments:
+
+        Arguments
         - ``document_id`` : Identifiant du document.
         - ``line_id`` : Identifiant de la ligne de document.
         - ``to`` : Position de destination.
-        
-        Returns:
+
+        Returns
         - ``None``
         """
         await self._c.request(

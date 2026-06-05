@@ -1,7 +1,7 @@
 """
 Module contenant les énumérations utilisées dans les modèles de données.
 
-Attributs:
+Attributs
 - CustomerType: Type de client pour les clients dans l'API Henrri Connect.
 - SortOrder: Ordre de tri pour les listes d'articles et de catégories d'articles.
 - DocumentKind: Type de document pour les documents commerciaux.
@@ -19,8 +19,8 @@ from enum import Enum
 class CustomerType(str, Enum):
     """
     Type de client pour les clients dans l'API Henrri Connect.
-    
-    Attributs:
+
+    Attributs
     - INDIVIDUAL: Client individuel.
     - COMPANY: Client entreprise.
     """
@@ -30,8 +30,8 @@ class CustomerType(str, Enum):
 class SortOrder(str, Enum):
     """
     Ordre de tri pour les listes d'articles et de catégories d'articles.
-    
-    Attributs:
+
+    Attributs
     - ASCENDING: Tri ascendant.
     - DESCENDING: Tri descendant.
     """
@@ -42,7 +42,7 @@ class DocumentKind(str, Enum):
     """
     Type de document pour les documents commerciaux.
 
-    Attributs:
+    Attributs
     - INVOICE: Facture.
     - CREDIT_NOTE: Avoir.
     - DELIVERY_NOTE: Bon de livraison.
@@ -72,8 +72,8 @@ class DocumentKind(str, Enum):
 class DocumentState(str, Enum):
     """
     État d'un document commercial.
-    
-    Attributs:
+
+    Attributs
     - FINALIZED: Finalisé.
     - PENDING: En attente.
     """
@@ -84,7 +84,7 @@ class DocumentLineKind(str, Enum):
     """
     Type de ligne pour les lignes de document commercial.
 
-    Attributs:
+    Attributs
     - NONE: Aucun.
     - ITEM: Article.
     - TOTAL: Total.
@@ -108,8 +108,8 @@ class DocumentLineKind(str, Enum):
 class UnitKind(str, Enum):
     """
     Type d'unité pour les unités de mesure.
-    
-    Attributs:
+
+    Attributs
     - HOURLY: Horaire.
     - METER: Mètre.
     - CENTIMETER: Centimètre.
@@ -153,8 +153,8 @@ class UnitKind(str, Enum):
 class CompanyIdentifierType(str, Enum):
     """
     Type d'identifiant pour les entreprises.
-    
-    Attributs:
+
+    Attributs
     - SIRET: SIRET.
     - BCE: BCE.
     - UNKNOWN: Inconnu.
@@ -167,7 +167,7 @@ class ItemCategoryKind(str, Enum):
     """
     Type de catégorie d'articles.
 
-    Attributs:
+    Attributs
     - SERVICE: Service.
     - PRODUCT: Produit.
     - MIXED: Mixte.
@@ -180,7 +180,7 @@ class ItemCategoryContentKind(str, Enum):
     """
     Type de contenu pour les catégories d'articles.
 
-    Attributs:
+    Attributs
     - SUPPLY: Approvisionnement.
     - FLAT_SERVICE: Service forfaitaire.
     - HOURLY_SERVICE: Service horaire.

@@ -2,18 +2,13 @@
 Sous-client pour les endpoints /v1/document-lines.
 
 Classes:
---------
-- ``henrri_connect.document_lines.synchro.SyncDocumentLinesClient`` :
-    Accès synchrone aux endpoints lignes de documents.
-
-- ``henrri_connect.document_lines.asynchro.AsyncDocumentLinesClient`` :
-    Accès asynchrone aux endpoints lignes de documents.
+- ``SyncDocumentLinesClient`` : Accès synchrone aux endpoints lignes de documents.
+- ``AsyncDocumentLinesClient`` : Accès asynchrone aux endpoints lignes de documents.
 
 Notes:
-------
-- Utiliser de préférence les objets suivants pour acceder aux endpoints:
-    - ``henrri_connect.SyncHenrriClient``
-    - ``henrri_connect.AsyncHenrriClient``
+Utiliser de préférence les objets suivants pour acceder aux endpoints:
+- ``henrri_connect.SyncHenrriClient``
+- ``henrri_connect.AsyncHenrriClient``
 """
 
 from __future__ import annotations
