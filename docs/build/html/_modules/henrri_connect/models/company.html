@@ -8,7 +8,9 @@
         <title>henrri_connect.models.company - Documentation henrri-connect 0.1.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
 
@@ -225,7 +227,12 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.company</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles pour les entreprises dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles pour les entreprises dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- Company: Représente une entreprise dans l&#39;API Henrri Connect.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -235,6 +242,23 @@
 <div class="viewcode-block" id="Company">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.Company">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Company</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente une entreprise dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique de l&#39;entreprise.</span>
+<span class="sd">    - name: Nom de l&#39;entreprise.</span>
+<span class="sd">    - logo_url: URL du logo de l&#39;entreprise.</span>
+<span class="sd">    - is_self_employed: Indique si l&#39;entreprise est un travailleur indépendant.</span>
+<span class="sd">    - siret: Numéro SIRET de l&#39;entreprise (si applicable).</span>
+<span class="sd">    - email: Adresse e-mail de l&#39;entreprise (si applicable).</span>
+<span class="sd">    - web_site: Site web de l&#39;entreprise (si applicable).</span>
+<span class="sd">    - ape_code: Code APE de l&#39;entreprise (si applicable).</span>
+<span class="sd">    - ape_label: Libellé du code APE de l&#39;entreprise (si applicable).</span>
+<span class="sd">    - global_id: Identifiant global de l&#39;entreprise (si applicable).</span>
+<span class="sd">    - address: Adresse de l&#39;entreprise (si applicable).</span>
+<span class="sd">    - links: Liste de liens associés à l&#39;entreprise (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">logo_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -285,5 +309,6 @@
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>

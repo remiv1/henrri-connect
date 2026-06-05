@@ -7,10 +7,10 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-from src.henrri_connect.connect import (
+from henrri_connect.connect import (
     AsyncHenrriClient, SyncHenrriClient, # type: ignore[import]
 )
-from src.henrri_connect.models import DocumentLine
+from henrri_connect.models import DocumentLine
 
 from tests.conftest import DOCUMENT_LINE_JSON, make_response
 

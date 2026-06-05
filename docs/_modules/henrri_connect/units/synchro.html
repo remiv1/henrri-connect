@@ -231,12 +231,9 @@
 <span class="sd">Sous-client pour les endpoints /v1/units.</span>
 
 <span class="sd">Classes:</span>
-<span class="sd">--------</span>
-<span class="sd">- ``henrri_connect.units.synchro.SyncUnitsClient`` :</span>
-<span class="sd">    Accès synchrone aux endpoints unités.</span>
+<span class="sd">- ``henrri_connect.units.synchro.SyncUnitsClient`` : Accès synchrone aux endpoints unités.</span>
 
 <span class="sd">Notes:</span>
-<span class="sd">------</span>
 <span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -258,18 +255,14 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">SyncUnitsClient</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Accès synchrone aux unités.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Arguments</span>
-<span class="sd">    - client : SyncHenrriClient</span>
-<span class="sd">      Client synchrone pour acceder aux endpoints.</span>
+<span class="sd">    - client (SyncHenrriClient) : Client synchrone pour acceder aux endpoints.</span>
 
 <span class="sd">    Methods</span>
-<span class="sd">    - list_units()</span>
-<span class="sd">      Liste toutes les unités disponibles.</span>
-<span class="sd">    - add(unit: Unit)</span>
-<span class="sd">      Crée une nouvelle unité.</span>
-<span class="sd">    - get(unit_id: int)</span>
-<span class="sd">      Récupère une unité par son identifiant.</span>
+<span class="sd">    - list_units() : Liste toutes les unités disponibles.</span>
+<span class="sd">    - add(unit: Unit) : Crée une nouvelle unité.</span>
+<span class="sd">    - get(unit_id: int) : Récupère une unité par son identifiant.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">SyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -280,10 +273,10 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">list_units</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ListResponse</span><span class="p">[</span><span class="n">Unit</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Liste toutes les unités disponibles.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Arguments</span>
 <span class="sd">        - ``None``</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        - ``ListResponse[Unit]`` : Liste de unités.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -296,10 +289,10 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="p">:</span> <span class="n">Unit</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Unit</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Crée une nouvelle unité.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Arguments</span>
 <span class="sd">        - ``unit: Unit`` : Unité à crée.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        - ``Unit`` : Unité crée.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -316,10 +309,10 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Unit</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Récupère une unité par son identifiant.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Arguments</span>
 <span class="sd">        - ``unit_id`` (int) : Identifiant de l&#39;unité.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        - ``Unit`` : Unité.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

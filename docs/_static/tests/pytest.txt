@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.5, pytest-9.0.3, pluggy-1.6.0
+configfile: pytest.ini (WARNING: ignoring pytest config in pyproject.toml!)
+testpaths: tests
+plugins: anyio-4.13.0, asyncio-1.4.0, metadata-3.1.1, html-4.2.0
+collected 112 items
+
+tests/test_companies.py ....                                             [  3%]
+tests/test_connect.py ............                                       [ 14%]
+tests/test_connect_auth.py ..                                            [ 16%]
+tests/test_customers.py ................                                 [ 30%]
+tests/test_customers_asynchro_extra.py ...                               [ 33%]
+tests/test_document_line_types.py ..                                     [ 34%]
+tests/test_document_lines.py .........                                   [ 42%]
+tests/test_document_types.py ..                                          [ 44%]
+tests/test_documents.py ..................                               [ 60%]
+tests/test_documents_asynchro_extra.py ....                              [ 64%]
+tests/test_item_categories.py ....                                       [ 67%]
+tests/test_items.py ...........                                          [ 77%]
+tests/test_revenues.py ....                                              [ 81%]
+tests/test_secures.py ..                                                 [ 83%]
+tests/test_units.py .....                                                [ 87%]
+tests/test_users.py .......                                              [ 93%]
+tests/test_utils_raise_for_status.py .......                             [100%]
+
+============================= 112 passed in 0.25s ==============================

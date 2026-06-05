@@ -6,10 +6,10 @@ from typing import Any
 
 from unittest.mock import AsyncMock, MagicMock
 
-from src.henrri_connect.connect import (
+from henrri_connect.connect import (
     AsyncHenrriClient, SyncHenrriClient   # type: ignore[import]
 )
-from src.henrri_connect.models import ItemCategoryRequest
+from henrri_connect.models import ItemCategoryRequest
 from tests.conftest import ITEM_CATEGORY_JSON, PAGED_META, make_response
 
 

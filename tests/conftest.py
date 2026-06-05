@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock, MagicMock
 import httpx
 import pytest
 
-from src.henrri_connect.connect import (
+from henrri_connect.connect import (
     AsyncHenrriClient, SyncHenrriClient, # type: ignore[import]
     )
 

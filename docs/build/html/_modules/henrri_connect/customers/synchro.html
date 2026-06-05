@@ -8,7 +8,9 @@
         <title>henrri_connect.customers.synchro - Documentation henrri-connect 0.1.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
 
@@ -225,66 +227,131 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.customers.synchro</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Sous-client pour les endpoints /v1/customers.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Sous-client pour les endpoints /v1/customers.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">- ``henrri_connect.customers.synchro.SyncCustomersClient``</span>
+<span class="sd">    Accès synchrone aux endpoints clients.</span>
+
+<span class="sd">Notes:</span>
+<span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">..models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Address</span><span class="p">,</span> <span class="n">Contact</span><span class="p">,</span> <span class="n">Customer</span><span class="p">,</span> <span class="n">PagedListResponse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Address</span><span class="p">,</span> <span class="n">Contact</span><span class="p">,</span> <span class="n">Customer</span><span class="p">,</span> <span class="n">PagedListResponse</span><span class="p">,</span> <span class="n">CustomerRequest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..models.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">CustomerType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">clean</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">..connect</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-        <span class="n">_SyncHenrriClient</span><span class="p">,</span>    <span class="c1"># type: ignore[import]</span>
-    <span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..connect</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncHenrriClient</span>
 
 <span class="n">BASE_CUSTOMERS</span> <span class="o">=</span> <span class="s2">&quot;/v1/customers&quot;</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">_clean</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
 
 
 <div class="viewcode-block" id="SyncCustomersClient">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SyncCustomersClient</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Accès synchrone aux endpoints clients.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Accès synchrone aux endpoints clients.</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">_SyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="sd">    Arguments</span>
+<span class="sd">    - ``client`` (SyncHenrriClient) : Client HTTP.</span>
+
+<span class="sd">    Methodes</span>
+<span class="sd">    - ``list_customers`` : Liste les clients avec pagination et filtres optionnels.</span>
+<span class="sd">    - ``add`` : Crée un nouveau client.</span>
+<span class="sd">    - ``get_best_sales`` : Récupère les meilleurs clients.</span>
+<span class="sd">    - ``get_last_used`` : Récupère le dernier client utilisé.</span>
+<span class="sd">    - ``get`` : Récupère un client par son identifiant.</span>
+<span class="sd">    - ``modify`` : Met à jour un client existant.</span>
+<span class="sd">    - ``delete`` : Supprime un client.</span>
+<span class="sd">    - ``get_address`` : Récupère l&#39;adresse d&#39;un client.</span>
+<span class="sd">    - ``list_contacts`` : Liste les contacts d&#39;un client avec pagination et filtres optionnels.</span>
+<span class="sd">    - ``add_contact`` : Crée un nouveau contact.</span>
+<span class="sd">    - ``get_contact`` : Récupère un contact d&#39;un client.</span>
+<span class="sd">    - ``modify_contact`` : Met à jour un contact existant.</span>
+<span class="sd">    - ``delete_contact`` : Supprime un contact.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">SyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span> <span class="o">=</span> <span class="n">client</span>
 
+    <span class="nd">@overload</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_customers</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">request</span><span class="p">:</span> <span class="n">CustomerRequest</span><span class="p">,</span>
+        <span class="n">with_selected_fields</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">with_totals</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">only_current_page</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Customer</span><span class="p">]:</span><span class="o">...</span>
+    <span class="nd">@overload</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_customers</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">request</span><span class="p">:</span> <span class="n">CustomerRequest</span><span class="p">,</span>
+        <span class="n">with_selected_fields</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">with_totals</span><span class="p">:</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">only_current_page</span><span class="p">:</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span><span class="o">...</span>
 <div class="viewcode-block" id="SyncCustomersClient.list_customers">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient.list_customers">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">list_customers</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
-        <span class="n">search</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">sort_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">sort_order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">min_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">from_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">to_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Customer</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Liste les clients avec pagination et filtres optionnels.&quot;&quot;&quot;</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="n">_clean</span><span class="p">({</span>
-            <span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
-            <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
-            <span class="s2">&quot;search&quot;</span><span class="p">:</span> <span class="n">search</span><span class="p">,</span>
-            <span class="s2">&quot;sortBy&quot;</span><span class="p">:</span> <span class="n">sort_by</span><span class="p">,</span>
-            <span class="s2">&quot;sortOrder&quot;</span><span class="p">:</span> <span class="n">sort_order</span><span class="p">,</span>
-            <span class="s2">&quot;minId&quot;</span><span class="p">:</span> <span class="n">min_id</span><span class="p">,</span>
-            <span class="s2">&quot;fromDate&quot;</span><span class="p">:</span> <span class="n">from_date</span><span class="p">,</span>
-            <span class="s2">&quot;toDate&quot;</span><span class="p">:</span> <span class="n">to_date</span><span class="p">,</span>
-        <span class="p">})</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">BASE_CUSTOMERS</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="n">request</span><span class="p">:</span> <span class="n">CustomerRequest</span><span class="p">,</span>
+        <span class="n">with_selected_fields</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">with_totals</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">only_current_page</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liste les clients avec pagination et filtres optionnels.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``request`` (CustomerRequest) : Paramètres de recherche.</span>
+<span class="sd">        - ``with_selected_fields`` (bool) : Si True, lance une requête de recherche avancée.</span>
+<span class="sd">        - ``with_totals`` (bool) : Si True, renvoie les totaux.</span>
+<span class="sd">        - ``only_current_page`` (bool) : Si True, renvoie uniquement les clients de la page</span>
+<span class="sd">        actuelle.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``PagedListResponse[Customer]`` : Liste paginée de clients.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">by_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">with_selected_fields</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">with_totals</span> <span class="ow">and</span> <span class="n">only_current_page</span><span class="p">:</span>
+                <span class="n">params</span><span class="p">[</span><span class="s2">&quot;with_totals&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">with_totals</span>
+                <span class="n">params</span><span class="p">[</span><span class="s2">&quot;only_current_page&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">only_current_page</span>
+                <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
+                    <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/with-selected-fields&quot;</span><span class="p">,</span>
+                    <span class="n">params</span><span class="o">=</span><span class="n">params</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;with_totals and only_current_page must be True if with_selected_fields is True&quot;</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">BASE_CUSTOMERS</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Customer</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="SyncCustomersClient.add">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient.add">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer</span><span class="p">:</span> <span class="n">Customer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Customer</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Crée un nouveau client.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Crée un nouveau client.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``customer`` (Customer) : Client à créer.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Customer`` : Client créé.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
             <span class="n">BASE_CUSTOMERS</span><span class="p">,</span>
@@ -298,28 +365,57 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_best_sales</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
-        <span class="n">search</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">sort_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">sort_order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Customer</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère les meilleurs clients.&quot;&quot;&quot;</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="n">_clean</span><span class="p">({</span>
-            <span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
-            <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
-            <span class="s2">&quot;search&quot;</span><span class="p">:</span> <span class="n">search</span><span class="p">,</span>
-            <span class="s2">&quot;sortBy&quot;</span><span class="p">:</span> <span class="n">sort_by</span><span class="p">,</span>
-            <span class="s2">&quot;sortOrder&quot;</span><span class="p">:</span> <span class="n">sort_order</span><span class="p">,</span>
-        <span class="p">})</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère les meilleurs clients.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``year`` (int) : Année concerne (minimum 2000, maximum 2100).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``PagedListResponse[Customer]`` : Liste de clients.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">year</span>
+        <span class="p">}</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/best-sales&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Customer</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="SyncCustomersClient.get_last_used">
+<a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient.get_last_used">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_last_used</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_type</span><span class="p">:</span> <span class="n">CustomerType</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Customer</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère les derniers clients utilisés.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``customer_type`` (CustomerType) : Type de client.</span>
+<span class="sd">        - ``limit`` (int) : Nombre de clients maximum.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Customer`` : Derniers clients utilisés.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Types&quot;</span><span class="p">:</span> <span class="n">customer_type</span><span class="p">,</span>
+            <span class="s2">&quot;Limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/last-used&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Customer</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="SyncCustomersClient.get">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient.get">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Customer</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère un client par son identifiant.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère un client par son identifiant.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Customer`` : Client.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Customer</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
@@ -327,7 +423,16 @@
 <div class="viewcode-block" id="SyncCustomersClient.modify">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient.modify">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">customer</span><span class="p">:</span> <span class="n">Customer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Customer</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Met à jour un client existant.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Met à jour un client existant.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
+<span class="sd">        - ``customer`` (Customer) : Client à mettre à jour.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Customer`` : Client mis à jour.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
@@ -339,14 +444,30 @@
 <div class="viewcode-block" id="SyncCustomersClient.delete">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient.delete">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Supprime un client.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Supprime un client.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``None``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SyncCustomersClient.get_address">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient.get_address">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Address</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère l&#39;adresse d&#39;un client.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère l&#39;adresse d&#39;un client.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Address`` : Adresse du client.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">/address&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Address</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
@@ -354,7 +475,15 @@
 <div class="viewcode-block" id="SyncCustomersClient.list_contacts">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient.list_contacts">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">list_contacts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Contact</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Liste les contacts d&#39;un client.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liste les contacts d&#39;un client.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``list[Contact]`` : Liste de contacts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">/contacts&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">Contact</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()]</span></div>
 
@@ -362,7 +491,16 @@
 <div class="viewcode-block" id="SyncCustomersClient.add_contact">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient.add_contact">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_contact</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">contact</span><span class="p">:</span> <span class="n">Contact</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Contact</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ajoute un contact à un client.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ajoute un contact à un client.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
+<span class="sd">        - ``contact`` (Contact) : Contact à ajouter.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Contact`` : Contact ajouté.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">/contacts&quot;</span><span class="p">,</span>
@@ -374,7 +512,16 @@
 <div class="viewcode-block" id="SyncCustomersClient.get_contact">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient.get_contact">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_contact</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">contact_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Contact</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère un contact d&#39;un client.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère un contact d&#39;un client.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
+<span class="sd">        - ``contact_id`` (int) : Identifiant du contact.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Contact`` : Contact.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">/contacts/</span><span class="si">{</span><span class="n">contact_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Contact</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
@@ -382,7 +529,17 @@
 <div class="viewcode-block" id="SyncCustomersClient.modify_contact">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient.modify_contact">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">modify_contact</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">contact_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">contact</span><span class="p">:</span> <span class="n">Contact</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Contact</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Met à jour un contact d&#39;un client.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Met à jour un contact d&#39;un client.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
+<span class="sd">        - ``contact_id`` (int) : Identifiant du contact.</span>
+<span class="sd">        - ``contact`` (Contact) : Contact à mettre à jour.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Contact`` : Contact mis à jour.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">/contacts/</span><span class="si">{</span><span class="n">contact_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
@@ -394,7 +551,16 @@
 <div class="viewcode-block" id="SyncCustomersClient.delete_contact">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.customers.SyncCustomersClient.delete_contact">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">delete_contact</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">contact_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Supprime un contact d&#39;un client.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Supprime un contact d&#39;un client.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
+<span class="sd">        - ``contact_id`` (int) : Identifiant du contact.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``None``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">/contacts/</span><span class="si">{</span><span class="n">contact_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 </div>
 
@@ -435,5 +601,6 @@
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>

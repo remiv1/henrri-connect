@@ -1,11 +1,31 @@
 .. henrri-connect documentation master file
 
-henrri-connect
-==============
+Henrri Connect, l'API Python non officielle d'Henrri
+====================================================
+
+.. raw:: html
+
+    <div style="text-align:center; margin-top:20px;">
+        <img src="https://raw.githubusercontent.com/remiv1/henrri-connect/main/docs/logo_plain.png"
+             alt="Logo Henrri Connect" width="360">
+    </div>
+
+.. image:: _static/coverage_badge.svg
+   :alt: Coverage
+
+.. image:: _static/tests_badge.svg
+   :alt: Tests
+
+coverage-badge:
+    coverage xml
+    coverage-badge -o docs/source/_static/coverage_badge.svg -f
+
 
 .. container:: hero-tagline
 
-   Bibliothèque Python souveraine pour l'API de facturation `Henrri <https://henrri.io>`_.
+   Bibliothèque Python souveraine pour l'API de facturation `Henrri <https://henrri.com>`_.
+
+      ``henrri-connect`` est une bibliothèque non officielle pour l'intégration d'Henrri, le logiciel de facturation de Rivalis à vos projets.
 
 .. grid:: 1 2 2 2
    :gutter: 2
@@ -108,14 +128,16 @@ Utilisation rapide
          asyncio.run(main())
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 5
    :caption: Sommaire
    :hidden:
 
-   api
+   api/index
+   coverage
+   test
 
 Rapport des tests
 -----------------
 
-* `Rapport de coverage <_static/htmlcov/index.html>`_
+* `Rapport de coverage <coverage.html>`_
 

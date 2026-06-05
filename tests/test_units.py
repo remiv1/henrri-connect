@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from unittest.mock import AsyncMock, MagicMock
 
-from src.henrri_connect.connect import (
+from henrri_connect.connect import (
     AsyncHenrriClient, SyncHenrriClient, # type: ignore[import]
 )
-from src.henrri_connect.models import Unit
+from henrri_connect.models import Unit
 from tests.conftest import UNIT_JSON, make_response
 
 

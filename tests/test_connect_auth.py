@@ -6,10 +6,10 @@ from unittest.mock import AsyncMock, MagicMock
 import httpx
 import pytest
 
-from src.henrri_connect.connect.synchro import SyncHenrriClient
-from src.henrri_connect.connect.asynchro import AsyncHenrriClient
-from src.henrri_connect.exc import HenrriAuthError
-from src.henrri_connect.models import TokenResponse # pylint: disable=W0611
+from henrri_connect.connect.synchro import SyncHenrriClient
+from henrri_connect.connect.asynchro import AsyncHenrriClient
+from henrri_connect.exc import HenrriAuthError
+from henrri_connect.models import TokenResponse # pylint: disable=W0611
 
 
 def test_sync_headers_and_auth_flow(monkeypatch):   # pylint: disable=W0613, C0116

@@ -8,7 +8,9 @@
         <title>henrri_connect.utils - Documentation henrri-connect 0.1.0</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     
     
 
@@ -225,9 +227,21 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.utils</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Module utilitaire pour les clients Henrri Connect.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module utilitaire pour les clients Henrri Connect.</span>
+
+<span class="sd">Fournit l&#39;ensemble des fonctions utilitaires nécessaires au package ``henrri_connect``.</span>
+
+<span class="sd">Functions:</span>
+<span class="sd">----------</span>
+<span class="sd">- raise_for_status: Levé une exception appropriée selon le code HTTP de la réponse.</span>
+<span class="sd">- clean: Nettoie un dictionnaire en supprimant les clés dont la valeur est ``None``.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">httpx</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.exc</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">HenrriAuthError</span><span class="p">,</span>
@@ -237,6 +251,8 @@
     <span class="n">HenrriServerError</span><span class="p">,</span>
     <span class="n">HenrriValidationError</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <div class="viewcode-block" id="raise_for_status">
 <a class="viewcode-back" href="../../api.html#henrri_connect.utils.raise_for_status">[docs]</a>
@@ -281,16 +297,37 @@
 
     <span class="n">sc</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span>
     <span class="k">if</span> <span class="n">sc</span> <span class="o">==</span> <span class="mi">400</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Validation error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">HenrriValidationError</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">sc</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Authentication error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">HenrriAuthError</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">sc</span> <span class="o">==</span> <span class="mi">403</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Forbidden error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">HenrriForbiddenError</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">sc</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Not found error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">HenrriNotFoundError</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">sc</span> <span class="o">&gt;=</span> <span class="mi">500</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Server error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">HenrriServerError</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;HTTP error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
     <span class="k">raise</span> <span class="n">HenrriHTTPError</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="clean">
+<a class="viewcode-back" href="../../api.html#henrri_connect.utils.clean">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">clean</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Supprime les valeurs None d&#39;un dictionnaire</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        params (dict[str, Any]) : Dictionnaire contenant des valeurs None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict[str, Any]: Dictionnaire sans valeurs None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span></div>
 
 </pre></div>
         </article>
@@ -329,5 +366,6 @@
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>

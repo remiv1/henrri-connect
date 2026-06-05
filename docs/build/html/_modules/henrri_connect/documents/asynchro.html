@@ -8,7 +8,9 @@
         <title>henrri_connect.documents.asynchro - Documentation henrri-connect 0.1.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
 
@@ -225,14 +227,24 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.documents.asynchro</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Sous-client pour les endpoints /v1/documents.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Sous-client pour les endpoints /v1/documents.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">- ``henrri_connect.documents.asynchro.AsyncDocumentsClient``</span>
+<span class="sd">    Accès asynchrone aux endpoints documents.</span>
+
+<span class="sd">Notes:</span>
+<span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.AsyncHenrriClient`` pour acceder aux endpoints.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">..models</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">Document</span><span class="p">,</span>
+    <span class="n">DocumentQuery</span><span class="p">,</span>
     <span class="n">ListResponse</span><span class="p">,</span>
     <span class="n">PagedListResponse</span><span class="p">,</span>
     <span class="n">PaymentMilestone</span><span class="p">,</span>
@@ -240,57 +252,60 @@
     <span class="n">TaxDetailArray</span><span class="p">,</span>
     <span class="n">ValidateDocumentRequest</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">clean</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">..connect</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-        <span class="n">_AsyncHenrriClient</span><span class="p">,</span>   <span class="c1"># type: ignore[import]</span>
-    <span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..connect</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncHenrriClient</span>
 
 <span class="n">DOCUMENTS_ENDPOINT</span> <span class="o">=</span> <span class="s2">&quot;/v1/documents&quot;</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">_clean</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
 
 
 <div class="viewcode-block" id="AsyncDocumentsClient">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AsyncDocumentsClient</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Accès asynchrone aux endpoints documents.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Accès asynchrone aux endpoints documents.</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">_AsyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="sd">    Arguments</span>
+<span class="sd">    - ``client`` : Objet ``henrri_connect.AsyncHenrriClient``.</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    - ``list_documents`` : Liste tous les documents.</span>
+<span class="sd">    - ``add`` : Ajoute un document.</span>
+<span class="sd">    - ``get`` : Accès au document par son ID.</span>
+<span class="sd">    - ``get_with_all`` : Accès au document par son ID avec toutes ses relations incluses.</span>
+<span class="sd">    - ``get_all_included`` : Accès au document par son ID avec toutes ses données incluses.</span>
+<span class="sd">    - ``modify`` : Modifie un document par son ID.</span>
+<span class="sd">    - ``delete`` : Supprime un document par son ID.</span>
+<span class="sd">    - ``get_tax_details`` : Accès aux taxes d&#39;un document par son ID.</span>
+<span class="sd">    - ``validate`` : Valide un document.</span>
+<span class="sd">    - ``get_pdf_url`` : Accès au document par son ID et son GUID.</span>
+<span class="sd">    - ``get_pdf_bytes`` : Accès au document par son ID et son GUID.</span>
+<span class="sd">    - ``get_pdf_file`` : Accès au document par son ID et son GUID.</span>
+<span class="sd">    - ``get_display`` : Accès aux données d&#39;affichage d&#39;un document par son ID.</span>
+<span class="sd">    - ``get_payment_milestones`` : Accès aux milestones de paiement d&#39;un document par son ID.</span>
+<span class="sd">    - ``finalize`` : Finalise un document.</span>
+<span class="sd">    - ``transform_to_invoice`` : Transforme un document (devis, bon de livraison...) en facture.</span>
+<span class="sd">    - ``get_next_code_batch`` : Accès au code de batch suivant.</span>
+<span class="sd">    - ``list_with_selected_fields`` : Liste les documents avec sélection de champs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">AsyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span> <span class="o">=</span> <span class="n">client</span>
 
-<div class="viewcode-block" id="AsyncDocumentsClient.list">
-<a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.list">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
-        <span class="n">search</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">sort_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">sort_order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">document_type_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">state</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">from_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">to_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">min_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Liste les documents avec pagination et filtres optionnels.&quot;&quot;&quot;</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="n">_clean</span><span class="p">({</span>
-            <span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span>
-            <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
-            <span class="s2">&quot;search&quot;</span><span class="p">:</span> <span class="n">search</span><span class="p">,</span>
-            <span class="s2">&quot;sortBy&quot;</span><span class="p">:</span> <span class="n">sort_by</span><span class="p">,</span>
-            <span class="s2">&quot;sortOrder&quot;</span><span class="p">:</span> <span class="n">sort_order</span><span class="p">,</span>
-            <span class="s2">&quot;documentTypeId&quot;</span><span class="p">:</span> <span class="n">document_type_id</span><span class="p">,</span>
-            <span class="s2">&quot;customerId&quot;</span><span class="p">:</span> <span class="n">customer_id</span><span class="p">,</span>
-            <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="n">state</span><span class="p">,</span>
-            <span class="s2">&quot;fromDate&quot;</span><span class="p">:</span> <span class="n">from_date</span><span class="p">,</span>
-            <span class="s2">&quot;toDate&quot;</span><span class="p">:</span> <span class="n">to_date</span><span class="p">,</span>
-            <span class="s2">&quot;minId&quot;</span><span class="p">:</span> <span class="n">min_id</span><span class="p">,</span>
-        <span class="p">})</span>
+<div class="viewcode-block" id="AsyncDocumentsClient.list_documents">
+<a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.list_documents">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">list_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">DocumentQuery</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liste les documents avec pagination et filtres optionnels.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``request`` (DocumentQuery) : Paramètres de recherche.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``PagedListResponse[Document]`` : Liste paginée de documents.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">by_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">DOCUMENTS_ENDPOINT</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Document</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
@@ -298,7 +313,15 @@
 <div class="viewcode-block" id="AsyncDocumentsClient.add">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.add">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">:</span> <span class="n">Document</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Crée un nouveau document.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Crée un nouveau document.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``document`` (Document) : Document à créer.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Document`` : Document créé.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
             <span class="n">DOCUMENTS_ENDPOINT</span><span class="p">,</span>
@@ -309,35 +332,68 @@
 
 <div class="viewcode-block" id="AsyncDocumentsClient.get">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.get">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère un document par son identifiant.&quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère un document par son identifiant.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Document`` : Document trouvé.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="AsyncDocumentsClient.get_with_all">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.get_with_all">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_with_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère un document avec toutes ses relations incluses.&quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">/with-all&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_with_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère un document avec toutes ses relations incluses.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Document`` : Document avec toutes ses relations incluses.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/with-all&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="AsyncDocumentsClient.get_all_included">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.get_all_included">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_all_included</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère un document avec toutes ses données incluses.&quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">/all-included&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_all_included</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère un document avec toutes ses données incluses.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Document`` : Document avec toutes ses données incluses.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/all-included&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="AsyncDocumentsClient.modify">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.modify">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">document</span><span class="p">:</span> <span class="n">Document</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Met à jour un document existant.&quot;&quot;&quot;</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">document</span><span class="p">:</span> <span class="n">Document</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Met à jour un document existant.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+<span class="sd">        - ``document`` (Document) : Document à mettre à jour.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Document`` : Document mis à jour.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="n">json</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">by_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -345,26 +401,48 @@
 
 <div class="viewcode-block" id="AsyncDocumentsClient.delete">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.delete">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Supprime un document.&quot;&quot;&quot;</span>
-        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Supprime un document.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="AsyncDocumentsClient.get_tax_details">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.get_tax_details">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_tax_details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TaxDetailArray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère le détail des taxes d&#39;un document.&quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">/tax-details&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_tax_details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TaxDetailArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère le détail des taxes d&#39;un document.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``TaxDetailArray`` : Détail des taxes du document.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/tax-details&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">TaxDetailArray</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="AsyncDocumentsClient.validate">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.validate">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">ValidateDocumentRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Valide électroniquement un document.&quot;&quot;&quot;</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">ValidateDocumentRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Valide électroniquement un document.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+<span class="sd">        - ``request`` (ValidateDocumentRequest) : Dossier à valider.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Document`` : Document validé.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">/validate&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/validate&quot;</span><span class="p">,</span>
             <span class="n">json</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">by_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
@@ -372,64 +450,126 @@
 
 <div class="viewcode-block" id="AsyncDocumentsClient.get_pdf_url">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.get_pdf_url">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_pdf_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PdfUrlResponse</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Génère une URL de téléchargement pour le PDF d&#39;un document.&quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">/pdf/url&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_pdf_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PdfUrlResponse</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Génère une URL de téléchargement pour le PDF d&#39;un document.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``PdfUrlResponse`` : URL de téléchargement du PDF du document.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/pdf/url&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">PdfUrlResponse</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="AsyncDocumentsClient.get_pdf_bytes">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.get_pdf_bytes">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_pdf_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Télécharge le PDF d&#39;un document (retourne les octets bruts).&quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">/pdf&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_pdf_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Télécharge le PDF d&#39;un document (retourne les octets bruts).</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``bytes`` : Octets bruts du PDF du document.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/pdf&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">content</span></div>
 
 
 <div class="viewcode-block" id="AsyncDocumentsClient.get_pdf_file">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.get_pdf_file">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_pdf_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">guid</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Télécharge un fichier PDF identifié par son GUID.&quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">/pdf/files/</span><span class="si">{</span><span class="n">guid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_pdf_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">guid</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Télécharge un fichier PDF identifié par son GUID.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+<span class="sd">        - ``guid`` (str) : GUID du fichier PDF.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``bytes`` : Octets bruts du fichier PDF.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/pdf/files/</span><span class="si">{</span><span class="n">guid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">content</span></div>
 
 
 <div class="viewcode-block" id="AsyncDocumentsClient.get_display">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.get_display">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère les données d&#39;affichage d&#39;un document.&quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">/display&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère les données d&#39;affichage d&#39;un document.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Document`` : Document avec les données d&#39;affichage.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/display&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="AsyncDocumentsClient.get_payment_milestones">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.get_payment_milestones">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_payment_milestones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ListResponse</span><span class="p">[</span><span class="n">PaymentMilestone</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère les jalons de paiement d&#39;un document.&quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">document_id</span><span class="si">}</span><span class="s2">/paymentmilestones&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_payment_milestones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ListResponse</span><span class="p">[</span><span class="n">PaymentMilestone</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère les jalons de paiement d&#39;un document.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``ListResponse[PaymentMilestone]`` : Liste des jalons de paiement du document.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/paymentmilestones&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ListResponse</span><span class="p">[</span><span class="n">PaymentMilestone</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="AsyncDocumentsClient.finalize">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.finalize">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Finalise un document.&quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">/finalize&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finalise un document.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Document`` : Document finalisé.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/finalize&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="AsyncDocumentsClient.transform_to_invoice">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.transform_to_invoice">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">transform_to_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transforme un document (devis, bon de livraison…) en facture.&quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">/transform-to-invoice&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">transform_to_invoice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transforme un document (devis, bon de livraison…) en facture.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``doc_id`` (int) : Identifiant du document.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``Document`` : Document transformé en facture.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">doc_id</span><span class="si">}</span><span class="s2">/transform-to-invoice&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Document</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="AsyncDocumentsClient.get_next_quote_batch">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.documents.AsyncDocumentsClient.get_next_quote_batch">[docs]</a>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_next_quote_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère le prochain numéro de lot pour un devis.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère le prochain numéro de lot pour un devis.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``object`` : Numéro de lot.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/next-quote-batch&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span></div>
 
@@ -444,9 +584,24 @@
         <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Liste les documents avec sélection de champs.&quot;&quot;&quot;</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="n">_clean</span><span class="p">({</span><span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span> <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span> <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">})</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/with-selected-fields&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liste les documents avec sélection de champs.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        - ``page`` (int) : Numéro de page (par d&amp;eacute;faut 1).</span>
+<span class="sd">        - ``limit`` (int) : Nombre de documents par page (par d&amp;eacute;faut 50).</span>
+<span class="sd">        - ``fields`` (str | None) : Champs à retourner (par d&amp;eacute;faut None).</span>
+<span class="sd">        - ``**kwargs`` (object) : Autres paramètres.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        - ``PagedListResponse[Document]`` : Liste de documents.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">clean</span><span class="p">({</span><span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="n">page</span><span class="p">,</span> <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span> <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">})</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
+            <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">DOCUMENTS_ENDPOINT</span><span class="si">}</span><span class="s2">/with-selected-fields&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Document</span><span class="p">]</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 </div>
 
@@ -487,5 +642,6 @@
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>

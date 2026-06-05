@@ -8,8 +8,8 @@ import json
 import httpx
 import pytest
 
-from src.henrri_connect.utils import raise_for_status
-from src.henrri_connect.exc import (
+from henrri_connect.utils import raise_for_status
+from henrri_connect.exc import (
     HenrriValidationError,
     HenrriAuthError,
     HenrriForbiddenError,

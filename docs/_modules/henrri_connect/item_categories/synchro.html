@@ -231,12 +231,10 @@
 <span class="sd">Sous-client pour les endpoints /v1/itemcategories.</span>
 
 <span class="sd">Classes:</span>
-<span class="sd">--------</span>
-<span class="sd">- ``henrri_connect.item_categories.synchro.SyncItemCategoriesClient`` :</span>
+<span class="sd">- ``henrri_connect.item_categories.synchro.SyncItemCategoriesClient``</span>
 <span class="sd">    Accès synchrone aux endpoints categories d&#39;articles.</span>
 
 <span class="sd">Notes:</span>
-<span class="sd">------</span>
 <span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -258,11 +256,11 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">SyncItemCategoriesClient</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Accès synchrone aux catégories d&#39;articles.</span>
-<span class="sd">    </span>
-<span class="sd">    Arguments:</span>
+
+<span class="sd">    Arguments</span>
 <span class="sd">    - ``client`` : Objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.</span>
-<span class="sd">    </span>
-<span class="sd">    Methodes:</span>
+
+<span class="sd">    Methodes</span>
 <span class="sd">    - ``list_item_categories`` : Liste les catégories d&#39;articles avec pagination.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -278,11 +276,11 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">ItemCategory</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Liste les catégories d&#39;articles avec pagination.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``request`` (ItemCategoryRequest) : Paramètres de recherche.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        - ``PagedListResponse[ItemCategory]`` : Liste paginée de catégories d&#39;articles.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">by_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>

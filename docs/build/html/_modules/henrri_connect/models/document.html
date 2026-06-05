@@ -8,7 +8,9 @@
         <title>henrri_connect.models.document - Documentation henrri-connect 0.1.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
 
@@ -225,13 +227,24 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.document</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles Pydantic v2 pour l&#39;API Henrri.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles Pydantic v2 pour les documents dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- DocumentType: Représente un type de document dans l&#39;API Henrri Connect.</span>
+<span class="sd">- DocumentLabelElement: Représente un élément d&#39;étiquette de document dans l&#39;API Henrri Connect.</span>
+<span class="sd">- DocumentLabel: Représente une étiquette de document dans l&#39;API Henrri Connect.</span>
+<span class="sd">- DocumentLineType: Représente un type de ligne de document dans l&#39;API Henrri Connect.</span>
+<span class="sd">- DocumentLine: Représente une ligne de document dans l&#39;API Henrri Connect.</span>
+<span class="sd">- DocumentLineMoveQueryParameters: Représente les paramètres de requête pour déplacer une ligne</span>
+<span class="sd">de document dans l&#39;API Henrri Connect.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">CamelModel</span><span class="p">,</span> <span class="n">Link</span><span class="p">,</span> <span class="n">DocumentKind</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">CamelModel</span><span class="p">,</span> <span class="n">Link</span><span class="p">,</span> <span class="n">DocumentKind</span><span class="p">,</span> <span class="n">DocumentState</span><span class="p">,</span> <span class="n">SortOrder</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.document_line</span><span class="w"> </span><span class="kn">import</span> <span class="n">DocumentLine</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.customer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Customer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.address_contacts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Address</span>
@@ -239,6 +252,16 @@
 <div class="viewcode-block" id="DocumentType">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentType">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentType</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente un type de document dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique du type de document.</span>
+<span class="sd">    - label: Libellé du type de document.</span>
+<span class="sd">    - short_label: Libellé court du type de document.</span>
+<span class="sd">    - document_kind: Type de document.</span>
+<span class="sd">    - is_accounting: Indique si le type de document est comptable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">short_label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -253,6 +276,20 @@
 <div class="viewcode-block" id="DocumentLabelElement">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentLabelElement">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentLabelElement</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente un élément d&#39;étiquette de document dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique de l&#39;élément d&#39;étiquette.</span>
+<span class="sd">    - model_element_id: Id de l&#39;élément de modèle auquel appartient l&#39;élément d&#39;étiquette.</span>
+<span class="sd">    - label: Libellé de l&#39;élément d&#39;étiquette.</span>
+<span class="sd">    - value: Valeur de l&#39;élément d&#39;étiquette.</span>
+<span class="sd">    - element_type: Type de l&#39;élément d&#39;étiquette.</span>
+<span class="sd">    - is_main_element: Indique si l&#39;élément d&#39;étiquette est l&#39;élément principal de l&#39;étiquette.</span>
+<span class="sd">    - size: Taille de l&#39;élément d&#39;étiquette.</span>
+<span class="sd">    - index: Index de l&#39;élément d&#39;étiquette dans l&#39;étiquette.</span>
+<span class="sd">    - links: Liste de liens associés à l&#39;élément d&#39;étiquette (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">model_element_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -268,6 +305,17 @@
 <div class="viewcode-block" id="DocumentLabel">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentLabel">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentLabel</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente une étiquette de document dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique de l&#39;étiquette de document.</span>
+<span class="sd">    - model_id: Id du modèle auquel appartient l&#39;étiquette de document.</span>
+<span class="sd">    - document_id: Id du document auquel appartient l&#39;étiquette de document.</span>
+<span class="sd">    - label: Libellé de l&#39;étiquette de document.</span>
+<span class="sd">    - elements: Liste d&#39;éléments d&#39;étiquette de doc associés à l&#39;étiquette de doc (si applicable).</span>
+<span class="sd">    - links: Liste de liens associés à l&#39;étiquette de document (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">model_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">document_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -280,6 +328,40 @@
 <div class="viewcode-block" id="Document">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.Document">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Document</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente un document dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique du document.</span>
+<span class="sd">    - identity: Identité du document.</span>
+<span class="sd">    - finalized: Indique si le document est finalisé.</span>
+<span class="sd">    - type: Type du document.</span>
+<span class="sd">    - document_type_id: Identifiant du type de document.</span>
+<span class="sd">    - document_type: Type de document (si applicable).</span>
+<span class="sd">    - title: Titre du document.</span>
+<span class="sd">    - subtitle: Sous-titre du document (si applicable).</span>
+<span class="sd">    - price_before_tax: Prix total avant taxe du document.</span>
+<span class="sd">    - tax_amount: Montant total de la taxe du document.</span>
+<span class="sd">    - price_after_tax: Prix total après taxe du document.</span>
+<span class="sd">    - due_label: Libellé de l&#39;échéance du document (si applicable).</span>
+<span class="sd">    - last_modification_date: Date de dernière modification du document.</span>
+<span class="sd">    - date: Date du document.</span>
+<span class="sd">    - validated: Indique si le document est validé.</span>
+<span class="sd">    - validation_date: Date de validation du document (si applicable).</span>
+<span class="sd">    - validation_firstname: Prénom de la personne ayant validé le document (si applicable).</span>
+<span class="sd">    - validation_lastname: Nom de la personne ayant validé le document (si applicable).</span>
+<span class="sd">    - validation_email: E-mail de la personne ayant validé le document (si applicable).</span>
+<span class="sd">    - validation_ip: IP de la personne ayant validé le document (si applicable).</span>
+<span class="sd">    - lines: Liste de lignes de document associées au document (si applicable).</span>
+<span class="sd">    - customer_id: Identifiant du client associé au document (si applicable).</span>
+<span class="sd">    - customer: Client associé au document (si applicable).</span>
+<span class="sd">    - customer_address: Adresse du client associée au document (si applicable).</span>
+<span class="sd">    - user_can_validate: Indique si l&#39;utilisateur peut valider le document.</span>
+<span class="sd">    - footer_text: Texte de pied de page du document (si applicable).</span>
+<span class="sd">    - bank_account_label: Libellé du compte bancaire associé au document (si applicable).</span>
+<span class="sd">    - label_id: Identifiant de l&#39;étiquette de document associée au document (si applicable).</span>
+<span class="sd">    - links: Liste de liens associés au document (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">identity</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">finalized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -301,7 +383,7 @@
     <span class="n">validation_email</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">validation_ip</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DocumentLine</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">customer</span><span class="p">:</span> <span class="n">Customer</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">customer_address</span><span class="p">:</span> <span class="n">Address</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">user_can_validate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -312,9 +394,53 @@
 
 
 
+<div class="viewcode-block" id="DocumentQuery">
+<a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentQuery">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocumentQuery</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente une requête de document dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - finalized (bool) : Indique si le document est finalisé.</span>
+<span class="sd">    - document_types (list[DocumentKind]) :: Type du document.</span>
+<span class="sd">    - state (Optional[DocumentState]) : Etat du document.</span>
+<span class="sd">    - page (int) : Numéro de page (de 1 à 2 147 483 647, défaut 1).</span>
+<span class="sd">    - limit (int) : Nombre de documents par page (de 1 à 100, défaut 50).</span>
+<span class="sd">    - search (str) : Chaine de recherche.</span>
+<span class="sd">    - sort_by (str) : Champ de tri.</span>
+<span class="sd">    - sort_order (SortOrder) : Ordre de tri (Ascending ou Descending).</span>
+<span class="sd">    - min_id (int) : Identifiant minimum.</span>
+<span class="sd">    - from_date (str) : Date de debut.</span>
+<span class="sd">    - to_date (str) : Date de fin.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">finalized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">document_types</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DocumentKind</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">state</span><span class="p">:</span> <span class="n">DocumentState</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="n">search</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">sort_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">sort_order</span><span class="p">:</span> <span class="n">SortOrder</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">min_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">from_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">to_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+
 <div class="viewcode-block" id="ValidateDocumentRequest">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.ValidateDocumentRequest">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ValidateDocumentRequest</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente une requête de validation de document dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - email: Adresse e-mail de la personne validant le document.</span>
+<span class="sd">    - first_name: Prénom de la personne validant le document.</span>
+<span class="sd">    - last_name: Nom de la personne validant le document.</span>
+<span class="sd">    - validation_date: Date de validation du document.</span>
+<span class="sd">    - time_offset: Décalage horaire par rapport à UTC.</span>
+<span class="sd">    - ip: Adresse IP de la personne validant le document.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">email</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">first_name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">last_name</span><span class="p">:</span> <span class="nb">str</span>
@@ -359,5 +485,6 @@
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>

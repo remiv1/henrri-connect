@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock
 
 import pytest   # pylint: disable=W0611
 
-from src.henrri_connect.models import Document, PdfUrlResponse
+from henrri_connect.models import Document, PdfUrlResponse
 from tests.conftest import DOCUMENT_JSON, PAGED_META, make_response
 
 

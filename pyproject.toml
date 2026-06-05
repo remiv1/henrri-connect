@@ -1,6 +1,6 @@
 [project]
 name = "henrri-connect"
-version = "0.1.6"
+version = "0.2.0"
 description = "Bibliothèque souveraine pour utiliser l'API de facturation Henrri."
 authors = [{name="Rémi Verschuur", email="rverschuur@audit-io.fr"}]
 readme = "README.md"
@@ -45,8 +45,10 @@ dev = [
     "twine",
     "pytest-asyncio",
     "pytest-cov",
+    "pytest-html",
     "coverage",
     "sphinxcontrib-programoutput",
+    "genbadge[coverage]",
 ]
 
 [project.urls]

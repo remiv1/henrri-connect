@@ -5,7 +5,7 @@ VERSION      := $(shell grep '^version' pyproject.toml | head -1 | sed 's/versio
 RELEASE      := $(shell echo "$(VERSION)" | cut -d. -f1,2)
 
 DOCS_SRC     = docs/source
-DOCS_BUILD   = docs
+DOCS_BUILD   = docs/
 DOCS_BUILD_HTML = $(DOCS_BUILD)/build/html
 
 .PHONY: all clean build publish help test docs docs-init docs-clean docs-serve
@@ -15,7 +15,7 @@ DOCS_BUILD_HTML = $(DOCS_BUILD)/build/html
 help:
 	@echo "Usage: make [target]"
 	@echo "Targets:"
-	@echo "  all          - Tests, build, vérification, publication et nettoyage"
+	@echo "  all          - Tests & docs, build, vérification, publication et nettoyage"
 	@echo "  test         - Exécute les tests unitaires"
 	@echo "  build        - Construit le paquet"
 	@echo "  build-verify - Vérifie le paquet construit"
@@ -48,12 +48,36 @@ docs-init:
 		echo "  $(DOCS_SRC)/conf.py déjà présent — rien à faire."; \
 	fi
 
-docs:
+tests-and-docs:
+	@echo ""
+	@echo "—–--–—–--–— Génération des rapports de test & coverage —–--–—–--–—"
+	@echo ""
+	@echo "  Génération du rapport de tests texte et html..."
+	pytest | sed '/^rootdir:/d;/^asyncio:/d' > docs/source/_static/tests/pytest.txt
+	pytest --html=docs/source/_static/tests/report.html --self-contained-html
+	@echo ""
+	@echo "  Génération du rapport de coverage..."
+	coverage run -m pytest tests
+	coverage html -d docs/source/_static/coverage
+	coverage report -m > docs/source/_static/coverage.txt
+	@echo ""
+	@echo "  Rapports de test et coverage générés dans $(DOCS_SRC)/_static/"
+	@echo ""
+	@echo "—–--–—–--–— Génération des badges de couverture et badge de test —–--–—–--–—"
+	coverage xml
+	genbadge coverage -i coverage.xml -o docs/source/_static/coverage_badge.svg
+	pytest --junitxml=tests.xml
+	genbadge tests -i tests.xml -o docs/source/_static/tests_badge.svg
+	@echo "  Badges de couverture et badge de test générés dans $(DOCS_SRC)/_static/"
+	@echo ""
 	@echo "—–--–—–--–— Generating Documentation (v$(VERSION)) —–--–—–--–—"
 	sphinx-build -b html $(DOCS_SRC) $(DOCS_BUILD_HTML)
 	touch $(DOCS_BUILD)/.nojekyll
 	@echo ""
 	@echo "  Documentation générée dans $(DOCS_BUILD)/index.html"
+	@echo "—–--–—–--–— Copie pour Github (v$(VERSION)) —–--–—–--–—"
+	cp -r $(DOCS_BUILD_HTML)/* docs/
+	@echo "  Documentation copiée dans docs/"
 
 docs-clean:
 	@echo "—–--–—–--–— Clean Documentation —–--–—–--–—"
@@ -66,9 +90,9 @@ docs-serve: docs
 
 # ———— Main Targets ————
 
-all: test build build-verify publish clean
+all: tests-and-docs build build-verify publish clean
 
-test:
+tests:
 	@echo "—–--–—–--–— Running Tests —–--–—–--–—"
 	coverage run -m pytest tests
 	@echo "Tests successfully completed."

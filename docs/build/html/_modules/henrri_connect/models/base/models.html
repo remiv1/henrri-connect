@@ -8,7 +8,9 @@
         <title>henrri_connect.models.base.models - Documentation henrri-connect 0.1.0</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
     
     
 
@@ -225,7 +227,15 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.base.models</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles de base Pydantic v2 pour l&#39;API Henrri.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles de base Pydantic v2 pour l&#39;API Henrri.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- CamelModel: Modèle de base avec conversion automatique camelCase ↔ snake_case.</span>
+<span class="sd">- Link: Représente un lien hypertexte.</span>
+<span class="sd">- MetaPagedListResponse: Représente les métadonnées d&#39;une réponse de liste paginée.</span>
+<span class="sd">- MetaListResponse: Représente les métadonnées d&#39;une réponse de liste.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -233,7 +243,13 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic.alias_generators</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_camel</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CamelModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Modèle de base avec conversion automatique camelCase ↔ snake_case.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modèle de base avec conversion automatique camelCase ↔ snake_case.</span>
+
+<span class="sd">    Attributs</span>
+<span class="sd">    - model_config: Configuration du modèle pour activer la conversion automatique des</span>
+<span class="sd">    noms de champs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span>
         <span class="n">populate_by_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -243,6 +259,15 @@
 <div class="viewcode-block" id="Link">
 <a class="viewcode-back" href="../../../../api.html#henrri_connect.models.Link">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Link</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente un lien hypertexte.</span>
+
+<span class="sd">    Attributs</span>
+<span class="sd">    - href: URL du lien.</span>
+<span class="sd">    - rel: Relation du lien.</span>
+<span class="sd">    - method: Méthode HTTP du lien.</span>
+<span class="sd">    - label: Libellé du lien.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">href</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">rel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -251,6 +276,16 @@
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">MetaPagedListResponse</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente les métadonnées d&#39;une réponse de liste paginée.</span>
+
+<span class="sd">    Attributs</span>
+<span class="sd">    - page: Numéro de la page.</span>
+<span class="sd">    - limit: Nombre d&#39;éléments par page.</span>
+<span class="sd">    - total_count: Nombre total d&#39;éléments.</span>
+<span class="sd">    - total_pages: Nombre total de pages.</span>
+<span class="sd">    - has_next: Indique si une page suivante existe.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">total_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
@@ -259,6 +294,12 @@
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">MetaListResponse</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente les métadonnées d&#39;une réponse de liste.</span>
+
+<span class="sd">    Attributs</span>
+<span class="sd">    - total_count: Nombre total d&#39;éléments.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">total_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 </pre></div>
         </article>
@@ -297,5 +338,6 @@
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>

@@ -8,7 +8,9 @@
         <title>henrri_connect.models.users - Documentation henrri-connect 0.1.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
 
@@ -225,7 +227,9 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.users</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles pour les utilisateurs dans l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles pour les utilisateurs dans l&#39;API Henrri Connect.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -239,6 +243,27 @@
 <div class="viewcode-block" id="User">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.User">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">User</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente un utilisateur dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant de l&#39;utilisateur.</span>
+<span class="sd">    - email: Adresse email de l&#39;utilisateur.</span>
+<span class="sd">    - first_name: Prénom de l&#39;utilisateur.</span>
+<span class="sd">    - last_name: Nom de famille de l&#39;utilisateur.</span>
+<span class="sd">    - url_image: URL de l&#39;image de profil de l&#39;utilisateur.</span>
+<span class="sd">    - first_connexion_date: Date de la première connexion de l&#39;utilisateur.</span>
+<span class="sd">    - last_connexion_date: Date de la dernière connexion de l&#39;utilisateur.</span>
+<span class="sd">    - connexion_count: Nombre de connexions de l&#39;utilisateur.</span>
+<span class="sd">    - created_from: Source de création de l&#39;utilisateur.</span>
+<span class="sd">    - phone_number: Numéro de téléphone de l&#39;utilisateur.</span>
+<span class="sd">    - creation_date: Date de création de l&#39;utilisateur.</span>
+<span class="sd">    - is_enabled: Indique si l&#39;utilisateur est activé.</span>
+<span class="sd">    - two_factor_enabled: Indique si l&#39;authentification à deux facteurs est activée pour</span>
+<span class="sd">    l&#39;utilisateur.</span>
+<span class="sd">    - address: Adresse de l&#39;utilisateur (si applicable).</span>
+<span class="sd">    - links: Liste de liens associés à l&#39;utilisateur (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">email</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">first_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -260,6 +285,13 @@
 <div class="viewcode-block" id="UserAndCompany">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.UserAndCompany">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">UserAndCompany</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente un utilisateur et son entreprise dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">     - user: Utilisateur de l&#39;API Henrri Connect.</span>
+<span class="sd">     - company: Entreprise associée à l&#39;utilisateur dans l&#39;API Henrri Connect.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">user</span><span class="p">:</span> <span class="n">User</span>
     <span class="n">company</span><span class="p">:</span> <span class="n">Company</span></div>
 
@@ -300,5 +332,6 @@
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>

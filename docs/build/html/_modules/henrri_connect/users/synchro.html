@@ -8,7 +8,9 @@
         <title>henrri_connect.users.synchro - Documentation henrri-connect 0.1.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
 
@@ -225,7 +227,15 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.users.synchro</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Sous-client pour les endpoints /v1/users.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Sous-client pour les endpoints /v1/users.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">- ``henrri_connect.users.synchro.SyncUsersClient`` : Accès synchrone aux endpoints utilisateurs.</span>
+
+<span class="sd">Notes:</span>
+<span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -234,40 +244,71 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">..models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Address</span><span class="p">,</span> <span class="n">TokenResponse</span><span class="p">,</span> <span class="n">User</span><span class="p">,</span> <span class="n">UserAndCompany</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">..connect</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-        <span class="n">_SyncHenrriClient</span><span class="p">,</span>   <span class="c1"># type: ignore[import]</span>
-    <span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..connect</span><span class="w"> </span><span class="kn">import</span> <span class="n">SyncHenrriClient</span>
 
 <span class="n">USERS_ENDPOINT</span> <span class="o">=</span> <span class="s2">&quot;/v1/users&quot;</span>
 
 <div class="viewcode-block" id="SyncUsersClient">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.users.SyncUsersClient">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SyncUsersClient</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Accès synchrone aux endpoints utilisateurs.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Accès synchrone aux endpoints utilisateurs.</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">_SyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="sd">    Arguments:</span>
+<span class="sd">    - client (SyncHenrriClient) : Client synchrone pour acceder aux endpoints.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">    - get(user_id: int) : Récupère un utilisateur par son identifiant.</span>
+<span class="sd">    - get_address(user_id: int) : Récupère l&#39;adresse d&#39;un utilisateur.</span>
+<span class="sd">    - get_companies() : Récupère les entreprises associées à l&#39;utilisateur courant.</span>
+<span class="sd">    - authenticate() : Authentifie via les identifiants du client.</span>
+<span class="sd">    - refresh_token(refresh_token: str) : Rafraîchit le token d&#39;accès.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">SyncHenrriClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span> <span class="o">=</span> <span class="n">client</span>
 
 <div class="viewcode-block" id="SyncUsersClient.get">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.users.SyncUsersClient.get">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">User</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère un utilisateur par son identifiant.&quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">USERS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">User</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère un utilisateur par son identifiant.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">        - ``user_id`` (int) : Identifiant de l&#39;utilisateur.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        - ``User`` : Utilisateur.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">USERS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">User</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="SyncUsersClient.get_address">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.users.SyncUsersClient.get_address">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Address</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère l&#39;adresse d&#39;un utilisateur.&quot;&quot;&quot;</span>
-        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">USERS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">/address&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Address</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère l&#39;adresse d&#39;un utilisateur.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">        - ``user_id`` (int) : Identifiant de l&#39;utilisateur.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        - ``henrri_connect.models.Address`` : Adresse de l&#39;utilisateur.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">USERS_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">/address&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Address</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="SyncUsersClient.get_companies">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.users.SyncUsersClient.get_companies">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_companies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">UserAndCompany</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Récupère les entreprises associées à l&#39;utilisateur courant.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Récupère les entreprises associées à l&#39;utilisateur courant.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        - ``list[UserAndCompany]`` : Entreprises.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">USERS_ENDPOINT</span><span class="si">}</span><span class="s2">/companies&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">UserAndCompany</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()]</span></div>
 
@@ -275,24 +316,37 @@
 <div class="viewcode-block" id="SyncUsersClient.authenticate">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.users.SyncUsersClient.authenticate">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TokenResponse</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Authentifie via les identifiants du client.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Authentifie via les identifiants du client.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        - ``henrri_connect.models.TokenResponse`` : Objet contenant access_token et refresh_token.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">authenticate</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="SyncUsersClient.refresh_token">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.users.SyncUsersClient.refresh_token">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">refresh_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">refresh_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TokenResponse</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Rafraîchit le token d&#39;accès.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rafraîchit le token d&#39;accès.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">        - ``refresh_token`` (str) : Token de rafraîchissement.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        - ``henrri_connect.models.TokenResponse`` : Objet contenant access_token et refresh_token.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;/v1/users/refresh-token&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">USERS_ENDPOINT</span><span class="si">}</span><span class="s2">/refresh-token&quot;</span><span class="p">,</span>
             <span class="n">authenticated</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;refreshToken&quot;</span><span class="p">:</span> <span class="n">refresh_token</span><span class="p">},</span>
         <span class="p">)</span>
         <span class="n">token</span> <span class="o">=</span> <span class="n">TokenResponse</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">_access_token</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">access_token</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">_access_token</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">access_token</span>  <span class="c1"># pylint: disable=W0212</span>
         <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">refresh_token</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">_refresh_token_str</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">refresh_token</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">_refresh_token_str</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">refresh_token</span>    <span class="c1"># pylint: disable=W0212</span>
         <span class="k">return</span> <span class="n">token</span></div>
 </div>
 
@@ -333,5 +387,6 @@
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>

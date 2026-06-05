@@ -1,0 +1,7 @@
+Modèles
+=======
+
+.. automodule:: henrri_connect.models
+   :members:
+   :undoc-members: False
+   :show-inheritance:

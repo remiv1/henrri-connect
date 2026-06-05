@@ -231,12 +231,10 @@
 <span class="sd">Sous-client pour les endpoints /v1/documenttypes.</span>
 
 <span class="sd">Classes:</span>
-<span class="sd">--------</span>
-<span class="sd">- ``henrri_connect.document_types.synchro.SyncDocumentTypesClient`` :</span>
+<span class="sd">- ``henrri_connect.document_types.synchro.SyncDocumentTypesClient``</span>
 <span class="sd">    Accès synchrone aux endpoints types de documents.</span>
 
 <span class="sd">Notes:</span>
-<span class="sd">------</span>
 <span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -256,11 +254,11 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">SyncDocumentTypesClient</span><span class="p">:</span>  <span class="c1"># pylint: disable=R0903</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Accès synchrone aux types de documents.</span>
-<span class="sd">    </span>
-<span class="sd">    Arguments:</span>
+
+<span class="sd">    Arguments</span>
 <span class="sd">    - ``client`` : Objet ``henrri_connect.SyncHenrriClient``.</span>
-<span class="sd">    </span>
-<span class="sd">    Methods:</span>
+
+<span class="sd">    Methods</span>
 <span class="sd">    - ``list_document_types`` : Liste tous les types de documents.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -272,11 +270,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">list_document_types</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ListResponse</span><span class="p">[</span><span class="n">DocumentType</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Liste tous les types de documents.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``None``</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
+
+<span class="sd">        Returns</span>
 <span class="sd">        - ``ListResponse[DocumentType]`` : Liste de types de documents.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">DOCUMENTTYPE_ENDPOINT</span><span class="p">)</span>

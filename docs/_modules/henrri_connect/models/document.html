@@ -254,7 +254,7 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentType</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Représente un type de document dans l&#39;API Henrri Connect.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Attributs:</span>
 <span class="sd">    - id: Identifiant unique du type de document.</span>
 <span class="sd">    - label: Libellé du type de document.</span>
@@ -307,7 +307,7 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentLabel</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Représente une étiquette de document dans l&#39;API Henrri Connect.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Attributs:</span>
 <span class="sd">    - id: Identifiant unique de l&#39;étiquette de document.</span>
 <span class="sd">    - model_id: Id du modèle auquel appartient l&#39;étiquette de document.</span>
@@ -330,7 +330,7 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">Document</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Représente un document dans l&#39;API Henrri Connect.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Attributs:</span>
 <span class="sd">    - id: Identifiant unique du document.</span>
 <span class="sd">    - identity: Identité du document.</span>
@@ -399,7 +399,7 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentQuery</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Représente une requête de document dans l&#39;API Henrri Connect.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Attributs:</span>
 <span class="sd">    - finalized (bool) : Indique si le document est finalisé.</span>
 <span class="sd">    - document_types (list[DocumentKind]) :: Type du document.</span>
@@ -432,7 +432,7 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">ValidateDocumentRequest</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Représente une requête de validation de document dans l&#39;API Henrri Connect.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Attributs:</span>
 <span class="sd">    - email: Adresse e-mail de la personne validant le document.</span>
 <span class="sd">    - first_name: Prénom de la personne validant le document.</span>

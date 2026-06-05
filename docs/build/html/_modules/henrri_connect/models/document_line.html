@@ -8,7 +8,9 @@
         <title>henrri_connect.models.document_line - Documentation henrri-connect 0.1.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
 
@@ -225,17 +227,36 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.document_line</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles document pour l&#39;API Henrri Connect.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles document pour l&#39;API Henrri Connect.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- DocumentType: Représente un type de document dans l&#39;API Henrri Connect.</span>
+<span class="sd">- DocumentLabelElement: Représente un élément d&#39;étiquette de document dans l&#39;API Henrri Connect.</span>
+<span class="sd">- DocumentLabel: Représente une étiquette de document dans l&#39;API Henrri Connect.</span>
+<span class="sd">- DocumentLineType: Représente un type de ligne de document dans l&#39;API Henrri Connect.</span>
+<span class="sd">- DocumentLine: Représente une ligne de document dans l&#39;API Henrri Connect.</span>
+<span class="sd">- DocumentLineMoveQueryParameters: Représente les paramètres de requête pour déplacer une ligne</span>
+<span class="sd">de document dans l&#39;API Henrri Connect.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">CamelModel</span><span class="p">,</span> <span class="n">DocumentLineKind</span><span class="p">,</span> <span class="n">Link</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">CamelModel</span><span class="p">,</span> <span class="n">DocumentLineKind</span><span class="p">,</span> <span class="n">Link</span><span class="p">,</span> <span class="n">SortOrder</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.items</span><span class="w"> </span><span class="kn">import</span> <span class="n">Item</span>
 
 
 <div class="viewcode-block" id="DocumentLineType">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentLineType">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentLineType</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente un type de ligne de document dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique du type de ligne de document.</span>
+<span class="sd">    - label: Libellé du type de ligne de document.</span>
+<span class="sd">    - type: Type de ligne de document.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DocumentLineKind</span><span class="o">.</span><span class="n">NONE</span></div>
@@ -245,6 +266,37 @@
 <div class="viewcode-block" id="DocumentLine">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentLine">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentLine</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente une ligne de document dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    ``type_id`` peut être récupéré par un GET sur ``/documentlinetypes`` ou avec</span>
+<span class="sd">    ``henrry_connect.&lt;client&gt;.document_line_types.list_document_line_types``</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique de la ligne de document.</span>
+<span class="sd">    - document_id: Identifiant du document auquel appartient la ligne.</span>
+<span class="sd">    - reference: Référence de la ligne de document.</span>
+<span class="sd">    - description: Description de la ligne de document.</span>
+<span class="sd">    - selling_price_without_tax: Prix de vente sans taxe de la ligne de document.</span>
+<span class="sd">    - purchasing_price_without_tax: Prix d&#39;achat sans taxe de la ligne de document.</span>
+<span class="sd">    - vat_percent: Pourcentage de TVA appliqué à la ligne de document.</span>
+<span class="sd">    - quantity: Quantité de l&#39;article dans la ligne de document.</span>
+<span class="sd">    - is_tax_included: Indique si les prix incluent la taxe.</span>
+<span class="sd">    - total_without_tax: Total sans taxe pour la ligne de document.</span>
+<span class="sd">    - total_with_tax: Total avec taxe pour la ligne de document.</span>
+<span class="sd">    - are_elements_of_group_shown: Indique si les éléments du groupe sont affichés.</span>
+<span class="sd">    - line_number: Numéro de la ligne dans le document.</span>
+<span class="sd">    - is_a_group: Indique si la ligne est un groupe d&#39;articles.</span>
+<span class="sd">    - does_group_own_different_vat: Indique si le groupe a une TVA différente pour ses éléments.</span>
+<span class="sd">    - is_member_of_a_group: Indique si la ligne est membre d&#39;un groupe d&#39;articles.</span>
+<span class="sd">    - is_adjustment_of_group: Indique si la ligne est un ajustement d&#39;un groupe d&#39;articles.</span>
+<span class="sd">    - type_id: Identifiant du type de ligne de document.</span>
+<span class="sd">    - type: Type de ligne de document (si applicable).</span>
+<span class="sd">    - group_id: Identifiant du groupe d&#39;articles auquel appartient la ligne (si applicable).</span>
+<span class="sd">    - item_id: Identifiant de l&#39;article associé à la ligne (si applicable).</span>
+<span class="sd">    - item: Article associé à la ligne (si applicable).</span>
+<span class="sd">    - links: Liste de liens associés à la ligne de document (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">document_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">reference</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -274,7 +326,35 @@
 <div class="viewcode-block" id="DocumentLineMoveQueryParameters">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentLineMoveQueryParameters">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentLineMoveQueryParameters</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente les paramètres de requête pour déplacer une ligne de document dans</span>
+<span class="sd">    l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - to: Identifiant de la ligne de document vers laquelle déplacer la ligne.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">to</span><span class="p">:</span> <span class="nb">int</span></div>
+
+
+
+<div class="viewcode-block" id="DocumentLineListQueryParameters">
+<a class="viewcode-back" href="../../../api.html#henrri_connect.models.DocumentLineListQueryParameters">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocumentLineListQueryParameters</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente les paramètres de requête pour obtenir une liste de lignes de document</span>
+<span class="sd">    dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - document_id: Identifiant du document auquel appartient la ligne.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">page</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="n">search</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">sort_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">sort_order</span><span class="p">:</span> <span class="n">SortOrder</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">minId</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">from_date</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">to_date</span><span class="p">:</span> <span class="nb">str</span></div>
 
 </pre></div>
         </article>
@@ -313,5 +393,6 @@
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>

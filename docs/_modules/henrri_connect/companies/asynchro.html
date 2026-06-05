@@ -231,16 +231,13 @@
 <span class="sd">Sous-client pour les endpoints /v1/companies.</span>
 
 <span class="sd">Constantes:</span>
-<span class="sd">-----------</span>
-<span class="sd">- ``COMPANIES_ENDPOINT`` : URL de base des endpoints entreprises (/v1/companies).</span>
+<span class="sd">- ``COMPANIES_ENDPOINT`` URL de base des endpoints entreprises (/v1/companies).</span>
 
 <span class="sd">Classes:</span>
-<span class="sd">--------</span>
-<span class="sd">- ``henrri_connect.companies.asynchro.AsyncCompaniesClient`` :</span>
+<span class="sd">- ``henrri_connect.companies.asynchro.AsyncCompaniesClient``</span>
 <span class="sd">    Accès asynchrone aux endpoints entreprises.</span>
 
 <span class="sd">Notes:</span>
-<span class="sd">------</span>
 <span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.connect.AsyncHenrriClient`` pour acceder</span>
 <span class="sd">aux endpoints.</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -262,10 +259,10 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Accès asynchrone aux endpoints entreprises.</span>
 
-<span class="sd">    Arguments:</span>
+<span class="sd">    Arguments</span>
 <span class="sd">    - ``client`` (AsyncHenrriClient) : Client Henrri Connect.</span>
-<span class="sd">    </span>
-<span class="sd">    Methodes:</span>
+
+<span class="sd">    Methodes</span>
 <span class="sd">    - get(self, company_id: int) : Récupère une entreprise par son identifiant.</span>
 <span class="sd">    - get_address(self, company_id: int) : Récupère l&#39;adresse d&#39;une entreprise.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -278,11 +275,11 @@
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">company_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Company</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Récupère une entreprise par son identifiant.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``company_id`` : Identifiant de l&#39;entreprise.</span>
-<span class="sd">        </span>
-<span class="sd">        Retourne:</span>
+
+<span class="sd">        Returns</span>
 <span class="sd">        - ``henrri_connect.models.Company`` : Entreprise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">COMPANIES_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">company_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -294,11 +291,11 @@
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">company_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Address</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Récupère l&#39;adresse d&#39;une entreprise.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``company_id`` : Identifiant de l&#39;entreprise.</span>
-<span class="sd">        </span>
-<span class="sd">        Retourne:</span>
+
+<span class="sd">        Returns</span>
 <span class="sd">        - ``henrri_connect.models.Address`` : Adresse de l&#39;entreprise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">COMPANIES_ENDPOINT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">company_id</span><span class="si">}</span><span class="s2">/address&quot;</span><span class="p">)</span>

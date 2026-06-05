@@ -230,7 +230,7 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Module contenant les énumérations utilisées dans les modèles de données.</span>
 
-<span class="sd">Attributs:</span>
+<span class="sd">Attributs</span>
 <span class="sd">- CustomerType: Type de client pour les clients dans l&#39;API Henrri Connect.</span>
 <span class="sd">- SortOrder: Ordre de tri pour les listes d&#39;articles et de catégories d&#39;articles.</span>
 <span class="sd">- DocumentKind: Type de document pour les documents commerciaux.</span>
@@ -250,8 +250,8 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">CustomerType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Type de client pour les clients dans l&#39;API Henrri Connect.</span>
-<span class="sd">    </span>
-<span class="sd">    Attributs:</span>
+
+<span class="sd">    Attributs</span>
 <span class="sd">    - INDIVIDUAL: Client individuel.</span>
 <span class="sd">    - COMPANY: Client entreprise.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -262,8 +262,8 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">SortOrder</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Ordre de tri pour les listes d&#39;articles et de catégories d&#39;articles.</span>
-<span class="sd">    </span>
-<span class="sd">    Attributs:</span>
+
+<span class="sd">    Attributs</span>
 <span class="sd">    - ASCENDING: Tri ascendant.</span>
 <span class="sd">    - DESCENDING: Tri descendant.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -274,7 +274,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Type de document pour les documents commerciaux.</span>
 
-<span class="sd">    Attributs:</span>
+<span class="sd">    Attributs</span>
 <span class="sd">    - INVOICE: Facture.</span>
 <span class="sd">    - CREDIT_NOTE: Avoir.</span>
 <span class="sd">    - DELIVERY_NOTE: Bon de livraison.</span>
@@ -304,8 +304,8 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">DocumentState</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    État d&#39;un document commercial.</span>
-<span class="sd">    </span>
-<span class="sd">    Attributs:</span>
+
+<span class="sd">    Attributs</span>
 <span class="sd">    - FINALIZED: Finalisé.</span>
 <span class="sd">    - PENDING: En attente.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -316,7 +316,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Type de ligne pour les lignes de document commercial.</span>
 
-<span class="sd">    Attributs:</span>
+<span class="sd">    Attributs</span>
 <span class="sd">    - NONE: Aucun.</span>
 <span class="sd">    - ITEM: Article.</span>
 <span class="sd">    - TOTAL: Total.</span>
@@ -342,8 +342,8 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">UnitKind</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Type d&#39;unité pour les unités de mesure.</span>
-<span class="sd">    </span>
-<span class="sd">    Attributs:</span>
+
+<span class="sd">    Attributs</span>
 <span class="sd">    - HOURLY: Horaire.</span>
 <span class="sd">    - METER: Mètre.</span>
 <span class="sd">    - CENTIMETER: Centimètre.</span>
@@ -390,8 +390,8 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">CompanyIdentifierType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Type d&#39;identifiant pour les entreprises.</span>
-<span class="sd">    </span>
-<span class="sd">    Attributs:</span>
+
+<span class="sd">    Attributs</span>
 <span class="sd">    - SIRET: SIRET.</span>
 <span class="sd">    - BCE: BCE.</span>
 <span class="sd">    - UNKNOWN: Inconnu.</span>
@@ -405,7 +405,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Type de catégorie d&#39;articles.</span>
 
-<span class="sd">    Attributs:</span>
+<span class="sd">    Attributs</span>
 <span class="sd">    - SERVICE: Service.</span>
 <span class="sd">    - PRODUCT: Produit.</span>
 <span class="sd">    - MIXED: Mixte.</span>
@@ -418,7 +418,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Type de contenu pour les catégories d&#39;articles.</span>
 
-<span class="sd">    Attributs:</span>
+<span class="sd">    Attributs</span>
 <span class="sd">    - SUPPLY: Approvisionnement.</span>
 <span class="sd">    - FLAT_SERVICE: Service forfaitaire.</span>
 <span class="sd">    - HOURLY_SERVICE: Service horaire.</span>

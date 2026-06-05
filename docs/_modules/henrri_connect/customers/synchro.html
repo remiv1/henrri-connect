@@ -231,12 +231,10 @@
 <span class="sd">Sous-client pour les endpoints /v1/customers.</span>
 
 <span class="sd">Classes:</span>
-<span class="sd">--------</span>
-<span class="sd">- ``henrri_connect.customers.synchro.SyncCustomersClient`` :</span>
+<span class="sd">- ``henrri_connect.customers.synchro.SyncCustomersClient``</span>
 <span class="sd">    Accès synchrone aux endpoints clients.</span>
 
 <span class="sd">Notes:</span>
-<span class="sd">------</span>
 <span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -259,11 +257,11 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">SyncCustomersClient</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Accès synchrone aux endpoints clients.</span>
-<span class="sd">    </span>
-<span class="sd">    Arguments:</span>
+
+<span class="sd">    Arguments</span>
 <span class="sd">    - ``client`` (SyncHenrriClient) : Client HTTP.</span>
 
-<span class="sd">    Methodes:</span>
+<span class="sd">    Methodes</span>
 <span class="sd">    - ``list_customers`` : Liste les clients avec pagination et filtres optionnels.</span>
 <span class="sd">    - ``add`` : Crée un nouveau client.</span>
 <span class="sd">    - ``get_best_sales`` : Récupère les meilleurs clients.</span>
@@ -312,14 +310,15 @@
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Liste les clients avec pagination et filtres optionnels.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``request`` (CustomerRequest) : Paramètres de recherche.</span>
 <span class="sd">        - ``with_selected_fields`` (bool) : Si True, lance une requête de recherche avancée.</span>
 <span class="sd">        - ``with_totals`` (bool) : Si True, renvoie les totaux.</span>
-<span class="sd">        - ``only_current_page`` (bool) : Si True, renvoie uniquement les clients de la page actuelle.</span>
+<span class="sd">        - ``only_current_page`` (bool) : Si True, renvoie uniquement les clients de la page</span>
+<span class="sd">        actuelle.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        - ``PagedListResponse[Customer]`` : Liste paginée de clients.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">by_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
@@ -346,11 +345,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer</span><span class="p">:</span> <span class="n">Customer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Customer</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Crée un nouveau client.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``customer`` (Customer) : Client à créer.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        - ``Customer`` : Client créé.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
@@ -370,11 +369,11 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PagedListResponse</span><span class="p">[</span><span class="n">Customer</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Récupère les meilleurs clients.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``year`` (int) : Année concerne (minimum 2000, maximum 2100).</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        - ``PagedListResponse[Customer]`` : Liste de clients.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
@@ -390,11 +389,11 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Récupère les derniers clients utilisés.</span>
 
-<span class="sd">        Arguments:</span>
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``customer_type`` (CustomerType) : Type de client.</span>
 <span class="sd">        - ``limit`` (int) : Nombre de clients maximum.</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
+
+<span class="sd">        Returns</span>
 <span class="sd">        - ``Customer`` : Derniers clients utilisés.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
@@ -410,11 +409,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Customer</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Récupère un client par son identifiant.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        - ``Customer`` : Client.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -426,12 +425,12 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">customer</span><span class="p">:</span> <span class="n">Customer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Customer</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Met à jour un client existant.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
 <span class="sd">        - ``customer`` (Customer) : Client à mettre à jour.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        - ``Customer`` : Client mis à jour.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
@@ -447,11 +446,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Supprime un client.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        - ``None``</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
@@ -462,11 +461,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Address</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Récupère l&#39;adresse d&#39;un client.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        - ``Address`` : Adresse du client.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">/address&quot;</span><span class="p">)</span>
@@ -478,11 +477,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">list_contacts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Contact</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Liste les contacts d&#39;un client.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        - ``list[Contact]`` : Liste de contacts.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">/contacts&quot;</span><span class="p">)</span>
@@ -494,12 +493,12 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">add_contact</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">contact</span><span class="p">:</span> <span class="n">Contact</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Contact</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Ajoute un contact à un client.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
 <span class="sd">        - ``contact`` (Contact) : Contact à ajouter.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        - ``Contact`` : Contact ajouté.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
@@ -515,12 +514,12 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_contact</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">contact_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Contact</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Récupère un contact d&#39;un client.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
 <span class="sd">        - ``contact_id`` (int) : Identifiant du contact.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        - ``Contact`` : Contact.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">/contacts/</span><span class="si">{</span><span class="n">contact_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -532,13 +531,13 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">modify_contact</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">contact_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">contact</span><span class="p">:</span> <span class="n">Contact</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Contact</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Met à jour un contact d&#39;un client.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
 <span class="sd">        - ``contact_id`` (int) : Identifiant du contact.</span>
 <span class="sd">        - ``contact`` (Contact) : Contact à mettre à jour.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        - ``Contact`` : Contact mis à jour.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
@@ -554,12 +553,12 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">delete_contact</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">contact_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Supprime un contact d&#39;un client.</span>
-<span class="sd">        </span>
-<span class="sd">        Arguments:</span>
+
+<span class="sd">        Arguments</span>
 <span class="sd">        - ``customer_id`` (int) : Identifiant du client.</span>
 <span class="sd">        - ``contact_id`` (int) : Identifiant du contact.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns</span>
 <span class="sd">        - ``None``</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_c</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;DELETE&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BASE_CUSTOMERS</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">customer_id</span><span class="si">}</span><span class="s2">/contacts/</span><span class="si">{</span><span class="n">contact_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>

@@ -16,8 +16,8 @@ project = 'henrri-connect'
 copyright = '2026, Rémi Verschuur'
 author = 'Rémi Verschuur'
 
-version = '0.1.0'
-release = '0.1.0'
+version = '0.2.0'
+release = '0.2.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -62,5 +62,5 @@ language = 'fr'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'furo'
-html_static_path = ['source/_static']
+html_static_path = ['_static']
 html_css_files = ['custom.css']

@@ -1,9 +1,11 @@
-# henrri-connect
+# Henrri Connect
 
-[![PyPI](https://img.shields.io/pypi/v/henrri-connect)](https://pypi.org/project/henrri-connect/)
+[![Version PyPI](https://img.shields.io/pypi/v/henrri-connect)](https://pypi.org/project/henrri-connect/)
 [![Python](https://img.shields.io/pypi/pyversions/henrri-connect)](https://pypi.org/project/henrri-connect/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://remiv1.github.io/henrri-connect/)
+![Coverage](https://raw.githubusercontent.com/remiv1/henrri-connect/main/docs/source/_static/coverage_badge.svg)
+![Tests](https://raw.githubusercontent.com/remiv1/henrri-connect/main/docs/source/_static/tests_badge.svg)
 
 ![docs/logo_plain.png](https://raw.githubusercontent.com/remiv1/henrri-connect/main/docs/logo_plain.png)
 
@@ -16,7 +18,7 @@ Fournit un client **synchrone** et **asynchrone** pour interagir avec l'ensemble
 
 ## Sommaire
 
-- [henrri-connect](#henrri-connect)
+- [Henrri Connect](#henrri-connect)
   - [Sommaire](#sommaire)
   - [Installation](#installation)
   - [Démarrage rapide](#démarrage-rapide)

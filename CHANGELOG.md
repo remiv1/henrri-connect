@@ -66,3 +66,9 @@
 ### Added 0.1.6
 
 - Refactor code to expose necessaries models for each class in modules.
+
+## [0.2.0] - 2026-06-05
+
+### Documentation 0.2.0
+
+- Better readness for documentation with cutted documentation in trees for navigation between modules.

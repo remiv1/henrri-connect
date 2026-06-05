@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock
 
 import pytest   # pylint: disable=W0611
 
-from src.henrri_connect.models import CustomerRequest
+from henrri_connect.models import CustomerRequest
 from tests.conftest import CUSTOMER_JSON, PAGED_META, make_response
 
 
@@ -78,7 +78,7 @@ class TestAsyncCustomersExtra:
         assert len(contacts) == 1
 
         mock_async_http.request.return_value = make_response(contact_json)
-        from src.henrri_connect.models import Contact   # pylint: disable=C0415
+        from henrri_connect.models import Contact   # pylint: disable=C0415
         c = Contact()
         added = await async_client.customers.add_contact(1, c)
         assert added.id == 1

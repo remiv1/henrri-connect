@@ -8,11 +8,11 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest   # type: ignore[import]
 
-from src.henrri_connect.connect import (
+from henrri_connect.connect import (
     AsyncHenrriClient, SyncHenrriClient,  # type: ignore[import]
 )
-from src.henrri_connect.models import Document, ValidateDocumentRequest, DocumentQuery
-from src.henrri_connect.models.base import DocumentKind, DocumentState
+from henrri_connect.models import Document, ValidateDocumentRequest, DocumentQuery
+from henrri_connect.models.base import DocumentKind, DocumentState
 from tests.conftest import DOCUMENT_JSON, PAGED_META, make_response
 
 

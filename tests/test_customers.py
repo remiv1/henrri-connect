@@ -8,11 +8,11 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest   # type: ignore[import] # pylint: disable=W0611
 
-from src.henrri_connect.connect import (
+from henrri_connect.connect import (
     AsyncHenrriClient, SyncHenrriClient,  # type: ignore[import]
 )
-from src.henrri_connect.models import Contact, Customer, CustomerRequest
-from src.henrri_connect.models.base import CustomerType
+from henrri_connect.models import Contact, Customer, CustomerRequest
+from henrri_connect.models.base import CustomerType
 from tests.conftest import CUSTOMER_JSON, PAGED_META, make_response
 
 

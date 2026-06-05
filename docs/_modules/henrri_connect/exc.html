@@ -231,7 +231,6 @@
 <span class="sd">Module d&#39;exceptions personnalisées pour la bibliothèque henrri-connect.</span>
 
 <span class="sd">Exceptions:</span>
-<span class="sd">-----------</span>
 <span class="sd">- HenrriError: Erreur de base pour la bibliothèque henrri-connect.</span>
 <span class="sd">- HenrriHTTPError: Erreur HTTP retournée par l&#39;API Henrri.</span>
 <span class="sd">- HenrriAuthError: Erreur d&#39;authentification (HTTP 401).</span>
@@ -247,7 +246,7 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">HenrriError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Erreur de base pour la bibliothèque henrri-connect.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Ces exceptions sont utilisées pour indiquer des erreurs dans la bibliothèque henrri-connect.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
@@ -258,10 +257,10 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">HenrriHTTPError</span><span class="p">(</span><span class="n">HenrriError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Erreur HTTP retournée par l&#39;API Henrri.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Ces exceptions sont utilisées pour indiquer des erreurs HTTP retournées par l&#39;API Henrri.</span>
-<span class="sd">    </span>
-<span class="sd">    Arguments:</span>
+
+<span class="sd">    Arguments</span>
 <span class="sd">    - status_code: Code de statut HTTP.</span>
 <span class="sd">    - message: Message d&#39;erreur.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -277,10 +276,10 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">HenrriAuthError</span><span class="p">(</span><span class="n">HenrriHTTPError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Erreur d&#39;authentification (HTTP 401).</span>
-<span class="sd">    </span>
+
 <span class="sd">    Ces exceptions sont utilisées pour indiquer des erreurs d&#39;authentification (HTTP 401).</span>
 
-<span class="sd">    Arguments:</span>
+<span class="sd">    Arguments</span>
 <span class="sd">    - status_code: Code de statut HTTP.</span>
 <span class="sd">    - message: Message d&#39;erreur.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
@@ -292,10 +291,10 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">HenrriForbiddenError</span><span class="p">(</span><span class="n">HenrriHTTPError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Accès interdit (HTTP 403).</span>
-<span class="sd">    </span>
+
 <span class="sd">    Ces exceptions sont utilisées pour indiquer des accès interdits (HTTP 403).</span>
-<span class="sd">    </span>
-<span class="sd">    Arguments:</span>
+
+<span class="sd">    Arguments</span>
 <span class="sd">    - status_code: Code de statut HTTP.</span>
 <span class="sd">    - message: Message d&#39;erreur.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
@@ -307,10 +306,10 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">HenrriNotFoundError</span><span class="p">(</span><span class="n">HenrriHTTPError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Ressource introuvable (HTTP 404).</span>
-<span class="sd">    </span>
+
 <span class="sd">    Ces exceptions sont utilisées pour indiquer des ressources introuvables (HTTP 404).</span>
-<span class="sd">    </span>
-<span class="sd">    Arguments:</span>
+
+<span class="sd">    Arguments</span>
 <span class="sd">    - status_code: Code de statut HTTP.</span>
 <span class="sd">    - message: Message d&#39;erreur.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
@@ -322,11 +321,11 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">HenrriValidationError</span><span class="p">(</span><span class="n">HenrriHTTPError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Erreur de validation des données (HTTP 400 ou 422).</span>
-<span class="sd">    </span>
+
 <span class="sd">    Ces exceptions sont utilisées pour indiquer des erreurs de validation des données</span>
 <span class="sd">    (HTTP 400 ou 422).</span>
-<span class="sd">    </span>
-<span class="sd">    Arguments:</span>
+
+<span class="sd">    Arguments</span>
 <span class="sd">    - status_code: Code de statut HTTP.</span>
 <span class="sd">    - message: Message d&#39;erreur.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
@@ -338,10 +337,10 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">HenrriServerError</span><span class="p">(</span><span class="n">HenrriHTTPError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Erreur interne du serveur (HTTP 5xx).</span>
-<span class="sd">    </span>
+
 <span class="sd">    Ces exceptions sont utilisées pour indiquer des erreurs internes du serveur (HTTP 5xx).</span>
-<span class="sd">    </span>
-<span class="sd">    Arguments:</span>
+
+<span class="sd">    Arguments</span>
 <span class="sd">    - status_code: Code de statut HTTP.</span>
 <span class="sd">    - message: Message d&#39;erreur.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>

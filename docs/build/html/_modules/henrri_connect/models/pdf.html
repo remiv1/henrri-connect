@@ -8,7 +8,9 @@
         <title>henrri_connect.models.pdf - Documentation henrri-connect 0.1.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
 
@@ -225,7 +227,12 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.pdf</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles Pydantic v2 pour l&#39;API Henrri.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles Pydantic représentant les entités de PDF dans l&#39;API Henrri.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- PdfUrlResponse: Représente la réponse de l&#39;API Henrri Connect pour une URL de PDF.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -236,6 +243,14 @@
 <div class="viewcode-block" id="PdfUrlResponse">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.PdfUrlResponse">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PdfUrlResponse</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente la réponse de l&#39;API Henrri Connect pour une URL de PDF.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - download_url: URL de téléchargement du PDF.</span>
+<span class="sd">    - expires_at: Date d&#39;expiration de l&#39;URL de téléchargement du PDF.</span>
+<span class="sd">    - file_name: Nom du fichier PDF (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">download_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">expires_at</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>
@@ -277,5 +292,6 @@
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>

@@ -8,7 +8,9 @@
         <title>henrri_connect.models.payments - Documentation henrri-connect 0.1.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
 
@@ -225,7 +227,14 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Code source de henrri_connect.models.payments</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Modèles Pydantic v2 pour l&#39;API Henrri.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modèles Pydantic représentant les entités de paiement dans l&#39;API Henrri.</span>
+
+<span class="sd">Attributs:</span>
+<span class="sd">- PaymentMilestone: Représente une étape de paiement dans l&#39;API Henrri Connect.</span>
+<span class="sd">- TaxDetail: Représente les détails de taxe dans l&#39;API Henrri Connect.</span>
+<span class="sd">- TaxDetailArray: Représente un tableau de détails de taxe dans l&#39;API Henrri Connect.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -236,6 +245,19 @@
 <div class="viewcode-block" id="PaymentMilestone">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.PaymentMilestone">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PaymentMilestone</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente une étape de paiement dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - id: Identifiant unique de l&#39;étape de paiement.</span>
+<span class="sd">    - amount: Montant de l&#39;étape de paiement.</span>
+<span class="sd">    - percentage: Pourcentage de l&#39;étape de paiement.</span>
+<span class="sd">    - due_date: Date d&#39;échéance de l&#39;étape de paiement.</span>
+<span class="sd">    - is_paid: Indique si l&#39;étape de paiement est payée.</span>
+<span class="sd">    - document_id: Identifiant du document associé à l&#39;étape de paiement.</span>
+<span class="sd">    - payment_id: Identifiant du paiement associé à l&#39;étape de paiement (si applicable).</span>
+<span class="sd">    - links: Liste de liens associés à l&#39;étape de paiement (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">amount</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">percentage</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -250,6 +272,15 @@
 <div class="viewcode-block" id="TaxDetail">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.TaxDetail">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TaxDetail</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente les détails de taxe dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - rate: Taux de taxe.</span>
+<span class="sd">    - price_before_tax: Prix total avant taxe.</span>
+<span class="sd">    - tax_amount: Montant total de la taxe.</span>
+<span class="sd">    - price_after_tax: Prix total après taxe.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">price_before_tax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">tax_amount</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -260,6 +291,14 @@
 <div class="viewcode-block" id="TaxDetailArray">
 <a class="viewcode-back" href="../../../api.html#henrri_connect.models.TaxDetailArray">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TaxDetailArray</span><span class="p">(</span><span class="n">CamelModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Représente un tableau de détails de taxe dans l&#39;API Henrri Connect.</span>
+
+<span class="sd">    Attributs:</span>
+<span class="sd">    - tax_detail_array: Liste des détails de taxe.</span>
+<span class="sd">    - document_id: Identifiant du document associé aux détails de taxe.</span>
+<span class="sd">    - links: Liste de liens associés au tableau de détails de taxe (si applicable).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">tax_detail_array</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">TaxDetail</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">document_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">links</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Link</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>
@@ -301,5 +340,6 @@
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../../../_static/translations.js?v=e6b791cb"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>

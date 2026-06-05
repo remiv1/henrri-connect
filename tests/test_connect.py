@@ -7,10 +7,10 @@ from unittest.mock import MagicMock, AsyncMock
 
 import pytest
 
-from src.henrri_connect.connect import (
+from henrri_connect.connect import (
     AsyncHenrriClient, SyncHenrriClient,  # type: ignore[import]
 )
-from src.henrri_connect.exc import (
+from henrri_connect.exc import (
     HenrriAuthError,
     HenrriForbiddenError,
     HenrriNotFoundError,

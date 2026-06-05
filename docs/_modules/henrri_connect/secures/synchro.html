@@ -231,12 +231,10 @@
 <span class="sd">Sous-client pour les endpoints /v1/secures.</span>
 
 <span class="sd">Classes:</span>
-<span class="sd">--------</span>
-<span class="sd">- ``henrri_connect.secures.synchro.SyncSecuresClient`` :</span>
+<span class="sd">- ``henrri_connect.secures.synchro.SyncSecuresClient``</span>
 <span class="sd">    Accès synchrone aux endpoints safeguards (santé).</span>
 
 <span class="sd">Notes:</span>
-<span class="sd">------</span>
 <span class="sd">- Utiliser de préférence l&#39;objet ``henrri_connect.SyncHenrriClient`` pour acceder aux endpoints.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -255,7 +253,7 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">SyncSecuresClient</span><span class="p">:</span>    <span class="c1"># pylint: disable=R0903</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Accès synchrone aux endpoints sécurisés (santé).</span>
-<span class="sd">    </span>
+
 <span class="sd">    Arguments</span>
 <span class="sd">    - client : SyncHenrriClient</span>
 <span class="sd">    Client synchrone pour acceder aux endpoints.</span>
@@ -273,10 +271,10 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">hello_world</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Vérifie la connexion authentifiée à l&#39;API (endpoint de santé).</span>
-<span class="sd">        </span>
+
 <span class="sd">        Arguments</span>
 <span class="sd">        - None</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        - str : Texte de la réponse.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
