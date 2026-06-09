@@ -147,5 +147,5 @@ class SyncDocumentLinesClient:
         self._c.request(
             "POST",
             f"{DOCUMENT_ENDPOINT}/{document_id}/lines/{line_id}/move",
-            params={"to": to},
+            json={"to": to},
         )

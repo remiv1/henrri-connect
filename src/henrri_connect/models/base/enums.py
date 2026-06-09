@@ -24,8 +24,8 @@ class CustomerType(str, Enum):
     - INDIVIDUAL: Client individuel.
     - COMPANY: Client entreprise.
     """
-    INDIVIDUAL = "Individual"
-    COMPANY = "Company"
+    INDIVIDUAL = "individual"
+    COMPANY = "professional"
 
 class SortOrder(str, Enum):
     """

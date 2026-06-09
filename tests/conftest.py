@@ -84,7 +84,7 @@ async def async_client(mock_async_http: AsyncMock) -> AsyncHenrriClient: # pylin
 CUSTOMER_JSON: dict[str, Any] = {
     "id": 1,
     "name": "Acme Corp",
-    "type": "Company",
+    "type": "professional",
     "accountingNumber": "411000",
     "isDeleted": False,
     "isSupplier": False,

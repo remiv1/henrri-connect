@@ -95,5 +95,5 @@ class Customer(CamelModel):
     import_date: datetime | None = None
     comment: str | None = None
     website: str | None = None
-    creation_date: datetime | None = None
+    creation_date: str | None = None
     links: list[Link] | None = None

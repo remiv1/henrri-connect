@@ -72,3 +72,18 @@
 ### Documentation 0.2.0
 
 - Better readness for documentation with cutted documentation in trees for navigation between modules.
+
+## [0.2.1] - 2026-06-09
+
+### Added 0.2.1
+
+- Add body attributes with errors handling
+- Add `DecorativeDocumentLine` class to simplify insertion of graphics segments in the lines
+
+### Fixed 0.2.1
+
+- Fix problems with imports in models
+- Fix params stubs for document_lines
+- Fix stubs models error for non mandatories fields
+- Fix method move for document_lines changing params with json param in the request
+- Fix Enum CustomerType who wasn't alined with API

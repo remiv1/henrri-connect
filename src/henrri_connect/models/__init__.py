@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from .address_contacts import Address, Contact
 from .authentication import AuthenticateRequest, RefreshTokenRequest, TokenResponse
-from .base import CompanyIdentifierType, Link, UnitKind
+from .base import CompanyIdentifierType, Link, UnitKind, CustomerType
 from .base.responses import ListResponse, PagedListResponse
 from .company import Company
-from .customer import Customer, CustomerRequest, CustomerType
+from .customer import Customer, CustomerRequest
 from .document import (
     Document,
     DocumentType,
@@ -17,6 +17,7 @@ from .document import (
     ValidateDocumentRequest,
 )
 from .document_line import (
+    DecorativeDocumentLine,
     DocumentLine,
     DocumentLineListQueryParameters,
     DocumentLineType,
@@ -38,6 +39,7 @@ __all__ = [
     "Customer",
     "CustomerType",
     "CustomerRequest",
+    "DecorativeDocumentLine",
     "Document",
     "DocumentLabel",
     "DocumentLabelElement",

@@ -89,7 +89,7 @@ class TestSyncDocumentLines:
         args = mock_http.request.call_args
         assert args.args[0] == "POST"
         assert "/lines/10/move" in args.args[1]
-        assert args.kwargs["params"]["to"] == 3
+        assert args.kwargs["json"]["to"] == 3
 
 
 class TestAsyncDocumentLines:

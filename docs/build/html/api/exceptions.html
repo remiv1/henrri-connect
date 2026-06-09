@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Recherche" href="../search.html"><link rel="next" title="Utilitaires" href="utils.html"><link rel="prev" title="Autres modèles" href="models/other.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>Exceptions - Documentation henrri-connect 0.2.0</title>
+        <title>Exceptions - Documentation henrri-connect 0.2.1</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -163,7 +163,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Documentation henrri-connect 0.2.0</div></a>
+      <a href="../index.html"><div class="brand">Documentation henrri-connect 0.2.1</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -184,7 +184,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
-  <span class="sidebar-brand-text">Documentation henrri-connect 0.2.0</span>
+  <span class="sidebar-brand-text">Documentation henrri-connect 0.2.1</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Recherche" name="q" aria-label="Recherche">
@@ -217,7 +217,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ressources/users.html">Utilisateurs</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="models/index.html">Référence API</a><input aria-label="Toggle navigation of Référence API" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="models/index.html">Modèles de données</a><input aria-label="Toggle navigation of Modèles de données" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="models/address.html">Adresses &amp; Contacts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="models/authenticate.html">Sécurité &amp; authentification</a></li>
 <li class="toctree-l3"><a class="reference internal" href="models/company.html">Entreprises</a></li>
@@ -295,7 +295,7 @@
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.exc.</span></span><span class="sig-name descname"><span class="pre">HenrriHTTPError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/henrri_connect/exc.html#HenrriHTTPError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.exc.</span></span><span class="sig-name descname"><span class="pre">HenrriHTTPError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/henrri_connect/exc.html#HenrriHTTPError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">HenrriError</span></code></p>
 <p>Erreur HTTP retournée par l’API Henrri.</p>
 <p>Ces exceptions sont utilisées pour indiquer des erreurs HTTP retournées par l’API Henrri.</p>
@@ -308,7 +308,7 @@
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.exc.</span></span><span class="sig-name descname"><span class="pre">HenrriAuthError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/henrri_connect/exc.html#HenrriAuthError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.exc.</span></span><span class="sig-name descname"><span class="pre">HenrriAuthError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/henrri_connect/exc.html#HenrriAuthError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">HenrriHTTPError</span></code></p>
 <p>Erreur d’authentification (HTTP 401).</p>
 <p>Ces exceptions sont utilisées pour indiquer des erreurs d’authentification (HTTP 401).</p>
@@ -321,7 +321,7 @@
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.exc.</span></span><span class="sig-name descname"><span class="pre">HenrriForbiddenError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/henrri_connect/exc.html#HenrriForbiddenError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.exc.</span></span><span class="sig-name descname"><span class="pre">HenrriForbiddenError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/henrri_connect/exc.html#HenrriForbiddenError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">HenrriHTTPError</span></code></p>
 <p>Accès interdit (HTTP 403).</p>
 <p>Ces exceptions sont utilisées pour indiquer des accès interdits (HTTP 403).</p>
@@ -334,7 +334,7 @@
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.exc.</span></span><span class="sig-name descname"><span class="pre">HenrriNotFoundError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/henrri_connect/exc.html#HenrriNotFoundError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.exc.</span></span><span class="sig-name descname"><span class="pre">HenrriNotFoundError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/henrri_connect/exc.html#HenrriNotFoundError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">HenrriHTTPError</span></code></p>
 <p>Ressource introuvable (HTTP 404).</p>
 <p>Ces exceptions sont utilisées pour indiquer des ressources introuvables (HTTP 404).</p>
@@ -347,7 +347,7 @@
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.exc.</span></span><span class="sig-name descname"><span class="pre">HenrriValidationError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/henrri_connect/exc.html#HenrriValidationError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.exc.</span></span><span class="sig-name descname"><span class="pre">HenrriValidationError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/henrri_connect/exc.html#HenrriValidationError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">HenrriHTTPError</span></code></p>
 <p>Erreur de validation des données (HTTP 400 ou 422).</p>
 <p>Ces exceptions sont utilisées pour indiquer des erreurs de validation des données
@@ -361,7 +361,7 @@
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.exc.</span></span><span class="sig-name descname"><span class="pre">HenrriServerError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/henrri_connect/exc.html#HenrriServerError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">henrri_connect.exc.</span></span><span class="sig-name descname"><span class="pre">HenrriServerError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/henrri_connect/exc.html#HenrriServerError"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">HenrriHTTPError</span></code></p>
 <p>Erreur interne du serveur (HTTP 5xx).</p>
 <p>Ces exceptions sont utilisées pour indiquer des erreurs internes du serveur (HTTP 5xx).</p>
@@ -423,7 +423,7 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=1b0070ce"></script>
+</div><script src="../_static/documentation_options.js?v=bf78f4d7"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

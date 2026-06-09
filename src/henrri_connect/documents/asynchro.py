@@ -130,7 +130,12 @@ class AsyncDocumentsClient:
         - ``Document`` : Document avec toutes ses données incluses.
         """
         resp = await self._c.request("GET", f"{DOCUMENTS_ENDPOINT}/{doc_id}/all-included")
-        return Document.model_validate(resp.json())
+        data = resp.json()
+        # L'API retourne parfois un objet enveloppé {"document": {...}, ...}
+        # Déballer automatiquement si nécessaire pour satisfaire le modèle `Document`.
+        if isinstance(data, dict) and "document" in data and isinstance(data["document"], dict):
+            data = data["document"]
+        return Document.model_validate(data)
 
     async def modify(self, doc_id: int, document: Document) -> Document:
         """

@@ -10,6 +10,7 @@ Exceptions:
 - HenrriValidationError: Erreur de validation des données (HTTP 400 ou 422).
 - HenrriServerError: Erreur interne du serveur (HTTP 5xx)."""
 from __future__ import annotations
+from typing import Any
 
 
 class HenrriError(Exception):
@@ -31,8 +32,9 @@ class HenrriHTTPError(HenrriError):
     - message: Message d'erreur.
     """
 
-    def __init__(self, status_code: int, message: str) -> None:
+    def __init__(self, status_code: int, message: str, body: Any = None) -> None:
         self.status_code = status_code
+        self.body = body
         super().__init__(f"HTTP {status_code} : {message}")
 
 

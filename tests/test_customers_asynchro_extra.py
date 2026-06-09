@@ -57,7 +57,7 @@ class TestAsyncCustomersExtra:
         assert best.elements and len(best.elements) == 1
 
         mock_async_http.request.return_value = make_response(CUSTOMER_JSON)
-        last = await async_client.customers.get_last_used("Company", 5)
+        last = await async_client.customers.get_last_used("professional", 5)
         assert last.id == CUSTOMER_JSON["id"]
 
         mock_async_http.request.return_value = make_response(

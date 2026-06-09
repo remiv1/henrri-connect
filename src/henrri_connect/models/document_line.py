@@ -87,6 +87,87 @@ class DocumentLine(CamelModel):
     item: Item | None = None
     links: list[Link] | None = None
 
+class DecorativeDocumentLine(DocumentLine):
+    """
+    Représente une ligne de document decoratif dans l'API Henrri Connect.
+
+    Attributs:
+    - type_id: Identifiant du type de ligne de document.
+    """
+    type_id: int = 0
+    document_id: int| None = None
+    reference: str | None = None
+    description: str | None = None
+    selling_price_without_tax: float | None = None
+    purchasing_price_without_tax: float = 0.0
+    vat_percent: float | None = None
+    quantity: float = 1.0
+    is_tax_included: bool = False
+    total_without_tax: float | None = None
+    total_with_tax: float | None = None
+    are_elements_of_group_shown: bool = False
+    line_number: int | None = None
+    is_a_group: bool = False
+    does_group_own_different_vat: bool = False
+    is_member_of_a_group: bool = False
+    is_adjustment_of_group: bool = False
+    type_id: int
+    type: DocumentLineType | None = None
+    group_id: int | None = None
+    item_id: int | None = None
+    item: Item | None = None
+    links: list[Link] | None = None
+
+    def horizontal_line(self) -> "DocumentLine":
+        """
+        Créer une ligne horizontale dans le document.
+
+        Returns:
+            DocumentLine: La ligne horizontale crée.
+        """
+        self.type_id = 13
+        return self
+
+    def empty_line(self) -> "DocumentLine":
+        """
+        Créer une ligne vide dans le document.
+
+        Returns:
+            DocumentLine: La ligne vide crée.
+        """
+        self.type_id = 11
+        return self
+
+    def subtotal_line(self) -> "DocumentLine":
+        """
+        Créer une ligne de sous-total dans le document.
+
+        Returns:
+            DocumentLine: La ligne de sous-total crée.
+        """
+        self.type_id = 5
+        return self
+
+    def total_line(self) -> "DocumentLine":
+        """
+        Créer une ligne de total dans le document.
+
+        Returns:
+            DocumentLine: La ligne de total crée.
+        """
+        self.type_id = 4
+        return self
+
+    def textual_line(self, text: str) -> "DocumentLine":
+        """
+        Créer une ligne de texte dans le document.
+
+        Returns:
+            DocumentLine: La ligne de texte crée.
+        """
+        self.type_id = 12
+        self.description = text
+        return self
 
 class DocumentLineMoveQueryParameters(CamelModel):
     """

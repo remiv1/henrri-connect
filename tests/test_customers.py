@@ -29,7 +29,13 @@ class TestSyncCustomers:
         mock_http.request.return_value = make_response(_paged([CUSTOMER_JSON]))
 
         result = sync_client.customers.list_customers(
-            request=CustomerRequest(page=1, limit=50, search="", from_date="", to_date=""),
+            request=CustomerRequest(
+                page=1,
+                limit=50,
+                search="",
+                from_date="2020-01-01",
+                to_date="2027-01-01",
+            ),
             with_selected_fields=False,
         )
 

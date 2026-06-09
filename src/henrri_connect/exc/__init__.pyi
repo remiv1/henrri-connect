@@ -3,7 +3,8 @@ class HenrriError(Exception): ...   #pylint: disable=C0115
 
 class HenrriHTTPError(HenrriError): #pylint: disable=C0115
     status_code: int
-    def __init__(self, status_code: int, message: str) -> None: ... # pylint: disable=W0613
+    body: object | None
+    def __init__(self, status_code: int, message: str, body: object | None = ...) -> None: ... # pylint: disable=W0613
 
 class HenrriAuthError(HenrriHTTPError): ... #pylint: disable=C0115
 class HenrriForbiddenError(HenrriHTTPError): ...    #pylint: disable=C0115

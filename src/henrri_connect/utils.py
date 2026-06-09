@@ -53,35 +53,39 @@ def raise_for_status(resp: httpx.Response) -> None:
     """
     if resp.is_success:
         return
+    body = None
     try:
-        detail = resp.json()
-        msg: str = (
-            detail.get("detail")
-            or detail.get("title")
-            or detail.get("message")
-            or resp.text
-        )
+        body = resp.json()
+        if isinstance(body, dict):
+            msg: str = (
+                body.get("detail")
+                or body.get("title")
+                or body.get("message")
+                or resp.text
+            )
+        else:
+            msg = resp.text or str(body) or f"Erreur HTTP {resp.status_code}"
     except json.JSONDecodeError:
         msg = resp.text or f"Erreur HTTP {resp.status_code}"
 
     sc = resp.status_code
     if sc == 400:
         logger.error("Validation error: %s", msg)
-        raise HenrriValidationError(sc, str(msg))
+        raise HenrriValidationError(sc, str(msg), body)
     if sc == 401:
         logger.error("Authentication error: %s", msg)
-        raise HenrriAuthError(sc, str(msg))
+        raise HenrriAuthError(sc, str(msg), body)
     if sc == 403:
         logger.error("Forbidden error: %s", msg)
-        raise HenrriForbiddenError(sc, str(msg))
+        raise HenrriForbiddenError(sc, str(msg), body)
     if sc == 404:
         logger.error("Not found error: %s", msg)
-        raise HenrriNotFoundError(sc, str(msg))
+        raise HenrriNotFoundError(sc, str(msg), body)
     if sc >= 500:
         logger.error("Server error: %s", msg)
-        raise HenrriServerError(sc, str(msg))
+        raise HenrriServerError(sc, str(msg), body)
     logger.error("HTTP error: %s", msg)
-    raise HenrriHTTPError(sc, str(msg))
+    raise HenrriHTTPError(sc, str(msg), body)
 
 def clean(params: dict[str, Any]) -> dict[str, Any]:
     """
