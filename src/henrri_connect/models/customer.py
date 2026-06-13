@@ -7,8 +7,6 @@ Attributs:
 
 from __future__ import annotations
 
-from datetime import datetime
-
 from .base import CamelModel, Link, CompanyIdentifierType, CustomerType, SortOrder
 from .address_contacts import Contact, Address
 
@@ -92,7 +90,7 @@ class Customer(CamelModel):
     is_deleted: bool = False
     is_supplier: bool = False
     is_advisor: bool | None = None
-    import_date: datetime | None = None
+    import_date: str | None = None
     comment: str | None = None
     website: str | None = None
     creation_date: str | None = None

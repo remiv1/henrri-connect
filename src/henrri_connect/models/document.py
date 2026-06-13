@@ -13,8 +13,6 @@ de document dans l'API Henrri Connect.
 
 from __future__ import annotations
 
-from datetime import datetime
-
 from .base import CamelModel, Link, DocumentKind, DocumentState, SortOrder
 from .document_line import DocumentLine
 from .customer import Customer
@@ -134,10 +132,10 @@ class Document(CamelModel):
     tax_amount: float = 0.0
     price_after_tax: float = 0.0
     due_label: str | None = None
-    last_modification_date: datetime | None = None
-    date: datetime | None = None
+    last_modification_date: str | None = None
+    date: str | None = None
     validated: bool = False
-    validation_date: datetime | None = None
+    validation_date: str | None = None
     validation_firstname: str | None = None
     validation_lastname: str | None = None
     validation_email: str | None = None

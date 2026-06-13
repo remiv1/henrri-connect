@@ -9,8 +9,6 @@ Attributs:
 
 from __future__ import annotations
 
-from datetime import datetime
-
 from .base import CamelModel, Link
 
 class PaymentMilestone(CamelModel):
@@ -30,7 +28,7 @@ class PaymentMilestone(CamelModel):
     id: int | None = None
     amount: float | None = None
     percentage: float | None = None
-    due_date: datetime
+    due_date: str
     is_paid: bool = False
     document_id: int
     payment_id: int | None = None

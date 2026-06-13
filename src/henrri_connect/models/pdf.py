@@ -7,8 +7,6 @@ Attributs:
 
 from __future__ import annotations
 
-from datetime import datetime
-
 from .base import CamelModel
 
 class PdfUrlResponse(CamelModel):
@@ -21,5 +19,5 @@ class PdfUrlResponse(CamelModel):
     - file_name: Nom du fichier PDF (si applicable).
     """
     download_url: str | None = None
-    expires_at: datetime | None = None
+    expires_at: str | None = None
     file_name: str | None = None

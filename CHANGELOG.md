@@ -87,3 +87,9 @@
 - Fix stubs models error for non mandatories fields
 - Fix method move for document_lines changing params with json param in the request
 - Fix Enum CustomerType who wasn't alined with API
+
+## [0.2.2] - 2026-06-13
+
+### Fixed 0.2.2
+
+- Delete datetime formats to str, datetime not supported by the API
