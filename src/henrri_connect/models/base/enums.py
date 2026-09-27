@@ -163,6 +163,20 @@ class CompanyIdentifierType(str, Enum):
     BCE = "Bce"
     UNKNOWN = "Unknown"
 
+    @classmethod
+    def _missing_(cls, value: object) -> "CompanyIdentifierType | None":
+        """
+        Permet une correspondance insensible à la casse.
+
+        L'API Henrri peut renvoyer des valeurs en minuscule (ex: "unknown")
+        alors que l'énumération attend une valeur avec casse Pascal (ex: "Unknown").
+        """
+        if isinstance(value, str):
+            for member in cls:
+                if member.value.lower() == value.lower():
+                    return member
+        return None
+
 class ItemCategoryKind(str, Enum):
     """
     Type de catégorie d'articles.
